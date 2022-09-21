@@ -1,27 +1,9 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('test_resdetalle', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    id_resgeneral: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'test_resgeneral',
-        key: 'id'
-      }
-    },
     codevl: {
       type: DataTypes.STRING(50),
-      allowNull: false,
-      references: {
-        model: 'gnr_parametros',
-        key: 'codpar'
-      }
+      allowNull: false
     },
     codpre: {
       type: DataTypes.INTEGER,
@@ -37,7 +19,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     codevld: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'test_resgeneral',
+        key: 'codest'
+      }
     },
     codgrd: {
       type: DataTypes.INTEGER,
@@ -54,21 +40,6 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "FK_testAutoestima_parametros",
-        using: "BTREE",
-        fields: [
-          { name: "codevl" },
-        ]
-      },
-      {
         name: "FK_evl_testautoestima_test_preguntas",
         using: "BTREE",
         fields: [
@@ -79,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "FK_test_resdetalle_test_resgeneral",
         using: "BTREE",
         fields: [
-          { name: "id_resgeneral" },
+          { name: "codevld" },
         ]
       },
     ]

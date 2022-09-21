@@ -1,37 +1,40 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_general', {
+  return sequelize.define('biz_opciones', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    codtest: {
-      type: DataTypes.STRING(15),
+    nombre: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    url: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    orden: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    activo: {
+      type: DataTypes.TINYINT,
       allowNull: false,
-      unique: "codtest"
+      defaultValue: 1
     },
-    tipo: {
-      type: DataTypes.STRING(150),
-      allowNull: true
-    },
-    desde: {
+    depende: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    hasta: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    estado: {
-      type: DataTypes.ENUM('ACTIVO','INACTIVO'),
       allowNull: true,
-      defaultValue: "ACTIVO"
+      references: {
+        model: 'biz_opciones',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'test_general',
+    tableName: 'biz_opciones',
     timestamps: false,
     indexes: [
       {
@@ -43,11 +46,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "codtest",
-        unique: true,
+        name: "depende",
         using: "BTREE",
         fields: [
-          { name: "codtest" },
+          { name: "depende" },
         ]
       },
     ]

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_cerebros', {
+  return sequelize.define('test_notas', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -8,32 +8,26 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(40),
-      allowNull: false
-    },
-    aprende: {
-      type: DataTypes.STRING(40),
-      allowNull: false
-    },
-    alias: {
-      type: DataTypes.STRING(40),
-      allowNull: false
-    },
-    titulo: {
-      type: DataTypes.STRING(80),
-      allowNull: false
-    },
-    descripcion: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    caracteristicas: {
-      type: DataTypes.TEXT,
+    codest: {
+      type: DataTypes.STRING(50),
       allowNull: false
+    },
+    usuario: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      comment: "Usuario quien realiza la nota"
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
-    tableName: 'test_cerebros',
+    tableName: 'test_notas',
     timestamps: false,
     indexes: [
       {

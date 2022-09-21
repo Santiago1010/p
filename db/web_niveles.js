@@ -1,37 +1,33 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_general', {
-    id: {
+  return sequelize.define('web_niveles', {
+    id_nivel: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    codtest: {
-      type: DataTypes.STRING(15),
+    id_siguiente_nivel: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: "codtest"
+      defaultValue: 0,
+      references: {
+        model: 'web_niveles',
+        key: 'id_nivel'
+      }
     },
-    tipo: {
-      type: DataTypes.STRING(150),
+    nombre_nivel: {
+      type: DataTypes.STRING(50),
       allowNull: true
     },
-    desde: {
+    puntos_requeridos: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    hasta: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    estado: {
-      type: DataTypes.ENUM('ACTIVO','INACTIVO'),
       allowNull: true,
-      defaultValue: "ACTIVO"
+      defaultValue: 0
     }
   }, {
     sequelize,
-    tableName: 'test_general',
+    tableName: 'web_niveles',
     timestamps: false,
     indexes: [
       {
@@ -39,15 +35,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_nivel" },
         ]
       },
       {
-        name: "codtest",
-        unique: true,
+        name: "FK_web_niveles_web_niveles",
         using: "BTREE",
         fields: [
-          { name: "codtest" },
+          { name: "id_siguiente_nivel" },
         ]
       },
     ]

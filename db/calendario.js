@@ -41,11 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     codesc: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'acd_escuelas',
-        key: 'codesc'
-      }
+      allowNull: true
     },
     codsed: {
       type: DataTypes.INTEGER,
