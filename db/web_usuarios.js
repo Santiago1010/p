@@ -38,6 +38,19 @@ module.exports = function(sequelize, DataTypes) {
     password_usuario: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    aplico_test_cerebral: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: "0  = No, 1 = Si"
+    },
+    nro_test_cerebral: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    fecha_nacimiento: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
     }
   }, {
     sequelize,

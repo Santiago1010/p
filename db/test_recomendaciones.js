@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_notas', {
+  return sequelize.define('test_recomendaciones', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -8,26 +8,16 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.STRING(150),
+      allowNull: true
     },
-    codest: {
+    tipo: {
       type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    usuario: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-      comment: "Usuario quien realiza la nota"
-    },
-    fecha: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'test_notas',
+    tableName: 'test_recomendaciones',
     timestamps: false,
     indexes: [
       {

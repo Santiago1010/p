@@ -12,6 +12,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "codtest"
     },
+    titulo: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    descripcion: {
+      type: DataTypes.STRING(150),
+      allowNull: false
+    },
     tipo: {
       type: DataTypes.STRING(150),
       allowNull: true
@@ -24,10 +32,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    total_preguntas: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     estado: {
       type: DataTypes.ENUM('ACTIVO','INACTIVO'),
       allowNull: true,
       defaultValue: "ACTIVO"
+    },
+    tipo_test: {
+      type: DataTypes.ENUM('test','encuesta'),
+      allowNull: true,
+      defaultValue: "test"
     }
   }, {
     sequelize,

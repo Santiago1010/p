@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "username"
     },
-    pass: {
+    password: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
@@ -28,10 +28,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    role: {
-      type: DataTypes.ENUM('admin','subuser'),
+    rol: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: "admin"
+      references: {
+        model: 'biz_roles',
+        key: 'id'
+      }
     },
     fecha_inicio: {
       type: DataTypes.DATE,
@@ -53,8 +56,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: "email"
+      allowNull: true
     },
     celular: {
       type: DataTypes.STRING(255),
@@ -82,18 +84,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "email",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "email" },
-        ]
-      },
-      {
         name: "empresa_id",
         using: "BTREE",
         fields: [
           { name: "empresa_id" },
+        ]
+      },
+      {
+        name: "rol",
+        using: "BTREE",
+        fields: [
+          { name: "rol" },
         ]
       },
     ]

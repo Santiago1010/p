@@ -30,6 +30,22 @@ module.exports = function(sequelize, DataTypes) {
     caracteristicas: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    niv_comando: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    niv_supervision: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    niv_asesoria: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    niv_ejecucion: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     sequelize,

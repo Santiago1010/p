@@ -1,21 +1,13 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_preguntas', {
-    codpre: {
+  return sequelize.define('test_tipo_users', {
+    id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    descripcion: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    descripcion_en: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    tipo: {
+    id_tipo: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -23,22 +15,17 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    tipo_opcion: {
-      type: DataTypes.ENUM('multiple','unica','abierta','nivel'),
-      allowNull: false,
-      defaultValue: "nivel"
-    },
-    indice: {
+    id_user: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    estado: {
-      type: DataTypes.ENUM('ACTIVO','INACTIVO'),
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'usuarios',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'test_preguntas',
+    tableName: 'test_tipo_users',
     timestamps: false,
     indexes: [
       {
@@ -46,14 +33,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "codpre" },
+          { name: "id" },
         ]
       },
       {
-        name: "test_preguntas_FK",
+        name: "test_tipo_users_FK",
         using: "BTREE",
         fields: [
-          { name: "tipo" },
+          { name: "id_tipo" },
+        ]
+      },
+      {
+        name: "test_tipo_users_FK_1",
+        using: "BTREE",
+        fields: [
+          { name: "id_user" },
         ]
       },
     ]

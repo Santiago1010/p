@@ -1,24 +1,29 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('test_resgeneral', {
-    codest: {
+    id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    codevl: {
-      type: DataTypes.STRING(15),
-      allowNull: false,
-      primaryKey: true
-    },
-    grado: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    notificado: {
+    id_test: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
+      references: {
+        model: 'test_general',
+        key: 'id'
+      }
+    },
+    id_web_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      references: {
+        model: 'web_usuarios',
+        key: 'id_usuario'
+      }
     },
     derecho: {
       type: DataTypes.INTEGER,
@@ -155,8 +160,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "codest" },
-          { name: "codevl" },
+          { name: "id" },
+        ]
+      },
+      {
+        name: "FK_test_resgeneral_web_usuarios",
+        using: "BTREE",
+        fields: [
+          { name: "id_web_usuario" },
+        ]
+      },
+      {
+        name: "FK_test_resgeneral_test_general",
+        using: "BTREE",
+        fields: [
+          { name: "id_test" },
         ]
       },
     ]

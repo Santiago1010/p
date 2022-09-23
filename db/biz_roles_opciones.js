@@ -1,48 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_resdetalle', {
+  return sequelize.define('biz_roles_opciones', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_test_resgeneral: {
+    id_rol: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
       references: {
-        model: 'test_resgeneral',
+        model: 'biz_roles',
         key: 'id'
-      }
-    },
-    codpre: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'test_preguntas',
-        key: 'codpre'
       }
     },
     id_opcion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'test_opciones',
+        model: 'biz_opciones',
         key: 'id'
       }
-    },
-    resppre: {
-      type: DataTypes.STRING(20),
-      allowNull: false
-    },
-    fchevld: {
-      type: DataTypes.DATEONLY,
-      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'test_resdetalle',
+    tableName: 'biz_roles_opciones',
     timestamps: false,
     indexes: [
       {
@@ -54,21 +37,14 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_evl_testautoestima_test_preguntas",
+        name: "id_rol",
         using: "BTREE",
         fields: [
-          { name: "codpre" },
+          { name: "id_rol" },
         ]
       },
       {
-        name: "FK_test_resdetalle_test_resgeneral",
-        using: "BTREE",
-        fields: [
-          { name: "id_test_resgeneral" },
-        ]
-      },
-      {
-        name: "FK_test_resdetalle_test_preguntas_opciones",
+        name: "id_opcion",
         using: "BTREE",
         fields: [
           { name: "id_opcion" },

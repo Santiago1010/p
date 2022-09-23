@@ -27,6 +27,8 @@ var _adm_paises = require("./adm_paises");
 var _adm_plataformas = require("./adm_plataformas");
 var _adm_sedes = require("./adm_sedes");
 var _biz_opciones = require("./biz_opciones");
+var _biz_roles = require("./biz_roles");
+var _biz_roles_opciones = require("./biz_roles_opciones");
 var _biz_usuarios = require("./biz_usuarios");
 var _biz_usuarios_opciones = require("./biz_usuarios_opciones");
 var _calendario = require("./calendario");
@@ -75,14 +77,18 @@ var _pqrs_respuesta = require("./pqrs_respuesta");
 var _pqrs_tipo_perfil = require("./pqrs_tipo_perfil");
 var _pqrs_tipo_solicitud = require("./pqrs_tipo_solicitud");
 var _test_actividades = require("./test_actividades");
-var _test_administracion = require("./test_administracion");
+var _test_actividades_ejercicios = require("./test_actividades_ejercicios");
 var _test_cerebros = require("./test_cerebros");
 var _test_general = require("./test_general");
-var _test_notas = require("./test_notas");
+var _test_general_preguntas = require("./test_general_preguntas");
+var _test_opciones = require("./test_opciones");
 var _test_preguntas = require("./test_preguntas");
-var _test_prsexterno = require("./test_prsexterno");
+var _test_preguntas_opciones = require("./test_preguntas_opciones");
+var _test_recomendaciones = require("./test_recomendaciones");
 var _test_resdetalle = require("./test_resdetalle");
 var _test_resgeneral = require("./test_resgeneral");
+var _test_tipo = require("./test_tipo");
+var _test_tipo_users = require("./test_tipo_users");
 var _tienda_cupon_autoriza = require("./tienda_cupon_autoriza");
 var _usuarios = require("./usuarios");
 var _usuarios_departamentos = require("./usuarios_departamentos");
@@ -154,6 +160,8 @@ function initModels(sequelize) {
   var adm_plataformas = _adm_plataformas(sequelize, DataTypes);
   var adm_sedes = _adm_sedes(sequelize, DataTypes);
   var biz_opciones = _biz_opciones(sequelize, DataTypes);
+  var biz_roles = _biz_roles(sequelize, DataTypes);
+  var biz_roles_opciones = _biz_roles_opciones(sequelize, DataTypes);
   var biz_usuarios = _biz_usuarios(sequelize, DataTypes);
   var biz_usuarios_opciones = _biz_usuarios_opciones(sequelize, DataTypes);
   var calendario = _calendario(sequelize, DataTypes);
@@ -202,14 +210,18 @@ function initModels(sequelize) {
   var pqrs_tipo_perfil = _pqrs_tipo_perfil(sequelize, DataTypes);
   var pqrs_tipo_solicitud = _pqrs_tipo_solicitud(sequelize, DataTypes);
   var test_actividades = _test_actividades(sequelize, DataTypes);
-  var test_administracion = _test_administracion(sequelize, DataTypes);
+  var test_actividades_ejercicios = _test_actividades_ejercicios(sequelize, DataTypes);
   var test_cerebros = _test_cerebros(sequelize, DataTypes);
   var test_general = _test_general(sequelize, DataTypes);
-  var test_notas = _test_notas(sequelize, DataTypes);
+  var test_general_preguntas = _test_general_preguntas(sequelize, DataTypes);
+  var test_opciones = _test_opciones(sequelize, DataTypes);
   var test_preguntas = _test_preguntas(sequelize, DataTypes);
-  var test_prsexterno = _test_prsexterno(sequelize, DataTypes);
+  var test_preguntas_opciones = _test_preguntas_opciones(sequelize, DataTypes);
+  var test_recomendaciones = _test_recomendaciones(sequelize, DataTypes);
   var test_resdetalle = _test_resdetalle(sequelize, DataTypes);
   var test_resgeneral = _test_resgeneral(sequelize, DataTypes);
+  var test_tipo = _test_tipo(sequelize, DataTypes);
+  var test_tipo_users = _test_tipo_users(sequelize, DataTypes);
   var tienda_cupon_autoriza = _tienda_cupon_autoriza(sequelize, DataTypes);
   var usuarios = _usuarios(sequelize, DataTypes);
   var usuarios_departamentos = _usuarios_departamentos(sequelize, DataTypes);
@@ -338,10 +350,18 @@ function initModels(sequelize) {
   adm_paises.hasMany(ctb_proveedores, { as: "ctb_proveedores", foreignKey: "pais"});
   matricula_familiares.belongsTo(adm_paises, { as: "pais_adm_paise", foreignKey: "pais"});
   adm_paises.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "pais"});
+  adm_dependencias.belongsTo(adm_sedes, { as: "depsed_adm_sede", foreignKey: "depsed"});
+  adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
   biz_opciones.belongsTo(biz_opciones, { as: "depende_biz_opcione", foreignKey: "depende"});
   biz_opciones.hasMany(biz_opciones, { as: "biz_opciones", foreignKey: "depende"});
+  biz_roles_opciones.belongsTo(biz_opciones, { as: "id_opcion_biz_opcione", foreignKey: "id_opcion"});
+  biz_opciones.hasMany(biz_roles_opciones, { as: "biz_roles_opciones", foreignKey: "id_opcion"});
   biz_usuarios_opciones.belongsTo(biz_opciones, { as: "id_opcion_biz_opcione", foreignKey: "id_opcion"});
   biz_opciones.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_opcion"});
+  biz_roles_opciones.belongsTo(biz_roles, { as: "id_rol_biz_role", foreignKey: "id_rol"});
+  biz_roles.hasMany(biz_roles_opciones, { as: "biz_roles_opciones", foreignKey: "id_rol"});
+  biz_usuarios.belongsTo(biz_roles, { as: "rol_biz_role", foreignKey: "rol"});
+  biz_roles.hasMany(biz_usuarios, { as: "biz_usuarios", foreignKey: "rol"});
   biz_usuarios_opciones.belongsTo(biz_usuarios, { as: "id_usuario_biz_usuario", foreignKey: "id_usuario"});
   biz_usuarios.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_usuario"});
   calendario.belongsTo(calendario_categorias, { as: "id_categoria_calendario_categoria", foreignKey: "id_categoria"});
@@ -434,18 +454,36 @@ function initModels(sequelize) {
   pqrs_tipo_perfil.hasMany(pqrs, { as: "pqrs", foreignKey: "tipo_perfil"});
   pqrs.belongsTo(pqrs_tipo_solicitud, { as: "tipo_solicitud_pqrs_tipo_solicitud", foreignKey: "tipo_solicitud"});
   pqrs_tipo_solicitud.hasMany(pqrs, { as: "pqrs", foreignKey: "tipo_solicitud"});
-  test_administracion.belongsTo(test_preguntas, { as: "codpreg_test_pregunta", foreignKey: "codpreg"});
-  test_preguntas.hasMany(test_administracion, { as: "test_administracions", foreignKey: "codpreg"});
+  test_actividades_ejercicios.belongsTo(test_actividades, { as: "cod_actividad_test_actividade", foreignKey: "cod_actividad"});
+  test_actividades.hasMany(test_actividades_ejercicios, { as: "test_actividades_ejercicios", foreignKey: "cod_actividad"});
+  test_general_preguntas.belongsTo(test_general, { as: "id_test_general_test_general", foreignKey: "id_test_general"});
+  test_general.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_test_general"});
+  test_resgeneral.belongsTo(test_general, { as: "id_test_test_general", foreignKey: "id_test"});
+  test_general.hasMany(test_resgeneral, { as: "test_resgenerals", foreignKey: "id_test"});
+  test_preguntas_opciones.belongsTo(test_opciones, { as: "id_opcion_test_opcione", foreignKey: "id_opcion"});
+  test_opciones.hasMany(test_preguntas_opciones, { as: "test_preguntas_opciones", foreignKey: "id_opcion"});
+  test_resdetalle.belongsTo(test_opciones, { as: "id_opcion_test_opcione", foreignKey: "id_opcion"});
+  test_opciones.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_opcion"});
+  test_general_preguntas.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
+  test_preguntas.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_pregunta"});
+  test_preguntas_opciones.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
+  test_preguntas.hasMany(test_preguntas_opciones, { as: "test_preguntas_opciones", foreignKey: "id_pregunta"});
   test_resdetalle.belongsTo(test_preguntas, { as: "codpre_test_pregunta", foreignKey: "codpre"});
   test_preguntas.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "codpre"});
-  test_resdetalle.belongsTo(test_resgeneral, { as: "codevld_test_resgeneral", foreignKey: "codevld"});
-  test_resgeneral.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "codevld"});
+  test_resdetalle.belongsTo(test_resgeneral, { as: "id_test_resgeneral_test_resgeneral", foreignKey: "id_test_resgeneral"});
+  test_resgeneral.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_test_resgeneral"});
+  test_preguntas.belongsTo(test_tipo, { as: "tipo_test_tipo", foreignKey: "tipo"});
+  test_tipo.hasMany(test_preguntas, { as: "test_pregunta", foreignKey: "tipo"});
+  test_tipo_users.belongsTo(test_tipo, { as: "id_tipo_test_tipo", foreignKey: "id_tipo"});
+  test_tipo.hasMany(test_tipo_users, { as: "test_tipo_users", foreignKey: "id_tipo"});
   adm_email_plantillas_resp.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
   usuarios.hasMany(adm_email_plantillas_resp, { as: "adm_email_plantillas_resps", foreignKey: "id_usuario"});
   calendario.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
   usuarios.hasMany(calendario, { as: "calendarios", foreignKey: "id_usuario"});
   notificaciones_users.belongsTo(usuarios, { as: "id_user_usuario", foreignKey: "id_user"});
   usuarios.hasMany(notificaciones_users, { as: "notificaciones_users", foreignKey: "id_user"});
+  test_tipo_users.belongsTo(usuarios, { as: "id_user_usuario", foreignKey: "id_user"});
+  usuarios.hasMany(test_tipo_users, { as: "test_tipo_users", foreignKey: "id_user"});
   usuarios_departamentos.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
   usuarios.hasMany(usuarios_departamentos, { as: "usuarios_departamentos", foreignKey: "id_usuario"});
   usuarios_opciones.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
@@ -544,6 +582,8 @@ function initModels(sequelize) {
   web_suscripciones.hasMany(web_usuarios_suscripciones, { as: "web_usuarios_suscripciones", foreignKey: "id_suscripcion"});
   web_suscripciones.belongsTo(web_suscripciones_lineas, { as: "id_suscripcion_linea_web_suscripciones_linea", foreignKey: "id_suscripcion_linea"});
   web_suscripciones_lineas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_suscripcion_linea"});
+  test_resgeneral.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
+  web_usuarios.hasMany(test_resgeneral, { as: "test_resgenerals", foreignKey: "id_web_usuario"});
   web_cursos_certificados_usuarios.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_cursos_certificados_usuarios, { as: "web_cursos_certificados_usuarios", foreignKey: "id_usuario"});
   web_cursos_comunidad.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
@@ -572,8 +612,6 @@ function initModels(sequelize) {
   adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_empleados_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
   adm_plataformas.hasMany(adm_empleados_plataformas, { as: "adm_empleados_plataformas", foreignKey: "idPlataforma"});
-  adm_dependencias.belongsTo(adm_sedes, { as: "depsed_adm_sede", foreignKey: "depsed"});
-  adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
   calendario.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
   adm_sedes.hasMany(calendario, { as: "calendarios", foreignKey: "codsed"});
   ctb_proveedores_pagos.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
@@ -622,6 +660,8 @@ function initModels(sequelize) {
     adm_plataformas,
     adm_sedes,
     biz_opciones,
+    biz_roles,
+    biz_roles_opciones,
     biz_usuarios,
     biz_usuarios_opciones,
     calendario,
@@ -670,14 +710,18 @@ function initModels(sequelize) {
     pqrs_tipo_perfil,
     pqrs_tipo_solicitud,
     test_actividades,
-    test_administracion,
+    test_actividades_ejercicios,
     test_cerebros,
     test_general,
-    test_notas,
+    test_general_preguntas,
+    test_opciones,
     test_preguntas,
-    test_prsexterno,
+    test_preguntas_opciones,
+    test_recomendaciones,
     test_resdetalle,
     test_resgeneral,
+    test_tipo,
+    test_tipo_users,
     tienda_cupon_autoriza,
     usuarios,
     usuarios_departamentos,
