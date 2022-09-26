@@ -9,6 +9,7 @@ var _adm_cargos_plataformas = require("./adm_cargos_plataformas");
 var _adm_ciudades = require("./adm_ciudades");
 var _adm_contratos_funciones = require("./adm_contratos_funciones");
 var _adm_contratos_modelos = require("./adm_contratos_modelos");
+var _adm_contratos_validate = require("./adm_contratos_validate");
 var _adm_departamentos = require("./adm_departamentos");
 var _adm_dependencias = require("./adm_dependencias");
 var _adm_email_plantillas = require("./adm_email_plantillas");
@@ -72,6 +73,14 @@ var _notificaciones_disparadores = require("./notificaciones_disparadores");
 var _notificaciones_enviadas = require("./notificaciones_enviadas");
 var _notificaciones_users = require("./notificaciones_users");
 var _opciones = require("./opciones");
+var _pelv_indicadores = require("./pelv_indicadores");
+var _pevl_criterios = require("./pevl_criterios");
+var _pevl_evaluacion = require("./pevl_evaluacion");
+var _pevl_evaluacion_criterio = require("./pevl_evaluacion_criterio");
+var _pevl_evaluacion_grupos = require("./pevl_evaluacion_grupos");
+var _pevl_evaluacion_indicador = require("./pevl_evaluacion_indicador");
+var _pevl_evaluacion_integrante = require("./pevl_evaluacion_integrante");
+var _pevl_evaluacion_programacion = require("./pevl_evaluacion_programacion");
 var _pqrs = require("./pqrs");
 var _pqrs_respuesta = require("./pqrs_respuesta");
 var _pqrs_tipo_perfil = require("./pqrs_tipo_perfil");
@@ -142,6 +151,7 @@ function initModels(sequelize) {
   var adm_ciudades = _adm_ciudades(sequelize, DataTypes);
   var adm_contratos_funciones = _adm_contratos_funciones(sequelize, DataTypes);
   var adm_contratos_modelos = _adm_contratos_modelos(sequelize, DataTypes);
+  var adm_contratos_validate = _adm_contratos_validate(sequelize, DataTypes);
   var adm_departamentos = _adm_departamentos(sequelize, DataTypes);
   var adm_dependencias = _adm_dependencias(sequelize, DataTypes);
   var adm_email_plantillas = _adm_email_plantillas(sequelize, DataTypes);
@@ -205,6 +215,14 @@ function initModels(sequelize) {
   var notificaciones_enviadas = _notificaciones_enviadas(sequelize, DataTypes);
   var notificaciones_users = _notificaciones_users(sequelize, DataTypes);
   var opciones = _opciones(sequelize, DataTypes);
+  var pelv_indicadores = _pelv_indicadores(sequelize, DataTypes);
+  var pevl_criterios = _pevl_criterios(sequelize, DataTypes);
+  var pevl_evaluacion = _pevl_evaluacion(sequelize, DataTypes);
+  var pevl_evaluacion_criterio = _pevl_evaluacion_criterio(sequelize, DataTypes);
+  var pevl_evaluacion_grupos = _pevl_evaluacion_grupos(sequelize, DataTypes);
+  var pevl_evaluacion_indicador = _pevl_evaluacion_indicador(sequelize, DataTypes);
+  var pevl_evaluacion_integrante = _pevl_evaluacion_integrante(sequelize, DataTypes);
+  var pevl_evaluacion_programacion = _pevl_evaluacion_programacion(sequelize, DataTypes);
   var pqrs = _pqrs(sequelize, DataTypes);
   var pqrs_respuesta = _pqrs_respuesta(sequelize, DataTypes);
   var pqrs_tipo_perfil = _pqrs_tipo_perfil(sequelize, DataTypes);
@@ -340,6 +358,10 @@ function initModels(sequelize) {
   adm_funciones.hasMany(adm_funciones_cargos, { as: "adm_funciones_cargos", foreignKey: "idfuncion"});
   adm_grupos_integrantes.belongsTo(adm_grupos, { as: "idgrupo_adm_grupo", foreignKey: "idgrupo"});
   adm_grupos.hasMany(adm_grupos_integrantes, { as: "adm_grupos_integrantes", foreignKey: "idgrupo"});
+  pevl_evaluacion_grupos.belongsTo(adm_grupos, { as: "id_grupo_adm_grupo", foreignKey: "id_grupo"});
+  adm_grupos.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_grupo"});
+  pevl_evaluacion_integrante.belongsTo(adm_grupos_integrantes, { as: "id_integrante_adm_grupos_integrante", foreignKey: "id_integrante"});
+  adm_grupos_integrantes.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_integrante"});
   adm_ciudades.belongsTo(adm_paises, { as: "paises_Codigo_adm_paise", foreignKey: "paises_Codigo"});
   adm_paises.hasMany(adm_ciudades, { as: "adm_ciudades", foreignKey: "paises_Codigo"});
   adm_departamentos.belongsTo(adm_paises, { as: "id_pais_adm_paise", foreignKey: "id_pais"});
@@ -350,6 +372,8 @@ function initModels(sequelize) {
   adm_paises.hasMany(ctb_proveedores, { as: "ctb_proveedores", foreignKey: "pais"});
   matricula_familiares.belongsTo(adm_paises, { as: "pais_adm_paise", foreignKey: "pais"});
   adm_paises.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "pais"});
+  adm_cargos_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
+  adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_dependencias.belongsTo(adm_sedes, { as: "depsed_adm_sede", foreignKey: "depsed"});
   adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
   biz_opciones.belongsTo(biz_opciones, { as: "depende_biz_opcione", foreignKey: "depende"});
@@ -366,6 +390,8 @@ function initModels(sequelize) {
   biz_usuarios.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_usuario"});
   calendario.belongsTo(calendario_categorias, { as: "id_categoria_calendario_categoria", foreignKey: "id_categoria"});
   calendario_categorias.hasMany(calendario, { as: "calendarios", foreignKey: "id_categoria"});
+  adm_grupos.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
+  config_anios.hasMany(adm_grupos, { as: "adm_grupos", foreignKey: "id_anio"});
   config_periodo.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
   config_anios.hasMany(config_periodo, { as: "config_periodos", foreignKey: "id_anio"});
   matricula_familiares.belongsTo(config_ciudades, { as: "ident_expedicion_config_ciudade", foreignKey: "ident_expedicion"});
@@ -448,6 +474,24 @@ function initModels(sequelize) {
   opciones.hasMany(usuarios_perfil_opciones, { as: "usuarios_perfil_opciones", foreignKey: "id_opcion"});
   usuarios_permisos_opciones.belongsTo(opciones, { as: "id_opcion_opcione", foreignKey: "id_opcion"});
   opciones.hasMany(usuarios_permisos_opciones, { as: "usuarios_permisos_opciones", foreignKey: "id_opcion"});
+  pevl_evaluacion_indicador.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
+  pelv_indicadores.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_indicador"});
+  pevl_evaluacion_integrante.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
+  pelv_indicadores.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_indicador"});
+  pelv_indicadores.belongsTo(pevl_criterios, { as: "id_criterio_pevl_criterio", foreignKey: "id_criterio"});
+  pevl_criterios.hasMany(pelv_indicadores, { as: "pelv_indicadores", foreignKey: "id_criterio"});
+  pevl_evaluacion_criterio.belongsTo(pevl_criterios, { as: "id_criterio_pevl_criterio", foreignKey: "id_criterio"});
+  pevl_criterios.hasMany(pevl_evaluacion_criterio, { as: "pevl_evaluacion_criterios", foreignKey: "id_criterio"});
+  pevl_evaluacion_criterio.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_criterio, { as: "pevl_evaluacion_criterios", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_indicador.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_integrante.belongsTo(pevl_evaluacion_grupos, { as: "id_evaluacion_pevl_evaluacion_grupo", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.belongsTo(pevl_evaluacion_programacion, { as: "id_programacion_pevl_evaluacion_programacion", foreignKey: "id_programacion"});
+  pevl_evaluacion_programacion.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_programacion"});
   pqrs_respuesta.belongsTo(pqrs, { as: "pqr", foreignKey: "pqrs_id"});
   pqrs.hasMany(pqrs_respuesta, { as: "pqrs_respuesta", foreignKey: "pqrs_id"});
   pqrs.belongsTo(pqrs_tipo_perfil, { as: "tipo_perfil_pqrs_tipo_perfil", foreignKey: "tipo_perfil"});
@@ -608,8 +652,6 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_usuarios_suscripciones, { as: "web_usuarios_suscripciones", foreignKey: "id_usuario"});
   gnr_parametros_usuarios.belongsTo(acd_elementos, { as: "tipo_acd_elemento", foreignKey: "tipo"});
   acd_elementos.hasMany(gnr_parametros_usuarios, { as: "gnr_parametros_usuarios", foreignKey: "tipo"});
-  adm_cargos_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
-  adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_empleados_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
   adm_plataformas.hasMany(adm_empleados_plataformas, { as: "adm_empleados_plataformas", foreignKey: "idPlataforma"});
   calendario.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
@@ -618,8 +660,6 @@ function initModels(sequelize) {
   adm_sedes.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "codsed"});
   pqrs.belongsTo(adm_sedes, { as: "sede_adm_sede", foreignKey: "sede"});
   adm_sedes.hasMany(pqrs, { as: "pqrs", foreignKey: "sede"});
-  adm_grupos.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
-  config_anios.hasMany(adm_grupos, { as: "adm_grupos", foreignKey: "id_anio"});
   gnr_parametros.belongsTo(config_periodo, { as: "perevl_config_periodo", foreignKey: "perevl"});
   config_periodo.hasMany(gnr_parametros, { as: "gnr_parametros", foreignKey: "perevl"});
   pqrs.belongsTo(config_tipos_ident, { as: "tipo_ident_config_tipos_ident", foreignKey: "tipo_ident"});
@@ -642,6 +682,7 @@ function initModels(sequelize) {
     adm_ciudades,
     adm_contratos_funciones,
     adm_contratos_modelos,
+    adm_contratos_validate,
     adm_departamentos,
     adm_dependencias,
     adm_email_plantillas,
@@ -705,6 +746,14 @@ function initModels(sequelize) {
     notificaciones_enviadas,
     notificaciones_users,
     opciones,
+    pelv_indicadores,
+    pevl_criterios,
+    pevl_evaluacion,
+    pevl_evaluacion_criterio,
+    pevl_evaluacion_grupos,
+    pevl_evaluacion_indicador,
+    pevl_evaluacion_integrante,
+    pevl_evaluacion_programacion,
     pqrs,
     pqrs_respuesta,
     pqrs_tipo_perfil,
