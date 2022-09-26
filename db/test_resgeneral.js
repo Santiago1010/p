@@ -10,7 +10,6 @@ module.exports = function(sequelize, DataTypes) {
     id_test: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
       references: {
         model: 'test_general',
         key: 'id'
@@ -19,7 +18,6 @@ module.exports = function(sequelize, DataTypes) {
     id_web_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
       references: {
         model: 'web_usuarios',
         key: 'id_usuario'
@@ -27,71 +25,86 @@ module.exports = function(sequelize, DataTypes) {
     },
     derecho: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     central: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     izquierdo: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     derecho_ejec: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     derecho_sup: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     derecho_ase: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     derecho_com: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     central_ejec: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     central_sup: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     central_ase: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     central_com: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     izquierdo_ejec: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     izquierdo_sup: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     izquierdo_ase: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     izquierdo_com: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0.00
     },
     solucion: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     espacio: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     cronologia_ini: {
       type: DataTypes.DATEONLY,
@@ -107,39 +120,42 @@ module.exports = function(sequelize, DataTypes) {
     },
     personaje: {
       type: DataTypes.STRING(250),
-      allowNull: false
+      allowNull: false,
+      defaultValue: ""
     },
     otropersonaje: {
       type: DataTypes.STRING(250),
-      allowNull: false
+      allowNull: false,
+      defaultValue: ""
     },
     proced_actividades: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     proced_ejecutadas: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     proced_hacer: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     proced_recursos: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     proced_indicadores: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     proced_exigidor: {
       type: DataTypes.STRING(300),
-      allowNull: false
+      allowNull: false,
+      defaultValue: ""
     },
     proced_sanciones: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     usradd: {
       type: DataTypes.STRING(80),
@@ -164,17 +180,19 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_test_resgeneral_web_usuarios",
+        name: "test_resgeneral_id_test_IDX",
+        unique: true,
         using: "BTREE",
         fields: [
+          { name: "id_test" },
           { name: "id_web_usuario" },
         ]
       },
       {
-        name: "FK_test_resgeneral_test_general",
+        name: "FK_test_resgeneral_web_usuarios",
         using: "BTREE",
         fields: [
-          { name: "id_test" },
+          { name: "id_web_usuario" },
         ]
       },
     ]

@@ -9,6 +9,7 @@ var _adm_cargos_plataformas = require("./adm_cargos_plataformas");
 var _adm_ciudades = require("./adm_ciudades");
 var _adm_contratos_funciones = require("./adm_contratos_funciones");
 var _adm_contratos_modelos = require("./adm_contratos_modelos");
+var _adm_contratos_validate = require("./adm_contratos_validate");
 var _adm_departamentos = require("./adm_departamentos");
 var _adm_dependencias = require("./adm_dependencias");
 var _adm_email_plantillas = require("./adm_email_plantillas");
@@ -72,6 +73,14 @@ var _notificaciones_disparadores = require("./notificaciones_disparadores");
 var _notificaciones_enviadas = require("./notificaciones_enviadas");
 var _notificaciones_users = require("./notificaciones_users");
 var _opciones = require("./opciones");
+var _pelv_indicadores = require("./pelv_indicadores");
+var _pevl_criterios = require("./pevl_criterios");
+var _pevl_evaluacion = require("./pevl_evaluacion");
+var _pevl_evaluacion_criterio = require("./pevl_evaluacion_criterio");
+var _pevl_evaluacion_grupos = require("./pevl_evaluacion_grupos");
+var _pevl_evaluacion_indicador = require("./pevl_evaluacion_indicador");
+var _pevl_evaluacion_integrante = require("./pevl_evaluacion_integrante");
+var _pevl_evaluacion_programacion = require("./pevl_evaluacion_programacion");
 var _pqrs = require("./pqrs");
 var _pqrs_respuesta = require("./pqrs_respuesta");
 var _pqrs_tipo_perfil = require("./pqrs_tipo_perfil");
@@ -87,6 +96,8 @@ var _test_preguntas_opciones = require("./test_preguntas_opciones");
 var _test_recomendaciones = require("./test_recomendaciones");
 var _test_resdetalle = require("./test_resdetalle");
 var _test_resgeneral = require("./test_resgeneral");
+var _test_session_reporte_cerebro = require("./test_session_reporte_cerebro");
+var _test_session_reportes = require("./test_session_reportes");
 var _test_tipo = require("./test_tipo");
 var _test_tipo_users = require("./test_tipo_users");
 var _tienda_cupon_autoriza = require("./tienda_cupon_autoriza");
@@ -111,6 +122,8 @@ var _web_cursos_modulos_lecciones = require("./web_cursos_modulos_lecciones");
 var _web_cursos_progreso_usuarios = require("./web_cursos_progreso_usuarios");
 var _web_empresas = require("./web_empresas");
 var _web_empresas_areas = require("./web_empresas_areas");
+var _web_empresas_reportes_test = require("./web_empresas_reportes_test");
+var _web_empresas_roles = require("./web_empresas_roles");
 var _web_instructores = require("./web_instructores");
 var _web_niveles = require("./web_niveles");
 var _web_rutas_aprendizaje = require("./web_rutas_aprendizaje");
@@ -142,6 +155,7 @@ function initModels(sequelize) {
   var adm_ciudades = _adm_ciudades(sequelize, DataTypes);
   var adm_contratos_funciones = _adm_contratos_funciones(sequelize, DataTypes);
   var adm_contratos_modelos = _adm_contratos_modelos(sequelize, DataTypes);
+  var adm_contratos_validate = _adm_contratos_validate(sequelize, DataTypes);
   var adm_departamentos = _adm_departamentos(sequelize, DataTypes);
   var adm_dependencias = _adm_dependencias(sequelize, DataTypes);
   var adm_email_plantillas = _adm_email_plantillas(sequelize, DataTypes);
@@ -205,6 +219,14 @@ function initModels(sequelize) {
   var notificaciones_enviadas = _notificaciones_enviadas(sequelize, DataTypes);
   var notificaciones_users = _notificaciones_users(sequelize, DataTypes);
   var opciones = _opciones(sequelize, DataTypes);
+  var pelv_indicadores = _pelv_indicadores(sequelize, DataTypes);
+  var pevl_criterios = _pevl_criterios(sequelize, DataTypes);
+  var pevl_evaluacion = _pevl_evaluacion(sequelize, DataTypes);
+  var pevl_evaluacion_criterio = _pevl_evaluacion_criterio(sequelize, DataTypes);
+  var pevl_evaluacion_grupos = _pevl_evaluacion_grupos(sequelize, DataTypes);
+  var pevl_evaluacion_indicador = _pevl_evaluacion_indicador(sequelize, DataTypes);
+  var pevl_evaluacion_integrante = _pevl_evaluacion_integrante(sequelize, DataTypes);
+  var pevl_evaluacion_programacion = _pevl_evaluacion_programacion(sequelize, DataTypes);
   var pqrs = _pqrs(sequelize, DataTypes);
   var pqrs_respuesta = _pqrs_respuesta(sequelize, DataTypes);
   var pqrs_tipo_perfil = _pqrs_tipo_perfil(sequelize, DataTypes);
@@ -220,6 +242,8 @@ function initModels(sequelize) {
   var test_recomendaciones = _test_recomendaciones(sequelize, DataTypes);
   var test_resdetalle = _test_resdetalle(sequelize, DataTypes);
   var test_resgeneral = _test_resgeneral(sequelize, DataTypes);
+  var test_session_reporte_cerebro = _test_session_reporte_cerebro(sequelize, DataTypes);
+  var test_session_reportes = _test_session_reportes(sequelize, DataTypes);
   var test_tipo = _test_tipo(sequelize, DataTypes);
   var test_tipo_users = _test_tipo_users(sequelize, DataTypes);
   var tienda_cupon_autoriza = _tienda_cupon_autoriza(sequelize, DataTypes);
@@ -244,6 +268,8 @@ function initModels(sequelize) {
   var web_cursos_progreso_usuarios = _web_cursos_progreso_usuarios(sequelize, DataTypes);
   var web_empresas = _web_empresas(sequelize, DataTypes);
   var web_empresas_areas = _web_empresas_areas(sequelize, DataTypes);
+  var web_empresas_reportes_test = _web_empresas_reportes_test(sequelize, DataTypes);
+  var web_empresas_roles = _web_empresas_roles(sequelize, DataTypes);
   var web_instructores = _web_instructores(sequelize, DataTypes);
   var web_niveles = _web_niveles(sequelize, DataTypes);
   var web_rutas_aprendizaje = _web_rutas_aprendizaje(sequelize, DataTypes);
@@ -340,6 +366,10 @@ function initModels(sequelize) {
   adm_funciones.hasMany(adm_funciones_cargos, { as: "adm_funciones_cargos", foreignKey: "idfuncion"});
   adm_grupos_integrantes.belongsTo(adm_grupos, { as: "idgrupo_adm_grupo", foreignKey: "idgrupo"});
   adm_grupos.hasMany(adm_grupos_integrantes, { as: "adm_grupos_integrantes", foreignKey: "idgrupo"});
+  pevl_evaluacion_grupos.belongsTo(adm_grupos, { as: "id_grupo_adm_grupo", foreignKey: "id_grupo"});
+  adm_grupos.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_grupo"});
+  pevl_evaluacion_integrante.belongsTo(adm_grupos_integrantes, { as: "id_integrante_adm_grupos_integrante", foreignKey: "id_integrante"});
+  adm_grupos_integrantes.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_integrante"});
   adm_ciudades.belongsTo(adm_paises, { as: "paises_Codigo_adm_paise", foreignKey: "paises_Codigo"});
   adm_paises.hasMany(adm_ciudades, { as: "adm_ciudades", foreignKey: "paises_Codigo"});
   adm_departamentos.belongsTo(adm_paises, { as: "id_pais_adm_paise", foreignKey: "id_pais"});
@@ -350,6 +380,8 @@ function initModels(sequelize) {
   adm_paises.hasMany(ctb_proveedores, { as: "ctb_proveedores", foreignKey: "pais"});
   matricula_familiares.belongsTo(adm_paises, { as: "pais_adm_paise", foreignKey: "pais"});
   adm_paises.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "pais"});
+  adm_cargos_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
+  adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_dependencias.belongsTo(adm_sedes, { as: "depsed_adm_sede", foreignKey: "depsed"});
   adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
   biz_opciones.belongsTo(biz_opciones, { as: "depende_biz_opcione", foreignKey: "depende"});
@@ -366,6 +398,8 @@ function initModels(sequelize) {
   biz_usuarios.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_usuario"});
   calendario.belongsTo(calendario_categorias, { as: "id_categoria_calendario_categoria", foreignKey: "id_categoria"});
   calendario_categorias.hasMany(calendario, { as: "calendarios", foreignKey: "id_categoria"});
+  adm_grupos.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
+  config_anios.hasMany(adm_grupos, { as: "adm_grupos", foreignKey: "id_anio"});
   config_periodo.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
   config_anios.hasMany(config_periodo, { as: "config_periodos", foreignKey: "id_anio"});
   matricula_familiares.belongsTo(config_ciudades, { as: "ident_expedicion_config_ciudade", foreignKey: "ident_expedicion"});
@@ -448,6 +482,24 @@ function initModels(sequelize) {
   opciones.hasMany(usuarios_perfil_opciones, { as: "usuarios_perfil_opciones", foreignKey: "id_opcion"});
   usuarios_permisos_opciones.belongsTo(opciones, { as: "id_opcion_opcione", foreignKey: "id_opcion"});
   opciones.hasMany(usuarios_permisos_opciones, { as: "usuarios_permisos_opciones", foreignKey: "id_opcion"});
+  pevl_evaluacion_indicador.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
+  pelv_indicadores.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_indicador"});
+  pevl_evaluacion_integrante.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
+  pelv_indicadores.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_indicador"});
+  pelv_indicadores.belongsTo(pevl_criterios, { as: "id_criterio_pevl_criterio", foreignKey: "id_criterio"});
+  pevl_criterios.hasMany(pelv_indicadores, { as: "pelv_indicadores", foreignKey: "id_criterio"});
+  pevl_evaluacion_criterio.belongsTo(pevl_criterios, { as: "id_criterio_pevl_criterio", foreignKey: "id_criterio"});
+  pevl_criterios.hasMany(pevl_evaluacion_criterio, { as: "pevl_evaluacion_criterios", foreignKey: "id_criterio"});
+  pevl_evaluacion_criterio.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_criterio, { as: "pevl_evaluacion_criterios", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_indicador.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
+  pevl_evaluacion.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_integrante.belongsTo(pevl_evaluacion_grupos, { as: "id_evaluacion_pevl_evaluacion_grupo", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_evaluacion"});
+  pevl_evaluacion_grupos.belongsTo(pevl_evaluacion_programacion, { as: "id_programacion_pevl_evaluacion_programacion", foreignKey: "id_programacion"});
+  pevl_evaluacion_programacion.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_programacion"});
   pqrs_respuesta.belongsTo(pqrs, { as: "pqr", foreignKey: "pqrs_id"});
   pqrs.hasMany(pqrs_respuesta, { as: "pqrs_respuesta", foreignKey: "pqrs_id"});
   pqrs.belongsTo(pqrs_tipo_perfil, { as: "tipo_perfil_pqrs_tipo_perfil", foreignKey: "tipo_perfil"});
@@ -456,6 +508,10 @@ function initModels(sequelize) {
   pqrs_tipo_solicitud.hasMany(pqrs, { as: "pqrs", foreignKey: "tipo_solicitud"});
   test_actividades_ejercicios.belongsTo(test_actividades, { as: "cod_actividad_test_actividade", foreignKey: "cod_actividad"});
   test_actividades.hasMany(test_actividades_ejercicios, { as: "test_actividades_ejercicios", foreignKey: "cod_actividad"});
+  test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_dominante_test_cerebro", foreignKey: "id_cerebro_dominante"});
+  test_cerebros.hasMany(test_session_reporte_cerebro, { as: "test_session_reporte_cerebros", foreignKey: "id_cerebro_dominante"});
+  test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_subdominate_test_cerebro", foreignKey: "id_cerebro_subdominate"});
+  test_cerebros.hasMany(test_session_reporte_cerebro, { as: "id_cerebro_subdominate_test_session_reporte_cerebros", foreignKey: "id_cerebro_subdominate"});
   test_general_preguntas.belongsTo(test_general, { as: "id_test_general_test_general", foreignKey: "id_test_general"});
   test_general.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_test_general"});
   test_resgeneral.belongsTo(test_general, { as: "id_test_test_general", foreignKey: "id_test"});
@@ -472,6 +528,10 @@ function initModels(sequelize) {
   test_preguntas.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "codpre"});
   test_resdetalle.belongsTo(test_resgeneral, { as: "id_test_resgeneral_test_resgeneral", foreignKey: "id_test_resgeneral"});
   test_resgeneral.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_test_resgeneral"});
+  test_session_reporte_cerebro.belongsTo(test_session_reportes, { as: "id_session_reporte_test_session_reporte", foreignKey: "id_session_reporte"});
+  test_session_reportes.hasMany(test_session_reporte_cerebro, { as: "test_session_reporte_cerebros", foreignKey: "id_session_reporte"});
+  web_empresas_reportes_test.belongsTo(test_session_reportes, { as: "id_session_reporte_test_session_reporte", foreignKey: "id_session_reporte"});
+  test_session_reportes.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_session_reporte"});
   test_preguntas.belongsTo(test_tipo, { as: "tipo_test_tipo", foreignKey: "tipo"});
   test_tipo.hasMany(test_preguntas, { as: "test_pregunta", foreignKey: "tipo"});
   test_tipo_users.belongsTo(test_tipo, { as: "id_tipo_test_tipo", foreignKey: "id_tipo"});
@@ -534,6 +594,10 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_cursos_comunidad, { as: "web_cursos_comunidads", foreignKey: "id_empresa"});
   web_empresas_areas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_empresas_areas, { as: "web_empresas_areas", foreignKey: "id_empresa"});
+  web_empresas_reportes_test.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_empresa"});
+  web_empresas_roles.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_roles, { as: "web_empresas_roles", foreignKey: "id_empresa"});
   web_suscripciones.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
@@ -550,6 +614,8 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_usuarios_puntos, { as: "web_usuarios_puntos", foreignKey: "id_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas_areas, { as: "id_empresa_area_web_empresas_area", foreignKey: "id_empresa_area"});
   web_empresas_areas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa_area"});
+  web_empresas_reportes_test.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
+  web_empresas_roles.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_rol_usuario_empresa"});
   web_cursos_instructores.belongsTo(web_instructores, { as: "id_instructor_web_instructore", foreignKey: "id_instructor"});
   web_instructores.hasMany(web_cursos_instructores, { as: "web_cursos_instructores", foreignKey: "id_instructor"});
   web_niveles.belongsTo(web_niveles, { as: "id_siguiente_nivel_web_nivele", foreignKey: "id_siguiente_nivel"});
@@ -608,8 +674,6 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_usuarios_suscripciones, { as: "web_usuarios_suscripciones", foreignKey: "id_usuario"});
   gnr_parametros_usuarios.belongsTo(acd_elementos, { as: "tipo_acd_elemento", foreignKey: "tipo"});
   acd_elementos.hasMany(gnr_parametros_usuarios, { as: "gnr_parametros_usuarios", foreignKey: "tipo"});
-  adm_cargos_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
-  adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_empleados_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
   adm_plataformas.hasMany(adm_empleados_plataformas, { as: "adm_empleados_plataformas", foreignKey: "idPlataforma"});
   calendario.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
@@ -618,8 +682,6 @@ function initModels(sequelize) {
   adm_sedes.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "codsed"});
   pqrs.belongsTo(adm_sedes, { as: "sede_adm_sede", foreignKey: "sede"});
   adm_sedes.hasMany(pqrs, { as: "pqrs", foreignKey: "sede"});
-  adm_grupos.belongsTo(config_anios, { as: "id_anio_config_anio", foreignKey: "id_anio"});
-  config_anios.hasMany(adm_grupos, { as: "adm_grupos", foreignKey: "id_anio"});
   gnr_parametros.belongsTo(config_periodo, { as: "perevl_config_periodo", foreignKey: "perevl"});
   config_periodo.hasMany(gnr_parametros, { as: "gnr_parametros", foreignKey: "perevl"});
   pqrs.belongsTo(config_tipos_ident, { as: "tipo_ident_config_tipos_ident", foreignKey: "tipo_ident"});
@@ -642,6 +704,7 @@ function initModels(sequelize) {
     adm_ciudades,
     adm_contratos_funciones,
     adm_contratos_modelos,
+    adm_contratos_validate,
     adm_departamentos,
     adm_dependencias,
     adm_email_plantillas,
@@ -705,6 +768,14 @@ function initModels(sequelize) {
     notificaciones_enviadas,
     notificaciones_users,
     opciones,
+    pelv_indicadores,
+    pevl_criterios,
+    pevl_evaluacion,
+    pevl_evaluacion_criterio,
+    pevl_evaluacion_grupos,
+    pevl_evaluacion_indicador,
+    pevl_evaluacion_integrante,
+    pevl_evaluacion_programacion,
     pqrs,
     pqrs_respuesta,
     pqrs_tipo_perfil,
@@ -720,6 +791,8 @@ function initModels(sequelize) {
     test_recomendaciones,
     test_resdetalle,
     test_resgeneral,
+    test_session_reporte_cerebro,
+    test_session_reportes,
     test_tipo,
     test_tipo_users,
     tienda_cupon_autoriza,
@@ -744,6 +817,8 @@ function initModels(sequelize) {
     web_cursos_progreso_usuarios,
     web_empresas,
     web_empresas_areas,
+    web_empresas_reportes_test,
+    web_empresas_roles,
     web_instructores,
     web_niveles,
     web_rutas_aprendizaje,
