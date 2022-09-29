@@ -19,6 +19,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
+    descripcion_leccion: {
+      type: DataTypes.STRING(300),
+      allowNull: true
+    },
+    tipo_recurso_leccion: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
     recurso_leccion: {
       type: DataTypes.STRING(100),
       allowNull: true
@@ -28,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     orden_leccion: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    test_codpre: {
       type: DataTypes.INTEGER,
       allowNull: true
     }

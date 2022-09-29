@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_usuario: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'web_usuarios',
         key: 'id_usuario'
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_empresa: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'web_empresas',
         key: 'id_empresa'
@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_empresa_area: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'web_empresas_areas',
         key: 'id_empresa_area'
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_nivel_actual: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'web_niveles',
         key: 'id_nivel'
@@ -66,6 +66,14 @@ module.exports = function(sequelize, DataTypes) {
     cursos_progreso: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    rol_empresa: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_empresas_roles',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -108,6 +116,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_empresa_area" },
+        ]
+      },
+      {
+        name: "web_usuarios_empresas_roles",
+        using: "BTREE",
+        fields: [
+          { name: "rol_empresa" },
         ]
       },
     ]

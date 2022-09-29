@@ -29,7 +29,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     email_usuario: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false,
+      unique: "web_usuario_email_UN"
     },
     celular_usuario: {
       type: DataTypes.STRING(100),
@@ -37,16 +38,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     password_usuario: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
     aplico_test_cerebral: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      defaultValue: 0,
       comment: "0  = No, 1 = Si"
     },
     nro_test_cerebral: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      defaultValue: 0
     },
     fecha_nacimiento: {
       type: DataTypes.DATEONLY,
@@ -63,6 +66,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
+        ]
+      },
+      {
+        name: "web_usuario_email_UN",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "email_usuario" },
         ]
       },
     ]
