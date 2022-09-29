@@ -490,13 +490,8 @@ function initModels(sequelize) {
   test_actividades.hasMany(test_actividades_ejercicios, { as: "test_actividades_ejercicios", foreignKey: "cod_actividad"});
   test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_dominante_test_cerebro", foreignKey: "id_cerebro_dominante"});
   test_cerebros.hasMany(test_session_reporte_cerebro, { as: "test_session_reporte_cerebros", foreignKey: "id_cerebro_dominante"});
-<<<<<<< HEAD
-  test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_subdominate_test_cerebro", foreignKey: "id_cerebro_subdominate"});
-  test_cerebros.hasMany(test_session_reporte_cerebro, { as: "id_cerebro_subdominate_test_session_reporte_cerebros", foreignKey: "id_cerebro_subdominate"});
-=======
   test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_subdominante_test_cerebro", foreignKey: "id_cerebro_subdominante"});
   test_cerebros.hasMany(test_session_reporte_cerebro, { as: "id_cerebro_subdominante_test_session_reporte_cerebros", foreignKey: "id_cerebro_subdominante"});
->>>>>>> dev_m
   test_general_preguntas.belongsTo(test_general, { as: "id_test_general_test_general", foreignKey: "id_test_general"});
   test_general.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_test_general"});
   test_resgeneral.belongsTo(test_general, { as: "id_test_test_general", foreignKey: "id_test"});
@@ -601,11 +596,8 @@ function initModels(sequelize) {
   web_empresas_areas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa_area"});
   web_empresas_reportes_test.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
   web_empresas_roles.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_rol_usuario_empresa"});
-<<<<<<< HEAD
-=======
   web_usuarios_empresas.belongsTo(web_empresas_roles, { as: "rol_empresa_web_empresas_role", foreignKey: "rol_empresa"});
   web_empresas_roles.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "rol_empresa"});
->>>>>>> dev_m
   web_cursos_instructores.belongsTo(web_instructores, { as: "id_instructor_web_instructore", foreignKey: "id_instructor"});
   web_instructores.hasMany(web_cursos_instructores, { as: "web_cursos_instructores", foreignKey: "id_instructor"});
   web_niveles.belongsTo(web_niveles, { as: "id_siguiente_nivel_web_nivele", foreignKey: "id_siguiente_nivel"});
