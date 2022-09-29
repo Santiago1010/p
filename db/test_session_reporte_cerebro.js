@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('test_session_reporte_cerebro', {
     id: {
       autoIncrement: true,
@@ -76,7 +76,11 @@ module.exports = function(sequelize, DataTypes) {
         name: "FK_test_session_reporte_cerebro_test_cerebros_2",
         using: "BTREE",
         fields: [
+<<<<<<< HEAD
           { name: "id_cerebro_subdominate" },
+=======
+          { name: "id_cerebro_subdominante" },
+>>>>>>> dev_m
         ]
       },
       {

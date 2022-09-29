@@ -1,27 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('tienda_cupon_autoriza', {
-    id: {
+  return sequelize.define('web_rutas_aprendizaje_cursos_usuarios', {
+    id_web_ruta_aprendizaje_curso_usuario: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    ident: {
+    id_web_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    nombres: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    apellidos: {
-      type: DataTypes.STRING(100),
+    id_web_curso: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'tienda_cupon_autoriza',
+    tableName: 'web_rutas_aprendizaje_cursos_usuarios',
     timestamps: false,
     indexes: [
       {
@@ -29,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_web_ruta_aprendizaje_curso_usuario" },
         ]
       },
     ]

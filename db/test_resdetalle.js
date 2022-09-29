@@ -61,17 +61,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_test_resdetalle_test_resgeneral",
-        using: "BTREE",
-        fields: [
-          { name: "id_test_resgeneral" },
-        ]
-      },
-      {
         name: "FK_test_resdetalle_test_preguntas_opciones",
         using: "BTREE",
         fields: [
           { name: "id_opcion" },
+        ]
+      },
+      {
+        name: "FK_test_resdetalle_test_resgeneral",
+        using: "BTREE",
+        fields: [
+          { name: "id_test_resgeneral" },
         ]
       },
     ]

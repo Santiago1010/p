@@ -120,6 +120,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     personaje: {
       type: DataTypes.STRING(250),
+<<<<<<< HEAD
       allowNull: false,
       defaultValue: ""
     },
@@ -127,6 +128,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(250),
       allowNull: false,
       defaultValue: ""
+=======
+      allowNull: true
+    },
+    otropersonaje: {
+      type: DataTypes.STRING(250),
+      allowNull: true
+>>>>>>> dev_m
     },
     proced_actividades: {
       type: DataTypes.TEXT,
@@ -150,8 +158,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     proced_exigidor: {
       type: DataTypes.STRING(300),
+<<<<<<< HEAD
       allowNull: false,
       defaultValue: ""
+=======
+      allowNull: true
+>>>>>>> dev_m
     },
     proced_sanciones: {
       type: DataTypes.TEXT,

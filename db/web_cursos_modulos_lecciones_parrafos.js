@@ -1,40 +1,31 @@
 const Sequelize = require('sequelize');
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('test_session_reportes', {
-    id: {
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('web_cursos_modulos_lecciones_parrafos', {
+    id_web_curso_modulo_leccion_parrafo: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
+    id_curso_modulo_leccion: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     titulo: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    descripcion: {
+    parrafo: {
       type: DataTypes.STRING(200),
       allowNull: true
     },
-    categoria: {
-      type: DataTypes.ENUM('estadar', 'especial'),
-      allowNull: true
-    },
-    estado: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 1
-    },
-    addusr: {
-      type: DataTypes.STRING(15),
-      allowNull: true
-    },
-    fchadd: {
-      type: DataTypes.DATE,
+    recurso: {
+      type: DataTypes.BIGINT,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'test_session_reportes',
+    tableName: 'web_cursos_modulos_lecciones_parrafos',
     timestamps: false,
     indexes: [
       {
@@ -42,7 +33,7 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_web_curso_modulo_leccion_parrafo" },
         ]
       },
     ]
