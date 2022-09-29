@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('test_session_reportes', {
     id: {
       autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     },
     categoria: {
-      type: DataTypes.ENUM('estadar', 'especial'),
+      type: DataTypes.ENUM('estandar','especial'),
       allowNull: true
     },
     estado: {
