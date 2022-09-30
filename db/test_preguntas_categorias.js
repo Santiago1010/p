@@ -1,36 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_preguntas_opciones', {
+  return sequelize.define('test_preguntas_categorias', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'test_categorias',
+        key: 'id'
+      }
     },
     id_pregunta: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'test_preguntas',
         key: 'codpre'
       }
     },
-    id_opcion: {
+    id_categoria: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'test_opciones',
-        key: 'id'
-      }
-    },
-    resp_correcta: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 1
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'test_preguntas_opciones',
+    tableName: 'test_preguntas_categorias',
     timestamps: false,
     indexes: [
       {
@@ -42,17 +37,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_test_preguntas_opciones_test_preguntas",
+        name: "test_preguntas_categorias_FK",
         using: "BTREE",
         fields: [
           { name: "id_pregunta" },
-        ]
-      },
-      {
-        name: "FK_test_preguntas_opciones_test_opciones",
-        using: "BTREE",
-        fields: [
-          { name: "id_opcion" },
         ]
       },
     ]

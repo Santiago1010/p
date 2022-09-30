@@ -9,11 +9,25 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_web_usuario: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'web_usuarios',
+        key: 'id_usuario'
+      }
     },
     id_web_curso: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'web_cursos',
+        key: 'id_curso'
+      }
+    },
+    estado_curso: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      comment: "0 =  Pendiente, 1 = Progreso, 2 =  Finalizado, 3 = Aprobado"
     }
   }, {
     sequelize,
@@ -26,6 +40,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_web_ruta_aprendizaje_curso_usuario" },
+        ]
+      },
+      {
+        name: "FK_web_rutas_aprendizaje_cursos_usuarios_web_usuarios",
+        using: "BTREE",
+        fields: [
+          { name: "id_web_usuario" },
+        ]
+      },
+      {
+        name: "FK_web_rutas_aprendizaje_cursos_usuarios_web_cursos",
+        using: "BTREE",
+        fields: [
+          { name: "id_web_curso" },
         ]
       },
     ]

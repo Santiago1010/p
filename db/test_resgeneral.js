@@ -38,6 +38,27 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0
     },
+    dominante: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_cerebros',
+        key: 'id'
+      }
+    },
+    subdominante: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_cerebros',
+        key: 'id'
+      }
+    },
+    error: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
     derecho_ejec: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
@@ -190,6 +211,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_web_usuario" },
+        ]
+      },
+      {
+        name: "test_resgeneral_FK",
+        using: "BTREE",
+        fields: [
+          { name: "dominante" },
+        ]
+      },
+      {
+        name: "test_resgeneral_FK_1",
+        using: "BTREE",
+        fields: [
+          { name: "subdominante" },
         ]
       },
     ]

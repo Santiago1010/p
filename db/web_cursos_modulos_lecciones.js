@@ -24,8 +24,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     tipo_recurso_leccion: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+      type: DataTypes.ENUM('Video','Audio','Parrafo'),
+      allowNull: true,
+      defaultValue: "Video"
     },
     recurso_leccion: {
       type: DataTypes.STRING(100),
@@ -41,7 +42,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     test_codpre: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'test_preguntas',
+        key: 'codpre'
+      }
     }
   }, {
     sequelize,
@@ -61,6 +66,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_curso_modulo" },
+        ]
+      },
+      {
+        name: "web_cursos_modulos_lecciones_FK",
+        using: "BTREE",
+        fields: [
+          { name: "test_codpre" },
         ]
       },
     ]

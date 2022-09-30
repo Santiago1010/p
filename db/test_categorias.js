@@ -1,24 +1,24 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_recomendaciones', {
+  return sequelize.define('test_categorias', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+    descripcion: {
+      type: DataTypes.STRING(150),
+      allowNull: false
     },
-    categoria: {
-      type: DataTypes.ENUM('estandar','especial'),
-      allowNull: true,
-      defaultValue: "estandar"
+    estado: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'test_recomendaciones',
+    tableName: 'test_categorias',
     timestamps: false,
     indexes: [
       {

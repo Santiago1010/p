@@ -82,13 +82,16 @@ var _pqrs_tipo_perfil = require("./pqrs_tipo_perfil");
 var _pqrs_tipo_solicitud = require("./pqrs_tipo_solicitud");
 var _test_actividades = require("./test_actividades");
 var _test_actividades_ejercicios = require("./test_actividades_ejercicios");
+var _test_categorias = require("./test_categorias");
 var _test_cerebros = require("./test_cerebros");
 var _test_general = require("./test_general");
 var _test_general_preguntas = require("./test_general_preguntas");
 var _test_opciones = require("./test_opciones");
 var _test_preguntas = require("./test_preguntas");
+var _test_preguntas_categorias = require("./test_preguntas_categorias");
 var _test_preguntas_opciones = require("./test_preguntas_opciones");
 var _test_recomendaciones = require("./test_recomendaciones");
+var _test_recomendaciones_detalle = require("./test_recomendaciones_detalle");
 var _test_resdetalle = require("./test_resdetalle");
 var _test_resgeneral = require("./test_resgeneral");
 var _test_session_reporte_cerebro = require("./test_session_reporte_cerebro");
@@ -114,11 +117,15 @@ var _web_cursos_modulos = require("./web_cursos_modulos");
 var _web_cursos_modulos_lecciones = require("./web_cursos_modulos_lecciones");
 var _web_cursos_modulos_lecciones_materiales = require("./web_cursos_modulos_lecciones_materiales");
 var _web_cursos_modulos_lecciones_parrafos = require("./web_cursos_modulos_lecciones_parrafos");
+var _web_cursos_modulos_lecciones_respreguntas = require("./web_cursos_modulos_lecciones_respreguntas");
 var _web_cursos_progreso_usuarios = require("./web_cursos_progreso_usuarios");
 var _web_empresas = require("./web_empresas");
 var _web_empresas_areas = require("./web_empresas_areas");
-var _web_empresas_reportes_test = require("./web_empresas_reportes_test");
 var _web_empresas_roles = require("./web_empresas_roles");
+var _web_empresas_test_activades = require("./web_empresas_test_activades");
+var _web_empresas_test_actividad_evaluar = require("./web_empresas_test_actividad_evaluar");
+var _web_empresas_test_recomendaciones = require("./web_empresas_test_recomendaciones");
+var _web_empresas_test_reportes = require("./web_empresas_test_reportes");
 var _web_instructores = require("./web_instructores");
 var _web_niveles = require("./web_niveles");
 var _web_rutas_aprendizaje = require("./web_rutas_aprendizaje");
@@ -225,13 +232,16 @@ function initModels(sequelize) {
   var pqrs_tipo_solicitud = _pqrs_tipo_solicitud(sequelize, DataTypes);
   var test_actividades = _test_actividades(sequelize, DataTypes);
   var test_actividades_ejercicios = _test_actividades_ejercicios(sequelize, DataTypes);
+  var test_categorias = _test_categorias(sequelize, DataTypes);
   var test_cerebros = _test_cerebros(sequelize, DataTypes);
   var test_general = _test_general(sequelize, DataTypes);
   var test_general_preguntas = _test_general_preguntas(sequelize, DataTypes);
   var test_opciones = _test_opciones(sequelize, DataTypes);
   var test_preguntas = _test_preguntas(sequelize, DataTypes);
+  var test_preguntas_categorias = _test_preguntas_categorias(sequelize, DataTypes);
   var test_preguntas_opciones = _test_preguntas_opciones(sequelize, DataTypes);
   var test_recomendaciones = _test_recomendaciones(sequelize, DataTypes);
+  var test_recomendaciones_detalle = _test_recomendaciones_detalle(sequelize, DataTypes);
   var test_resdetalle = _test_resdetalle(sequelize, DataTypes);
   var test_resgeneral = _test_resgeneral(sequelize, DataTypes);
   var test_session_reporte_cerebro = _test_session_reporte_cerebro(sequelize, DataTypes);
@@ -257,11 +267,15 @@ function initModels(sequelize) {
   var web_cursos_modulos_lecciones = _web_cursos_modulos_lecciones(sequelize, DataTypes);
   var web_cursos_modulos_lecciones_materiales = _web_cursos_modulos_lecciones_materiales(sequelize, DataTypes);
   var web_cursos_modulos_lecciones_parrafos = _web_cursos_modulos_lecciones_parrafos(sequelize, DataTypes);
+  var web_cursos_modulos_lecciones_respreguntas = _web_cursos_modulos_lecciones_respreguntas(sequelize, DataTypes);
   var web_cursos_progreso_usuarios = _web_cursos_progreso_usuarios(sequelize, DataTypes);
   var web_empresas = _web_empresas(sequelize, DataTypes);
   var web_empresas_areas = _web_empresas_areas(sequelize, DataTypes);
-  var web_empresas_reportes_test = _web_empresas_reportes_test(sequelize, DataTypes);
   var web_empresas_roles = _web_empresas_roles(sequelize, DataTypes);
+  var web_empresas_test_activades = _web_empresas_test_activades(sequelize, DataTypes);
+  var web_empresas_test_actividad_evaluar = _web_empresas_test_actividad_evaluar(sequelize, DataTypes);
+  var web_empresas_test_recomendaciones = _web_empresas_test_recomendaciones(sequelize, DataTypes);
+  var web_empresas_test_reportes = _web_empresas_test_reportes(sequelize, DataTypes);
   var web_instructores = _web_instructores(sequelize, DataTypes);
   var web_niveles = _web_niveles(sequelize, DataTypes);
   var web_rutas_aprendizaje = _web_rutas_aprendizaje(sequelize, DataTypes);
@@ -488,6 +502,16 @@ function initModels(sequelize) {
   pqrs_tipo_solicitud.hasMany(pqrs, { as: "pqrs", foreignKey: "tipo_solicitud"});
   test_actividades_ejercicios.belongsTo(test_actividades, { as: "cod_actividad_test_actividade", foreignKey: "cod_actividad"});
   test_actividades.hasMany(test_actividades_ejercicios, { as: "test_actividades_ejercicios", foreignKey: "cod_actividad"});
+  web_empresas_test_activades.belongsTo(test_actividades_ejercicios, { as: "cod_ejercicio_test_actividades_ejercicio", foreignKey: "cod_ejercicio"});
+  test_actividades_ejercicios.hasMany(web_empresas_test_activades, { as: "web_empresas_test_activades", foreignKey: "cod_ejercicio"});
+  test_preguntas_categorias.belongsTo(test_categorias, { as: "id_test_categoria", foreignKey: "id"});
+  test_categorias.hasOne(test_preguntas_categorias, { as: "test_preguntas_categorium", foreignKey: "id"});
+  test_recomendaciones_detalle.belongsTo(test_cerebros, { as: "id_cerebro_test_cerebro", foreignKey: "id_cerebro"});
+  test_cerebros.hasMany(test_recomendaciones_detalle, { as: "test_recomendaciones_detalles", foreignKey: "id_cerebro"});
+  test_resgeneral.belongsTo(test_cerebros, { as: "dominante_test_cerebro", foreignKey: "dominante"});
+  test_cerebros.hasMany(test_resgeneral, { as: "test_resgenerals", foreignKey: "dominante"});
+  test_resgeneral.belongsTo(test_cerebros, { as: "subdominante_test_cerebro", foreignKey: "subdominante"});
+  test_cerebros.hasMany(test_resgeneral, { as: "subdominante_test_resgenerals", foreignKey: "subdominante"});
   test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_dominante_test_cerebro", foreignKey: "id_cerebro_dominante"});
   test_cerebros.hasMany(test_session_reporte_cerebro, { as: "test_session_reporte_cerebros", foreignKey: "id_cerebro_dominante"});
   test_session_reporte_cerebro.belongsTo(test_cerebros, { as: "id_cerebro_subdominante_test_cerebro", foreignKey: "id_cerebro_subdominante"});
@@ -502,18 +526,30 @@ function initModels(sequelize) {
   test_opciones.hasMany(test_preguntas_opciones, { as: "test_preguntas_opciones", foreignKey: "id_opcion"});
   test_resdetalle.belongsTo(test_opciones, { as: "id_opcion_test_opcione", foreignKey: "id_opcion"});
   test_opciones.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_opcion"});
+  web_cursos_modulos_lecciones_respreguntas.belongsTo(test_opciones, { as: "id_pregunta_opcion_test_opcione", foreignKey: "id_pregunta_opcion"});
+  test_opciones.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_pregunta_opcion"});
   test_general_preguntas.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
   test_preguntas.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_pregunta"});
+  test_preguntas_categorias.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
+  test_preguntas.hasMany(test_preguntas_categorias, { as: "test_preguntas_categoria", foreignKey: "id_pregunta"});
   test_preguntas_opciones.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
   test_preguntas.hasMany(test_preguntas_opciones, { as: "test_preguntas_opciones", foreignKey: "id_pregunta"});
   test_resdetalle.belongsTo(test_preguntas, { as: "codpre_test_pregunta", foreignKey: "codpre"});
   test_preguntas.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "codpre"});
+  web_cursos_modulos_lecciones.belongsTo(test_preguntas, { as: "test_codpre_test_pregunta", foreignKey: "test_codpre"});
+  test_preguntas.hasMany(web_cursos_modulos_lecciones, { as: "web_cursos_modulos_lecciones", foreignKey: "test_codpre"});
+  web_cursos_modulos_lecciones_respreguntas.belongsTo(test_preguntas, { as: "codpre_test_pregunta", foreignKey: "codpre"});
+  test_preguntas.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "codpre"});
+  test_recomendaciones_detalle.belongsTo(test_recomendaciones, { as: "id_recomendacion_test_recomendacione", foreignKey: "id_recomendacion"});
+  test_recomendaciones.hasMany(test_recomendaciones_detalle, { as: "test_recomendaciones_detalles", foreignKey: "id_recomendacion"});
+  web_empresas_test_recomendaciones.belongsTo(test_recomendaciones, { as: "id_test_ recomendacion_test_recomendacione", foreignKey: "id_test_ recomendacion"});
+  test_recomendaciones.hasMany(web_empresas_test_recomendaciones, { as: "web_empresas_test_recomendaciones", foreignKey: "id_test_ recomendacion"});
   test_resdetalle.belongsTo(test_resgeneral, { as: "id_test_resgeneral_test_resgeneral", foreignKey: "id_test_resgeneral"});
   test_resgeneral.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_test_resgeneral"});
   test_session_reporte_cerebro.belongsTo(test_session_reportes, { as: "id_session_reporte_test_session_reporte", foreignKey: "id_session_reporte"});
   test_session_reportes.hasMany(test_session_reporte_cerebro, { as: "test_session_reporte_cerebros", foreignKey: "id_session_reporte"});
-  web_empresas_reportes_test.belongsTo(test_session_reportes, { as: "id_session_reporte_test_session_reporte", foreignKey: "id_session_reporte"});
-  test_session_reportes.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_session_reporte"});
+  web_empresas_test_reportes.belongsTo(test_session_reportes, { as: "id_session_reporte_test_session_reporte", foreignKey: "id_session_reporte"});
+  test_session_reportes.hasMany(web_empresas_test_reportes, { as: "web_empresas_test_reportes", foreignKey: "id_session_reporte"});
   test_preguntas.belongsTo(test_tipo, { as: "tipo_test_tipo", foreignKey: "tipo"});
   test_tipo.hasMany(test_preguntas, { as: "test_pregunta", foreignKey: "tipo"});
   test_tipo_users.belongsTo(test_tipo, { as: "id_tipo_test_tipo", foreignKey: "id_tipo"});
@@ -562,10 +598,18 @@ function initModels(sequelize) {
   web_cursos.hasMany(web_cursos_modulos, { as: "web_cursos_modulos", foreignKey: "id_curso"});
   web_rutas_aprendizaje_cursos.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
   web_cursos.hasMany(web_rutas_aprendizaje_cursos, { as: "web_rutas_aprendizaje_cursos", foreignKey: "id_curso"});
+  web_rutas_aprendizaje_cursos_usuarios.belongsTo(web_cursos, { as: "id_web_curso_web_curso", foreignKey: "id_web_curso"});
+  web_cursos.hasMany(web_rutas_aprendizaje_cursos_usuarios, { as: "web_rutas_aprendizaje_cursos_usuarios", foreignKey: "id_web_curso"});
   web_cursos.belongsTo(web_cursos_categorias, { as: "id_curso_categoria_web_cursos_categoria", foreignKey: "id_curso_categoria"});
   web_cursos_categorias.hasMany(web_cursos, { as: "web_cursos", foreignKey: "id_curso_categoria"});
   web_cursos_modulos_lecciones.belongsTo(web_cursos_modulos, { as: "id_curso_modulo_web_cursos_modulo", foreignKey: "id_curso_modulo"});
   web_cursos_modulos.hasMany(web_cursos_modulos_lecciones, { as: "web_cursos_modulos_lecciones", foreignKey: "id_curso_modulo"});
+  web_cursos_modulos_lecciones_materiales.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones.hasMany(web_cursos_modulos_lecciones_materiales, { as: "web_cursos_modulos_lecciones_materiales", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones_parrafos.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones.hasMany(web_cursos_modulos_lecciones_parrafos, { as: "web_cursos_modulos_lecciones_parrafos", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones_respreguntas.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_progreso_usuarios.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_modulos_lecciones.hasMany(web_cursos_progreso_usuarios, { as: "web_cursos_progreso_usuarios", foreignKey: "id_curso_modulo_leccion"});
   biz_usuarios.belongsTo(web_empresas, { as: "empresa", foreignKey: "empresa_id"});
@@ -574,10 +618,14 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_cursos_comunidad, { as: "web_cursos_comunidads", foreignKey: "id_empresa"});
   web_empresas_areas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_empresas_areas, { as: "web_empresas_areas", foreignKey: "id_empresa"});
-  web_empresas_reportes_test.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
-  web_empresas.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_empresa"});
   web_empresas_roles.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_empresas_roles, { as: "web_empresas_roles", foreignKey: "id_empresa"});
+  web_empresas_test_activades.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_test_activades, { as: "web_empresas_test_activades", foreignKey: "id_empresa"});
+  web_empresas_test_recomendaciones.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_test_recomendaciones, { as: "web_empresas_test_recomendaciones", foreignKey: "id_empresa"});
+  web_empresas_test_reportes.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_test_reportes, { as: "web_empresas_test_reportes", foreignKey: "id_empresa"});
   web_suscripciones.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
@@ -594,8 +642,10 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_usuarios_puntos, { as: "web_usuarios_puntos", foreignKey: "id_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas_areas, { as: "id_empresa_area_web_empresas_area", foreignKey: "id_empresa_area"});
   web_empresas_areas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa_area"});
-  web_empresas_reportes_test.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
-  web_empresas_roles.hasMany(web_empresas_reportes_test, { as: "web_empresas_reportes_tests", foreignKey: "id_rol_usuario_empresa"});
+  web_empresas_test_recomendaciones.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
+  web_empresas_roles.hasMany(web_empresas_test_recomendaciones, { as: "web_empresas_test_recomendaciones", foreignKey: "id_rol_usuario_empresa"});
+  web_empresas_test_reportes.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
+  web_empresas_roles.hasMany(web_empresas_test_reportes, { as: "web_empresas_test_reportes", foreignKey: "id_rol_usuario_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas_roles, { as: "rol_empresa_web_empresas_role", foreignKey: "rol_empresa"});
   web_empresas_roles.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "rol_empresa"});
   web_cursos_instructores.belongsTo(web_instructores, { as: "id_instructor_web_instructore", foreignKey: "id_instructor"});
@@ -638,8 +688,12 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_cursos_certificados_usuarios, { as: "web_cursos_certificados_usuarios", foreignKey: "id_usuario"});
   web_cursos_comunidad.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_cursos_comunidad, { as: "web_cursos_comunidads", foreignKey: "id_usuario"});
+  web_cursos_modulos_lecciones_respreguntas.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
+  web_usuarios.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_web_usuario"});
   web_cursos_progreso_usuarios.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_cursos_progreso_usuarios, { as: "web_cursos_progreso_usuarios", foreignKey: "id_usuario"});
+  web_rutas_aprendizaje_cursos_usuarios.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
+  web_usuarios.hasMany(web_rutas_aprendizaje_cursos_usuarios, { as: "web_rutas_aprendizaje_cursos_usuarios", foreignKey: "id_web_usuario"});
   web_usuarios_empresas.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_usuario"});
   web_usuarios_felicitaciones.belongsTo(web_usuarios, { as: "id_usuario_origen_web_usuario", foreignKey: "id_usuario_origen"});
@@ -759,13 +813,16 @@ function initModels(sequelize) {
     pqrs_tipo_solicitud,
     test_actividades,
     test_actividades_ejercicios,
+    test_categorias,
     test_cerebros,
     test_general,
     test_general_preguntas,
     test_opciones,
     test_preguntas,
+    test_preguntas_categorias,
     test_preguntas_opciones,
     test_recomendaciones,
+    test_recomendaciones_detalle,
     test_resdetalle,
     test_resgeneral,
     test_session_reporte_cerebro,
@@ -791,11 +848,15 @@ function initModels(sequelize) {
     web_cursos_modulos_lecciones,
     web_cursos_modulos_lecciones_materiales,
     web_cursos_modulos_lecciones_parrafos,
+    web_cursos_modulos_lecciones_respreguntas,
     web_cursos_progreso_usuarios,
     web_empresas,
     web_empresas_areas,
-    web_empresas_reportes_test,
     web_empresas_roles,
+    web_empresas_test_activades,
+    web_empresas_test_actividad_evaluar,
+    web_empresas_test_recomendaciones,
+    web_empresas_test_reportes,
     web_instructores,
     web_niveles,
     web_rutas_aprendizaje,
