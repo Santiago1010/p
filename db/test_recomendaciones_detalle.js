@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('biz_opciones', {
+  return sequelize.define('test_recomendaciones_detalle', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -8,37 +8,28 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      type: DataTypes.STRING(150),
+      allowNull: true
     },
-    descripcion: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    url: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    orden: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    activo: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 1
-    },
-    depende: {
+    id_recomendacion: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'biz_opciones',
+        model: 'test_recomendaciones',
+        key: 'id'
+      }
+    },
+    id_cerebro: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'test_cerebros',
         key: 'id'
       }
     }
   }, {
     sequelize,
-    tableName: 'biz_opciones',
+    tableName: 'test_recomendaciones_detalle',
     timestamps: false,
     indexes: [
       {
@@ -50,10 +41,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "depende",
+        name: "FK_test_recomendaciones_detalle_test_recomendaciones",
         using: "BTREE",
         fields: [
-          { name: "depende" },
+          { name: "id_recomendacion" },
+        ]
+      },
+      {
+        name: "FK_test_recomendaciones_detalle_test_cerebros",
+        using: "BTREE",
+        fields: [
+          { name: "id_cerebro" },
         ]
       },
     ]

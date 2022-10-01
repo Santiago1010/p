@@ -1,36 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_preguntas_opciones', {
-    id: {
+  return sequelize.define('web_empresas_test_activades', {
+    id_empresa_activdad_test: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_pregunta: {
+    cod_ejercicio: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'test_preguntas',
-        key: 'codpre'
+        model: 'test_actividades_ejercicios',
+        key: 'cod_ejercicio'
       }
     },
-    id_opcion: {
+    id_empresa: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'test_opciones',
-        key: 'id'
+        model: 'web_empresas',
+        key: 'id_empresa'
       }
-    },
-    resp_correcta: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'test_preguntas_opciones',
+    tableName: 'web_empresas_test_activades',
     timestamps: false,
     indexes: [
       {
@@ -38,21 +33,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_empresa_activdad_test" },
         ]
       },
       {
-        name: "FK_test_preguntas_opciones_test_preguntas",
+        name: "FK_web_empresas_test_activades_test_actividades_ejercicios",
         using: "BTREE",
         fields: [
-          { name: "id_pregunta" },
+          { name: "cod_ejercicio" },
         ]
       },
       {
-        name: "FK_test_preguntas_opciones_test_opciones",
+        name: "FK_web_empresas_test_activades_web_empresas",
         using: "BTREE",
         fields: [
-          { name: "id_opcion" },
+          { name: "id_empresa" },
         ]
       },
     ]

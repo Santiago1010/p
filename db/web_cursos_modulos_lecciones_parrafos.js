@@ -9,7 +9,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_curso_modulo_leccion: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'web_cursos_modulos_lecciones',
+        key: 'id_curso_modulo_leccion'
+      }
     },
     titulo: {
       type: DataTypes.STRING(100),
@@ -34,6 +38,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_web_curso_modulo_leccion_parrafo" },
+        ]
+      },
+      {
+        name: "web_cursos_modulos_lecciones_parrafos_FK",
+        using: "BTREE",
+        fields: [
+          { name: "id_curso_modulo_leccion" },
         ]
       },
     ]

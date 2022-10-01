@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('web_cursos_modulos_lecciones_materiales', {
-    id_curso_material: {
+    id_curso_modulo_leccion_material: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -9,7 +9,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_curso_modulo_leccion: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'web_cursos_modulos_lecciones',
+        key: 'id_curso_modulo_leccion'
+      }
     },
     nombre_material: {
       type: DataTypes.STRING(100),
@@ -33,11 +37,11 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curso_material" },
+          { name: "id_curso_modulo_leccion_material" },
         ]
       },
       {
-        name: "FK_web_cursos_materiales_web_cursos",
+        name: "web_cursos_modulos_lecciones_materiales_FK",
         using: "BTREE",
         fields: [
           { name: "id_curso_modulo_leccion" },

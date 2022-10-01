@@ -31,6 +31,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    fortalezas: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+      defaultValue: ""
+    },
+    asp_mejora: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+      defaultValue: ""
+    },
     niv_comando: {
       type: DataTypes.TEXT,
       allowNull: false

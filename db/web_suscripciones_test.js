@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'web_suscripciones',
         key: 'id_suscripcion'
       }
+    },
+    categoria: {
+      type: DataTypes.ENUM('Basico','Avanzado'),
+      allowNull: true,
+      defaultValue: "Basico"
     }
   }, {
     sequelize,
