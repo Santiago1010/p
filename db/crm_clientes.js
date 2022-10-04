@@ -1,51 +1,51 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_instructores', {
-    id_instructor: {
+  return sequelize.define('crm_clientes', {
+    id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_completo_instructor: {
+    nit_cliente: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    nombre_cliente: {
+      type: DataTypes.STRING(300),
+      allowNull: true
+    },
+    correo_cliente: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    p_nombre_instructor: {
-      type: DataTypes.STRING(100),
+    telefono_cliente: {
+      type: DataTypes.STRING(25),
       allowNull: true
     },
-    s_nombre_instructor: {
-      type: DataTypes.STRING(100),
+    direccion_cliente: {
+      type: DataTypes.STRING(300),
       allowNull: true
     },
-    p_apellido_instructor: {
-      type: DataTypes.STRING(100),
+    sector_cliente: {
+      type: DataTypes.STRING(50),
       allowNull: true
     },
-    s_apellido_instructor: {
-      type: DataTypes.STRING(100),
+    tipo_cliente: {
+      type: DataTypes.ENUM('Makro','Micro'),
       allowNull: true
     },
-    email_instructor: {
-      type: DataTypes.STRING(100),
+    pais_cliente: {
+      type: DataTypes.INTEGER,
       allowNull: true
     },
-    celular_instructor: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    cargo: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    biografia: {
-      type: DataTypes.STRING(255),
+    ciudad_cliente: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'web_instructores',
+    tableName: 'crm_clientes',
     timestamps: false,
     indexes: [
       {
@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_instructor" },
+          { name: "id" },
         ]
       },
     ]

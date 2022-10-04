@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_usuarios_notificaciones', {
-    id_usuario_notificacion: {
+  return sequelize.define('web_cursos_quiz_resgeneral', {
+    id_quiz_resgeneral: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,39 +15,44 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_usuario'
       }
     },
-    id_suscripcion: {
+    id_quiz: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'web_suscripciones',
-        key: 'id_suscripcion'
-      }
-    },
-    id_test_resgeneral: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'test_resgeneral',
-        key: 'id'
-      }
-    },
-    texto_notificacion: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    fecha_notificacion: {
-      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      references: {
+        model: 'web_cursos_quiz',
+        key: 'id_quiz'
+      }
     },
-    visto_notificacion: {
+    intentos: {
       type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    puntaje: {
+      type: DataTypes.DECIMAL(10,0),
+      allowNull: true,
+      defaultValue: 0
+    },
+    tiempo: {
+      type: DataTypes.TIME,
+      allowNull: true
+    },
+    aprobado: {
+      type: DataTypes.TINYINT.UNSIGNED,
       allowNull: false,
       defaultValue: 0
+    },
+    id_certificado: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_certificados',
+        key: 'id_certificados'
+      }
     }
   }, {
     sequelize,
-    tableName: 'web_usuarios_notificaciones',
+    tableName: 'web_cursos_quiz_resgeneral',
     timestamps: false,
     indexes: [
       {
@@ -55,28 +60,30 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_usuario_notificacion" },
+          { name: "id_quiz_resgeneral" },
         ]
       },
       {
-        name: "FK_web_usuarios_notificaciones_web_usuarios",
+        name: "web_cursos_quiz_resgeneral_UN",
+        unique: true,
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
+          { name: "id_quiz" },
         ]
       },
       {
-        name: "FK_web_usuarios_notificaciones_web_empresas",
+        name: "web_cursos_quiz_resgeneral_FK_1",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion" },
+          { name: "id_quiz" },
         ]
       },
       {
-        name: "FK_web_usuarios_notificaciones_test_resgeneral",
+        name: "FK_web_cursos_quiz_resgeneral_web_certificados",
         using: "BTREE",
         fields: [
-          { name: "id_test_resgeneral" },
+          { name: "id_certificado" },
         ]
       },
     ]

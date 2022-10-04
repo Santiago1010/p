@@ -18,6 +18,26 @@ module.exports = function(sequelize, DataTypes) {
         model: 'web_componentes_categorias',
         key: 'id_componente_categoria'
       }
+    },
+    correo_componente: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    apikey_componente: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    apisecrect: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    token: {
+      type: DataTypes.STRING(300),
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

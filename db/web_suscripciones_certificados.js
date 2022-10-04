@@ -1,19 +1,11 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_suscripciones_test', {
-    id_suscripcion_test: {
+  return sequelize.define('web_suscripciones_certificados', {
+    id_suscripcion_certificado: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
-    },
-    id_test: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'test_general',
-        key: 'id'
-      }
     },
     id_suscripcion: {
       type: DataTypes.INTEGER,
@@ -23,14 +15,17 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_suscripcion'
       }
     },
-    categoria: {
-      type: DataTypes.ENUM('Basico','Avanzado'),
+    id_certificado: {
+      type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: "Basico"
+      references: {
+        model: 'web_certificados',
+        key: 'id_certificados'
+      }
     }
   }, {
     sequelize,
-    tableName: 'web_suscripciones_test',
+    tableName: 'web_suscripciones_certificados',
     timestamps: false,
     indexes: [
       {
@@ -38,23 +33,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_test" },
+          { name: "id_suscripcion_certificado" },
         ]
       },
       {
-        name: "id_test_id_suscripcion",
-        unique: true,
+        name: "FK_web_suscripciones_certificados_web_suscripciones",
         using: "BTREE",
         fields: [
-          { name: "id_test" },
           { name: "id_suscripcion" },
         ]
       },
       {
-        name: "FK_web_suscripciones_test_web_suscripciones",
+        name: "FK_web_suscripciones_certificados_web_certificados",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion" },
+          { name: "id_certificado" },
         ]
       },
     ]

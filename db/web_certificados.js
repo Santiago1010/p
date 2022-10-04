@@ -1,23 +1,27 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_empresas_test_actividad_evaluar', {
-    id_empresa_test_actividad_evalua: {
+  return sequelize.define('web_certificados', {
+    id_certificados: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_web_usuario: {
+    nombre_certificados: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    cod_ejercicio: {
-      type: DataTypes.INTEGER,
+    contenido_html: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    contenido_css: {
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'web_empresas_test_actividad_evaluar',
+    tableName: 'web_certificados',
     timestamps: false,
     indexes: [
       {
@@ -25,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_empresa_test_actividad_evalua" },
+          { name: "id_certificados" },
         ]
       },
     ]

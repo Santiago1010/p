@@ -1,35 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_cursos_certificados_usuarios', {
-    id_curso_certificado_usuario: {
+  return sequelize.define('web_suscripciones_programas_formacion', {
+    id_suscripcion_programa_formacion: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_curso: {
+    id_suscripcion: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_cursos',
-        key: 'id_curso'
+        model: 'web_suscripciones',
+        key: 'id_suscripcion'
       }
     },
-    id_usuario: {
+    id_programa_formacion: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_usuarios',
-        key: 'id_usuario'
+        model: 'web_programas_formacion',
+        key: 'id_programa_formacion'
       }
-    },
-    fecha: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'web_cursos_certificados_usuarios',
+    tableName: 'web_suscripciones_programas_formacion',
     timestamps: false,
     indexes: [
       {
@@ -37,23 +33,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curso_certificado_usuario" },
+          { name: "id_suscripcion_programa_formacion" },
         ]
       },
       {
-        name: "id_curso_id_usuario",
-        unique: true,
+        name: "FK_web_suscripciones_programas_formacion_web_suscripciones",
         using: "BTREE",
         fields: [
-          { name: "id_curso" },
-          { name: "id_usuario" },
+          { name: "id_suscripcion" },
         ]
       },
       {
-        name: "FK_web_cursos_certificados_usuarios_web_usuarios",
+        name: "FK_web_suscripciones_programas_formacion_web_programas_formacion",
         using: "BTREE",
         fields: [
-          { name: "id_usuario" },
+          { name: "id_programa_formacion" },
         ]
       },
     ]

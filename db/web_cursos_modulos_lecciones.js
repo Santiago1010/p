@@ -24,8 +24,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     tipo_recurso_leccion: {
-      type: DataTypes.ENUM('Video','Audio','Parrafo'),
-      allowNull: true,
+      type: DataTypes.ENUM('Video','Audio','Parrafo','Pregunta','Quiz'),
+      allowNull: false,
       defaultValue: "Video"
     },
     recurso_leccion: {
