@@ -1,28 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_tipo', {
-    id: {
+  return sequelize.define('crm_productos', {
+    id_producto_promocion: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    descripcion: {
-      type: DataTypes.STRING(15),
-      allowNull: false
+    nombre_producto_promocion: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     },
-    estado: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 1
-    },
-    tipo_test: {
-      type: DataTypes.ENUM('test','encuesta','quiz'),
-      allowNull: false
+    tabla_asociada: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'test_tipo',
+    tableName: 'crm_productos',
     timestamps: false,
     indexes: [
       {
@@ -30,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_producto_promocion" },
         ]
       },
     ]

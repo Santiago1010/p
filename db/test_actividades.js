@@ -12,8 +12,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     cerebro: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      references: {
+        model: 'test_cerebros',
+        key: 'id'
+      }
     },
     cant_ejerc: {
       type: DataTypes.INTEGER,
@@ -42,6 +47,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "FK_test_actividades_test_cerebros",
+        using: "BTREE",
+        fields: [
+          { name: "cerebro" },
         ]
       },
     ]

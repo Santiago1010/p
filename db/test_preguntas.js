@@ -34,7 +34,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     estado: {
       type: DataTypes.ENUM('ACTIVO','INACTIVO'),
-      allowNull: false
+      allowNull: false,
+      defaultValue: "ACTIVO"
+    },
+    opciones_correctas: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,

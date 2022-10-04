@@ -1,39 +1,44 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_general_preguntas', {
+  return sequelize.define('web_cursos_quiz_resdetalle', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_test_general: {
+    id_quiz_resgeneral: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'test_general',
-        key: 'id'
+        model: 'web_cursos_quiz_resgeneral',
+        key: 'id_quiz_resgeneral'
       }
     },
     id_pregunta: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'test_preguntas',
         key: 'codpre'
       }
     },
-    puntaje_pregunta: {
-      type: DataTypes.DECIMAL(10,0),
-      allowNull: true
+    id_opcion: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_opciones',
+        key: 'id'
+      }
     },
-    tiempo: {
-      type: DataTypes.TIME,
-      allowNull: true
+    puntaje: {
+      type: DataTypes.DECIMAL(10,0),
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,
-    tableName: 'test_general_preguntas',
+    tableName: 'web_cursos_quiz_resdetalle',
     timestamps: false,
     indexes: [
       {
@@ -45,19 +50,24 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id_test_general_id_pregunta",
-        unique: true,
+        name: "web_curso_quiz_resdetalle_resgeneral_FK",
         using: "BTREE",
         fields: [
-          { name: "id_test_general" },
+          { name: "id_quiz_resgeneral" },
+        ]
+      },
+      {
+        name: "web_curso_quiz_resdetalle_pregunta_FK",
+        using: "BTREE",
+        fields: [
           { name: "id_pregunta" },
         ]
       },
       {
-        name: "FK_test_general_preguntas2_test_preguntas",
+        name: "web_curso_quiz_resdetalle_FK",
         using: "BTREE",
         fields: [
-          { name: "id_pregunta" },
+          { name: "id_opcion" },
         ]
       },
     ]

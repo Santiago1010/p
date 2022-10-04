@@ -1,28 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('test_tipo', {
+  return sequelize.define('crm_contratos_modelos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    descripcion: {
-      type: DataTypes.STRING(15),
-      allowNull: false
+    titulo_contrato: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     },
-    estado: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-      defaultValue: 1
-    },
-    tipo_test: {
-      type: DataTypes.ENUM('test','encuesta','quiz'),
-      allowNull: false
+    contenido_contrato: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'test_tipo',
+    tableName: 'crm_contratos_modelos',
     timestamps: false,
     indexes: [
       {
