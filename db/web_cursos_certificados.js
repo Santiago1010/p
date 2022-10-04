@@ -13,17 +13,20 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'web_cursos',
         key: 'id_curso'
-      },
-      unique: "FK_web_cursos_certificados_web_cursos"
+      }
     },
     id_certificado: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'web_certificados',
-        key: 'id_certificados'
-      },
-      unique: "FK_web_cursos_certificados_web_certificados"
+        key: 'id_certificado'
+      }
+    },
+    estado: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
@@ -39,16 +42,16 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id_curso",
+        name: "web_cursos_certificados_UN",
         unique: true,
         using: "BTREE",
         fields: [
           { name: "id_curso" },
+          { name: "id_certificado" },
         ]
       },
       {
-        name: "id_certificado",
-        unique: true,
+        name: "web_cursos_certificados_FK_1",
         using: "BTREE",
         fields: [
           { name: "id_certificado" },

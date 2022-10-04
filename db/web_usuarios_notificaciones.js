@@ -23,11 +23,11 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_suscripcion'
       }
     },
-    id_test_resgeneral: {
+    id_test: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'test_resgeneral',
+        model: 'test_general',
         key: 'id'
       }
     },
@@ -76,7 +76,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "FK_web_usuarios_notificaciones_test_resgeneral",
         using: "BTREE",
         fields: [
-          { name: "id_test_resgeneral" },
+          { name: "id_test" },
         ]
       },
     ]

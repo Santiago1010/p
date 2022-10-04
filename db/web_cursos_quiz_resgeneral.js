@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     intentos: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 0
+      defaultValue: 1
     },
     puntaje: {
       type: DataTypes.DECIMAL(10,0),
@@ -42,12 +42,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0
     },
-    id_certificado: {
+    id_curso_certificado: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_certificados',
-        key: 'id_certificados'
+        model: 'web_cursos_certificados',
+        key: 'id_curso_certificado'
       }
     }
   }, {
@@ -80,10 +80,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_web_cursos_quiz_resgeneral_web_certificados",
+        name: "web_cursos_quiz_resgeneral_FK_2",
         using: "BTREE",
         fields: [
-          { name: "id_certificado" },
+          { name: "id_curso_certificado" },
         ]
       },
     ]
