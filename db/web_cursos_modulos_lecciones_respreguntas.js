@@ -23,20 +23,28 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_curso_modulo_leccion'
       }
     },
+<<<<<<< HEAD
     id_opcion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'test_opciones',
-        key: 'id'
-      }
-    },
+=======
     id_pregunta: {
+>>>>>>> dev_m
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'test_preguntas',
         key: 'codpre'
+      }
+    },
+<<<<<<< HEAD
+    id_pregunta: {
+=======
+    id_opcion: {
+>>>>>>> dev_m
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_opciones',
+        key: 'id'
       }
     }
   }, {
@@ -53,10 +61,15 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_cursos_modulos_lecciones_respreguntas_FK",
+        name: "web_cursos_modulos_lecciones_respreguntas_UN",
+        unique: true,
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
+<<<<<<< HEAD
+=======
+          { name: "id_leccion" },
+>>>>>>> dev_m
         ]
       },
       {
