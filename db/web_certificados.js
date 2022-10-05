@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('web_certificados', {
-    id_certificados: {
+    id_certificado: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_certificados" },
+          { name: "id_certificado" },
         ]
       },
     ]

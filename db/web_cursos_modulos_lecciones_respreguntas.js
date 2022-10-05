@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('web_cursos_modulos_lecciones_respreguntas', {
-    id_cursos_modulos_lecciones_respreguntas: {
+    id_lecciones_respreguntas: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_web_usuario: {
+    id_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_usuario'
       }
     },
-    id_curso_modulo_leccion: {
+    id_leccion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -23,20 +23,20 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_curso_modulo_leccion'
       }
     },
-    id_pregunta_opcion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'test_opciones',
-        key: 'id'
-      }
-    },
-    codpre: {
+    id_pregunta: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'test_preguntas',
         key: 'codpre'
+      }
+    },
+    id_opcion: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_opciones',
+        key: 'id'
       }
     }
   }, {
@@ -49,35 +49,37 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_cursos_modulos_lecciones_respreguntas" },
+          { name: "id_lecciones_respreguntas" },
         ]
       },
       {
-        name: "web_cursos_modulos_lecciones_respreguntas_FK",
+        name: "web_cursos_modulos_lecciones_respreguntas_UN",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_web_usuario" },
+          { name: "id_usuario" },
+          { name: "id_leccion" },
         ]
       },
       {
         name: "web_cursos_modulos_lecciones_respreguntas_FK_1",
         using: "BTREE",
         fields: [
-          { name: "codpre" },
+          { name: "id_pregunta" },
         ]
       },
       {
         name: "web_cursos_modulos_lecciones_respreguntas_FK_2",
         using: "BTREE",
         fields: [
-          { name: "id_pregunta_opcion" },
+          { name: "id_opcion" },
         ]
       },
       {
         name: "web_cursos_modulos_lecciones_respreguntas_FK_3",
         using: "BTREE",
         fields: [
-          { name: "id_curso_modulo_leccion" },
+          { name: "id_leccion" },
         ]
       },
     ]

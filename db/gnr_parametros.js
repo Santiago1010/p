@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     aniopar: {
-      type: DataTypes.DATE(4),
+      type: DataTypes.STRING(4),
       allowNull: false
     },
     tipoevl: {

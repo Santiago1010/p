@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       references: {
         model: 'web_certificados',
-        key: 'id_certificados'
+        key: 'id_certificado'
       }
     }
   }, {

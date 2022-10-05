@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(150),
       allowNull: true
     },
-    autor_evento: {
+    conferencista: {
       type: DataTypes.STRING(50),
       allowNull: true
     },
@@ -45,6 +45,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     medio: {
       type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    imagen: {
+      type: DataTypes.STRING(150),
       allowNull: true
     },
     link: {

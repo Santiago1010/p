@@ -15,19 +15,19 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_usuario'
       }
     },
-    id_suscripcion: {
+    id_empresa: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_suscripciones',
-        key: 'id_suscripcion'
+        model: 'web_empresas',
+        key: 'id_empresa'
       }
     },
-    id_test_resgeneral: {
+    id_test: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'test_resgeneral',
+        model: 'test_general',
         key: 'id'
       }
     },
@@ -66,17 +66,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_web_usuarios_notificaciones_web_empresas",
-        using: "BTREE",
-        fields: [
-          { name: "id_suscripcion" },
-        ]
-      },
-      {
         name: "FK_web_usuarios_notificaciones_test_resgeneral",
         using: "BTREE",
         fields: [
-          { name: "id_test_resgeneral" },
+          { name: "id_test" },
+        ]
+      },
+      {
+        name: "FK_web_usuarios_notificaciones_web_empresas",
+        using: "BTREE",
+        fields: [
+          { name: "id_empresa" },
         ]
       },
     ]
