@@ -76,11 +76,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "FK_web_usuarios_notificaciones_web_empresas",
         using: "BTREE",
         fields: [
-<<<<<<< HEAD
-          { name: "id_test" },
-=======
           { name: "id_empresa" },
->>>>>>> dev_m
         ]
       },
     ]

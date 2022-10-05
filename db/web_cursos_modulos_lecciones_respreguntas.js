@@ -23,11 +23,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_curso_modulo_leccion'
       }
     },
-<<<<<<< HEAD
-    id_opcion: {
-=======
     id_pregunta: {
->>>>>>> dev_m
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -35,11 +31,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'codpre'
       }
     },
-<<<<<<< HEAD
-    id_pregunta: {
-=======
     id_opcion: {
->>>>>>> dev_m
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -66,10 +58,7 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
-<<<<<<< HEAD
-=======
           { name: "id_leccion" },
->>>>>>> dev_m
         ]
       },
       {

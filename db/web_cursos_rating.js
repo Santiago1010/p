@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_cursos_raiting', {
-    id_curso_raiting: {
+  return sequelize.define('web_cursos_rating', {
+    id_curso_rating: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     recomendacion: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TINYINT.UNSIGNED,
       allowNull: true,
       comment: "0= NO, 1 = Si (Recomiendas este curso)"
     },
@@ -38,13 +38,13 @@ module.exports = function(sequelize, DataTypes) {
       comment: "Cuéntale a todos qué es lo más TOP de este curso"
     },
     visible: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TINYINT.UNSIGNED,
       allowNull: true,
       defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'web_cursos_raiting',
+    tableName: 'web_cursos_rating',
     timestamps: false,
     indexes: [
       {
@@ -52,14 +52,16 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curso_raiting" },
+          { name: "id_curso_rating" },
         ]
       },
       {
-        name: "FK_web_cursos_raiting_web_cursos",
+        name: "web_cursos_raiting_usuario_curso_UN",
+        unique: true,
         using: "BTREE",
         fields: [
           { name: "id_curso" },
+          { name: "id_usuario" },
         ]
       },
       {

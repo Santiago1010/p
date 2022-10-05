@@ -1,26 +1,18 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_cursos_comunidad', {
-    id_curso_comunidad: {
+  return sequelize.define('web_cursos_comunidad_comentarios', {
+    id_curso_comunidad_comentario: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_curso: {
+    id_curso_comunidad: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'web_cursos',
-        key: 'id_curso'
-      }
-    },
-    id_empresa: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'web_empresas',
-        key: 'id_empresa'
+        model: 'web_cursos_comunidad',
+        key: 'id_curso_comunidad'
       }
     },
     id_usuario: {
@@ -31,14 +23,9 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_usuario'
       }
     },
-    contenido: {
+    comentario: {
       type: DataTypes.STRING(300),
       allowNull: false
-    },
-    likes: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0
     },
     fecha: {
       type: DataTypes.DATE,
@@ -47,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'web_cursos_comunidad',
+    tableName: 'web_cursos_comunidad_comentarios',
     timestamps: false,
     indexes: [
       {
@@ -55,30 +42,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curso_comunidad" },
+          { name: "id_curso_comunidad_comentario" },
         ]
       },
       {
-        name: "web_cursos_comunidad_UN",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id_curso" },
-          { name: "id_empresa" },
-        ]
-      },
-      {
-        name: "FK_web_cursos_comunidad_web_empresas",
-        using: "BTREE",
-        fields: [
-          { name: "id_empresa" },
-        ]
-      },
-      {
-        name: "FK_web_cursos_comunidad_web_usuarios",
+        name: "web_cursos_comunidad_comentarios_FK_1",
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
+        ]
+      },
+      {
+        name: "web_cursos_comunidad_comentarios_FK",
+        using: "BTREE",
+        fields: [
+          { name: "id_curso_comunidad" },
         ]
       },
     ]
