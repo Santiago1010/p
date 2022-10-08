@@ -51,6 +51,10 @@ module.exports = function(sequelize, DataTypes) {
     fchadd: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    tipo_recurso: {
+      type: DataTypes.BLOB,
+      allowNull: true
     }
   }, {
     sequelize,
