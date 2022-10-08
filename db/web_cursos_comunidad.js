@@ -59,26 +59,24 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_cursos_comunidad_UN",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id_curso" },
-          { name: "id_empresa" },
-        ]
-      },
-      {
-        name: "FK_web_cursos_comunidad_web_empresas",
-        using: "BTREE",
-        fields: [
-          { name: "id_empresa" },
-        ]
-      },
-      {
-        name: "FK_web_cursos_comunidad_web_usuarios",
+        name: "web_cursos_comunidad_FK",
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
+        ]
+      },
+      {
+        name: "web_cursos_comunidad_FK_1",
+        using: "BTREE",
+        fields: [
+          { name: "id_empresa" },
+        ]
+      },
+      {
+        name: "web_cursos_comunidad_FK_2",
+        using: "BTREE",
+        fields: [
+          { name: "id_curso" },
         ]
       },
     ]

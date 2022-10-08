@@ -129,6 +129,7 @@ var _web_cursos_modulos_lecciones_materiales = require("./web_cursos_modulos_lec
 var _web_cursos_modulos_lecciones_parrafos = require("./web_cursos_modulos_lecciones_parrafos");
 var _web_cursos_modulos_lecciones_respreguntas = require("./web_cursos_modulos_lecciones_respreguntas");
 var _web_cursos_progreso_usuarios = require("./web_cursos_progreso_usuarios");
+var _web_cursos_progreso_usuarios_historial = require("./web_cursos_progreso_usuarios_historial");
 var _web_cursos_quiz = require("./web_cursos_quiz");
 var _web_cursos_quiz_resdetalle = require("./web_cursos_quiz_resdetalle");
 var _web_cursos_quiz_resgeneral = require("./web_cursos_quiz_resgeneral");
@@ -305,6 +306,7 @@ function initModels(sequelize) {
   var web_cursos_modulos_lecciones_parrafos = _web_cursos_modulos_lecciones_parrafos(sequelize, DataTypes);
   var web_cursos_modulos_lecciones_respreguntas = _web_cursos_modulos_lecciones_respreguntas(sequelize, DataTypes);
   var web_cursos_progreso_usuarios = _web_cursos_progreso_usuarios(sequelize, DataTypes);
+  var web_cursos_progreso_usuarios_historial = _web_cursos_progreso_usuarios_historial(sequelize, DataTypes);
   var web_cursos_quiz = _web_cursos_quiz(sequelize, DataTypes);
   var web_cursos_quiz_resdetalle = _web_cursos_quiz_resdetalle(sequelize, DataTypes);
   var web_cursos_quiz_resgeneral = _web_cursos_quiz_resgeneral(sequelize, DataTypes);
@@ -692,6 +694,10 @@ function initModels(sequelize) {
   web_cursos.hasMany(web_cursos_instructores, { as: "web_cursos_instructores", foreignKey: "id_curso"});
   web_cursos_modulos.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
   web_cursos.hasMany(web_cursos_modulos, { as: "web_cursos_modulos", foreignKey: "id_curso"});
+  web_cursos_progreso_usuarios.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
+  web_cursos.hasMany(web_cursos_progreso_usuarios, { as: "web_cursos_progreso_usuarios", foreignKey: "id_curso"});
+  web_cursos_progreso_usuarios_historial.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
+  web_cursos.hasMany(web_cursos_progreso_usuarios_historial, { as: "web_cursos_progreso_usuarios_historials", foreignKey: "id_curso"});
   web_cursos_quiz.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
   web_cursos.hasOne(web_cursos_quiz, { as: "web_cursos_quiz", foreignKey: "id_curso"});
   web_cursos_rating.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
@@ -716,6 +722,8 @@ function initModels(sequelize) {
   web_cursos_modulos_lecciones.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_leccion"});
   web_cursos_progreso_usuarios.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_modulos_lecciones.hasMany(web_cursos_progreso_usuarios, { as: "web_cursos_progreso_usuarios", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_progreso_usuarios_historial.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
+  web_cursos_modulos_lecciones.hasMany(web_cursos_progreso_usuarios_historial, { as: "web_cursos_progreso_usuarios_historials", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_quiz.belongsTo(web_cursos_modulos_lecciones, { as: "id_curso_modulo_leccion_web_cursos_modulos_leccione", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_modulos_lecciones.hasMany(web_cursos_quiz, { as: "web_cursos_quizzes", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_quiz_resgeneral.belongsTo(web_cursos_quiz, { as: "id_quiz_web_cursos_quiz", foreignKey: "id_quiz"});
@@ -830,6 +838,8 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_usuario"});
   web_cursos_progreso_usuarios.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_cursos_progreso_usuarios, { as: "web_cursos_progreso_usuarios", foreignKey: "id_usuario"});
+  web_cursos_progreso_usuarios_historial.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
+  web_usuarios.hasMany(web_cursos_progreso_usuarios_historial, { as: "web_cursos_progreso_usuarios_historials", foreignKey: "id_usuario"});
   web_cursos_quiz_resgeneral.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_cursos_quiz_resgeneral, { as: "web_cursos_quiz_resgenerals", foreignKey: "id_usuario"});
   web_cursos_rating.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
@@ -1000,6 +1010,7 @@ function initModels(sequelize) {
     web_cursos_modulos_lecciones_parrafos,
     web_cursos_modulos_lecciones_respreguntas,
     web_cursos_progreso_usuarios,
+    web_cursos_progreso_usuarios_historial,
     web_cursos_quiz,
     web_cursos_quiz_resdetalle,
     web_cursos_quiz_resgeneral,

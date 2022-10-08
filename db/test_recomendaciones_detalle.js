@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(150),
+      type: DataTypes.STRING(350),
       allowNull: true
     },
     id_recomendacion: {

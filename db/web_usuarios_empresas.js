@@ -57,7 +57,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     tiempo_estudio: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      comment: "En segundos"
     },
     cursos_finalizados: {
       type: DataTypes.INTEGER,
