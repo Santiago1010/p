@@ -49,6 +49,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(10,0),
       allowNull: true
     },
+    valor_total: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     fchliquidacion: {
       type: DataTypes.DATE,
       allowNull: true

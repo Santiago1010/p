@@ -15,8 +15,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     tipide: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      references: {
+        model: 'config_tipos_ident',
+        key: 'id'
+      }
     },
     fchnac: {
       type: DataTypes.DATEONLY,
@@ -265,6 +270,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "ciudad_nacimiento" },
+        ]
+      },
+      {
+        name: "adm_empleados_Fk_tipo_documento",
+        using: "BTREE",
+        fields: [
+          { name: "tipide" },
         ]
       },
     ]

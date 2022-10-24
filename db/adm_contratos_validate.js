@@ -13,7 +13,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     codcontrato: {
       type: DataTypes.STRING(80),
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'adm_empleados_contrato',
+        key: 'codcontrato'
+      }
     },
     code: {
       type: DataTypes.TEXT,
@@ -35,6 +39,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "FK_cod_contrato_contra_validate",
+        using: "BTREE",
+        fields: [
+          { name: "codcontrato" },
         ]
       },
     ]

@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     incluye_curso: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     criterio_curso: {
@@ -59,19 +59,49 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     objetivos_curso: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     requisitos_curso: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     beneficios_curso: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     cover_curso: {
       type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 1,
+      comment: "0: Inactivo, 1: Activo"
+    },
+    precio_curso: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    duracion_curso: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    idioma_curso: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    video_introductorio_curso: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    nivel_curso: {
+      type: DataTypes.ENUM('Básico','Intermedio','avanzado'),
+      allowNull: true
+    },
+    origen_curso: {
+      type: DataTypes.ENUM('Propio','Externo'),
       allowNull: true
     }
   }, {

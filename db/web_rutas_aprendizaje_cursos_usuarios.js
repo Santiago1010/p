@@ -43,10 +43,12 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_web_rutas_aprendizaje_cursos_usuarios_web_usuarios",
+        name: "web_rutas_aprendizaje_cursos_usuarios_UN",
+        unique: true,
         using: "BTREE",
         fields: [
           { name: "id_web_usuario" },
+          { name: "id_web_curso" },
         ]
       },
       {

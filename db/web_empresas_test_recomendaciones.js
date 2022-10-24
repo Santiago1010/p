@@ -7,20 +7,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    'id_test_ recomendacion': {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'test_recomendaciones',
-        key: 'id'
-      }
-    },
     id_empresa: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'web_empresas',
         key: 'id_empresa'
+      }
+    },
+    'id_test_ recomendacion': {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'test_recomendaciones',
+        key: 'id'
       }
     },
     id_rol_usuario_empresa: {

@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     id_suscripcion: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      comment: "null: ruta aprendizaje predeterminada, idUsuario -> rutaAutogestionada",
       references: {
         model: 'web_suscripciones',
         key: 'id_suscripcion'
@@ -21,6 +22,14 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'web_rutas_aprendizaje',
         key: 'id_ruta_aprendizaje'
+      }
+    },
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_usuarios',
+        key: 'id_usuario'
       }
     }
   }, {
@@ -50,6 +59,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_ruta_aprendizaje" },
+        ]
+      },
+      {
+        name: "FK_web_suscripciones_rutas_aprendizaje_web_usuarios",
+        using: "BTREE",
+        fields: [
+          { name: "id_usuario" },
         ]
       },
     ]
