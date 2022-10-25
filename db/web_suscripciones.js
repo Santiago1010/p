@@ -40,6 +40,16 @@ module.exports = function(sequelize, DataTypes) {
     fecha_fin: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    auto_gestionable: {
+      type: DataTypes.ENUM('virtual','interno','externo'),
+      allowNull: true,
+      comment: "null: no aplica, virtual, interno, externo"
+    },
+    limite_cursos: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: "null: no aplica"
     }
   }, {
     sequelize,

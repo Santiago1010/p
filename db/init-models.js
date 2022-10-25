@@ -31,6 +31,7 @@ var _biz_opciones = require("./biz_opciones");
 var _biz_roles = require("./biz_roles");
 var _biz_roles_opciones = require("./biz_roles_opciones");
 var _biz_usuarios = require("./biz_usuarios");
+var _biz_usuarios_areas = require("./biz_usuarios_areas");
 var _biz_usuarios_opciones = require("./biz_usuarios_opciones");
 var _calendario = require("./calendario");
 var _calendario_categorias = require("./calendario_categorias");
@@ -137,13 +138,14 @@ var _web_cursos_rating = require("./web_cursos_rating");
 var _web_empresas = require("./web_empresas");
 var _web_empresas_areas = require("./web_empresas_areas");
 var _web_empresas_roles = require("./web_empresas_roles");
-var _web_empresas_test_activades = require("./web_empresas_test_activades");
+var _web_empresas_test_actividades = require("./web_empresas_test_actividades");
 var _web_empresas_test_recomendaciones = require("./web_empresas_test_recomendaciones");
 var _web_empresas_test_reportes = require("./web_empresas_test_reportes");
 var _web_eventos = require("./web_eventos");
 var _web_eventos_asistencias = require("./web_eventos_asistencias");
 var _web_eventos_categorias = require("./web_eventos_categorias");
 var _web_eventos_recursos = require("./web_eventos_recursos");
+var _web_imagenes = require("./web_imagenes");
 var _web_instructores = require("./web_instructores");
 var _web_niveles = require("./web_niveles");
 var _web_notificaciones = require("./web_notificaciones");
@@ -151,10 +153,12 @@ var _web_notificaciones_categorias = require("./web_notificaciones_categorias");
 var _web_programas_formacion = require("./web_programas_formacion");
 var _web_programas_formacion_calendario = require("./web_programas_formacion_calendario");
 var _web_programas_formacion_categoria = require("./web_programas_formacion_categoria");
+var _web_redes_sociales = require("./web_redes_sociales");
 var _web_rutas_aprendizaje = require("./web_rutas_aprendizaje");
 var _web_rutas_aprendizaje_categorias = require("./web_rutas_aprendizaje_categorias");
 var _web_rutas_aprendizaje_cursos = require("./web_rutas_aprendizaje_cursos");
 var _web_rutas_aprendizaje_cursos_usuarios = require("./web_rutas_aprendizaje_cursos_usuarios");
+var _web_rutas_aprendizaje_niveles = require("./web_rutas_aprendizaje_niveles");
 var _web_rutas_aprendizajes_sugerencias = require("./web_rutas_aprendizajes_sugerencias");
 var _web_suscripcion_notificaciones = require("./web_suscripcion_notificaciones");
 var _web_suscripciones = require("./web_suscripciones");
@@ -173,6 +177,7 @@ var _web_usuarios_lista_deseos = require("./web_usuarios_lista_deseos");
 var _web_usuarios_niveles = require("./web_usuarios_niveles");
 var _web_usuarios_notificaciones = require("./web_usuarios_notificaciones");
 var _web_usuarios_puntos = require("./web_usuarios_puntos");
+var _web_usuarios_redes = require("./web_usuarios_redes");
 var _web_usuarios_suscripciones = require("./web_usuarios_suscripciones");
 
 function initModels(sequelize) {
@@ -208,6 +213,7 @@ function initModels(sequelize) {
   var biz_roles = _biz_roles(sequelize, DataTypes);
   var biz_roles_opciones = _biz_roles_opciones(sequelize, DataTypes);
   var biz_usuarios = _biz_usuarios(sequelize, DataTypes);
+  var biz_usuarios_areas = _biz_usuarios_areas(sequelize, DataTypes);
   var biz_usuarios_opciones = _biz_usuarios_opciones(sequelize, DataTypes);
   var calendario = _calendario(sequelize, DataTypes);
   var calendario_categorias = _calendario_categorias(sequelize, DataTypes);
@@ -314,13 +320,14 @@ function initModels(sequelize) {
   var web_empresas = _web_empresas(sequelize, DataTypes);
   var web_empresas_areas = _web_empresas_areas(sequelize, DataTypes);
   var web_empresas_roles = _web_empresas_roles(sequelize, DataTypes);
-  var web_empresas_test_activades = _web_empresas_test_activades(sequelize, DataTypes);
+  var web_empresas_test_actividades = _web_empresas_test_actividades(sequelize, DataTypes);
   var web_empresas_test_recomendaciones = _web_empresas_test_recomendaciones(sequelize, DataTypes);
   var web_empresas_test_reportes = _web_empresas_test_reportes(sequelize, DataTypes);
   var web_eventos = _web_eventos(sequelize, DataTypes);
   var web_eventos_asistencias = _web_eventos_asistencias(sequelize, DataTypes);
   var web_eventos_categorias = _web_eventos_categorias(sequelize, DataTypes);
   var web_eventos_recursos = _web_eventos_recursos(sequelize, DataTypes);
+  var web_imagenes = _web_imagenes(sequelize, DataTypes);
   var web_instructores = _web_instructores(sequelize, DataTypes);
   var web_niveles = _web_niveles(sequelize, DataTypes);
   var web_notificaciones = _web_notificaciones(sequelize, DataTypes);
@@ -328,10 +335,12 @@ function initModels(sequelize) {
   var web_programas_formacion = _web_programas_formacion(sequelize, DataTypes);
   var web_programas_formacion_calendario = _web_programas_formacion_calendario(sequelize, DataTypes);
   var web_programas_formacion_categoria = _web_programas_formacion_categoria(sequelize, DataTypes);
+  var web_redes_sociales = _web_redes_sociales(sequelize, DataTypes);
   var web_rutas_aprendizaje = _web_rutas_aprendizaje(sequelize, DataTypes);
   var web_rutas_aprendizaje_categorias = _web_rutas_aprendizaje_categorias(sequelize, DataTypes);
   var web_rutas_aprendizaje_cursos = _web_rutas_aprendizaje_cursos(sequelize, DataTypes);
   var web_rutas_aprendizaje_cursos_usuarios = _web_rutas_aprendizaje_cursos_usuarios(sequelize, DataTypes);
+  var web_rutas_aprendizaje_niveles = _web_rutas_aprendizaje_niveles(sequelize, DataTypes);
   var web_rutas_aprendizajes_sugerencias = _web_rutas_aprendizajes_sugerencias(sequelize, DataTypes);
   var web_suscripcion_notificaciones = _web_suscripcion_notificaciones(sequelize, DataTypes);
   var web_suscripciones = _web_suscripciones(sequelize, DataTypes);
@@ -350,6 +359,7 @@ function initModels(sequelize) {
   var web_usuarios_niveles = _web_usuarios_niveles(sequelize, DataTypes);
   var web_usuarios_notificaciones = _web_usuarios_notificaciones(sequelize, DataTypes);
   var web_usuarios_puntos = _web_usuarios_puntos(sequelize, DataTypes);
+  var web_usuarios_redes = _web_usuarios_redes(sequelize, DataTypes);
   var web_usuarios_suscripciones = _web_usuarios_suscripciones(sequelize, DataTypes);
 
   adm_cargos.belongsToMany(adm_funciones, { as: 'idfuncion_adm_funciones', through: adm_funciones_cargos, foreignKey: "idcargo", otherKey: "idfuncion" });
@@ -420,6 +430,8 @@ function initModels(sequelize) {
   adm_empleados.hasMany(usuarios, { as: "usuarios", foreignKey: "codemp"});
   adm_contratos_funciones.belongsTo(adm_empleados_contrato, { as: "codcontrato_adm_empleados_contrato", foreignKey: "codcontrato"});
   adm_empleados_contrato.hasMany(adm_contratos_funciones, { as: "adm_contratos_funciones", foreignKey: "codcontrato"});
+  adm_contratos_validate.belongsTo(adm_empleados_contrato, { as: "codcontrato_adm_empleados_contrato", foreignKey: "codcontrato"});
+  adm_empleados_contrato.hasMany(adm_contratos_validate, { as: "adm_contratos_validates", foreignKey: "codcontrato"});
   adm_empleados.belongsTo(adm_empleados_contrato, { as: "contratos_adm_empleados_contrato", foreignKey: "contratos"});
   adm_empleados_contrato.hasMany(adm_empleados, { as: "adm_empleados", foreignKey: "contratos"});
   adm_contratos_funciones.belongsTo(adm_funciones, { as: "idfuncion_adm_funcione", foreignKey: "idfuncion"});
@@ -456,6 +468,8 @@ function initModels(sequelize) {
   biz_roles.hasMany(biz_roles_opciones, { as: "biz_roles_opciones", foreignKey: "id_rol"});
   biz_usuarios.belongsTo(biz_roles, { as: "rol_biz_role", foreignKey: "rol"});
   biz_roles.hasMany(biz_usuarios, { as: "biz_usuarios", foreignKey: "rol"});
+  biz_usuarios_areas.belongsTo(biz_usuarios, { as: "id_biz_usuario_biz_usuario", foreignKey: "id_biz_usuario"});
+  biz_usuarios.hasMany(biz_usuarios_areas, { as: "biz_usuarios_areas", foreignKey: "id_biz_usuario"});
   biz_usuarios_opciones.belongsTo(biz_usuarios, { as: "id_usuario_biz_usuario", foreignKey: "id_usuario"});
   biz_usuarios.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_usuario"});
   calendario.belongsTo(calendario_categorias, { as: "id_categoria_calendario_categoria", foreignKey: "id_categoria"});
@@ -470,6 +484,8 @@ function initModels(sequelize) {
   config_ciudades.hasMany(matricula_familiares, { as: "lugar_nacimiento_matricula_familiares", foreignKey: "lugar_nacimiento"});
   gnr_parametros.belongsTo(config_periodo, { as: "perevl_config_periodo", foreignKey: "perevl"});
   config_periodo.hasMany(gnr_parametros, { as: "gnr_parametros", foreignKey: "perevl"});
+  adm_empleados.belongsTo(config_tipos_ident, { as: "tipide_config_tipos_ident", foreignKey: "tipide"});
+  config_tipos_ident.hasMany(adm_empleados, { as: "adm_empleados", foreignKey: "tipide"});
   matricula_familiares.belongsTo(config_tipos_ident, { as: "ident_tipo_config_tipos_ident", foreignKey: "ident_tipo"});
   config_tipos_ident.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "ident_tipo"});
   crm_ventas.belongsTo(crm_contratos_modelos, { as: "id_contrato_crm_contratos_modelo", foreignKey: "id_contrato"});
@@ -578,8 +594,8 @@ function initModels(sequelize) {
   test_actividades.hasMany(test_actividades_ejercicios, { as: "test_actividades_ejercicios", foreignKey: "cod_actividad"});
   test_actividades_ejercicios_usuarios.belongsTo(test_actividades_ejercicios, { as: "cod_ejercicio_test_actividades_ejercicio", foreignKey: "cod_ejercicio"});
   test_actividades_ejercicios.hasMany(test_actividades_ejercicios_usuarios, { as: "test_actividades_ejercicios_usuarios", foreignKey: "cod_ejercicio"});
-  web_empresas_test_activades.belongsTo(test_actividades_ejercicios, { as: "cod_ejercicio_test_actividades_ejercicio", foreignKey: "cod_ejercicio"});
-  test_actividades_ejercicios.hasMany(web_empresas_test_activades, { as: "web_empresas_test_activades", foreignKey: "cod_ejercicio"});
+  web_empresas_test_actividades.belongsTo(test_actividades_ejercicios, { as: "cod_ejercicio_test_actividades_ejercicio", foreignKey: "cod_ejercicio"});
+  test_actividades_ejercicios.hasMany(web_empresas_test_actividades, { as: "web_empresas_test_actividades", foreignKey: "cod_ejercicio"});
   test_preguntas_categorias.belongsTo(test_categorias, { as: "id_test_categoria", foreignKey: "id"});
   test_categorias.hasOne(test_preguntas_categorias, { as: "test_preguntas_categorium", foreignKey: "id"});
   test_actividades.belongsTo(test_cerebros, { as: "cerebro_test_cerebro", foreignKey: "cerebro"});
@@ -738,8 +754,8 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_empresas_areas, { as: "web_empresas_areas", foreignKey: "id_empresa"});
   web_empresas_roles.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_empresas_roles, { as: "web_empresas_roles", foreignKey: "id_empresa"});
-  web_empresas_test_activades.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
-  web_empresas.hasMany(web_empresas_test_activades, { as: "web_empresas_test_activades", foreignKey: "id_empresa"});
+  web_empresas_test_actividades.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_empresas_test_actividades, { as: "web_empresas_test_actividades", foreignKey: "id_empresa"});
   web_empresas_test_recomendaciones.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_empresas_test_recomendaciones, { as: "web_empresas_test_recomendaciones", foreignKey: "id_empresa"});
   web_empresas_test_reportes.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
@@ -760,6 +776,8 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_usuarios_notificaciones, { as: "web_usuarios_notificaciones", foreignKey: "id_empresa"});
   web_usuarios_puntos.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_usuarios_puntos, { as: "web_usuarios_puntos", foreignKey: "id_empresa"});
+  biz_usuarios_areas.belongsTo(web_empresas_areas, { as: "id_area_empresa_web_empresas_area", foreignKey: "id_area_empresa"});
+  web_empresas_areas.hasMany(biz_usuarios_areas, { as: "biz_usuarios_areas", foreignKey: "id_area_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas_areas, { as: "id_empresa_area_web_empresas_area", foreignKey: "id_empresa_area"});
   web_empresas_areas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa_area"});
   web_empresas_test_recomendaciones.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
@@ -774,6 +792,10 @@ function initModels(sequelize) {
   web_eventos.hasMany(web_suscripciones_eventos, { as: "web_suscripciones_eventos", foreignKey: "id_evento"});
   web_eventos.belongsTo(web_eventos_categorias, { as: "id_evento_categoria_web_eventos_categoria", foreignKey: "id_evento_categoria"});
   web_eventos_categorias.hasMany(web_eventos, { as: "web_eventos", foreignKey: "id_evento_categoria"});
+  web_usuarios.belongsTo(web_imagenes, { as: "foto_usuario_web_imagene", foreignKey: "foto_usuario"});
+  web_imagenes.hasMany(web_usuarios, { as: "web_usuarios", foreignKey: "foto_usuario"});
+  web_usuarios.belongsTo(web_imagenes, { as: "portada_usuario_web_imagene", foreignKey: "portada_usuario"});
+  web_imagenes.hasMany(web_usuarios, { as: "portada_usuario_web_usuarios", foreignKey: "portada_usuario"});
   web_cursos_instructores.belongsTo(web_instructores, { as: "id_instructor_web_instructore", foreignKey: "id_instructor"});
   web_instructores.hasMany(web_cursos_instructores, { as: "web_cursos_instructores", foreignKey: "id_instructor"});
   web_niveles.belongsTo(web_niveles, { as: "id_siguiente_nivel_web_nivele", foreignKey: "id_siguiente_nivel"});
@@ -792,6 +814,8 @@ function initModels(sequelize) {
   web_programas_formacion.hasMany(web_suscripciones_programas_formacion, { as: "web_suscripciones_programas_formacions", foreignKey: "id_programa_formacion"});
   web_programas_formacion.belongsTo(web_programas_formacion_categoria, { as: "id_programa_formacion_categoria_web_programas_formacion_categorium", foreignKey: "id_programa_formacion_categoria"});
   web_programas_formacion_categoria.hasMany(web_programas_formacion, { as: "web_programas_formacions", foreignKey: "id_programa_formacion_categoria"});
+  web_usuarios_redes.belongsTo(web_redes_sociales, { as: "id_red_web_redes_sociale", foreignKey: "id_red"});
+  web_redes_sociales.hasMany(web_usuarios_redes, { as: "web_usuarios_redes", foreignKey: "id_red"});
   ctb_doc_electronicos_productos_rutas_aprendizaje.belongsTo(web_rutas_aprendizaje, { as: "id_ruta_aprendizaje_web_rutas_aprendizaje", foreignKey: "id_ruta_aprendizaje"});
   web_rutas_aprendizaje.hasMany(ctb_doc_electronicos_productos_rutas_aprendizaje, { as: "ctb_doc_electronicos_productos_rutas_aprendizajes", foreignKey: "id_ruta_aprendizaje"});
   web_rutas_aprendizaje_cursos.belongsTo(web_rutas_aprendizaje, { as: "id_ruta_aprendizaje_web_rutas_aprendizaje", foreignKey: "id_ruta_aprendizaje"});
@@ -806,6 +830,8 @@ function initModels(sequelize) {
   web_rutas_aprendizaje.hasMany(web_usuarios_lista_deseos, { as: "web_usuarios_lista_deseos", foreignKey: "id_ruta_aprendizaje"});
   web_rutas_aprendizaje.belongsTo(web_rutas_aprendizaje_categorias, { as: "id_ruta_aprendizaje_categoria_web_rutas_aprendizaje_categoria", foreignKey: "id_ruta_aprendizaje_categoria"});
   web_rutas_aprendizaje_categorias.hasMany(web_rutas_aprendizaje, { as: "web_rutas_aprendizajes", foreignKey: "id_ruta_aprendizaje_categoria"});
+  web_rutas_aprendizaje.belongsTo(web_rutas_aprendizaje_niveles, { as: "id_ruta_aprendizaje_nivel_web_rutas_aprendizaje_nivele", foreignKey: "id_ruta_aprendizaje_nivel"});
+  web_rutas_aprendizaje_niveles.hasMany(web_rutas_aprendizaje, { as: "web_rutas_aprendizajes", foreignKey: "id_ruta_aprendizaje_nivel"});
   web_programas_formacion_calendario.belongsTo(web_suscripciones, { as: "id_suscripcion_web_suscripcione", foreignKey: "id_suscripcion"});
   web_suscripciones.hasMany(web_programas_formacion_calendario, { as: "web_programas_formacion_calendarios", foreignKey: "id_suscripcion"});
   web_suscripciones_certificados.belongsTo(web_suscripciones, { as: "id_suscripcion_web_suscripcione", foreignKey: "id_suscripcion"});
@@ -846,8 +872,12 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_cursos_rating, { as: "web_cursos_ratings", foreignKey: "id_usuario"});
   web_eventos_asistencias.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_eventos_asistencias, { as: "web_eventos_asistencia", foreignKey: "id_usuario"});
+  web_imagenes.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
+  web_usuarios.hasMany(web_imagenes, { as: "web_imagenes", foreignKey: "id_web_usuario"});
   web_rutas_aprendizaje_cursos_usuarios.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
   web_usuarios.hasMany(web_rutas_aprendizaje_cursos_usuarios, { as: "web_rutas_aprendizaje_cursos_usuarios", foreignKey: "id_web_usuario"});
+  web_suscripciones_rutas_aprendizaje.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
+  web_usuarios.hasMany(web_suscripciones_rutas_aprendizaje, { as: "web_suscripciones_rutas_aprendizajes", foreignKey: "id_usuario"});
   web_usuarios_empresas.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_usuario"});
   web_usuarios_felicitaciones.belongsTo(web_usuarios, { as: "id_usuario_origen_web_usuario", foreignKey: "id_usuario_origen"});
@@ -862,6 +892,8 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_usuarios_notificaciones, { as: "web_usuarios_notificaciones", foreignKey: "id_usuario"});
   web_usuarios_puntos.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_usuarios_puntos, { as: "web_usuarios_puntos", foreignKey: "id_usuario"});
+  web_usuarios_redes.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
+  web_usuarios.hasMany(web_usuarios_redes, { as: "web_usuarios_redes", foreignKey: "id_web_usuario"});
   web_usuarios_suscripciones.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(web_usuarios_suscripciones, { as: "web_usuarios_suscripciones", foreignKey: "id_usuario"});
   adm_empleados_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
@@ -912,6 +944,7 @@ function initModels(sequelize) {
     biz_roles,
     biz_roles_opciones,
     biz_usuarios,
+    biz_usuarios_areas,
     biz_usuarios_opciones,
     calendario,
     calendario_categorias,
@@ -1018,13 +1051,14 @@ function initModels(sequelize) {
     web_empresas,
     web_empresas_areas,
     web_empresas_roles,
-    web_empresas_test_activades,
+    web_empresas_test_actividades,
     web_empresas_test_recomendaciones,
     web_empresas_test_reportes,
     web_eventos,
     web_eventos_asistencias,
     web_eventos_categorias,
     web_eventos_recursos,
+    web_imagenes,
     web_instructores,
     web_niveles,
     web_notificaciones,
@@ -1032,10 +1066,12 @@ function initModels(sequelize) {
     web_programas_formacion,
     web_programas_formacion_calendario,
     web_programas_formacion_categoria,
+    web_redes_sociales,
     web_rutas_aprendizaje,
     web_rutas_aprendizaje_categorias,
     web_rutas_aprendizaje_cursos,
     web_rutas_aprendizaje_cursos_usuarios,
+    web_rutas_aprendizaje_niveles,
     web_rutas_aprendizajes_sugerencias,
     web_suscripcion_notificaciones,
     web_suscripciones,
@@ -1054,6 +1090,7 @@ function initModels(sequelize) {
     web_usuarios_niveles,
     web_usuarios_notificaciones,
     web_usuarios_puntos,
+    web_usuarios_redes,
     web_usuarios_suscripciones,
   };
 }

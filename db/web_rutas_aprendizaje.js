@@ -10,9 +10,18 @@ module.exports = function(sequelize, DataTypes) {
     id_ruta_aprendizaje_categoria: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      comment: "null: ruta autogestionada",
       references: {
         model: 'web_rutas_aprendizaje_categorias',
         key: 'id_ruta_aprendizaje_categoria'
+      }
+    },
+    id_ruta_aprendizaje_nivel: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_rutas_aprendizaje_niveles',
+        key: 'id_web_ruta_aprendizaje_nivel'
       }
     },
     nombre_ruta_aprendizaje: {
@@ -37,6 +46,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_ruta_aprendizaje_categoria" },
+        ]
+      },
+      {
+        name: "FK_web_rutas_aprendizaje_web_rutas_aprendizaje_niveles",
+        using: "BTREE",
+        fields: [
+          { name: "id_ruta_aprendizaje_nivel" },
         ]
       },
     ]

@@ -1,31 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_cursos_categorias', {
-    id_curso_categoria: {
+  return sequelize.define('web_redes_sociales', {
+    id_red: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_categoria: {
-      type: DataTypes.STRING(100),
+    nombre_red: {
+      type: DataTypes.STRING(50),
       allowNull: true
     },
-    orden_categoria: {
+    icon_red: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    estado: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    activo: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    url_imagen: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'web_cursos_categorias',
+    tableName: 'web_redes_sociales',
     timestamps: false,
     indexes: [
       {
@@ -33,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curso_categoria" },
+          { name: "id_red" },
         ]
       },
     ]

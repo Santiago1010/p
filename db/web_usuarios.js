@@ -36,6 +36,26 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
+    perfil_usuario: {
+      type: DataTypes.STRING(200),
+      allowNull: true
+    },
+    foto_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_imagenes',
+        key: 'id_imagen'
+      }
+    },
+    portada_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_imagenes',
+        key: 'id_imagen'
+      }
+    },
     password_usuario: {
       type: DataTypes.STRING(100),
       allowNull: false
@@ -74,6 +94,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "email_usuario" },
+        ]
+      },
+      {
+        name: "FK_web_usuarios_web_imagenes",
+        using: "BTREE",
+        fields: [
+          { name: "foto_usuario" },
+        ]
+      },
+      {
+        name: "FK_web_usuarios_web_imagenes_2",
+        using: "BTREE",
+        fields: [
+          { name: "portada_usuario" },
         ]
       },
     ]
