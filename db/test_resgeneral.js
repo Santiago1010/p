@@ -59,6 +59,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: 0
     },
+    actualizado_enganche: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 0
+    },
     derecho_ejec: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,

@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre: {
       type: DataTypes.STRING(40),
-      allowNull: false
+      allowNull: false,
+      unique: "test_cerebros_UN"
     },
     aprende: {
       type: DataTypes.STRING(40),
@@ -68,6 +69,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "test_cerebros_UN",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nombre" },
         ]
       },
     ]

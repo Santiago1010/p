@@ -14,8 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_producto: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      allowNull: true,
       references: {
         model: 'ctb_productos',
         key: 'id_producto'

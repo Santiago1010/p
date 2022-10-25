@@ -31,6 +31,7 @@ var _biz_opciones = require("./biz_opciones");
 var _biz_roles = require("./biz_roles");
 var _biz_roles_opciones = require("./biz_roles_opciones");
 var _biz_usuarios = require("./biz_usuarios");
+var _biz_usuarios_areas = require("./biz_usuarios_areas");
 var _biz_usuarios_opciones = require("./biz_usuarios_opciones");
 var _calendario = require("./calendario");
 var _calendario_categorias = require("./calendario_categorias");
@@ -212,6 +213,7 @@ function initModels(sequelize) {
   var biz_roles = _biz_roles(sequelize, DataTypes);
   var biz_roles_opciones = _biz_roles_opciones(sequelize, DataTypes);
   var biz_usuarios = _biz_usuarios(sequelize, DataTypes);
+  var biz_usuarios_areas = _biz_usuarios_areas(sequelize, DataTypes);
   var biz_usuarios_opciones = _biz_usuarios_opciones(sequelize, DataTypes);
   var calendario = _calendario(sequelize, DataTypes);
   var calendario_categorias = _calendario_categorias(sequelize, DataTypes);
@@ -466,6 +468,8 @@ function initModels(sequelize) {
   biz_roles.hasMany(biz_roles_opciones, { as: "biz_roles_opciones", foreignKey: "id_rol"});
   biz_usuarios.belongsTo(biz_roles, { as: "rol_biz_role", foreignKey: "rol"});
   biz_roles.hasMany(biz_usuarios, { as: "biz_usuarios", foreignKey: "rol"});
+  biz_usuarios_areas.belongsTo(biz_usuarios, { as: "id_biz_usuario_biz_usuario", foreignKey: "id_biz_usuario"});
+  biz_usuarios.hasMany(biz_usuarios_areas, { as: "biz_usuarios_areas", foreignKey: "id_biz_usuario"});
   biz_usuarios_opciones.belongsTo(biz_usuarios, { as: "id_usuario_biz_usuario", foreignKey: "id_usuario"});
   biz_usuarios.hasMany(biz_usuarios_opciones, { as: "biz_usuarios_opciones", foreignKey: "id_usuario"});
   calendario.belongsTo(calendario_categorias, { as: "id_categoria_calendario_categoria", foreignKey: "id_categoria"});
@@ -772,6 +776,8 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_usuarios_notificaciones, { as: "web_usuarios_notificaciones", foreignKey: "id_empresa"});
   web_usuarios_puntos.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_usuarios_puntos, { as: "web_usuarios_puntos", foreignKey: "id_empresa"});
+  biz_usuarios_areas.belongsTo(web_empresas_areas, { as: "id_area_empresa_web_empresas_area", foreignKey: "id_area_empresa"});
+  web_empresas_areas.hasMany(biz_usuarios_areas, { as: "biz_usuarios_areas", foreignKey: "id_area_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas_areas, { as: "id_empresa_area_web_empresas_area", foreignKey: "id_empresa_area"});
   web_empresas_areas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa_area"});
   web_empresas_test_recomendaciones.belongsTo(web_empresas_roles, { as: "id_rol_usuario_empresa_web_empresas_role", foreignKey: "id_rol_usuario_empresa"});
@@ -938,6 +944,7 @@ function initModels(sequelize) {
     biz_roles,
     biz_roles_opciones,
     biz_usuarios,
+    biz_usuarios_areas,
     biz_usuarios_opciones,
     calendario,
     calendario_categorias,

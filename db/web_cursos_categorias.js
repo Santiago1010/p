@@ -18,6 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     activo: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    url_imagen: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     }
   }, {
     sequelize,

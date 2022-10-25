@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     audiencia_curso: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     incluye_curso: {
@@ -102,6 +102,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     origen_curso: {
       type: DataTypes.ENUM('Propio','Externo'),
+      allowNull: true
+    },
+    fecha_curso: {
+      type: DataTypes.DATE,
       allowNull: true
     }
   }, {

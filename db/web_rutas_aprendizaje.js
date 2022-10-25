@@ -26,8 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre_ruta_aprendizaje: {
       type: DataTypes.STRING(100),
-      allowNull: true,
-      unique: "web_rutas_aprendizaje_UN"
+      allowNull: true
     }
   }, {
     sequelize,
@@ -40,14 +39,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_ruta_aprendizaje" },
-        ]
-      },
-      {
-        name: "web_rutas_aprendizaje_UN",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "nombre_ruta_aprendizaje" },
         ]
       },
       {
