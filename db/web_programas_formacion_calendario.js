@@ -67,17 +67,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_web_programas_formacion_calendario_web_programas_formacion",
-        using: "BTREE",
-        fields: [
-          { name: "id_programa_formacion" },
-        ]
-      },
-      {
         name: "FK_web_programas_formacion_calendario_web_suscripciones",
         using: "BTREE",
         fields: [
           { name: "id_suscripcion" },
+        ]
+      },
+      {
+        name: "FK_web_programas_formacion_calendario_web_programas_formacion",
+        using: "BTREE",
+        fields: [
+          { name: "id_programa_formacion" },
         ]
       },
     ]
