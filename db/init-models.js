@@ -638,8 +638,6 @@ function initModels(sequelize) {
   test_opciones.hasMany(test_resdetalle, { as: "test_resdetalles", foreignKey: "id_opcion"});
   web_cursos_modulos_lecciones_respreguntas.belongsTo(test_opciones, { as: "id_opcion_test_opcione", foreignKey: "id_opcion"});
   test_opciones.hasMany(web_cursos_modulos_lecciones_respreguntas, { as: "web_cursos_modulos_lecciones_respregunta", foreignKey: "id_opcion"});
-  web_cursos_quiz_resdetalle.belongsTo(test_opciones, { as: "id_opcion_test_opcione", foreignKey: "id_opcion"});
-  test_opciones.hasMany(web_cursos_quiz_resdetalle, { as: "web_cursos_quiz_resdetalles", foreignKey: "id_opcion"});
   test_general_preguntas.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
   test_preguntas.hasMany(test_general_preguntas, { as: "test_general_pregunta", foreignKey: "id_pregunta"});
   test_preguntas_categorias.belongsTo(test_preguntas, { as: "id_pregunta_test_pregunta", foreignKey: "id_pregunta"});
@@ -727,7 +725,7 @@ function initModels(sequelize) {
   web_cursos_progreso_usuarios_historial.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
   web_cursos.hasMany(web_cursos_progreso_usuarios_historial, { as: "web_cursos_progreso_usuarios_historials", foreignKey: "id_curso"});
   web_cursos_quiz.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
-  web_cursos.hasOne(web_cursos_quiz, { as: "web_cursos_quiz", foreignKey: "id_curso"});
+  web_cursos.hasMany(web_cursos_quiz, { as: "web_cursos_quizzes", foreignKey: "id_curso"});
   web_cursos_rating.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
   web_cursos.hasMany(web_cursos_rating, { as: "web_cursos_ratings", foreignKey: "id_curso"});
   web_rutas_aprendizaje_cursos.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
@@ -756,6 +754,11 @@ function initModels(sequelize) {
   web_cursos_modulos_lecciones.hasMany(web_cursos_quiz, { as: "web_cursos_quizzes", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_progreso_empresa_usuarios.belongsTo(web_cursos_progreso_usuarios, { as: "id_curso_progreso_usuario_web_cursos_progreso_usuario", foreignKey: "id_curso_progreso_usuario"});
   web_cursos_progreso_usuarios.hasOne(web_cursos_progreso_empresa_usuarios, { as: "web_cursos_progreso_empresa_usuario", foreignKey: "id_curso_progreso_usuario"});
+<<<<<<< HEAD
+=======
+  web_cursos_quiz_resdetalle.belongsTo(web_cursos_quiz, { as: "id_web_cursos_quiz", foreignKey: "id"});
+  web_cursos_quiz.hasOne(web_cursos_quiz_resdetalle, { as: "web_cursos_quiz_resdetalle", foreignKey: "id"});
+>>>>>>> dev_m
   web_cursos_quiz_resgeneral.belongsTo(web_cursos_quiz, { as: "id_quiz_web_cursos_quiz", foreignKey: "id_quiz"});
   web_cursos_quiz.hasMany(web_cursos_quiz_resgeneral, { as: "web_cursos_quiz_resgenerals", foreignKey: "id_quiz"});
   web_cursos_quiz_resdetalle.belongsTo(web_cursos_quiz_resgeneral, { as: "id_quiz_resgeneral_web_cursos_quiz_resgeneral", foreignKey: "id_quiz_resgeneral"});

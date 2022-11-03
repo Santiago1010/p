@@ -13,8 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'web_cursos',
         key: 'id_curso'
-      },
-      unique: "FK_web_cursos_quiz_web_cursos"
+      }
     },
     id_curso_modulo_leccion: {
       type: DataTypes.INTEGER,
@@ -78,14 +77,6 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_cursos_quiz_UN",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id_curso" },
-        ]
-      },
-      {
         name: "FK_web_cursos_quiz_web_cursos_modulos_lecciones",
         using: "BTREE",
         fields: [
@@ -97,6 +88,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_test_general" },
+        ]
+      },
+      {
+        name: "web_cursos_quiz_FK",
+        using: "BTREE",
+        fields: [
+          { name: "id_curso" },
         ]
       },
     ]
