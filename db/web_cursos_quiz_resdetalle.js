@@ -5,7 +5,11 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'web_cursos_quiz',
+        key: 'id_quiz'
+      }
     },
     id_quiz_resgeneral: {
       type: DataTypes.INTEGER,
@@ -25,11 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_opcion: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'test_opciones',
-        key: 'id'
-      }
+      allowNull: false
     },
     puntaje: {
       type: DataTypes.DECIMAL(10,0),

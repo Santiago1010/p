@@ -16,6 +16,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: false
     },
+    subtitulo: {
+      type: DataTypes.STRING(200),
+      allowNull: false
+    },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -34,6 +38,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     total_preguntas: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    portada: {
+      type: DataTypes.STRING(150),
       allowNull: true
     },
     estado: {

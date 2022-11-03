@@ -42,6 +42,55 @@ module.exports = function(sequelize, DataTypes) {
     biografia: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    f_nacimiento: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    genero: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    website: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    pais: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'adm_paises',
+        key: 'id'
+      }
+    },
+    foto: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    facebook: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    twitter: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    instagram: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    linkedin: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    password: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,
@@ -54,6 +103,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_instructor" },
+        ]
+      },
+      {
+        name: "FK_web_instructores_adm_paises",
+        using: "BTREE",
+        fields: [
+          { name: "pais" },
         ]
       },
     ]

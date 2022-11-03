@@ -1,27 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_programas_formacion', {
-    id_programa_formacion: {
+  return sequelize.define('web_instructores_experiencias', {
+    id_instructor_experiencia: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_programa_formacion_categoria: {
+    id_instructor: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_programas_formacion_categoria',
-        key: 'id_programa_formacion_categoria'
+        model: 'web_instructores',
+        key: 'id_instructor'
       }
     },
-    nombre_programa_formacion: {
-      type: DataTypes.STRING(100),
+    descripcion: {
+      type: DataTypes.STRING(300),
+      allowNull: true
+    },
+    fecha: {
+      type: DataTypes.DATEONLY,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'web_programas_formacion',
+    tableName: 'web_instructores_experiencias',
     timestamps: false,
     indexes: [
       {
@@ -29,14 +33,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_programa_formacion" },
+          { name: "id_instructor_experiencia" },
         ]
       },
       {
-        name: "FK_web_programas_formacion_web_programas_formacion_categoria",
+        name: "FK_web_instructores_experiencias_web_instructores",
         using: "BTREE",
         fields: [
-          { name: "id_programa_formacion_categoria" },
+          { name: "id_instructor" },
         ]
       },
     ]

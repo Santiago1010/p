@@ -39,6 +39,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    estado: {
+      type: DataTypes.ENUM('disponible','realizada','en proceso'),
+      allowNull: true,
+      defaultValue: "en proceso"
     }
   }, {
     sequelize,

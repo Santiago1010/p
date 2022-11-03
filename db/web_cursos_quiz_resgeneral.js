@@ -73,17 +73,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_cursos_quiz_resgeneral_FK_1",
-        using: "BTREE",
-        fields: [
-          { name: "id_quiz" },
-        ]
-      },
-      {
         name: "web_cursos_quiz_resgeneral_FK_2",
         using: "BTREE",
         fields: [
           { name: "id_curso_certificado" },
+        ]
+      },
+      {
+        name: "web_cursos_quiz_resgeneral_FK_1",
+        using: "BTREE",
+        fields: [
+          { name: "id_quiz" },
         ]
       },
     ]

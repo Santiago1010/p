@@ -20,11 +20,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     parrafo: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     recurso: {
       type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    imagen: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    imagetext: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    textimagen: {
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {
