@@ -26,6 +26,18 @@ module.exports = function(sequelize, DataTypes) {
     recurso: {
       type: DataTypes.BIGINT,
       allowNull: true
+    },
+    imagen: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    imagetext: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    textimagen: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,

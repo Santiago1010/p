@@ -55,6 +55,14 @@ module.exports = function(sequelize, DataTypes) {
     addfch: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    esquema_pregunta: {
+      type: DataTypes.ENUM('unicas','variables'),
+      allowNull: true
+    },
+    puntaje_minimo: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

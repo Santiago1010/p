@@ -24,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(80),
       allowNull: false
     },
+    subtitulo: {
+      type: DataTypes.STRING(300),
+      allowNull: false
+    },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: false

@@ -50,6 +50,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: "null: no aplica"
+    },
+    tipo: {
+      type: DataTypes.ENUM('escuela','programa'),
+      allowNull: true,
+      defaultValue: "escuela"
+    },
+    total_licencias: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,
