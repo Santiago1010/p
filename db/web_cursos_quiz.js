@@ -91,7 +91,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_cursos_quiz_FK",
+        name: "web_cursos_quiz_UN",
         using: "BTREE",
         fields: [
           { name: "id_curso" },

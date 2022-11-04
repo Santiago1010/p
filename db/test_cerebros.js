@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    descripcion_sub: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     caracteristicas: {
       type: DataTypes.TEXT,
       allowNull: false
