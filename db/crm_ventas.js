@@ -35,14 +35,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(10,0),
       allowNull: true
     },
-    id_responsable: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'usuarios',
-        key: 'id'
-      }
-    },
     id_contrato: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -62,13 +54,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_venta" },
-        ]
-      },
-      {
-        name: "FK_crm_ventas_usuarios",
-        using: "BTREE",
-        fields: [
-          { name: "id_responsable" },
         ]
       },
       {

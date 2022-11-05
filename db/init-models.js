@@ -670,8 +670,6 @@ function initModels(sequelize) {
   usuarios.hasMany(adm_email_plantillas_resp, { as: "adm_email_plantillas_resps", foreignKey: "id_usuario"});
   calendario.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
   usuarios.hasMany(calendario, { as: "calendarios", foreignKey: "id_usuario"});
-  crm_ventas.belongsTo(usuarios, { as: "id_responsable_usuario", foreignKey: "id_responsable"});
-  usuarios.hasMany(crm_ventas, { as: "crm_venta", foreignKey: "id_responsable"});
   crm_ventas_productos.belongsTo(usuarios, { as: "id_responsable_usuario", foreignKey: "id_responsable"});
   usuarios.hasMany(crm_ventas_productos, { as: "crm_ventas_productos", foreignKey: "id_responsable"});
   notificaciones_users.belongsTo(usuarios, { as: "id_user_usuario", foreignKey: "id_user"});
