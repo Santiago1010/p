@@ -470,6 +470,8 @@ function initModels(sequelize) {
   adm_plataformas.hasMany(adm_cargos_plataformas, { as: "adm_cargos_plataformas", foreignKey: "idPlataforma"});
   adm_dependencias.belongsTo(adm_sedes, { as: "depsed_adm_sede", foreignKey: "depsed"});
   adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
+  ctb_proveedores_pagos.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
+  adm_sedes.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "codsed"});
   biz_opciones.belongsTo(biz_opciones, { as: "depende_biz_opcione", foreignKey: "depende"});
   biz_opciones.hasMany(biz_opciones, { as: "biz_opciones", foreignKey: "depende"});
   biz_roles_opciones.belongsTo(biz_opciones, { as: "id_opcion_biz_opcione", foreignKey: "id_opcion"});
@@ -670,8 +672,6 @@ function initModels(sequelize) {
   usuarios.hasMany(adm_email_plantillas_resp, { as: "adm_email_plantillas_resps", foreignKey: "id_usuario"});
   calendario.belongsTo(usuarios, { as: "id_usuario_usuario", foreignKey: "id_usuario"});
   usuarios.hasMany(calendario, { as: "calendarios", foreignKey: "id_usuario"});
-  crm_ventas.belongsTo(usuarios, { as: "id_responsable_usuario", foreignKey: "id_responsable"});
-  usuarios.hasMany(crm_ventas, { as: "crm_venta", foreignKey: "id_responsable"});
   crm_ventas_productos.belongsTo(usuarios, { as: "id_responsable_usuario", foreignKey: "id_responsable"});
   usuarios.hasMany(crm_ventas_productos, { as: "crm_ventas_productos", foreignKey: "id_responsable"});
   notificaciones_users.belongsTo(usuarios, { as: "id_user_usuario", foreignKey: "id_user"});
@@ -926,8 +926,6 @@ function initModels(sequelize) {
   adm_plataformas.hasMany(adm_empleados_plataformas, { as: "adm_empleados_plataformas", foreignKey: "idPlataforma"});
   calendario.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
   adm_sedes.hasMany(calendario, { as: "calendarios", foreignKey: "codsed"});
-  ctb_proveedores_pagos.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
-  adm_sedes.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "codsed"});
   pqrs.belongsTo(adm_sedes, { as: "sede_adm_sede", foreignKey: "sede"});
   adm_sedes.hasMany(pqrs, { as: "pqrs", foreignKey: "sede"});
   pqrs.belongsTo(config_tipos_ident, { as: "tipo_ident_config_tipos_ident", foreignKey: "tipo_ident"});

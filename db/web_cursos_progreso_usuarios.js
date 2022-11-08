@@ -41,6 +41,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0,
       comment: "0 =  Pendiente, 1 = Progreso, 2 =  Finalizado"
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,

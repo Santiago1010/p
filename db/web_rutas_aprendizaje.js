@@ -42,17 +42,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_rutas_aprendizaje_FK",
-        using: "BTREE",
-        fields: [
-          { name: "id_ruta_aprendizaje_categoria" },
-        ]
-      },
-      {
         name: "FK_web_rutas_aprendizaje_web_rutas_aprendizaje_niveles",
         using: "BTREE",
         fields: [
           { name: "id_ruta_aprendizaje_nivel" },
+        ]
+      },
+      {
+        name: "FK_web_rutas_aprendizaje_web_rutas_aprendizaje_categorias",
+        using: "BTREE",
+        fields: [
+          { name: "id_ruta_aprendizaje_categoria" },
         ]
       },
     ]
