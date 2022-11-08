@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    puntaje_minimo: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     puntaje_maximo: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -47,20 +51,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(10,0),
       allowNull: true
     },
+    esquema_pregunta: {
+      type: DataTypes.ENUM('unicas','variables'),
+      allowNull: true
+    },
     addusr: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
     addfch: {
       type: DataTypes.DATE,
-      allowNull: true
-    },
-    esquema_pregunta: {
-      type: DataTypes.ENUM('unicas','variables'),
-      allowNull: true
-    },
-    puntaje_minimo: {
-      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
