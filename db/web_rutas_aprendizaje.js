@@ -27,6 +27,18 @@ module.exports = function(sequelize, DataTypes) {
     nombre_ruta_aprendizaje: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    logo_ruta_aprendizaje: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    color_ruta_aprendizaje: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    para_quien_ruta_aprendizaje: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
   }, {
     sequelize,
