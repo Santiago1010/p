@@ -61,6 +61,10 @@ module.exports = function(sequelize, DataTypes) {
     celular: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    documento: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
