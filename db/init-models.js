@@ -118,6 +118,7 @@ var _web_componentes = require("./web_componentes");
 var _web_componentes_categorias = require("./web_componentes_categorias");
 var _web_curriculos = require("./web_curriculos");
 var _web_curriculos_categorias = require("./web_curriculos_categorias");
+var _web_curriculos_modulos = require("./web_curriculos_modulos");
 var _web_cursos = require("./web_cursos");
 var _web_cursos_categorias = require("./web_cursos_categorias");
 var _web_cursos_certificados = require("./web_cursos_certificados");
@@ -305,6 +306,7 @@ function initModels(sequelize) {
   var web_componentes_categorias = _web_componentes_categorias(sequelize, DataTypes);
   var web_curriculos = _web_curriculos(sequelize, DataTypes);
   var web_curriculos_categorias = _web_curriculos_categorias(sequelize, DataTypes);
+  var web_curriculos_modulos = _web_curriculos_modulos(sequelize, DataTypes);
   var web_cursos = _web_cursos(sequelize, DataTypes);
   var web_cursos_categorias = _web_cursos_categorias(sequelize, DataTypes);
   var web_cursos_certificados = _web_cursos_certificados(sequelize, DataTypes);
@@ -754,8 +756,6 @@ function initModels(sequelize) {
   web_cursos_modulos_lecciones.hasMany(web_cursos_quiz, { as: "web_cursos_quizzes", foreignKey: "id_curso_modulo_leccion"});
   web_cursos_progreso_empresa_usuarios.belongsTo(web_cursos_progreso_usuarios, { as: "id_curso_progreso_usuario_web_cursos_progreso_usuario", foreignKey: "id_curso_progreso_usuario"});
   web_cursos_progreso_usuarios.hasOne(web_cursos_progreso_empresa_usuarios, { as: "web_cursos_progreso_empresa_usuario", foreignKey: "id_curso_progreso_usuario"});
-  web_cursos_quiz_resdetalle.belongsTo(web_cursos_quiz, { as: "id_web_cursos_quiz", foreignKey: "id"});
-  web_cursos_quiz.hasOne(web_cursos_quiz_resdetalle, { as: "web_cursos_quiz_resdetalle", foreignKey: "id"});
   web_cursos_quiz_resgeneral.belongsTo(web_cursos_quiz, { as: "id_quiz_web_cursos_quiz", foreignKey: "id_quiz"});
   web_cursos_quiz.hasMany(web_cursos_quiz_resgeneral, { as: "web_cursos_quiz_resgenerals", foreignKey: "id_quiz"});
   web_cursos_quiz_resdetalle.belongsTo(web_cursos_quiz_resgeneral, { as: "id_quiz_resgeneral_web_cursos_quiz_resgeneral", foreignKey: "id_quiz_resgeneral"});
@@ -1055,6 +1055,7 @@ function initModels(sequelize) {
     web_componentes_categorias,
     web_curriculos,
     web_curriculos_categorias,
+    web_curriculos_modulos,
     web_cursos,
     web_cursos_categorias,
     web_cursos_certificados,

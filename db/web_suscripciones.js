@@ -60,6 +60,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0
+    },
+    incluir_todos: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      allowNull: true,
+      comment: "Incluir todos los cursos disponibles, solo aplica para programas"
     }
   }, {
     sequelize,

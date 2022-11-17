@@ -5,11 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'web_cursos_quiz',
-        key: 'id_quiz'
-      }
+      primaryKey: true
     },
     id_quiz_resgeneral: {
       type: DataTypes.INTEGER,
