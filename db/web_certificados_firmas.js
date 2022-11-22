@@ -1,37 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_curriculos_modulos', {
-    id_modulo_curriculo: {
+  return sequelize.define('web_certificados_firmas', {
+    id_firma: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_curriculo: {
+    id_certificado: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
       references: {
-        model: 'web_curriculos',
-        key: 'id_curriculo'
+        model: 'web_certificados',
+        key: 'id_certificado'
       }
     },
-    nombre_modulo: {
-      type: DataTypes.STRING(50),
+    autor_firma: {
+      type: DataTypes.STRING(100),
       allowNull: true
     },
-    orden_modulo: {
-      type: DataTypes.INTEGER,
+    cargo_autor_firma: {
+      type: DataTypes.STRING(150),
       allowNull: true
     },
-    estado: {
-      type: DataTypes.TINYINT,
-      allowNull: true,
-      defaultValue: 1
+    link_firma: {
+      type: DataTypes.STRING(150),
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'web_curriculos_modulos',
+    tableName: 'web_certificados_firmas',
     timestamps: false,
     indexes: [
       {
@@ -39,14 +38,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_modulo_curriculo" },
+          { name: "id_firma" },
         ]
       },
       {
-        name: "FK_web_curriculos_modulos_web_curriculos",
+        name: "FK_web_certificados_firmas_web_certificados",
         using: "BTREE",
         fields: [
-          { name: "id_curriculo" },
+          { name: "id_certificado" },
         ]
       },
     ]

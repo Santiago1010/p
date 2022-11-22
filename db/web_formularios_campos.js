@@ -1,30 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('ctb_doc_electronicos_productos_curriculos', {
-    id_doc_electronico_producto_curriculo: {
+  return sequelize.define('web_formularios_campos', {
+    id_formulario_campo: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_doc_electronico_producto: {
+    id_formulario: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'ctb_doc_electronicos_productos',
-        key: 'id_doc_electronico_producto'
+        model: 'web_formularios',
+        key: 'id_formulario'
       }
     },
-    id_curriculo: {
+    id_campo: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_curriculos',
-        key: 'id_curriculo'
+        model: 'web_campos',
+        key: 'id_campo'
       }
+    },
+    estado: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,
-    tableName: 'ctb_doc_electronicos_productos_curriculos',
+    tableName: 'web_formularios_campos',
     timestamps: false,
     indexes: [
       {
@@ -32,21 +38,23 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_doc_electronico_producto_curriculo" },
+          { name: "id_formulario_campo" },
         ]
       },
       {
-        name: "ctb_doc_electronicos_productos_curriculos_FK",
+        name: "FK_web_formularios_campos_web_formularios",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curriculo" },
+          { name: "id_formulario" },
+          { name: "id_campo" },
         ]
       },
       {
-        name: "ctb_doc_electronicos_productos_curriculos_FK_1",
+        name: "FK_web_formularios_campos_web_campos",
         using: "BTREE",
         fields: [
-          { name: "id_doc_electronico_producto" },
+          { name: "id_campo" },
         ]
       },
     ]

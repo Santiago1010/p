@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('web_curriculos', {
     id_curriculo: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -21,7 +22,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'web_curriculos',
-    timestamps: false,
+    timestamps: true,
+    paranoid: true,
     indexes: [
       {
         name: "PRIMARY",
@@ -32,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_curriculos_FK",
+        name: "FK_web_curriculos_web_curriculos_categorias",
         using: "BTREE",
         fields: [
           { name: "id_curriculo_categoria" },
