@@ -9,11 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_usuario: {
       type: DataTypes.INTEGER,
-<<<<<<< HEAD
-      allowNull: true,
-=======
       allowNull: false,
->>>>>>> dev_m
       references: {
         model: 'web_usuarios',
         key: 'id_usuario'
@@ -21,11 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_empresa: {
       type: DataTypes.INTEGER,
-<<<<<<< HEAD
-      allowNull: true,
-=======
       allowNull: false,
->>>>>>> dev_m
       references: {
         model: 'web_empresas',
         key: 'id_empresa'
@@ -33,11 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre: {
       type: DataTypes.STRING(255),
-<<<<<<< HEAD
-      allowNull: true
-=======
       allowNull: false
->>>>>>> dev_m
     },
     logo: {
       type: DataTypes.STRING(255),

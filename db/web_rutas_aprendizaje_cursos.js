@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'web_rutas_aprendizaje',
         key: 'id_ruta_aprendizaje'
       }
+    },
+    orden: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

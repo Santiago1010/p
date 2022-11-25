@@ -31,6 +31,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'web_usuarios',
         key: 'id_usuario'
       }
+    },
+    orden: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
