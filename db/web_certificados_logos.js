@@ -1,27 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_curriculos_categorias', {
-    id_curriculo_categoria: {
-      autoIncrement: true,
+  return sequelize.define('web_certificados_logos', {
+    id_logo: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_curriculo_categoria: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    id_producto: {
+    id_certificado: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
       references: {
-        model: 'ctb_productos',
-        key: 'id_producto'
+        model: 'web_certificados',
+        key: 'id_certificado'
       }
+    },
+    link_logo: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+      defaultValue: ""
     }
   }, {
     sequelize,
-    tableName: 'web_curriculos_categorias',
+    tableName: 'web_certificados_logos',
     timestamps: false,
     indexes: [
       {
@@ -29,14 +30,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_curriculo_categoria" },
+          { name: "id_logo" },
         ]
       },
       {
-        name: "web_curriculos_categorias_FK",
+        name: "FK_web_certificados_logos_web_certificados",
         using: "BTREE",
         fields: [
-          { name: "id_producto" },
+          { name: "id_certificado" },
         ]
       },
     ]

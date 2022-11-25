@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     logo_ruta_aprendizaje: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
       allowNull: true
     },
     color_ruta_aprendizaje: {

@@ -22,6 +22,18 @@ module.exports = function(sequelize, DataTypes) {
         model: 'web_instructores',
         key: 'id_instructor'
       }
+    },
+    tipo_contrato: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_cursos_modelos_contratos',
+        key: 'id'
+      }
+    },
+    firma_contrato: {
+      type: DataTypes.STRING(60),
+      allowNull: true
     }
   }, {
     sequelize,
@@ -50,6 +62,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_instructor" },
+        ]
+      },
+      {
+        name: "web_cursos_instructores_FK",
+        using: "BTREE",
+        fields: [
+          { name: "tipo_contrato" },
         ]
       },
     ]

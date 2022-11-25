@@ -1,31 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_certificados', {
-    id_certificado: {
+  return sequelize.define('web_formularios', {
+    id_formulario: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_certificado: {
-      type: DataTypes.STRING(200),
+    nombre_formulario: {
+      type: DataTypes.STRING(250),
       allowNull: true
     },
-    fondo_certificado: {
-      type: DataTypes.STRING(150),
+    fecha_add: {
+      type: DataTypes.DATEONLY,
       allowNull: true
     },
-    color_footer: {
-      type: DataTypes.STRING(7),
-      allowNull: true
-    },
-    tipo: {
-      type: DataTypes.ENUM('Empresas','Programas'),
-      allowNull: true
+    estado: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'web_certificados',
+    tableName: 'web_formularios',
     timestamps: false,
     indexes: [
       {
@@ -33,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_certificado" },
+          { name: "id_formulario" },
         ]
       },
     ]

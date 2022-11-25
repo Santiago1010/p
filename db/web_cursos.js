@@ -78,7 +78,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TINYINT.UNSIGNED,
       allowNull: false,
       defaultValue: 1,
-      comment: "0: Inactivo, 1: Activo"
+      comment: "0: Inactivo, 1: Activo, 2: No publicado"
     },
     precio_curso: {
       type: DataTypes.INTEGER,
@@ -107,6 +107,11 @@ module.exports = function(sequelize, DataTypes) {
     fecha_curso: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    fecha_add: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
