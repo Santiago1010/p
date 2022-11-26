@@ -74,6 +74,10 @@ module.exports = function(sequelize, DataTypes) {
     fecha_nacimiento: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    sobre_mi: {
+      type: DataTypes.STRING(300),
+      allowNull: true
     }
   }, {
     sequelize,
