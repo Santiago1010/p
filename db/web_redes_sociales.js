@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 1
+    },
+    link_base: {
+      type: DataTypes.STRING(150),
+      allowNull: true
     }
   }, {
     sequelize,

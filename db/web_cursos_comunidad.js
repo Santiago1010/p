@@ -35,11 +35,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(300),
       allowNull: false
     },
-    likes: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0
-    },
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,

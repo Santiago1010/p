@@ -28,6 +28,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0,
       comment: "0 =  Pendiente, 1 = Progreso, 2 =  Finalizado, 3 = Aprobado"
+    },
+    fecha_aprobado: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+      comment: "Fecha de aprobación del curso"
     }
   }, {
     sequelize,

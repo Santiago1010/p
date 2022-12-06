@@ -11,6 +11,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(200),
       allowNull: true
     },
+    paragrafo_certifcado: {
+      type: DataTypes.ENUM('Certifica a:','Otorga a:'),
+      allowNull: true
+    },
+    contenido_certificado: {
+      type: DataTypes.STRING(200),
+      allowNull: true
+    },
     fondo_certificado: {
       type: DataTypes.STRING(150),
       allowNull: true

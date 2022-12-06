@@ -65,6 +65,14 @@ module.exports = function(sequelize, DataTypes) {
     documento: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    id_foto: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_imagenes',
+        key: 'id_imagen'
+      }
     }
   }, {
     sequelize,
@@ -99,6 +107,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "rol" },
+        ]
+      },
+      {
+        name: "biz_usuarios_ibfk_3",
+        using: "BTREE",
+        fields: [
+          { name: "id_foto" },
         ]
       },
     ]

@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
     tipo_test: {
       type: DataTypes.ENUM('test','encuesta','quiz'),
       allowNull: false
+    },
+    textos: {
+      type: DataTypes.STRING(50),
+      allowNull: false
     }
   }, {
     sequelize,

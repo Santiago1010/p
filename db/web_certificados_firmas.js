@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
+    perfil_autor_firma: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
     cargo_autor_firma: {
       type: DataTypes.STRING(150),
       allowNull: true
