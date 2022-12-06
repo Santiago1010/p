@@ -320,7 +320,7 @@ const saveFile = (base64, folder, documento, type = 'png') => {
         const b = Buffer.from(m[2], 'base64');
 
         // const folder = 'public/files/upload/proveedores';
-        const url = `${folder}/${documento}.${type}`;
+        const url = `${folder}/${documento}`;
 
         const save = (url) => {
             fs.writeFile(`${url}`, b, (err) => {
