@@ -198,6 +198,7 @@ var _web_suscripciones_curriculos_sedes_grupos = require("./web_suscripciones_cu
 var _web_suscripciones_eventos = require("./web_suscripciones_eventos");
 var _web_suscripciones_lineas = require("./web_suscripciones_lineas");
 var _web_suscripciones_programas_formacion = require("./web_suscripciones_programas_formacion");
+var _web_suscripciones_propuestas = require("./web_suscripciones_propuestas");
 var _web_suscripciones_rutas_aprendizaje = require("./web_suscripciones_rutas_aprendizaje");
 var _web_suscripciones_test = require("./web_suscripciones_test");
 var _web_usuarios = require("./web_usuarios");
@@ -411,6 +412,7 @@ function initModels(sequelize) {
   var web_suscripciones_eventos = _web_suscripciones_eventos(sequelize, DataTypes);
   var web_suscripciones_lineas = _web_suscripciones_lineas(sequelize, DataTypes);
   var web_suscripciones_programas_formacion = _web_suscripciones_programas_formacion(sequelize, DataTypes);
+  var web_suscripciones_propuestas = _web_suscripciones_propuestas(sequelize, DataTypes);
   var web_suscripciones_rutas_aprendizaje = _web_suscripciones_rutas_aprendizaje(sequelize, DataTypes);
   var web_suscripciones_test = _web_suscripciones_test(sequelize, DataTypes);
   var web_usuarios = _web_usuarios(sequelize, DataTypes);
@@ -852,6 +854,8 @@ function initModels(sequelize) {
   web_empresas.hasMany(web_suscripcion_notificaciones, { as: "web_suscripcion_notificaciones", foreignKey: "id_empresa"});
   web_suscripciones.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_empresa"});
+  web_suscripciones_propuestas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
+  web_empresas.hasMany(web_suscripciones_propuestas, { as: "web_suscripciones_propuesta", foreignKey: "id_empresa"});
   web_usuarios_empresas.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
   web_empresas.hasMany(web_usuarios_empresas, { as: "web_usuarios_empresas", foreignKey: "id_empresa"});
   web_usuarios_empresas_historial.belongsTo(web_empresas, { as: "id_empresa_web_empresa", foreignKey: "id_empresa"});
@@ -986,6 +990,8 @@ function initModels(sequelize) {
   web_suscripciones_curriculos_sedes_grupos.hasMany(web_suscripciones_curriculos_grupos, { as: "web_suscripciones_curriculos_grupos", foreignKey: "id_suscripcion_curriculo_sede_grupo"});
   web_suscripciones.belongsTo(web_suscripciones_lineas, { as: "id_suscripcion_linea_web_suscripciones_linea", foreignKey: "id_suscripcion_linea"});
   web_suscripciones_lineas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_suscripcion_linea"});
+  web_suscripciones.belongsTo(web_suscripciones_propuestas, { as: "id_propuesta_web_suscripciones_propuesta", foreignKey: "id_propuesta"});
+  web_suscripciones_propuestas.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "id_propuesta"});
   test_actividades_ejercicios_usuarios.belongsTo(web_usuarios, { as: "id_usuario_web_usuario", foreignKey: "id_usuario"});
   web_usuarios.hasMany(test_actividades_ejercicios_usuarios, { as: "test_actividades_ejercicios_usuarios", foreignKey: "id_usuario"});
   test_resgeneral.belongsTo(web_usuarios, { as: "id_web_usuario_web_usuario", foreignKey: "id_web_usuario"});
@@ -1251,6 +1257,7 @@ function initModels(sequelize) {
     web_suscripciones_eventos,
     web_suscripciones_lineas,
     web_suscripciones_programas_formacion,
+    web_suscripciones_propuestas,
     web_suscripciones_rutas_aprendizaje,
     web_suscripciones_test,
     web_usuarios,

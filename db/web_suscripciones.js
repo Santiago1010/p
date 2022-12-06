@@ -24,6 +24,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_empresa'
       }
     },
+    id_propuesta: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'web_suscripciones_propuestas',
+        key: 'id_suscripcion_propuesta'
+      }
+    },
     nombre_suscripcion: {
       type: DataTypes.STRING(100),
       allowNull: true
@@ -91,6 +99,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_suscripcion_linea" },
+        ]
+      },
+      {
+        name: "FK_web_suscripciones_web_suscripciones_propuestas",
+        using: "BTREE",
+        fields: [
+          { name: "id_propuesta" },
         ]
       },
     ]

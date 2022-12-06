@@ -35,6 +35,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 1
+    },
+    logo: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     }
   }, {
     sequelize,
