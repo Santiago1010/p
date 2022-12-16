@@ -51,9 +51,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
+    fecha_racha: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
     dias_racha: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
+      defaultValue: 0
     },
     tiempo_estudio: {
       type: DataTypes.INTEGER,

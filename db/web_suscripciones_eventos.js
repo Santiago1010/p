@@ -37,10 +37,12 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_web_suscripciones_eventos_web_suscripciones",
+        name: "web_suscripciones_eventos_UN",
+        unique: true,
         using: "BTREE",
         fields: [
           { name: "id_suscripcion" },
+          { name: "id_evento" },
         ]
       },
       {

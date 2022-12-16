@@ -27,6 +27,8 @@ var _adm_grupos_integrantes = require("./adm_grupos_integrantes");
 var _adm_paises = require("./adm_paises");
 var _adm_plataformas = require("./adm_plataformas");
 var _adm_sedes = require("./adm_sedes");
+var _biz_filtros = require("./biz_filtros");
+var _biz_filtros_categorias = require("./biz_filtros_categorias");
 var _biz_opciones = require("./biz_opciones");
 var _biz_roles = require("./biz_roles");
 var _biz_roles_opciones = require("./biz_roles_opciones");
@@ -241,6 +243,8 @@ function initModels(sequelize) {
   var adm_paises = _adm_paises(sequelize, DataTypes);
   var adm_plataformas = _adm_plataformas(sequelize, DataTypes);
   var adm_sedes = _adm_sedes(sequelize, DataTypes);
+  var biz_filtros = _biz_filtros(sequelize, DataTypes);
+  var biz_filtros_categorias = _biz_filtros_categorias(sequelize, DataTypes);
   var biz_opciones = _biz_opciones(sequelize, DataTypes);
   var biz_roles = _biz_roles(sequelize, DataTypes);
   var biz_roles_opciones = _biz_roles_opciones(sequelize, DataTypes);
@@ -526,6 +530,12 @@ function initModels(sequelize) {
   adm_sedes.hasMany(adm_dependencias, { as: "adm_dependencia", foreignKey: "depsed"});
   ctb_proveedores_pagos.belongsTo(adm_sedes, { as: "codsed_adm_sede", foreignKey: "codsed"});
   adm_sedes.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "codsed"});
+  biz_filtros.belongsTo(biz_filtros, { as: "depende_biz_filtro", foreignKey: "depende"});
+  biz_filtros.hasMany(biz_filtros, { as: "biz_filtros", foreignKey: "depende"});
+  web_suscripciones.belongsTo(biz_filtros, { as: "tipo_biz_filtro", foreignKey: "tipo"});
+  biz_filtros.hasMany(web_suscripciones, { as: "web_suscripciones", foreignKey: "tipo"});
+  biz_filtros.belongsTo(biz_filtros_categorias, { as: "id_filtro_categoria_biz_filtros_categoria", foreignKey: "id_filtro_categoria"});
+  biz_filtros_categorias.hasMany(biz_filtros, { as: "biz_filtros", foreignKey: "id_filtro_categoria"});
   biz_opciones.belongsTo(biz_opciones, { as: "depende_biz_opcione", foreignKey: "depende"});
   biz_opciones.hasMany(biz_opciones, { as: "biz_opciones", foreignKey: "depende"});
   biz_roles_opciones.belongsTo(biz_opciones, { as: "id_opcion_biz_opcione", foreignKey: "id_opcion"});
@@ -1086,6 +1096,8 @@ function initModels(sequelize) {
     adm_paises,
     adm_plataformas,
     adm_sedes,
+    biz_filtros,
+    biz_filtros_categorias,
     biz_opciones,
     biz_roles,
     biz_roles_opciones,
