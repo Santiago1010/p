@@ -112,6 +112,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fecha_update: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,

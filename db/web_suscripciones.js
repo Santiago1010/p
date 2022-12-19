@@ -60,9 +60,12 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null: no aplica"
     },
     tipo: {
-      type: DataTypes.ENUM('escuela','programa'),
+      type: DataTypes.STRING(15),
       allowNull: true,
-      defaultValue: "escuela"
+      references: {
+        model: 'biz_filtros',
+        key: 'id_filtro'
+      }
     },
     total_licencias: {
       type: DataTypes.INTEGER,
@@ -106,6 +109,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_propuesta" },
+        ]
+      },
+      {
+        name: "FK_web_suscripciones_biz_filtros",
+        using: "BTREE",
+        fields: [
+          { name: "tipo" },
         ]
       },
     ]

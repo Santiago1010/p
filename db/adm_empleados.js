@@ -168,7 +168,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0
     },
     ultfirma: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(80),
       allowNull: false
     },
     evalucion: {
