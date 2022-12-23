@@ -39,6 +39,55 @@ module.exports = function(sequelize, DataTypes) {
     logo: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    digito_empresa: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
+    razon_social: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    telefono: {
+      type: DataTypes.STRING(40),
+      allowNull: true
+    },
+    celular: {
+      type: DataTypes.STRING(40),
+      allowNull: true
+    },
+    fecha_constitucion: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    responsable_iva: {
+      type: DataTypes.ENUM('n','s'),
+      allowNull: true
+    },
+    rut_url: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    cc_url: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+      comment: "camara comercio fiole"
+    },
+    id_pais: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'adm_paises',
+        key: 'id'
+      }
+    },
+    id_ciudad: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'adm_ciudades',
+        key: 'idCiudades'
+      }
     }
   }, {
     sequelize,
@@ -58,6 +107,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_web_empresa_asesor" },
+        ]
+      },
+      {
+        name: "FK_web_empresas_web_adm_paises",
+        using: "BTREE",
+        fields: [
+          { name: "id_pais" },
+        ]
+      },
+      {
+        name: "FK_web_empresas_web_adm_ciudades",
+        using: "BTREE",
+        fields: [
+          { name: "id_ciudad" },
         ]
       },
     ]
