@@ -456,6 +456,8 @@ function initModels(sequelize) {
   adm_ciudades.hasMany(ctb_proveedores, { as: "ctb_proveedores", foreignKey: "ciudad"});
   matricula_familiares.belongsTo(adm_ciudades, { as: "ciudad_adm_ciudade", foreignKey: "ciudad"});
   adm_ciudades.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "ciudad"});
+  web_empresas.belongsTo(adm_ciudades, { as: "id_ciudad_adm_ciudade", foreignKey: "id_ciudad"});
+  adm_ciudades.hasMany(web_empresas, { as: "web_empresas", foreignKey: "id_ciudad"});
   adm_ciudades.belongsTo(adm_departamentos, { as: "id_departamento_adm_departamento", foreignKey: "id_departamento"});
   adm_departamentos.hasMany(adm_ciudades, { as: "adm_ciudades", foreignKey: "id_departamento"});
   matricula_familiares.belongsTo(adm_departamentos, { as: "departamento_adm_departamento", foreignKey: "departamento"});
@@ -522,6 +524,8 @@ function initModels(sequelize) {
   adm_paises.hasMany(ctb_proveedores, { as: "ctb_proveedores", foreignKey: "pais"});
   matricula_familiares.belongsTo(adm_paises, { as: "pais_adm_paise", foreignKey: "pais"});
   adm_paises.hasMany(matricula_familiares, { as: "matricula_familiares", foreignKey: "pais"});
+  web_empresas.belongsTo(adm_paises, { as: "id_pais_adm_paise", foreignKey: "id_pais"});
+  adm_paises.hasMany(web_empresas, { as: "web_empresas", foreignKey: "id_pais"});
   web_instructores.belongsTo(adm_paises, { as: "pais_adm_paise", foreignKey: "pais"});
   adm_paises.hasMany(web_instructores, { as: "web_instructores", foreignKey: "pais"});
   adm_cargos_plataformas.belongsTo(adm_plataformas, { as: "idPlataforma_adm_plataforma", foreignKey: "idPlataforma"});
