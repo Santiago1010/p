@@ -133,6 +133,18 @@ module.exports = function(sequelize, DataTypes) {
     resp_pregunta: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    rut: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    soporte_eps: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    certificacion_bancaria: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     }
   }, {
     sequelize,
