@@ -36,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true
     },
+    color_texto: {
+      type: DataTypes.STRING(15),
+      allowNull: true
+    },
     para_quien_ruta_aprendizaje: {
       type: DataTypes.STRING(50),
       allowNull: true
