@@ -15,6 +15,15 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_curriculo_categoria'
       }
     },
+    logo_curriculo: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
+    },
     nombre_curriculo: {
       type: DataTypes.STRING(100),
       allowNull: true
