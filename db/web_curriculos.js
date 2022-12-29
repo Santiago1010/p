@@ -18,6 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     nombre_curriculo: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    descripcion_curriculo: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,
