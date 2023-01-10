@@ -15,19 +15,19 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_modulo_curriculo'
       }
     },
-    nombre_leccion: {
+    nombre: {
       type: DataTypes.STRING(50),
       allowNull: true
     },
-    tipo_leccion: {
+    tipo: {
       type: DataTypes.ENUM('Documento','Video','Audio'),
       allowNull: true
     },
-    recurso_leccion: {
+    recurso: {
       type: DataTypes.STRING(300),
       allowNull: true
     },
-    orden_leccion: {
+    orden: {
       type: DataTypes.INTEGER,
       allowNull: true
     },

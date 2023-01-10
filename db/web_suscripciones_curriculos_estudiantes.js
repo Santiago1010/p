@@ -15,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_suscripcion_curriculo_grupo'
       }
     },
-    id_estudiante: {
+    id_usuario: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_usuarios_empresas',
-        key: 'id_usuario_empresa'
+        model: 'web_usuarios',
+        key: 'id_usuario'
       }
     },
     estado: {
@@ -42,17 +42,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_suscripciones_curriculos_estudiantes_FK",
-        using: "BTREE",
-        fields: [
-          { name: "id_estudiante" },
-        ]
-      },
-      {
         name: "web_suscripciones_curriculos_estudiantes_FK_1",
         using: "BTREE",
         fields: [
           { name: "id_suscripcion_curriculo_grupo" },
+        ]
+      },
+      {
+        name: "web_suscripciones_curriculos_estudiantes_FK",
+        using: "BTREE",
+        fields: [
+          { name: "id_usuario" },
         ]
       },
     ]

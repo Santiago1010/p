@@ -1,32 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_suscripciones_curriculos_sedes_grupos', {
-    id_suscripcion_curriculo_sede_grupo: {
+  return sequelize.define('web_curriculos_sedes', {
+    id_sede_curriculo: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_suscripcion_curriculo_sede: {
+    id_empresa: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'web_suscripciones_curriculos_sedes',
-        key: 'id_sede_curriculo'
+        model: 'web_empresas',
+        key: 'id_empresa'
       }
     },
-    nombre_grupo: {
+    nombre_sede: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
     estado: {
       type: DataTypes.TINYINT,
-      allowNull: true,
+      allowNull: false,
       defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'web_suscripciones_curriculos_sedes_grupos',
+    tableName: 'web_curriculos_sedes',
     timestamps: false,
     indexes: [
       {
@@ -34,14 +34,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_sede_grupo" },
+          { name: "id_sede_curriculo" },
         ]
       },
       {
-        name: "web_suscripciones_curriculos_sedes_grupos_FK",
+        name: "web_curriculos_sedes_FK",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_sede" },
+          { name: "id_empresa" },
         ]
       },
     ]

@@ -1,27 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_suscripciones_curriculos_docentes_grupos', {
-    id_suscripcion_curriculo_docente_grupo: {
+  return sequelize.define('web_suscripciones_programas_calendario_detalle', {
+    id_programa_cronograma: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_suscripcion_curriculo_docente: {
+    id_programa_calendario: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_suscripciones_curriculos_docentes',
-        key: 'id_suscripcion_curriculo_docente'
+        model: 'web_suscripciones_programas_calendario',
+        key: 'id_programa_calendario'
       }
     },
-    id_suscripcion_curriculo_grupo: {
+    id_capsula: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_suscripciones_curriculos_grupos',
-        key: 'id_suscripcion_curriculo_grupo'
+        model: 'web_programas_formacion_modulos_capsulas',
+        key: 'id_modulo_capsula'
       }
+    },
+    fecha: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
     },
     estado: {
       type: DataTypes.TINYINT,
@@ -30,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'web_suscripciones_curriculos_docentes_grupos',
+    tableName: 'web_suscripciones_programas_calendario_detalle',
     timestamps: false,
     indexes: [
       {
@@ -38,21 +42,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_docente_grupo" },
+          { name: "id_programa_cronograma" },
         ]
       },
       {
-        name: "web_suscripciones_curriculos_docentes_grupos_FK",
+        name: "web_suscripciones_programas_calendario_detalle_FK",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_docente" },
+          { name: "id_capsula" },
         ]
       },
       {
-        name: "web_suscripciones_curriculos_docentes_grupos_FK_1",
+        name: "web_suscripciones_programas_calendario_detalle_FK_1",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_grupo" },
+          { name: "id_programa_calendario" },
         ]
       },
     ]

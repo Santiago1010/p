@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_curriculo_categoria'
       }
     },
-    logo_curriculo: {
+    logo: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
@@ -24,11 +24,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: 1
     },
-    nombre_curriculo: {
+    nombre: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    descripcion_curriculo: {
+    descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
     }

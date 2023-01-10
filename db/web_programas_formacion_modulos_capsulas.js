@@ -1,27 +1,30 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_curriculos_modulos', {
-    id_modulo_curriculo: {
+  return sequelize.define('web_programas_formacion_modulos_capsulas', {
+    id_modulo_capsula: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_curriculo: {
+    id_modulo: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      allowNull: true,
       references: {
-        model: 'web_curriculos',
-        key: 'id_curriculo'
+        model: 'web_programas_formacion_modulos',
+        key: 'id_programa_modulo'
       }
     },
-    nombre: {
-      type: DataTypes.STRING(50),
+    tipo_capsula: {
+      type: DataTypes.BLOB,
       allowNull: true
     },
-    orden: {
-      type: DataTypes.INTEGER,
+    nombre_capsula: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    recurso: {
+      type: DataTypes.STRING(150),
       allowNull: true
     },
     estado: {
@@ -31,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'web_curriculos_modulos',
+    tableName: 'web_programas_formacion_modulos_capsulas',
     timestamps: false,
     indexes: [
       {
@@ -39,14 +42,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_modulo_curriculo" },
+          { name: "id_modulo_capsula" },
         ]
       },
       {
-        name: "FK_web_curriculos_modulos_web_curriculos",
+        name: "web_programas_formacion_modulos_capsulas_FK",
         using: "BTREE",
         fields: [
-          { name: "id_curriculo" },
+          { name: "id_modulo" },
         ]
       },
     ]

@@ -7,20 +7,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    id_suscripcion: {
+    id_suscripcion_curriculo_grupo: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'web_suscripciones',
-        key: 'id_suscripcion'
+        model: 'web_suscripciones_curriculos_grupos',
+        key: 'id_suscripcion_curriculo_grupo'
       }
     },
     id_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'web_usuarios_empresas',
-        key: 'id_usuario_empresa'
+        model: 'biz_usuarios',
+        key: 'id'
       }
     },
     estado: {
@@ -46,14 +46,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_usuario" },
-          { name: "id_suscripcion" },
+          { name: "id_suscripcion_curriculo_grupo" },
         ]
       },
       {
-        name: "FK_web_suscripciones_curriculos_docentes_web_suscripciones",
+        name: "FK_web_suscripciones_curriculos_docentes_grupos",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion" },
+          { name: "id_suscripcion_curriculo_grupo" },
         ]
       },
     ]

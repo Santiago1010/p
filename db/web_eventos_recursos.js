@@ -7,8 +7,25 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    nombre_recurso: {
+    id_evento: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      references: {
+        model: 'web_eventos',
+        key: 'id_eventos'
+      }
+    },
+    nombre_recurso: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    tipo_recurso: {
+      type: DataTypes.BLOB,
+      allowNull: true
+    },
+    recurso: {
+      type: DataTypes.STRING(200),
       allowNull: true
     }
   }, {
@@ -22,6 +39,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_evento_recurso" },
+        ]
+      },
+      {
+        name: "FK_web_eventos_recursos_web_eventos",
+        using: "BTREE",
+        fields: [
+          { name: "id_evento" },
         ]
       },
     ]
