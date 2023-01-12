@@ -1,28 +1,19 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('web_programas_formacion_calendario', {
-    id: {
+  return sequelize.define('web_suscripciones_programas_calendario', {
+    id_programa_calendario: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_programa_formacion: {
+    id_suscripcion_prog_formacion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
       references: {
-        model: 'web_programas_formacion',
-        key: 'id_programa_formacion'
-      }
-    },
-    id_suscripcion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-      references: {
-        model: 'web_suscripciones',
-        key: 'id_suscripcion'
+        model: 'web_suscripciones_programas_formacion',
+        key: 'id_suscripcion_programa_formacion'
       }
     },
     titulo: {
@@ -34,11 +25,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     fecha_inicio: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATEONLY,
       allowNull: true
     },
     fecha_fin: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATEONLY,
       allowNull: true
     },
     enviados: {
@@ -55,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'web_programas_formacion_calendario',
+    tableName: 'web_suscripciones_programas_calendario',
     timestamps: false,
     indexes: [
       {
@@ -63,21 +54,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "id_programa_calendario" },
         ]
       },
       {
-        name: "FK_web_programas_formacion_calendario_web_suscripciones",
+        name: "web_suscripciones_programas_calendario_FK",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion" },
-        ]
-      },
-      {
-        name: "FK_web_programas_formacion_calendario_web_programas_formacion",
-        using: "BTREE",
-        fields: [
-          { name: "id_programa_formacion" },
+          { name: "id_suscripcion_prog_formacion" },
         ]
       },
     ]

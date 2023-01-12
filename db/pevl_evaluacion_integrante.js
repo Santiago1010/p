@@ -34,6 +34,14 @@ module.exports = function(sequelize, DataTypes) {
         model: 'pelv_indicadores',
         key: 'id'
       }
+    },
+    id_programacion_grupo: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'pevl_evaluacion_programacion_grupo',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -67,6 +75,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_indicador" },
+        ]
+      },
+      {
+        name: "pevl_evaluacion_integrante_programacion_grupo",
+        using: "BTREE",
+        fields: [
+          { name: "id_programacion_grupo" },
         ]
       },
     ]

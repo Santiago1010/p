@@ -15,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_suscripcion_curriculo'
       }
     },
-    id_suscripcion_curriculo_sede_grupo: {
+    id_grupo_curriculo: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'web_suscripciones_curriculos_sedes_grupos',
-        key: 'id_suscripcion_curriculo_sede_grupo'
+        model: 'web_curriculos_grupos',
+        key: 'id_grupo_curriculo'
       }
     },
     id_suscripcion_curriculo_ciclo: {
@@ -49,13 +49,6 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "web_suscripciones_curriculos_grupos_FK",
-        using: "BTREE",
-        fields: [
-          { name: "id_suscripcion_curriculo" },
-        ]
-      },
-      {
         name: "web_suscripciones_curriculos_grupos_FK_1",
         using: "BTREE",
         fields: [
@@ -66,7 +59,14 @@ module.exports = function(sequelize, DataTypes) {
         name: "web_suscripciones_curriculos_grupos_FK_2",
         using: "BTREE",
         fields: [
-          { name: "id_suscripcion_curriculo_sede_grupo" },
+          { name: "id_grupo_curriculo" },
+        ]
+      },
+      {
+        name: "web_suscripciones_curriculos_grupos_FK",
+        using: "BTREE",
+        fields: [
+          { name: "id_suscripcion_curriculo" },
         ]
       },
     ]

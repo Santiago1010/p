@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    nombre_curriculo_categoria: {
+    nombre: {
       type: DataTypes.STRING(100),
       allowNull: true
     },

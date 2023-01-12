@@ -59,6 +59,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null: no aplica"
     },
+    logo: {
+      type: DataTypes.STRING(250),
+      allowNull: true
+    },
     tipo: {
       type: DataTypes.STRING(15),
       allowNull: true,

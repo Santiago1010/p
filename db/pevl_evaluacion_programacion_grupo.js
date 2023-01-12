@@ -1,37 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('pevl_evaluacion_grupos', {
+  return sequelize.define('pevl_evaluacion_programacion_grupo', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id_evaluacion: {
+    id_programacion: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'pevl_evaluacion',
+        model: 'pevl_evaluacion_programacion',
         key: 'id'
       }
     },
-    id_grupo: {
+    id_evaluacion_grupo: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'adm_grupos',
+        model: 'pevl_evaluacion_grupos',
         key: 'id'
       }
-    },
-    estado: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-      comment: "1= activo, 0 = inactivo"
     }
   }, {
     sequelize,
-    tableName: 'pevl_evaluacion_grupos',
+    tableName: 'pevl_evaluacion_programacion_grupo',
     timestamps: false,
     indexes: [
       {
@@ -43,17 +37,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "pevl_evaluacion_grupos_FK",
+        name: "fk_pevl_evaluacion_programacion_grupo_programacion",
         using: "BTREE",
         fields: [
-          { name: "id_evaluacion" },
+          { name: "id_programacion" },
         ]
       },
       {
-        name: "pevl_evaluacion_grupos_FK_1",
+        name: "fk_pevl_evaluacion_programacion_evaluacion_grupo",
         using: "BTREE",
         fields: [
-          { name: "id_grupo" },
+          { name: "id_evaluacion_grupo" },
         ]
       },
     ]

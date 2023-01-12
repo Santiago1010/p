@@ -154,7 +154,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     fchupd: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     entrevista: {
       type: DataTypes.INTEGER,
