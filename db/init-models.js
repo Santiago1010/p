@@ -128,6 +128,7 @@ var _web_curriculos_categorias = require("./web_curriculos_categorias");
 var _web_curriculos_grupos = require("./web_curriculos_grupos");
 var _web_curriculos_modulos = require("./web_curriculos_modulos");
 var _web_curriculos_modulos_lecciones = require("./web_curriculos_modulos_lecciones");
+var _web_curriculos_progreso_grupo = require("./web_curriculos_progreso_grupo");
 var _web_curriculos_sedes = require("./web_curriculos_sedes");
 var _web_cursos = require("./web_cursos");
 var _web_cursos_categorias = require("./web_cursos_categorias");
@@ -347,6 +348,7 @@ function initModels(sequelize) {
   var web_curriculos_grupos = _web_curriculos_grupos(sequelize, DataTypes);
   var web_curriculos_modulos = _web_curriculos_modulos(sequelize, DataTypes);
   var web_curriculos_modulos_lecciones = _web_curriculos_modulos_lecciones(sequelize, DataTypes);
+  var web_curriculos_progreso_grupo = _web_curriculos_progreso_grupo(sequelize, DataTypes);
   var web_curriculos_sedes = _web_curriculos_sedes(sequelize, DataTypes);
   var web_cursos = _web_cursos(sequelize, DataTypes);
   var web_cursos_categorias = _web_cursos_categorias(sequelize, DataTypes);
@@ -794,6 +796,8 @@ function initModels(sequelize) {
   web_componentes_categorias.hasMany(web_componentes, { as: "web_componentes", foreignKey: "id_componente_categoria"});
   web_curriculos_modulos.belongsTo(web_curriculos, { as: "id_curriculo_web_curriculo", foreignKey: "id_curriculo"});
   web_curriculos.hasMany(web_curriculos_modulos, { as: "web_curriculos_modulos", foreignKey: "id_curriculo"});
+  web_curriculos_progreso_grupo.belongsTo(web_curriculos, { as: "id_curriculo_web_curriculo", foreignKey: "id_curriculo"});
+  web_curriculos.hasMany(web_curriculos_progreso_grupo, { as: "web_curriculos_progreso_grupos", foreignKey: "id_curriculo"});
   web_suscripciones_curriculos.belongsTo(web_curriculos, { as: "id_curriculo_web_curriculo", foreignKey: "id_curriculo"});
   web_curriculos.hasMany(web_suscripciones_curriculos, { as: "web_suscripciones_curriculos", foreignKey: "id_curriculo"});
   web_curriculos.belongsTo(web_curriculos_categorias, { as: "id_curriculo_categoria_web_curriculos_categoria", foreignKey: "id_curriculo_categoria"});
@@ -802,6 +806,8 @@ function initModels(sequelize) {
   web_curriculos_grupos.hasMany(web_suscripciones_curriculos_grupos, { as: "web_suscripciones_curriculos_grupos", foreignKey: "id_grupo_curriculo"});
   web_curriculos_modulos_lecciones.belongsTo(web_curriculos_modulos, { as: "id_modulo_web_curriculos_modulo", foreignKey: "id_modulo"});
   web_curriculos_modulos.hasMany(web_curriculos_modulos_lecciones, { as: "web_curriculos_modulos_lecciones", foreignKey: "id_modulo"});
+  web_curriculos_progreso_grupo.belongsTo(web_curriculos_modulos_lecciones, { as: "id_leccion_curriculo_web_curriculos_modulos_leccione", foreignKey: "id_leccion_curriculo"});
+  web_curriculos_modulos_lecciones.hasMany(web_curriculos_progreso_grupo, { as: "web_curriculos_progreso_grupos", foreignKey: "id_leccion_curriculo"});
   web_curriculos_grupos.belongsTo(web_curriculos_sedes, { as: "id_sede_curriculo_web_curriculos_sede", foreignKey: "id_sede_curriculo"});
   web_curriculos_sedes.hasMany(web_curriculos_grupos, { as: "web_curriculos_grupos", foreignKey: "id_sede_curriculo"});
   web_cursos_certificados.belongsTo(web_cursos, { as: "id_curso_web_curso", foreignKey: "id_curso"});
@@ -1004,6 +1010,8 @@ function initModels(sequelize) {
   web_suscripciones_curriculos_ciclos.hasMany(web_suscripciones_curriculos_grupos, { as: "web_suscripciones_curriculos_grupos", foreignKey: "id_suscripcion_curriculo_ciclo"});
   web_suscripciones_curriculos_grupos_asistencias.belongsTo(web_suscripciones_curriculos_estudiantes, { as: "id_suscripcion_curriculo_estudiante_web_suscripciones_curriculos_estudiante", foreignKey: "id_suscripcion_curriculo_estudiante"});
   web_suscripciones_curriculos_estudiantes.hasMany(web_suscripciones_curriculos_grupos_asistencias, { as: "web_suscripciones_curriculos_grupos_asistencia", foreignKey: "id_suscripcion_curriculo_estudiante"});
+  web_curriculos_progreso_grupo.belongsTo(web_suscripciones_curriculos_grupos, { as: "id_suscripcion_curriculo_grupo_web_suscripciones_curriculos_grupo", foreignKey: "id_suscripcion_curriculo_grupo"});
+  web_suscripciones_curriculos_grupos.hasMany(web_curriculos_progreso_grupo, { as: "web_curriculos_progreso_grupos", foreignKey: "id_suscripcion_curriculo_grupo"});
   web_suscripciones_curriculos_docentes.belongsTo(web_suscripciones_curriculos_grupos, { as: "id_suscripcion_curriculo_grupo_web_suscripciones_curriculos_grupo", foreignKey: "id_suscripcion_curriculo_grupo"});
   web_suscripciones_curriculos_grupos.hasMany(web_suscripciones_curriculos_docentes, { as: "web_suscripciones_curriculos_docentes", foreignKey: "id_suscripcion_curriculo_grupo"});
   web_suscripciones_curriculos_estudiantes.belongsTo(web_suscripciones_curriculos_grupos, { as: "id_suscripcion_curriculo_grupo_web_suscripciones_curriculos_grupo", foreignKey: "id_suscripcion_curriculo_grupo"});
@@ -1215,6 +1223,7 @@ function initModels(sequelize) {
     web_curriculos_grupos,
     web_curriculos_modulos,
     web_curriculos_modulos_lecciones,
+    web_curriculos_progreso_grupo,
     web_curriculos_sedes,
     web_cursos,
     web_cursos_categorias,

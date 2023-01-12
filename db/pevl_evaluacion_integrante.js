@@ -42,6 +42,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'pevl_evaluacion_programacion_grupo',
         key: 'id'
       }
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
