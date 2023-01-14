@@ -19,8 +19,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
+    descripcion: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
     estado: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 0,
       comment: "0=Pendiente, 1=Proceso, 2=Finalizado"

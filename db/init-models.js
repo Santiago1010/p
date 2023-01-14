@@ -128,6 +128,7 @@ var _web_curriculos_categorias = require("./web_curriculos_categorias");
 var _web_curriculos_grupos = require("./web_curriculos_grupos");
 var _web_curriculos_modulos = require("./web_curriculos_modulos");
 var _web_curriculos_modulos_lecciones = require("./web_curriculos_modulos_lecciones");
+var _web_curriculos_modulos_lecciones_materiales = require("./web_curriculos_modulos_lecciones_materiales");
 var _web_curriculos_progreso_grupo = require("./web_curriculos_progreso_grupo");
 var _web_curriculos_sedes = require("./web_curriculos_sedes");
 var _web_cursos = require("./web_cursos");
@@ -348,6 +349,7 @@ function initModels(sequelize) {
   var web_curriculos_grupos = _web_curriculos_grupos(sequelize, DataTypes);
   var web_curriculos_modulos = _web_curriculos_modulos(sequelize, DataTypes);
   var web_curriculos_modulos_lecciones = _web_curriculos_modulos_lecciones(sequelize, DataTypes);
+  var web_curriculos_modulos_lecciones_materiales = _web_curriculos_modulos_lecciones_materiales(sequelize, DataTypes);
   var web_curriculos_progreso_grupo = _web_curriculos_progreso_grupo(sequelize, DataTypes);
   var web_curriculos_sedes = _web_curriculos_sedes(sequelize, DataTypes);
   var web_cursos = _web_cursos(sequelize, DataTypes);
@@ -634,6 +636,8 @@ function initModels(sequelize) {
   departamentos.hasMany(pqrs, { as: "pqrs", foreignKey: "departamento"});
   usuarios_departamentos.belongsTo(departamentos, { as: "id_departamento_departamento", foreignKey: "id_departamento"});
   departamentos.hasMany(usuarios_departamentos, { as: "usuarios_departamentos", foreignKey: "id_departamento"});
+  pevl_evaluacion_programacion.belongsTo(gnr_parametros, { as: "codpar_gnr_parametro", foreignKey: "codpar"});
+  gnr_parametros.hasMany(pevl_evaluacion_programacion, { as: "pevl_evaluacion_programacions", foreignKey: "codpar"});
   gnr_parametros.belongsTo(gnr_parametros_perfiles, { as: "perfil_gnr_parametros_perfile", foreignKey: "perfil"});
   gnr_parametros_perfiles.hasMany(gnr_parametros, { as: "gnr_parametros", foreignKey: "perfil"});
   gnr_parametros_usuarios.belongsTo(gnr_parametros_perfiles, { as: "perfil_gnr_parametros_perfile", foreignKey: "perfil"});
@@ -806,6 +810,8 @@ function initModels(sequelize) {
   web_curriculos_grupos.hasMany(web_suscripciones_curriculos_grupos, { as: "web_suscripciones_curriculos_grupos", foreignKey: "id_grupo_curriculo"});
   web_curriculos_modulos_lecciones.belongsTo(web_curriculos_modulos, { as: "id_modulo_web_curriculos_modulo", foreignKey: "id_modulo"});
   web_curriculos_modulos.hasMany(web_curriculos_modulos_lecciones, { as: "web_curriculos_modulos_lecciones", foreignKey: "id_modulo"});
+  web_curriculos_modulos_lecciones_materiales.belongsTo(web_curriculos_modulos_lecciones, { as: "id_leccion_curriculo_web_curriculos_modulos_leccione", foreignKey: "id_leccion_curriculo"});
+  web_curriculos_modulos_lecciones.hasMany(web_curriculos_modulos_lecciones_materiales, { as: "web_curriculos_modulos_lecciones_materiales", foreignKey: "id_leccion_curriculo"});
   web_curriculos_progreso_grupo.belongsTo(web_curriculos_modulos_lecciones, { as: "id_leccion_curriculo_web_curriculos_modulos_leccione", foreignKey: "id_leccion_curriculo"});
   web_curriculos_modulos_lecciones.hasMany(web_curriculos_progreso_grupo, { as: "web_curriculos_progreso_grupos", foreignKey: "id_leccion_curriculo"});
   web_curriculos_grupos.belongsTo(web_curriculos_sedes, { as: "id_sede_curriculo_web_curriculos_sede", foreignKey: "id_sede_curriculo"});
@@ -1223,6 +1229,7 @@ function initModels(sequelize) {
     web_curriculos_grupos,
     web_curriculos_modulos,
     web_curriculos_modulos_lecciones,
+    web_curriculos_modulos_lecciones_materiales,
     web_curriculos_progreso_grupo,
     web_curriculos_sedes,
     web_cursos,

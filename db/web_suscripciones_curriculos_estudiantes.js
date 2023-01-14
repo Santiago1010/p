@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     estado: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 1
     }

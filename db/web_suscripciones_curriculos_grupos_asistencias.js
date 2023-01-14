@@ -24,10 +24,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     estado_asistencia: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: 0,
-      comment: "1=No asistio,2=asistio, 3=con excusa"
+      comment: "0=No asistio,1=asistio, 2=con excusa"
     },
     fecha: {
       type: DataTypes.DATE,
