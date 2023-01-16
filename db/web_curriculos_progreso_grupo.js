@@ -55,6 +55,15 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
+        name: "web_curriculos_progreso_grupo_UN",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id_leccion_curriculo" },
+          { name: "id_suscripcion_curriculo_grupo" },
+        ]
+      },
+      {
         name: "web_curriculos_progreso_grupo_FK",
         using: "BTREE",
         fields: [
@@ -66,13 +75,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_curriculo" },
-        ]
-      },
-      {
-        name: "web_curriculos_progreso_grupo_FK_2",
-        using: "BTREE",
-        fields: [
-          { name: "id_leccion_curriculo" },
         ]
       },
     ]
