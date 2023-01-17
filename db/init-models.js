@@ -68,6 +68,7 @@ var _ctb_proveedores_respons = require("./ctb_proveedores_respons");
 var _ctb_proveedores_tipos_ident = require("./ctb_proveedores_tipos_ident");
 var _departamentos = require("./departamentos");
 var _departamentos_opciones = require("./departamentos_opciones");
+var _evl_autempleados = require("./evl_autempleados");
 var _gnr_parametros = require("./gnr_parametros");
 var _gnr_parametros_perfiles = require("./gnr_parametros_perfiles");
 var _gnr_parametros_usuarios = require("./gnr_parametros_usuarios");
@@ -289,6 +290,7 @@ function initModels(sequelize) {
   var ctb_proveedores_tipos_ident = _ctb_proveedores_tipos_ident(sequelize, DataTypes);
   var departamentos = _departamentos(sequelize, DataTypes);
   var departamentos_opciones = _departamentos_opciones(sequelize, DataTypes);
+  var evl_autempleados = _evl_autempleados(sequelize, DataTypes);
   var gnr_parametros = _gnr_parametros(sequelize, DataTypes);
   var gnr_parametros_perfiles = _gnr_parametros_perfiles(sequelize, DataTypes);
   var gnr_parametros_usuarios = _gnr_parametros_usuarios(sequelize, DataTypes);
@@ -502,6 +504,8 @@ function initModels(sequelize) {
   adm_empleados.hasMany(ctb_proveedores_pagos, { as: "ctb_proveedores_pagos", foreignKey: "responsable"});
   ctb_proveedores_respons.belongsTo(adm_empleados, { as: "codemp_adm_empleado", foreignKey: "codemp"});
   adm_empleados.hasMany(ctb_proveedores_respons, { as: "ctb_proveedores_respons", foreignKey: "codemp"});
+  evl_autempleados.belongsTo(adm_empleados, { as: "codevld_adm_empleado", foreignKey: "codevld"});
+  adm_empleados.hasMany(evl_autempleados, { as: "evl_autempleados", foreignKey: "codevld"});
   gnr_parametros_usuarios.belongsTo(adm_empleados, { as: "codemp_adm_empleado", foreignKey: "codemp"});
   adm_empleados.hasMany(gnr_parametros_usuarios, { as: "gnr_parametros_usuarios", foreignKey: "codemp"});
   pqrs.belongsTo(adm_empleados, { as: "id_empleado_adm_empleado", foreignKey: "id_empleado"});
@@ -636,8 +640,10 @@ function initModels(sequelize) {
   departamentos.hasMany(pqrs, { as: "pqrs", foreignKey: "departamento"});
   usuarios_departamentos.belongsTo(departamentos, { as: "id_departamento_departamento", foreignKey: "id_departamento"});
   departamentos.hasMany(usuarios_departamentos, { as: "usuarios_departamentos", foreignKey: "id_departamento"});
-  pevl_evaluacion_programacion.belongsTo(gnr_parametros, { as: "codpar_gnr_parametro", foreignKey: "codpar"});
-  gnr_parametros.hasMany(pevl_evaluacion_programacion, { as: "pevl_evaluacion_programacions", foreignKey: "codpar"});
+  evl_autempleados.belongsTo(gnr_parametros, { as: "codevl_gnr_parametro", foreignKey: "codevl"});
+  gnr_parametros.hasMany(evl_autempleados, { as: "evl_autempleados", foreignKey: "codevl"});
+  pevl_evaluacion_programacion_grupo.belongsTo(gnr_parametros, { as: "codpar_gnr_parametro", foreignKey: "codpar"});
+  gnr_parametros.hasMany(pevl_evaluacion_programacion_grupo, { as: "pevl_evaluacion_programacion_grupos", foreignKey: "codpar"});
   gnr_parametros.belongsTo(gnr_parametros_perfiles, { as: "perfil_gnr_parametros_perfile", foreignKey: "perfil"});
   gnr_parametros_perfiles.hasMany(gnr_parametros, { as: "gnr_parametros", foreignKey: "perfil"});
   gnr_parametros_usuarios.belongsTo(gnr_parametros_perfiles, { as: "perfil_gnr_parametros_perfile", foreignKey: "perfil"});
@@ -660,6 +666,8 @@ function initModels(sequelize) {
   opciones.hasMany(usuarios_perfil_opciones, { as: "usuarios_perfil_opciones", foreignKey: "id_opcion"});
   usuarios_permisos_opciones.belongsTo(opciones, { as: "id_opcion_opcione", foreignKey: "id_opcion"});
   opciones.hasMany(usuarios_permisos_opciones, { as: "usuarios_permisos_opciones", foreignKey: "id_opcion"});
+  evl_autempleados.belongsTo(pelv_indicadores, { as: "codpreg_pelv_indicadore", foreignKey: "codpreg"});
+  pelv_indicadores.hasMany(evl_autempleados, { as: "evl_autempleados", foreignKey: "codpreg"});
   pevl_evaluacion_indicador.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
   pelv_indicadores.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_indicador"});
   pevl_evaluacion_integrante.belongsTo(pelv_indicadores, { as: "id_indicador_pelv_indicadore", foreignKey: "id_indicador"});
@@ -674,6 +682,8 @@ function initModels(sequelize) {
   pevl_evaluacion.hasMany(pevl_evaluacion_grupos, { as: "pevl_evaluacion_grupos", foreignKey: "id_evaluacion"});
   pevl_evaluacion_indicador.belongsTo(pevl_evaluacion, { as: "id_evaluacion_pevl_evaluacion", foreignKey: "id_evaluacion"});
   pevl_evaluacion.hasMany(pevl_evaluacion_indicador, { as: "pevl_evaluacion_indicadors", foreignKey: "id_evaluacion"});
+  evl_autempleados.belongsTo(pevl_evaluacion_grupos, { as: "codplanilla_pevl_evaluacion_grupo", foreignKey: "codplanilla"});
+  pevl_evaluacion_grupos.hasMany(evl_autempleados, { as: "evl_autempleados", foreignKey: "codplanilla"});
   pevl_evaluacion_integrante.belongsTo(pevl_evaluacion_grupos, { as: "id_evaluacion_pevl_evaluacion_grupo", foreignKey: "id_evaluacion"});
   pevl_evaluacion_grupos.hasMany(pevl_evaluacion_integrante, { as: "pevl_evaluacion_integrantes", foreignKey: "id_evaluacion"});
   pevl_evaluacion_programacion_grupo.belongsTo(pevl_evaluacion_grupos, { as: "id_evaluacion_grupo_pevl_evaluacion_grupo", foreignKey: "id_evaluacion_grupo"});
@@ -1169,6 +1179,7 @@ function initModels(sequelize) {
     ctb_proveedores_tipos_ident,
     departamentos,
     departamentos_opciones,
+    evl_autempleados,
     gnr_parametros,
     gnr_parametros_perfiles,
     gnr_parametros_usuarios,

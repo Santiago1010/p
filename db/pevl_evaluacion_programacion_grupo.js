@@ -22,6 +22,14 @@ module.exports = function(sequelize, DataTypes) {
         model: 'pevl_evaluacion_grupos',
         key: 'id'
       }
+    },
+    codpar: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      references: {
+        model: 'gnr_parametros',
+        key: 'codpar'
+      }
     }
   }, {
     sequelize,
@@ -48,6 +56,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id_evaluacion_grupo" },
+        ]
+      },
+      {
+        name: "fk_pevl_evaluacion_programacion_grupo_gnr_programacion",
+        using: "BTREE",
+        fields: [
+          { name: "codpar" },
         ]
       },
     ]
