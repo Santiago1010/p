@@ -18,14 +18,6 @@ module.exports = function(sequelize, DataTypes) {
     fecha_max: {
       type: DataTypes.DATEONLY,
       allowNull: false
-    },
-    codpar: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-      references: {
-        model: 'gnr_parametros',
-        key: 'codpar'
-      }
     }
   }, {
     sequelize,
@@ -38,13 +30,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "fk_pevl_evaluacion_programacion_gnr_programacion",
-        using: "BTREE",
-        fields: [
-          { name: "codpar" },
         ]
       },
     ]
