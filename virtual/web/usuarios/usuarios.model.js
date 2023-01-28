@@ -54,6 +54,7 @@ const Schema = {
   fechaNacimiento: {
     field: 'fecha_nacimiento',
     type: DataTypes.DATEONLY,
+    defaultValue: new Date('2000-01-01'),
   },
   edad: {
     type: DataTypes.VIRTUAL,

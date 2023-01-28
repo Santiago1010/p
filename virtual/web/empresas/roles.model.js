@@ -5,6 +5,11 @@ const TABLE_NAME = 'web_empresas_roles';
 const MODEL_NAME = 'webEmpresasRoles';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
   descripcion: DataTypes.STRING(100),
   idEmpresa: {
     field: 'id_empresa',
