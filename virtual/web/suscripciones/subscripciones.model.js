@@ -19,29 +19,18 @@ const Schema = {
     field: 'id_empresa',
     type: DataTypes.INTEGER,
   },
+  idPropuesta: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'web_suscripciones_propuestas',
+      key: 'id_suscripcion_propuesta',
+    },
+    field: 'id_propuesta',
+  },
   nombre: {
     field: 'nombre_suscripcion',
     type: DataTypes.STRING(100),
-  },
-  fecha: {
-    type: DataTypes.DATE,
-  },
-  fechaInicio: {
-    field: 'fecha_inicio',
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  fechaFin: {
-    field: 'fecha_fin',
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  vigente: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      const today = new Date();
-      return this.get('fechaFin') >= today;
-    },
   },
   autoGestionable: {
     field: 'auto_gestionable',
@@ -88,6 +77,10 @@ class ExtendedModel extends Model {
       through: { model: models.webSuscripcionesCurriculos },
       as: 'curriculos',
       foreignKey: 'idSuscripcion',
+    });
+    this.belongsTo(models.webSuscripcionesPropuestas, {
+      as: 'propuesta',
+      foreignKey: 'idPropuesta',
     });
   }
 

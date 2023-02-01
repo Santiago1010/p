@@ -44,6 +44,11 @@ const Schema = {
     allowNull: true,
     field: 'nro_matriculados',
   },
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    defaultValue: 'Grupo A',
+  },
 };
 class ExtendedModel extends Model {
   static associate(models) {
