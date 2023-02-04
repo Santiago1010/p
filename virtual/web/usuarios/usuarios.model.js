@@ -11,6 +11,17 @@ const Schema = {
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
+  tipoDoc: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+    defaultValue: '0',
+    field: 'tipo_doc',
+  },
+  documento: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    defaultValue: '0',
+  },
   nombreCompleto: {
     field: 'nombre_completo_usuario',
     type: DataTypes.STRING,
@@ -46,6 +57,12 @@ const Schema = {
   testCerebral: {
     field: 'aplico_test_cerebral',
     type: DataTypes.INTEGER,
+  },
+  cambiarPassword: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
+    field: 'cambiar_password',
   },
   testCerebralCount: {
     field: 'nro_test_cerebral',
@@ -94,6 +111,11 @@ const Schema = {
   sobreMi: {
     type: DataTypes.STRING(300),
     field: 'sobre_mi',
+  },
+  tokenRecuperacion: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    field: 'token_recuperacion',
   },
   createdAt: {
     field: 'created_at',
