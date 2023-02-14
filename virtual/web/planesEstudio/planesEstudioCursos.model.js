@@ -40,7 +40,9 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.webPlanesEstudio, { as: 'planEstudio', foreignKey: 'idPlanEstudio' });
+  }
 
   static config(sequelize) {
     return {

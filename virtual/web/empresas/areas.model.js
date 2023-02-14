@@ -32,6 +32,12 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
     this.hasMany(models.webUsuariosEmpresas, { as: 'usuariosEmpresas', foreignKey: 'idEmpresaArea' });
+    this.hasMany(models.bizUsuariosAreas, { as: 'usuariosAreas', foreignKey: 'idEmpresaArea' });
+    this.belongsToMany(models.bizUsuarios, {
+      through: { model: models.bizUsuariosAreas },
+      as: 'bizUsuarios',
+      foreignKey: 'idEmpresaArea',
+    });
   }
 
   static config(sequelize) {

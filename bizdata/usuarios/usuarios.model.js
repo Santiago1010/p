@@ -40,6 +40,12 @@ class ExtendedModel extends Model {
       as: 'docentesCurriculo',
       foreignKey: 'idUsuario',
     });
+    this.hasMany(models.bizUsuariosAreas, { as: 'usuariosAreas', foreignKey: 'idUsuario' });
+    this.belongsToMany(models.webEmpresasAreas, {
+      through: { model: models.bizUsuariosAreas },
+      as: 'areas',
+      foreignKey: 'idUsuario',
+    });
   }
 
   static config(sequelize) {

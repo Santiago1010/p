@@ -41,6 +41,11 @@ const Schema = {
       return `${hostImage}${imageLocation}`;
     },
   },
+  certificados: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 1,
+  },
 };
 
 class ExtendedModel extends Model {
