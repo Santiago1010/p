@@ -35,7 +35,8 @@ const Schema = {
   autoGestionable: {
     field: 'auto_gestionable',
     type: DataTypes.ENUM('virtual', 'interno', 'externo'),
-    default: 'virtual',
+    allowNull: true,
+    default: null,
   },
   limiteCursos: {
     field: 'limite_cursos',
