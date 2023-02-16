@@ -71,6 +71,7 @@ class ExtendedModel extends Model {
     this.belongsTo(models.webEmpresasAreas, { as: 'area', foreignKey: 'idEmpresaArea' });
     this.hasMany(models.viewUsuariosStats, { as: 'statsUsuario', foreignKey: 'idEmpresa', sourceKey: 'idEmpresa' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idUsuario' });
+    this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
   }
 
   static config(sequelize) {

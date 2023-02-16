@@ -52,6 +52,8 @@ const Schema = {
   incluirTodos: {
     field: 'incluir_todos',
     type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: true,
+    defaultValue: null,
   },
 };
 
