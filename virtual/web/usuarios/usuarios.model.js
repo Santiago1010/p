@@ -156,6 +156,10 @@ class ExtendedModel extends Model {
       as: 'suscripciones',
       foreignKey: 'idUsuario',
     });
+    this.hasMany(models.webUsuariosEmpresas, {
+      as: 'usuarioEmpresas',
+      foreignKey: 'idUsuario',
+    });
     this.belongsToMany(models.webEmpresas, {
       through: { model: models.webUsuariosEmpresas },
       as: 'empresas',
