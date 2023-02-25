@@ -1,6 +1,6 @@
 const error = require('./customError');
 class Paginate {
-  static async paginateModel(model, limit, page, { attributes, where, order, include } = {}) {
+  static async paginateModel(model, limit, page, { attributes, where, order, include, paranoid } = {}) {
     const pageQuery = page - 1;
     const offset = page && limit ? pageQuery * limit : 0;
     const limitQuery = limit ? parseInt(limit) : undefined;
@@ -16,6 +16,7 @@ class Paginate {
       where,
       order,
       include,
+      paranoid,
     };
 
     const { rows: results, count } = await model.findAndCountAll(optionQuery);
