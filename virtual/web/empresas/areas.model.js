@@ -38,6 +38,12 @@ class ExtendedModel extends Model {
       as: 'bizUsuarios',
       foreignKey: 'idEmpresaArea',
     });
+    this.hasMany(models.webRetosAsignacion, { as: 'retosAsignacion', foreignKey: 'idArea' });
+    this.belongsToMany(models.webRetos, {
+      through: { model: models.webRetosAsignacion },
+      as: 'retos',
+      foreignKey: 'idArea',
+    });
   }
 
   static config(sequelize) {
