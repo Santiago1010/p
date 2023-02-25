@@ -131,6 +131,16 @@ const Schema = {
     field: 'deleted_at',
     type: DataTypes.DATE,
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      let deletedAt = this.getDataValue('deletedAt');
+      return deletedAt ? 0 : 1;
+    },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
+    },
+  },
 };
 
 class ExtendedModel extends Model {
@@ -144,6 +154,10 @@ class ExtendedModel extends Model {
     this.belongsToMany(models.webSuscripciones, {
       through: { model: models.webUsuariosSuscripciones },
       as: 'suscripciones',
+      foreignKey: 'idUsuario',
+    });
+    this.hasMany(models.webUsuariosEmpresas, {
+      as: 'usuarioEmpresas',
       foreignKey: 'idUsuario',
     });
     this.belongsToMany(models.webEmpresas, {

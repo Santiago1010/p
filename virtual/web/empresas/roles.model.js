@@ -17,7 +17,10 @@ const Schema = {
   },
   estado: DataTypes.INTEGER,
   addusr: DataTypes.STRING(50),
-  fchadd: DataTypes.DATE,
+  fchadd: {
+    type: DataTypes.DATE,
+    defaultValue: new Date(),
+  },
 };
 
 class ExtendedModel extends Model {

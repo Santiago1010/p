@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'web_planes_estudio';
 const MODEL_NAME = 'webPlanesEstudio';
@@ -37,6 +38,14 @@ const Schema = {
   logo: {
     type: DataTypes.STRING(255),
     allowNull: true,
+    get() {
+      const imageLocation = this.getDataValue('logo');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   color: {
     type: DataTypes.STRING(255),
