@@ -1,6 +1,11 @@
 const error = require('./customError');
 class Paginate {
-  static async paginateModel(model, limit, page, { attributes, where, order, include, paranoid } = {}) {
+  static async paginateModel(
+    model,
+    limit,
+    page,
+    { attributes, where, order, include, paranoid, subQuery, group } = {}
+  ) {
     const pageQuery = page - 1;
     const offset = page && limit ? pageQuery * limit : 0;
     const limitQuery = limit ? parseInt(limit) : undefined;
@@ -16,6 +21,8 @@ class Paginate {
       where,
       order,
       include,
+      subQuery,
+      group,
       paranoid,
     };
 
@@ -24,7 +31,7 @@ class Paginate {
     const limitAndPage = page && limit;
 
     const existPrev = limitAndPage ? page > 1 && offset < count : null;
-    const existNext = limitAndPage ? Math.floor(count / limit) > page : null;
+    const existNext = limitAndPage ? Math.ceil(count / limit) > page : null;
 
     return { total: count, results, existPrev, existNext, page };
   }
