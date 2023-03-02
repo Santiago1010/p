@@ -53,6 +53,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.webEmpresasRoles, { as: 'roles', foreignKey: 'idEmpresa' });
     this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idEmpresa' });
     this.hasMany(models.webEmpresasAreas, { as: 'areas', foreignKey: 'idEmpresa' });
+    this.hasMany(models.webUsuariosEmpresas, { as: 'usuarioEmpresas', foreignKey: 'idEmpresa' });
     this.belongsToMany(models.webUsuarios, {
       through: { model: models.webUsuariosEmpresas },
       as: 'usuarios',
