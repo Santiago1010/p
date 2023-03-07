@@ -55,6 +55,16 @@ const Schema = {
     allowNull: true,
     defaultValue: null,
   },
+  fechaInicio: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'fecha_inicio',
+  },
+  fechaFin: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'fecha_fin',
+  },
 };
 
 class ExtendedModel extends Model {
