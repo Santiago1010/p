@@ -109,6 +109,14 @@ const Schema = {
     defaultValue: 1,
     comment: '0:Inactivo, 1:Activo',
   },
+  fechaCurso: {
+    type: DataTypes.DATE,
+    field: 'fecha_curso',
+  },
+  fechaAdd: {
+    type: DataTypes.DATE,
+    field: 'fecha_add',
+  },
 };
 
 class ExtendedModel extends Model {
