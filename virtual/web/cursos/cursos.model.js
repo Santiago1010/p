@@ -137,6 +137,11 @@ class ExtendedModel extends Model {
       as: 'planesEstudio',
       foreignKey: 'idCurso',
     });
+    this.belongsToMany(models.webRetos, {
+      through: { model: models.webRetosCursos },
+      as: 'retos',
+      foreignKey: 'idCurso',
+    });
 
     this.belongsTo(models.webCursosCategorias, { as: 'categoria', foreignKey: 'idCategoria' });
     this.hasMany(models.webCursosModulos, { as: 'modulos', foreignKey: 'idCurso' });

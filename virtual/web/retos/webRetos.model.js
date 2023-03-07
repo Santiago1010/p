@@ -39,12 +39,10 @@ const Schema = {
   },
   fechaInicio: {
     type: DataTypes.DATE,
-    allowNull: false,
     field: 'fecha_inicio',
   },
   fechaFin: {
     type: DataTypes.DATE,
-    allowNull: false,
     field: 'fecha_fin',
   },
   puntos: {
@@ -57,17 +55,19 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.webRetosActividades, { as: 'actividades', foreignKey: 'idReto' });
     this.hasMany(models.webRetosAsignacion, { as: 'asignaciones', foreignKey: 'idReto' });
-    this.hasMany(models.webRetosCursos, { as: 'retosCursos', foreignKey: 'idReto' });
+    this.hasMany(models.webRetosIteracion, { as: 'iteracion', foreignKey: 'idReto' });
+    this.hasMany(models.webRetosProgresoUsuarios, { as: 'progresoUsuarios', foreignKey: 'idReto' });
     this.belongsToMany(models.webCursos, {
       through: { model: models.webRetosCursos },
       as: 'cursos',
-      foreignKey: 'idCurso',
+      foreignKey: 'idReto',
     });
     this.belongsToMany(models.webSuscripciones, {
       through: { model: models.webRetosAsignacion },
       as: 'suscripciones',
       foreignKey: 'idReto',
     });
+    this.hasMany(models.webRetosCursos, { as: 'retosCursos', foreignKey: 'idReto' });
   }
 
   static config(sequelize) {
