@@ -2,7 +2,7 @@ const calcularValoresVenta = (producto) => {
   let valor_venta = 0,
     valor_bruto = 0,
     valor_impuesto = 0,
-    porcentaje_descuento = 0,
+    // porcentaje_descuento = 0,
     valor_total = 0,
     valor_descuento = 0,
     valor_descuento_temp = 0,
@@ -83,6 +83,7 @@ const calcularValoresVenta = (producto) => {
       porc_ipconsumo: porc_ipconsumo,
     };
   }
+  return {};
 };
 
 module.exports = {

@@ -11,7 +11,7 @@ const {
   admision_config_documentos,
   config_documentos,
   admision_aspirantes_documentos,
-  matricula_consecutivos,
+  // matricula_consecutivos,
   adm_ciudades,
   config_data_opciones,
   adm_paises,

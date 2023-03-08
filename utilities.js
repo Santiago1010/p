@@ -24,7 +24,7 @@ const CryptoJSAesJson = {
 
 const decodeBase64 = (dataString) => {
   try {
-    const matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
     const response = {};
     if (matches.length !== 3) {
       return new Error('Invalid input string');
@@ -287,9 +287,9 @@ const notificacionEmail = async (notificacion, plantilla, datos) => {
       transporter.sendMail(mailOptionsResp, (error, info) => {
         if (error) {
           console.log(error);
-          resolve({ error: true });
+          return { error: true }; //resolve({ error: true });
         } else {
-          resolve(info);
+          return info; //resolve(info);
         }
       });
     }
@@ -305,12 +305,13 @@ const notificacionEmail = async (notificacion, plantilla, datos) => {
       });
     });
   }
+  return null;
 };
 
 const saveFile = (base64, folder, documento, type = 'png') => {
   return new Promise((resolve, reject) => {
     const a = base64;
-    const m = a.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    const m = a.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
     const b = Buffer.from(m[2], 'base64');
 
     // const folder = 'public/files/upload/proveedores';
@@ -321,7 +322,7 @@ const saveFile = (base64, folder, documento, type = 'png') => {
         if (!err) {
           resolve(true);
         } else {
-          res.json(err);
+          reject(err);
         }
       });
     };
