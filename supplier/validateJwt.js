@@ -19,10 +19,10 @@ const validateJwt = async (req, res, next) => {
       });
     }
     req.user = usuario;
-    next();
+    return next();
   } catch (error) {
     console.log(error);
-    res.status(401).send({
+    return res.status(401).send({
       msg: 'token no valido - 3',
     });
   }

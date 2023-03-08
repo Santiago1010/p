@@ -1,6 +1,4 @@
-const initModels = require('../models/db/init-models');
-const { sequelize } = require('../database/config');
-const { usuarios_permisos_opciones, opciones } = initModels(sequelize);
+// const { usuarios_permisos_opciones, opciones } = require('../database/config').modelsAuto;
 const { validarOpcion } = require('../helpers/dbValidators');
 
 const validatePermission = async (req, res, next) => {
@@ -38,7 +36,7 @@ const validatePermission = async (req, res, next) => {
     });
   }
 
-  next();
+  return next();
 };
 
 module.exports = {

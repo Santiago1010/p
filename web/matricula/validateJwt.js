@@ -10,7 +10,7 @@ const validateJwt = async (req, res, next) => {
   try {
     const { id, datos } = jwt.verify(token, process.env.PRIVATEKEY);
     req.user = { id, datos };
-    next();
+    return next();
   } catch (error) {
     console.log(error);
     return res.status(401).send({
