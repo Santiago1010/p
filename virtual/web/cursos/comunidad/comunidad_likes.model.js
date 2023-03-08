@@ -1,5 +1,5 @@
 'use strict';
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'web_cursos_comunidad_likes';
 const MODEL_NAME = 'webCursosComunidadLikes';
