@@ -11,10 +11,11 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     field: 'id_curso',
+    autoIncrement: true,
   },
   idCategoria: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
     references: {
       model: 'web_cursos_categorias',
       key: 'id_curso_categoria',
@@ -23,7 +24,7 @@ const Schema = {
   },
   nombre: {
     type: DataTypes.STRING(100),
-    allowNull: true,
+    allowNull: false,
     field: 'nombre_curso',
   },
   h1: {
@@ -48,12 +49,12 @@ const Schema = {
   },
   descripcion: {
     type: DataTypes.STRING(100),
-    allowNull: true,
+    allowNull: false,
     field: 'descripcion_curso',
   },
-  descripcionEspecifico: {
+  metadescripcion: {
     type: DataTypes.STRING(100),
-    allowNull: true,
+    allowNull: false,
     field: 'descripcion_especifico_curso',
   },
   keywordsEspecifico: {
@@ -71,7 +72,7 @@ const Schema = {
     allowNull: true,
     field: 'incluye_curso',
   },
-  criterio: {
+  /*criterio: {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'criterio_curso',
@@ -80,7 +81,7 @@ const Schema = {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'objetivos_curso',
-  },
+  },*/
   requisitos: {
     type: DataTypes.STRING(100),
     allowNull: true,
@@ -93,7 +94,7 @@ const Schema = {
   },
   cover: {
     type: DataTypes.STRING(100),
-    allowNull: true,
+    allowNull: false,
     field: 'cover_curso',
     get() {
       const imageLocation = this.getDataValue('cover');
@@ -106,15 +107,51 @@ const Schema = {
   },
   estado: {
     type: DataTypes.TINYINT.UNSIGNED,
-    defaultValue: 1,
-    comment: '0:Inactivo, 1:Activo',
+    defaultValue: 2,
+    allowNull: false,
+    comment: '0:Inactivo, 1:Activo, 2:No publicado',
+  },
+  precio: {
+    type: DataTypes.INTEGER(11),
+    allowNull: true,
+    field: 'precio_curso',
+  },
+  duracion: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    field: 'duracion_curso',
+  },
+  idioma: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    defaultValue: 'Español',
+    field: 'idioma_curso',
+  },
+  videoIntroductorio: {
+    type: DataTypes.STRING(100),
+    field: 'video_introductorio_curso',
+  },
+  nivel: {
+    type: DataTypes.ENUM('Básico', 'Intermedio', 'avanzado'),
+    allowNull: false,
+    defaultValue: 'Básico',
+    field: 'nivel_curso',
+  },
+  origen: {
+    type: DataTypes.ENUM('Propio', 'Externo'),
+    allowNull: false,
+    defaultValue: 'Propio',
+    field: 'origen_curso',
   },
   fechaCurso: {
     type: DataTypes.DATE,
+    allowNull: false,
     field: 'fecha_curso',
   },
   fechaAdd: {
     type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: new Date(),
     field: 'fecha_add',
   },
 };
