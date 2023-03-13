@@ -4,6 +4,8 @@ const { Model, DataTypes } = require('sequelize');
 const TABLE_NAME = 'web_retos';
 const MODEL_NAME = 'webRetos';
 
+const config = require('../../../../config');
+
 const Schema = {
   idReto: {
     autoIncrement: true,
@@ -32,6 +34,14 @@ const Schema = {
   logo: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('logo');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   beneficios: {
     type: DataTypes.STRING(255),
@@ -49,6 +59,22 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0,
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: new Date(),
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: new Date(),
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 class ExtendedModel extends Model {
@@ -75,7 +101,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
