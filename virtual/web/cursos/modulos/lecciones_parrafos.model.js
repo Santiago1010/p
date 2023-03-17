@@ -6,15 +6,15 @@ const MODEL_NAME = 'webCursosModulosLeccionesParrafos';
 
 const Schema = {
   idParrafo: {
-    autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
     field: 'id_web_curso_modulo_leccion_parrafo',
   },
   idLeccion: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
     field: 'id_curso_modulo_leccion',
   },
   titulo: {
@@ -22,11 +22,19 @@ const Schema = {
     allowNull: true,
   },
   parrafo: {
-    type: DataTypes.STRING(200),
+    type: DataTypes.TEXT,
     allowNull: true,
   },
-  recurso: {
-    type: DataTypes.BIGINT,
+  parrafo2: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  imagetext: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  imagen: {
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
 };

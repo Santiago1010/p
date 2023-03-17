@@ -16,6 +16,19 @@ const Schema = {
     type: DataTypes.INTEGER,
   },
   estado: DataTypes.INTEGER,
+  estadoString: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const dicEstado = {
+        0: 'Pendiente',
+        1: 'Progreso',
+        2: 'Finalizado',
+        3: 'Aprobado',
+      };
+      const estado = this.getDataValue('estado');
+      return dicEstado[estado];
+    },
+  },
   addusr: DataTypes.STRING(50),
   fchadd: {
     type: DataTypes.DATE,

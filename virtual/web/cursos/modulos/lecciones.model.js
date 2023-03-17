@@ -31,8 +31,8 @@ const Schema = {
     allowNull: true,
     field: 'descripcion_leccion',
   },
-  tipoRecurso: {
-    type: DataTypes.ENUM('Video', 'Audio', 'Parrafo', 'Test'),
+  tipo: {
+    type: DataTypes.ENUM('Video', 'Audio', 'Parrafo', 'Quiz'),
     field: 'tipo_recurso_leccion',
   },
   recurso: {

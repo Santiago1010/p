@@ -66,11 +66,17 @@ const Schema = {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'audiencia_curso',
+    get() {
+      return JSON.parse(this.getDataValue('audiencia'));
+    },
   },
   incluye: {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'incluye_curso',
+    get() {
+      return JSON.parse(this.getDataValue('incluye'));
+    },
   },
   /*criterio: {
     type: DataTypes.STRING(100),
@@ -86,11 +92,17 @@ const Schema = {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'requisitos_curso',
+    get() {
+      return JSON.parse(this.getDataValue('requisitos'));
+    },
   },
   beneficios: {
     type: DataTypes.STRING(100),
     allowNull: true,
     field: 'beneficios_curso',
+    get() {
+      return JSON.parse(this.getDataValue('beneficios'));
+    },
   },
   cover: {
     type: DataTypes.STRING(100),

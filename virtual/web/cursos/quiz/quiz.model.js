@@ -48,6 +48,11 @@ const Schema = {
     allowNull: true,
     field: 'preguntas_visibles',
   },
+  puntajeMinimo: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'puntaje_minimo',
+  },
   puntajeMaximo: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -57,6 +62,11 @@ const Schema = {
     type: DataTypes.DECIMAL(10, 0),
     allowNull: true,
     field: 'puntaje_aprobacion',
+  },
+  esquema: {
+    type: DataTypes.ENUM('unicas', 'variables'),
+    allowNull: false,
+    field: 'esquema_pregunta',
   },
   addusr: {
     type: DataTypes.INTEGER,
