@@ -25,6 +25,15 @@ class Response {
       data: data,
     });
   }
+
+  static errorWithMesage(req, res, error, message, status = 500) {
+    res.status(status).send({
+      statusCode: status,
+      error: error,
+      msg: message,
+      data: {},
+    });
+  }
 }
 
 module.exports = Response;
