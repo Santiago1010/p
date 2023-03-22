@@ -102,6 +102,12 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idPropuesta' });
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
+    this.hasMany(models.crmPropuestasResponsables, { as: 'propuestasResponsables', foreignKey: 'idPropuesta' });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.crmPropuestasResponsables },
+      as: 'responsables',
+      foreignKey: 'idPropuesta',
+    });
   }
 
   static config(sequelize) {

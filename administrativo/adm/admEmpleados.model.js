@@ -247,6 +247,18 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.usuarios, { as: 'usuarios', foreignKey: 'codemp' });
+    this.hasMany(models.crmPropuestasResponsables, { as: 'propuestasResponsables', foreignKey: 'idResponsable' });
+    this.belongsToMany(models.webSuscripcionesPropuestas, {
+      through: { model: models.crmPropuestasResponsables },
+      as: 'propuestas',
+      foreignKey: 'idResponsable',
+    });
+    this.hasMany(models.crmProductosResponsables, { as: 'productosResponsables', foreignKey: 'idResponsable' });
+    this.belongsToMany(models.crmProductos, {
+      through: { model: models.crmProductosResponsables },
+      as: 'productos',
+      foreignKey: 'idResponsable',
+    });
   }
 
   static config(sequelize) {

@@ -103,6 +103,12 @@ class ExtendedModel extends Model {
       as: 'retos',
       foreignKey: 'idSuscripcion',
     });
+    this.hasMany(models.crmSuscripcionesProductos, { as: 'suscripcionesProductos', foreignKey: 'idSuscripcion' });
+    this.belongsToMany(models.crmProductos, {
+      through: { model: models.crmSuscripcionesProductos },
+      as: 'productos',
+      foreignKey: 'idSuscripcion',
+    });
   }
 
   static config(sequelize) {
