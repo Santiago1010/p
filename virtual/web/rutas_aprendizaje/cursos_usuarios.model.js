@@ -55,6 +55,11 @@ const Schema = {
     allowNull: true,
     field: 'fecha_aprobado',
   },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    field: 'updated_at',
+  },
 };
 
 class ExtendedModel extends Model {

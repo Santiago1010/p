@@ -1,4 +1,5 @@
 'use strict';
+const Sequelize = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'web_suscripciones_propuestas';
@@ -36,6 +37,66 @@ const Schema = {
     allowNull: false,
     field: 'fecha_fin',
   },
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+  descripcion: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  fechaTest: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'fecha_test',
+  },
+  fechaEntrega: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'fecha_entrega',
+  },
+  tipoCliente: {
+    type: DataTypes.ENUM('micro', 'macro'),
+    allowNull: false,
+    defaultValue: 'micro',
+    field: 'tipo_cliente',
+  },
+  valorVenta: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: true,
+    field: 'valor_venta',
+  },
+  nombreCompletoAsesor: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'nombre_completo_asesor',
+  },
+  celularAsesor: {
+    type: DataTypes.STRING(20),
+    allowNull: true,
+    field: 'celular_asesor',
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+  },
+  deletedFor: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'deleted_for',
+  },
 };
 class ExtendedModel extends Model {
   static associate(models) {
@@ -48,7 +109,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

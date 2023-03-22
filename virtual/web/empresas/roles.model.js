@@ -20,13 +20,11 @@ const Schema = {
     type: DataTypes.VIRTUAL,
     get() {
       const dicEstado = {
-        0: 'Pendiente',
-        1: 'Progreso',
-        2: 'Finalizado',
-        3: 'Aprobado',
+        0: 'Inactivo',
+        1: 'Activo',
       };
       const estado = this.getDataValue('estado');
-      return dicEstado[estado];
+      return dicEstado[estado] || null;
     },
   },
   addusr: DataTypes.STRING(50),
