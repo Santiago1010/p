@@ -24,6 +24,7 @@ class Paginate {
       subQuery,
       group,
       paranoid,
+      distinc: true,
     };
 
     const { rows: results, count } = await model.findAndCountAll(optionQuery);
