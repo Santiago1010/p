@@ -47,6 +47,17 @@ const Schema = {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 class ExtendedModel extends Model {
   static associate(models) {
