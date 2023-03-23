@@ -26,6 +26,10 @@ const Schema = {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
+  descripcion: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
   tipo: {
     type: DataTypes.ENUM('Documento', 'Video', 'Audio'),
     allowNull: true,
