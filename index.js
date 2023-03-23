@@ -1,3 +1,4 @@
 const paginationSchema = require('./paginationSchema');
+const databaseSchemas = require('./databaseSchemas');
 
-module.exports = { paginationSchema };
+module.exports = { paginationSchema, databaseSchemas };
