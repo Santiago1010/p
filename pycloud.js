@@ -4,7 +4,7 @@ const typeRegularExpression = /\/(.*?)$/;
 const fs = require('fs');
 
 const customError = require('./customError');
-const { webImagenesRutas } = require('./../database/config').models;
+const { webImagenesRutas } = require('./../database/config').sequelize.models;
 
 const subiArchivosPcloud = async (base64, rutaDestino, nombreArchivo) => {
   const fileBase = decodeBase64(base64);
