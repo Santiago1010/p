@@ -3,6 +3,9 @@ const access_token = 'E1vu7ZwtyGBVjzBFYZXbNec7ZsHa0Kwwell0JHSrGcvXL9fPUvk27';
 const typeRegularExpression = /\/(.*?)$/;
 const fs = require('fs');
 
+const customError = require('./customError');
+const { webImagenesRutas } = require('./../database/config').models;
+
 const subiArchivosPcloud = async (base64, rutaDestino, nombreArchivo) => {
   const fileBase = decodeBase64(base64);
   if (fileBase) {
@@ -83,4 +86,33 @@ const decodeBase64 = (dataString) => {
     return false;
   }
 };
-module.exports = { subiArchivosPcloud, decodeBase64 };
+
+const subirArchivoPcloudRuta = async (base64, categoriaRuta, uniqueIdentifier) => {
+  const imagenesRutas = await webImagenesRutas.findOne({
+    where: {
+      tipoCategoria: categoriaRuta,
+    },
+  });
+
+  if (!imagenesRutas) {
+    throw customError(
+      `No se encuentra configurada adecuadamente en base de datos ruta de imagenes para categoria ${categoriaRuta}`,
+      500
+    );
+  }
+
+  const rutaArchivo = imagenesRutas.url;
+  const nombreArchivo = `${imagenesRutas.forma}-${uniqueIdentifier}`;
+  const resultadoSubida = await subiArchivosPcloud(base64, rutaArchivo, nombreArchivo);
+
+  if (!resultadoSubida) {
+    throw customError('Error al subir imagen', 500);
+  }
+
+  const file = resultadoSubida.metadata.fileid;
+  const folder = resultadoSubida.metadata.parentfolderid;
+  const stringDB = `/bizdata/api/v1/home/archivo/${folder}/${file}`;
+
+  return { rutaArchivo, nombreArchivo, fileId: file, folderId: folder, stringDB };
+};
+module.exports = { subiArchivosPcloud, decodeBase64, subirArchivoPcloudRuta };
