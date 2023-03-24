@@ -23,10 +23,6 @@ const Schema = {
     allowNull: true,
     field: 'orden_categoria',
   },
-  activo: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
   urlImagen: {
     type: DataTypes.STRING(100),
     field: 'url_imagen',
@@ -37,6 +33,30 @@ const Schema = {
         return null;
       }
       return `${hostImage}${imageLocation}`;
+    },
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+  },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      let deletedAt = this.getDataValue('deletedAt');
+      return deletedAt ? 0 : 1;
+    },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
     },
   },
 };
@@ -51,7 +71,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

@@ -54,7 +54,7 @@ const Schema = {
   },
   metadescripcion: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
     field: 'descripcion_especifico_curso',
   },
   keywordsEspecifico: {
@@ -123,6 +123,18 @@ const Schema = {
     allowNull: false,
     comment: '0:Inactivo, 1:Activo, 2:No publicado',
   },
+  estadoString: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const dicEstado = {
+        0: 'Inactivo',
+        1: 'Activo',
+        2: 'No publicado',
+      };
+      const estado = this.getDataValue('estado');
+      return dicEstado[estado] || 'Invalido';
+    },
+  },
   precio: {
     type: DataTypes.INTEGER(11),
     allowNull: true,
@@ -159,6 +171,7 @@ const Schema = {
     type: DataTypes.DATE,
     allowNull: false,
     field: 'fecha_curso',
+    defaultValue: new Date(),
   },
   fechaAdd: {
     type: DataTypes.DATE,
