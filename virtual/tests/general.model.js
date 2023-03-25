@@ -17,7 +17,7 @@ const Schema = {
   estado: DataTypes.ENUM('ACTIVO', 'INACTIVO'),
   tipoTest: {
     field: 'tipo_test',
-    type: DataTypes.ENUM('test', 'encuesta'),
+    type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
   },
 };
 
