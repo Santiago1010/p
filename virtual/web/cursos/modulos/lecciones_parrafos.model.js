@@ -35,13 +35,17 @@ const Schema = {
     allowNull: true,
     get() {
       const objeImageText = JSON.parse(this.getDataValue('imagetext'));
-      const imageLocation = objeImageText.imagen;
+      if (!objeImageText) {
+        return null;
+      }
+      const imageLocation = objeImageText?.imagen;
       const hostImage = config.images.host;
       if (!imageLocation) {
         objeImageText.imagen = null;
+      } else {
+        objeImageText.imagen = `${hostImage}${imageLocation}`;
       }
 
-      objeImageText.imagen = `${hostImage}${imageLocation}`;
       return objeImageText;
     },
   },
