@@ -20,6 +20,7 @@ const Schema = {
       key: 'id_curso',
     },
     field: 'id_curso',
+    unique: 'id_curso_id_ruta_aprendizaje',
   },
   idRutaAprendizaje: {
     type: DataTypes.INTEGER,
@@ -29,6 +30,7 @@ const Schema = {
       key: 'id_ruta_aprendizaje',
     },
     field: 'id_ruta_aprendizaje',
+    unique: 'id_curso_id_ruta_aprendizaje',
   },
   orden: {
     type: DataTypes.INTEGER,
