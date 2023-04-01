@@ -4,6 +4,12 @@ const TABLE_NAME = 'test_preguntas_opciones';
 const MODEL_NAME = 'testPreguntasOpciones';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   idPregunta: {
     field: 'id_pregunta',
     type: DataTypes.INTEGER,

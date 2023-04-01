@@ -4,11 +4,29 @@ const TABLE_NAME = 'test_tipo';
 const MODEL_NAME = 'testTipo';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   descripcion: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(15),
+    allowNull: false,
   },
   estado: {
     type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: 1,
+  },
+  tipoTest: {
+    type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
+    allowNull: false,
+    field: 'tipo_test',
+  },
+  textos: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
   },
 };
 

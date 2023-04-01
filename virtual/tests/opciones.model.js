@@ -4,6 +4,10 @@ const TABLE_NAME = 'test_opciones';
 const MODEL_NAME = 'testOpciones';
 
 const Schema = {
+  id: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
   titulo: {
     type: DataTypes.STRING,
   },

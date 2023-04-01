@@ -32,7 +32,12 @@ const Schema = {
     allowNull: true,
     field: 'url_material',
     get() {
+      const tipo = this.getDataValue('tipo');
       const imageLocation = this.getDataValue('url');
+      if (tipo === 'video') {
+        return `${imageLocation}`;
+      }
+
       const hostImage = config.images.host;
       if (!imageLocation) {
         return null;

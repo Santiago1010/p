@@ -47,6 +47,7 @@ class ExtendedModel extends Model {
       as: 'opciones',
       foreignKey: 'idPregunta',
     });
+    this.hasMany(models.testPreguntasOpciones, { as: 'preguntasOpciones', foreignKey: 'idPregunta' });
     this.hasMany(models.testResdetalle, { as: 'testDetalle', foreignKey: 'idTestResgeneral' });
     this.hasMany(models.webCursosModulosLecciones, { as: 'moduloLeccion', foreignKey: 'testCodpre' });
   }
