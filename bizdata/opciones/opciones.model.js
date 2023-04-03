@@ -5,11 +5,31 @@ const TABLE_NAME = 'biz_opciones';
 const MODEL_NAME = 'bizOpciones';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   nombre: DataTypes.STRING,
   url: DataTypes.STRING,
   orden: DataTypes.INTEGER,
   activo: DataTypes.INTEGER,
   depende: DataTypes.INTEGER,
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+  },
 };
 
 class ExtendedModel extends Model {
@@ -31,7 +51,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

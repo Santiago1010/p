@@ -20,6 +20,7 @@ const Schema = {
       key: 'id_suscripcion',
     },
     field: 'id_suscripcion',
+    unique: 'suscripcion_producto_UN',
   },
   idProducto: {
     type: DataTypes.INTEGER,
@@ -29,6 +30,7 @@ const Schema = {
       key: 'id_producto',
     },
     field: 'id_producto',
+    unique: 'suscripcion_producto_UN',
   },
   estadoResponsable: {
     type: DataTypes.TINYINT,

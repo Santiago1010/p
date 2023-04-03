@@ -20,6 +20,7 @@ const Schema = {
       key: 'id_suscripcion_propuesta',
     },
     field: 'id_propuesta',
+    unique: 'propuesta_responsable_UN',
   },
   idResponsable: {
     type: DataTypes.STRING(30),
@@ -29,6 +30,7 @@ const Schema = {
       key: 'codemp',
     },
     field: 'id_responsable',
+    unique: 'propuesta_responsable_UN',
   },
   createdAt: {
     field: 'created_at',

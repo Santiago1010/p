@@ -5,6 +5,12 @@ const TABLE_NAME = 'biz_usuarios';
 const MODEL_NAME = 'bizUsuarios';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   username: DataTypes.STRING,
   password: DataTypes.STRING,
   empresaId: { field: 'empresa_id', type: DataTypes.INTEGER },
@@ -22,6 +28,20 @@ const Schema = {
   idFoto: {
     type: DataTypes.INTEGER,
     field: 'id_foto',
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
@@ -53,7 +73,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

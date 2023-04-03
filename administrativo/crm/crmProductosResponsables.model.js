@@ -20,6 +20,7 @@ const Schema = {
       key: 'id_producto',
     },
     field: 'id_producto',
+    unique: 'producto_responsable_UN',
   },
   idResponsable: {
     type: DataTypes.STRING(30),
@@ -29,6 +30,7 @@ const Schema = {
       key: 'codemp',
     },
     field: 'id_responsable',
+    unique: 'producto_responsable_UN',
   },
   updatedAt: {
     field: 'updated_at',
