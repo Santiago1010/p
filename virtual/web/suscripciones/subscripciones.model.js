@@ -65,6 +65,20 @@ const Schema = {
     allowNull: false,
     field: 'fecha_fin',
   },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+  },
 };
 
 class ExtendedModel extends Model {
@@ -109,6 +123,15 @@ class ExtendedModel extends Model {
       as: 'productos',
       foreignKey: 'idSuscripcion',
     });
+    this.hasMany(models.webSuscripcionesCertificados, {
+      as: 'suscripcionesCertificados',
+      foreignKey: 'idSuscripcion',
+    });
+    this.belongsToMany(models.webCertificados, {
+      through: { model: models.webSuscripcionesCertificados },
+      as: 'certificados',
+      foreignKey: 'idSuscripcion',
+    });
   }
 
   static config(sequelize) {
@@ -116,7 +139,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

@@ -1,25 +1,16 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_suscripciones_test';
-const MODEL_NAME = 'webSuscripcionesTest';
+const TABLE_NAME = 'web_suscripciones_certificados';
+const MODEL_NAME = 'webSuscripcionesCertificados';
 
 const Schema = {
-  idSuscripcionTest: {
+  idSuscripcionCertificado: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_suscripcion_test',
-  },
-  idTest: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'test_general',
-      key: 'id',
-    },
-    field: 'id_test',
+    field: 'id_suscripcion_certificado',
   },
   idSuscripcion: {
     type: DataTypes.INTEGER,
@@ -30,10 +21,14 @@ const Schema = {
     },
     field: 'id_suscripcion',
   },
-  categoria: {
-    type: DataTypes.ENUM('Basico', 'Avanzado'),
+  idCertificado: {
+    type: DataTypes.INTEGER,
     allowNull: true,
-    defaultValue: 'Basico',
+    references: {
+      model: 'web_certificados',
+      key: 'id_certificado',
+    },
+    field: 'id_certificado',
   },
   createdAt: {
     field: 'created_at',
@@ -50,10 +45,9 @@ const Schema = {
     type: DataTypes.DATE,
   },
 };
-
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.testGeneral, { as: 'test', foreignKey: 'idTest' });
+    this.belongsTo(models.webCertificados, { as: 'certificado', foreignKey: 'idCertificado' });
     this.belongsTo(models.webSuscripciones, { as: 'suscripcion', foreignKey: 'idSuscripcion' });
   }
 

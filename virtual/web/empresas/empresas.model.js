@@ -41,6 +41,35 @@ const Schema = {
       return `${hostImage}${imageLocation}`;
     },
   },
+  telefono: {
+    type: DataTypes.STRING(40),
+    allowNull: true,
+  },
+  celular: {
+    type: DataTypes.STRING(40),
+    allowNull: true,
+  },
+  fechaConstitucion: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_constitucion',
+  },
+  responsableIva: {
+    type: DataTypes.ENUM('n', 's'),
+    allowNull: true,
+    field: 'responsable_iva',
+  },
+  rutUrl: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'rut_url',
+  },
+  ccUrl: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    comment: 'camara comercio fiole',
+    field: 'cc_url',
+  },
   certificados: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,

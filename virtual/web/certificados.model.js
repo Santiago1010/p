@@ -22,6 +22,15 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.webCursosCertificados, { as: 'certificadosCursos', foreignKey: 'idCertificado' });
+    this.hasMany(models.webSuscripcionesCertificados, {
+      as: 'suscripcionesCertificados',
+      foreignKey: 'idCertificado',
+    });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesCertificados },
+      as: 'suscripciones',
+      foreignKey: 'idCertificado',
+    });
   }
 
   static config(sequelize) {
