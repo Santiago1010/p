@@ -1,3 +1,70 @@
+const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max } = {}) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  const isLength = max
+    ? {
+        errorMessage: `${nombrePropiedad}no debe ser mayor ${max} +  caracteres`,
+        options: { max: max },
+      }
+    : undefined;
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isString: {
+      errorMessage: `${nombrePropiedad} debe ser una cadena de texto`,
+      bail: true,
+    },
+    isLength,
+  };
+};
+
+const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, max } = {}) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isInt: {
+      errorMessage: `${nombrePropiedad} debe ser entero`,
+      bail: true,
+      optiotns: { min: min, max: max },
+    },
+  };
+};
+
+const isInSchema = (nombrePropiedad, location = 'body', optional = true, options = [0, 1, 2]) => {
+  const errorMessage = `${nombrePropiedad} debe ser ${options.slice(0, -1).join(', ')} o ${options.slice(-1)}`;
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isIn: {
+      options: [options],
+      errorMessage: errorMessage,
+    },
+  };
+};
+
 const ordenSchema = (location = 'body', optional = true, min = 1, max = 100) => {
   return {
     in: location,
@@ -50,10 +117,6 @@ const logo = (location, optional = true, max = 100) => {
       errorMessage: '`logo` debe ser una cadena de texto.',
       bail: true,
     },
-    isLength: {
-      errorMessage: '`logo` no debe ser mayor a ' + max + ' caracteres',
-      options: { max: max },
-    },
   };
 };
 
@@ -91,4 +154,14 @@ const descripcion = (location, optional = true) => {
   };
 };
 
-module.exports = { ordenSchema, estadoSchema, logo, nombre, descripcion, tipoSchema };
+module.exports = {
+  ordenSchema,
+  estadoSchema,
+  logo,
+  nombre,
+  descripcion,
+  tipoSchema,
+  stringSchema,
+  intSchema,
+  isInSchema,
+};
