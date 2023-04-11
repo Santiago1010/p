@@ -6,6 +6,19 @@ class Paginate {
     page,
     { attributes, where, order, include, paranoid, subQuery, group } = {}
   ) {
+    if (limit) {
+      let isNumber = Number.isInteger(parseInt(limit));
+      if (!isNumber) {
+        throw error('limit debe ser un número entero', 400);
+      }
+    }
+
+    if (page) {
+      let isNumber = Number.isInteger(parseInt(page));
+      if (!isNumber) {
+        throw error('page debe ser un número entero', 400);
+      }
+    }
     const pageQuery = page - 1;
     const offset = page && limit ? pageQuery * limit : 0;
     const limitQuery = limit ? parseInt(limit) : undefined;
@@ -24,7 +37,7 @@ class Paginate {
       subQuery,
       group,
       paranoid,
-      distinc: true,
+      distinct: true,
     };
 
     const { rows: results, count } = await model.findAndCountAll(optionQuery);
