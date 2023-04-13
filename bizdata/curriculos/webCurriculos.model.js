@@ -34,11 +34,6 @@ const Schema = {
       return `${hostImage}${imageLocation}`;
     },
   },
-  estado: {
-    type: DataTypes.TINYINT,
-    allowNull: true,
-    defaultValue: 1,
-  },
   nombre: {
     type: DataTypes.STRING(100),
     allowNull: true,
@@ -57,6 +52,16 @@ const Schema = {
   },
   deletedAt: {
     type: DataTypes.DATE,
+  },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      let deletedAt = this.getDataValue('deletedAt');
+      return deletedAt ? 0 : 1;
+    },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
+    },
   },
 };
 class ExtendedModel extends Model {
