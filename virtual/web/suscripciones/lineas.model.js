@@ -6,7 +6,7 @@ const MODEL_NAME = 'webSuscripcionesLineas';
 
 const Schema = {
   idLinea: {
-    field: 'id_suscripcion',
+    field: 'id_suscripcion_linea',
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
