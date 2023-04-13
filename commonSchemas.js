@@ -65,6 +65,25 @@ const isInSchema = (nombrePropiedad, location = 'body', optional = true, options
   };
 };
 
+const dateSchema = (nombrePropiedad, location = 'body', optional = true) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isDate: {
+      errorMessage: `${nombrePropiedad} debe ser una fecha válida`,
+      bail: true,
+    },
+  };
+};
+
 const ordenSchema = (location = 'body', optional = true, min = 1, max = 100) => {
   return {
     in: location,
@@ -164,4 +183,5 @@ module.exports = {
   stringSchema,
   intSchema,
   isInSchema,
+  dateSchema,
 };
