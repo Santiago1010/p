@@ -82,6 +82,13 @@ class ExtendedModel extends Model {
       as: 'docentes',
       foreignKey: 'idSuscripcionCurriculoGrupo',
     });
+
+    this.belongsToMany(models.bizUsuarios, {
+      through: { model: models.webSuscripcionesCurriculosDocentes },
+      as: 'docentesBiz',
+      foreignKey: 'idSuscripcionCurriculoGrupo',
+    });
+
     this.hasMany(models.webSuscripcionesCurriculosEstudiantes, {
       as: 'estudiantes',
       foreignKey: 'idSuscripcionCurriculoGrupo',

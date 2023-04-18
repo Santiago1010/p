@@ -66,6 +66,11 @@ class ExtendedModel extends Model {
       as: 'areas',
       foreignKey: 'idUsuario',
     });
+    this.belongsToMany(models.webSuscripcionesCurriculosGrupos, {
+      through: { model: models.webSuscripcionesCurriculosDocentes },
+      as: 'gruposDocente',
+      foreignKey: 'idUsuario',
+    });
   }
 
   static config(sequelize) {
