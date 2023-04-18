@@ -31,16 +31,17 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
     : {
         errorMessage: `${nombrePropiedad} requerido`,
         bail: true,
+        notEmpty: true,
       };
 
   return {
     in: location,
-    optional: optional,
-    notEmpty,
+    optional,
+    ...(notEmpty && { notEmpty }),
     isInt: {
       errorMessage: `${nombrePropiedad} debe ser entero`,
       bail: true,
-      optiotns: { min: min, max: max },
+      options: { min, max },
     },
   };
 };
