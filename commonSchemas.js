@@ -46,7 +46,13 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
   };
 };
 
-const isInSchema = (nombrePropiedad, location = 'body', optional = true, options = [0, 1, 2]) => {
+const isInSchema = (
+  nombrePropiedad,
+  location = 'body',
+  optional = true,
+  options = [0, 1, 2],
+  customSanitizer = undefined
+) => {
   const errorMessage = `${nombrePropiedad} debe ser ${options.slice(0, -1).join(', ')} o ${options.slice(-1)}`;
   const notEmpty = optional
     ? undefined
@@ -63,6 +69,7 @@ const isInSchema = (nombrePropiedad, location = 'body', optional = true, options
       options: [options],
       errorMessage: errorMessage,
     },
+    customSanitizer,
   };
 };
 
