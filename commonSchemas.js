@@ -34,6 +34,15 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
         notEmpty: true,
       };
 
+  const optionsInt = min || max ? {} : undefined;
+  if (min) {
+    optionsInt.min = min;
+  }
+
+  if (max) {
+    optionsInt.max = max;
+  }
+
   return {
     in: location,
     optional,
@@ -41,7 +50,7 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
     isInt: {
       errorMessage: `${nombrePropiedad} debe ser entero`,
       bail: true,
-      options: { min, max },
+      options: optionsInt,
     },
   };
 };
@@ -73,6 +82,26 @@ const isInSchema = (
   };
 };
 
+const booleanSchema = (nombrePropiedad, location, optional = true) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isBoolean: {
+      errorMessage: `${nombrePropiedad} debe ser un booleano`,
+    },
+    customSanitizer: {
+      options: (value) => !!value,
+    },
+  };
+};
+
 const boolSchema = (nombrePropiedad, location = 'body', optional = true) => {
   const notEmpty = optional
     ? undefined
@@ -89,6 +118,30 @@ const boolSchema = (nombrePropiedad, location = 'body', optional = true) => {
       errorMessage: `${nombrePropiedad} debe ser un booleano`,
       bail: true,
     },
+  };
+};
+
+const arraySchema = (nombrePropiedad, location, optional = true, unique = true) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  const customSanitizer = !unique
+    ? undefined
+    : {
+        options: (value) => [...new Set(value)],
+      };
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isArray: {
+      errorMessage: `${nombrePropiedad} debe ser un array`,
+    },
+    customSanitizer,
   };
 };
 
@@ -211,5 +264,7 @@ module.exports = {
   intSchema,
   isInSchema,
   dateSchema,
+  arraySchema,
+  booleanSchema,
   boolSchema,
 };
