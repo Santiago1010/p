@@ -31,8 +31,14 @@ const Schema = {
     field: 'id_usuario',
   },
   estado: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
+    type: DataTypes.VIRTUAL,
+    get() {
+      let deletedAt = this.getDataValue('deletedAt');
+      return deletedAt ? 0 : 1;
+    },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
+    },
   },
   createdAt: {
     field: 'created_at',
