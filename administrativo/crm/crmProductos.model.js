@@ -25,6 +25,13 @@ const Schema = {
     allowNull: true,
     field: 'tabla_asociada',
   },
+  parametrizar: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const tablaAsociada = this.getDataValue('tablaAsociada');
+      return tablaAsociada ? tablaAsociada.replace('webSuscripciones', '').toLowerCase() : '';
+    },
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

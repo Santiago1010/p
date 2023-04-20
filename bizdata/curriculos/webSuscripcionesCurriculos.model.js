@@ -20,6 +20,7 @@ const Schema = {
       key: 'id_suscripcion',
     },
     field: 'id_suscripcion',
+    unique: 'suscripcion_curriculo_UN',
   },
   idCurriculo: {
     type: DataTypes.INTEGER,
@@ -29,6 +30,7 @@ const Schema = {
       key: 'id_curriculo',
     },
     field: 'id_curriculo',
+    unique: 'suscripcion_curriculo_UN',
   },
   createdAt: {
     field: 'created_at',

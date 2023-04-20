@@ -39,12 +39,36 @@ const Schema = {
     comment: '0: Pendiente, 1: En progreso, 2: Finalizado',
     field: 'estado_responsable',
   },
+  estadoResponsableString: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const dicEstado = {
+        0: 'Pendiente',
+        1: 'Progreso',
+        2: 'Finalizado',
+      };
+      const estado = this.getDataValue('estadoResponsable');
+      return dicEstado[estado] || 'Invalido';
+    },
+  },
   estadoTester: {
     type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: 0,
     comment: '0: Pendiente, 1: En progreso, 2: Finalizado',
     field: 'estado_tester',
+  },
+  estadoTesterString: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const dicEstado = {
+        0: 'Pendiente',
+        1: 'Progreso',
+        2: 'Finalizado',
+      };
+      const estado = this.getDataValue('estadoTester');
+      return dicEstado[estado] || 'Invalido';
+    },
   },
   createdAt: {
     field: 'created_at',

@@ -14,10 +14,12 @@ const Schema = {
   idSuscripcion: {
     field: 'id_suscripcion',
     type: DataTypes.INTEGER,
+    unique: 'id_escuela_id_ruta_aprendizaje',
   },
   idRutaAprendizaje: {
     field: 'id_ruta_aprendizaje',
     type: DataTypes.INTEGER,
+    unique: 'id_escuela_id_ruta_aprendizaje',
   },
   idUsuario: {
     field: 'id_usuario',
