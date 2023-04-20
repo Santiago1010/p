@@ -73,6 +73,25 @@ const isInSchema = (
   };
 };
 
+const boolSchema = (nombrePropiedad, location = 'body', optional = true) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional,
+    ...(notEmpty && { notEmpty }),
+    isBoolean: {
+      errorMessage: `${nombrePropiedad} debe ser un booleano`,
+      bail: true,
+    },
+  };
+};
+
 const dateSchema = (nombrePropiedad, location = 'body', optional = true) => {
   const notEmpty = optional
     ? undefined
@@ -192,4 +211,5 @@ module.exports = {
   intSchema,
   isInSchema,
   dateSchema,
+  boolSchema,
 };
