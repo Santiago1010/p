@@ -45,7 +45,7 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.Calendario, { as: 'calendarios', foreignKey: 'idCategoria' });
-    this.belongsTo(models.departamentos, { as: 'departamento', foreignKey: 'idDepartamento' });
+    this.belongsTo(models.Departamentos, { as: 'departamento', foreignKey: 'idDepartamento' });
   }
 
   static config(sequelize) {

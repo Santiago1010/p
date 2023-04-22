@@ -32,8 +32,8 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.departamentos, { as: 'departamento', foreignKey: 'idDepartamento' });
-    this.belongsTo(models.usuarios, { as: 'usuario', foreignKey: 'idUsuario' });
+    this.belongsTo(models.Departamentos, { as: 'departamento', foreignKey: 'idDepartamento' });
+    this.belongsTo(models.Usuarios, { as: 'usuario', foreignKey: 'idUsuario' });
   }
 
   static config(sequelize) {

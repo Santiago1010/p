@@ -2,7 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'usuarios';
-const MODEL_NAME = 'usuarios';
+const MODEL_NAME = 'Usuarios';
 
 const Schema = {
   id: {
@@ -62,7 +62,7 @@ class ExtendedModel extends Model {
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'codemp' });
     this.hasMany(models.Calendario, { as: 'calendarios', foreignKey: 'idUsuario' });
     this.hasMany(models.usuariosDepartamentos, { as: 'usuarioDepartamentos', foreignKey: 'idUsuario' });
-    this.belongsToMany(models.departamentos, {
+    this.belongsToMany(models.Departamentos, {
       through: { model: models.usuariosDepartamentos },
       as: 'departamentos',
       foreignKey: 'idUsuario',
