@@ -6,6 +6,10 @@ const { sequelize } = require('../database/config');
 const initModels = require('../models/db/init-models');
 const { adm_email_plantillas, adm_email_plantillas_resp, usuarios, notificaciones, notificaciones_users } =
   initModels(sequelize);
+
+const config = require('../config');
+const nodeMailerConfig = config.nodeMailer;
+
 const CryptoJSAesJson = {
   stringify: function (cipherParams) {
     let j = { ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64) };
@@ -248,20 +252,20 @@ const notificacionEmail = async (notificacion, plantilla, datos) => {
 
   if (notificacion?.html) {
     const transporter = nodemailer.createTransport({
-      host: 'email-smtp.us-east-1.amazonaws.com',
+      host: nodeMailerConfig.host,
       port: 465,
       secure: true, // secure:true for port 465, secure:false for port 587
       tls: {
         rejectUnauthorized: false,
       },
       auth: {
-        user: 'AKIA3I22WCGNLGIOAR2P',
-        pass: 'BLsN4dggWn+jDRE3A0TyaU65WAp7cSgdHKjA/GPHjQEz',
+        user: nodeMailerConfig.user,
+        pass: nodeMailerConfig.password,
       },
     });
 
     const mailOptions = {
-      from: '"Valeria The Biznation" <no-replay@thebiznation.com>', // sender address
+      from: nodeMailerConfig.from, // sender address
       to: notificacion.email,
       cc: 'tecnologiacis034@gmail.com',
       subject: notificacion.asunto,
@@ -278,7 +282,7 @@ const notificacionEmail = async (notificacion, plantilla, datos) => {
 
     if (notificacion?.resp?.email) {
       const mailOptionsResp = {
-        from: '"Valeria The Biznation" <no-replay@thebiznation.com>', // sender address
+        from: nodeMailerConfig.from, // sender address
         to: notificacion.resp.email,
         cc: 'tecnologiacis034@gmail.com',
         subject: notificacion.resp.asunto,
