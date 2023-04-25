@@ -35,27 +35,6 @@ const Schema = {
   izquierdoSup: { field: 'izquierdo_sup', type: DataTypes.DECIMAL(10, 2) },
   izquierdoAse: { field: 'izquierdo_ase', type: DataTypes.DECIMAL(10, 2) },
   izquierdoCom: { field: 'izquierdo_com', type: DataTypes.DECIMAL(10, 2) },
-
-  solucion: DataTypes.TEXT,
-  espacio: DataTypes.TEXT,
-
-  cronologiaIni: { field: 'cronologia_ini', type: DataTypes.DATEONLY },
-  cronologiaFin: { field: 'cronologia_fin', type: DataTypes.DATEONLY },
-  cronologiaHora: { field: 'cronologia_hora', type: DataTypes.STRING(20) },
-
-  personaje: DataTypes.STRING,
-  otroPersonaje: { field: 'otropersonaje', type: DataTypes.STRING },
-
-  procedActividades: { field: 'proced_actividades', type: DataTypes.TEXT },
-  procedEjecutadas: { field: 'proced_ejecutadas', type: DataTypes.TEXT },
-  procedHacer: { field: 'proced_hacer', type: DataTypes.TEXT },
-  procedRecursos: { field: 'proced_recursos', type: DataTypes.TEXT },
-  procedIndicadores: { field: 'proced_indicadores', type: DataTypes.TEXT },
-  procedExigidor: { field: 'proced_exigidor', type: DataTypes.STRING(300) },
-  procedSanciones: { field: 'proced_sanciones', type: DataTypes.TEXT },
-
-  usradd: DataTypes.STRING(80),
-  fecha: DataTypes.DATE,
 };
 
 class ExtendedModel extends Model {
