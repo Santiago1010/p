@@ -340,6 +340,27 @@ const saveFile = (base64, folder, documento, type = 'png') => {
   });
 };
 
+const comparacionArreglos = (elementosActuales, elementosNuevos) => {
+  const elementosCrear = [];
+  const elementosEliminar = [];
+
+  // Verificar los nuevos elementos que deben agregarse
+  elementosNuevos.forEach((elementoNuevo) => {
+    if (!elementosActuales.includes(elementoNuevo)) {
+      elementosCrear.push(elementoNuevo);
+    }
+  });
+
+  // Verificar los elementos que deben eliminarse
+  elementosActuales.forEach((elementoActual) => {
+    if (!elementosNuevos.includes(elementoActual)) {
+      elementosEliminar.push(elementoActual);
+    }
+  });
+
+  return { elementosCrear, elementosEliminar };
+};
+
 module.exports = {
   decodeBase64,
   decodeCryptoJs,
@@ -349,4 +370,5 @@ module.exports = {
   notificacionEmail,
   groupBy,
   saveFile,
+  comparacionArreglos,
 };
