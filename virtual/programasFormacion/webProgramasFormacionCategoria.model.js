@@ -45,7 +45,7 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.webProgramasFormacion, {
       as: 'programasFormacion',
-      foreignKey: 'idProgramaFormacionCategoria',
+      foreignKey: 'idCategoria',
     });
   }
 

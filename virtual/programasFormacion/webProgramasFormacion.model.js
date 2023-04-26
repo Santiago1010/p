@@ -46,7 +46,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.webProgramasFormacionModulos, { as: 'modulos', foreignKey: 'idPrograma' });
     this.belongsTo(models.webProgramasFormacionCategoria, {
       as: 'categoria',
-      foreignKey: 'idProgramaFormacionCategoria',
+      foreignKey: 'idCategoria',
     });
     this.hasMany(models.webSuscripcionesProgramasFormacion, {
       as: 'suscripcionesProgramasFormacion',
