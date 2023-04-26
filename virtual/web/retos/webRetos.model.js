@@ -49,10 +49,12 @@ const Schema = {
   },
   fechaInicio: {
     type: DataTypes.DATE,
+    defaultValue: null,
     field: 'fecha_inicio',
   },
   fechaFin: {
     type: DataTypes.DATE,
+    defaultValue: null,
     field: 'fecha_fin',
   },
   puntos: {
