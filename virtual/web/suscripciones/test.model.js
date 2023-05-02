@@ -12,15 +12,6 @@ const Schema = {
     primaryKey: true,
     field: 'id_suscripcion_test',
   },
-  idTest: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'test_general',
-      key: 'id',
-    },
-    field: 'id_test',
-  },
   idSuscripcion: {
     type: DataTypes.INTEGER,
     allowNull: true,
