@@ -13,6 +13,10 @@ const Schema = {
   },
   nombre: DataTypes.STRING,
   url: DataTypes.STRING,
+  icono: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
   orden: DataTypes.INTEGER,
   activo: DataTypes.INTEGER,
   depende: DataTypes.INTEGER,
@@ -44,6 +48,7 @@ class ExtendedModel extends Model {
       as: 'roles',
       foreignKey: 'idOpcion',
     });
+    this.hasMany(models.bizOpciones, { as: 'subOpciones', foreignKey: 'depende' });
   }
 
   static config(sequelize) {
