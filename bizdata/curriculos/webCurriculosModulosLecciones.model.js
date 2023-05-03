@@ -57,11 +57,6 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
-  estado: {
-    type: DataTypes.TINYINT,
-    allowNull: true,
-    defaultValue: 1,
-  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
