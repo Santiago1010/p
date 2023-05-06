@@ -40,18 +40,14 @@ const Schema = {
     allowNull: true,
   },
   fechaInicio: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.DATE,
     allowNull: true,
     field: 'fecha_inicio',
   },
   fechaFin: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.DATE,
     allowNull: true,
     field: 'fecha_fin',
-  },
-  hora: {
-    type: DataTypes.STRING(50),
-    allowNull: true,
   },
   medio: {
     type: DataTypes.STRING(50),
@@ -75,8 +71,22 @@ const Schema = {
     allowNull: true,
   },
   estado: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TINYINT,
     allowNull: true,
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
@@ -90,6 +100,7 @@ class ExtendedModel extends Model {
       as: 'suscripciones',
       foreignKey: 'idEvento',
     });
+    this.hasMany(models.webEventosRecursos, { as: 'recursos', foreignKey: 'idEvento' });
   }
 
   static config(sequelize) {
@@ -97,7 +108,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
