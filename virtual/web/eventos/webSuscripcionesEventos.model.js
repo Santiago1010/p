@@ -47,7 +47,10 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.webEventos, { as: 'evento', foreignKey: 'idEvento' });
+    this.belongsTo(models.webSuscripciones, { as: 'suscripcion', foreignKey: 'idSuscripcion' });
+  }
 
   static config(sequelize) {
     return {

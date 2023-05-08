@@ -1,31 +1,34 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_eventos_categorias';
-const MODEL_NAME = 'webEventosCategorias';
+const TABLE_NAME = 'web_suscripciones_eventos_categorias';
+const MODEL_NAME = 'webSuscripcionesEventosCategorias';
 
 const Schema = {
-  idEventoCategoria: {
+  idSuscripcionEventoCategoria: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_evento_categoria',
+    field: 'id_suscripcion_evento_categoria',
   },
-  nombre: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-    defaultValue: '0',
-    field: 'nombre_evento_categoria',
-  },
-  idProducto: {
+  idSuscripcion: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
     references: {
-      model: 'ctb_productos',
-      key: 'id_producto',
+      model: 'web_suscripciones',
+      key: 'id_suscripcion',
     },
-    field: 'id_producto',
+    field: 'id_suscripcion',
+  },
+  idEventoCategoria: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'web_eventos_categorias',
+      key: 'id_evento_categoria',
+    },
+    field: 'id_evento_categoria',
   },
   createdAt: {
     field: 'created_at',
@@ -42,19 +45,10 @@ const Schema = {
     type: DataTypes.DATE,
   },
 };
-
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.webEventos, { as: 'eventos', foreignKey: 'idCategoria' });
-    this.hasMany(models.webSuscripcionesEventosCategorias, {
-      as: 'suscripcionesEventosCategorias',
-      foreignKey: 'idEventoCategoria',
-    });
-    this.belongsToMany(models.webSuscripciones, {
-      through: { model: models.webSuscripcionesEventosCategorias },
-      as: 'suscripciones',
-      foreignKey: 'idEventoCategoria',
-    });
+    this.belongsTo(models.webEventosCategorias, { as: 'categoria', foreignKey: 'idEventoCategoria' });
+    this.belongsTo(models.webSuscripciones, { as: 'suscripcion', foreignKey: 'idSuscripcion' });
   }
 
   static config(sequelize) {
