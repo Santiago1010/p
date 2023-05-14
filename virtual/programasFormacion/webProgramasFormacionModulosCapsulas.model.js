@@ -35,6 +35,11 @@ const Schema = {
     type: DataTypes.STRING(150),
     allowNull: true,
   },
+  orden: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1,
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

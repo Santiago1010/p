@@ -4,6 +4,12 @@ const TABLE_NAME = 'test_general';
 const MODEL_NAME = 'testGeneral';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   codtest: DataTypes.STRING(15),
   titulo: DataTypes.STRING(50),
   descripcion: DataTypes.STRING(150),

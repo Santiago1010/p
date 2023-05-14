@@ -13,6 +13,10 @@ const Schema = {
     field: 'id_web_usuario',
     type: DataTypes.STRING,
   },
+  idPrueba: {
+    field: 'id_prueba',
+    type: DataTypes.INTEGER,
+  },
   derecho: DataTypes.INTEGER,
   central: DataTypes.INTEGER,
   izquierdo: DataTypes.INTEGER,
@@ -35,12 +39,27 @@ const Schema = {
   izquierdoSup: { field: 'izquierdo_sup', type: DataTypes.DECIMAL(10, 2) },
   izquierdoAse: { field: 'izquierdo_ase', type: DataTypes.DECIMAL(10, 2) },
   izquierdoCom: { field: 'izquierdo_com', type: DataTypes.DECIMAL(10, 2) },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+  },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.testGeneral, { as: 'testGeneral', foreignKey: 'idTest' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idWebUsuario' });
+    this.belongsTo(models.webEmpresasTestPruebas, { as: 'prueba', foreignKey: 'idPrueba' });
     this.hasMany(models.testResdetalle, { as: 'testDetalle', foreignKey: 'idTestResgeneral' });
   }
 
@@ -49,7 +68,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
