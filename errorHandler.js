@@ -1,9 +1,16 @@
 const { ValidationError } = require('sequelize');
 const response = require('./../helpers/response');
+const fs = require('fs');
+const path = require('path');
+const config = require('./../config');
 
 class ErrorHandler {
   static logErrors(err, req, res, next) {
     console.error('[Error]', err);
+    if (config.env == 'production') {
+      const errorLogStream = fs.createWriteStream(path.join(__dirname, '../logs/error.log'), { flags: 'a' });
+      errorLogStream.write(`[Error]-${new Date().toUTCString()}-${err.message}-${err.stack}\n`); // Log the error stack trace
+    }
     return next(err);
   }
 
