@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('./../../../../config');
 
 const TABLE_NAME = 'web_eventos_recursos';
 const MODEL_NAME = 'webEventosRecursos';
@@ -33,8 +34,23 @@ const Schema = {
     field: 'tipo_recurso',
   },
   recurso: {
-    type: DataTypes.STRING(200),
+    type: DataTypes.STRING(150),
     allowNull: true,
+    get() {
+      const tipo = this.getDataValue('tipo');
+      const imageLocation = this.getDataValue('recurso');
+      if (tipo !== 'Imagen' && tipo !== 'Documento') {
+        return `${imageLocation}`;
+      }
+
+      const hostImage = config.images.host;
+
+      if (!imageLocation) {
+        return null;
+      }
+
+      return `${hostImage}${imageLocation}`;
+    },
   },
   createdAt: {
     field: 'created_at',
