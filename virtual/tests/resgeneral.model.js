@@ -60,6 +60,8 @@ class ExtendedModel extends Model {
     this.belongsTo(models.testGeneral, { as: 'testGeneral', foreignKey: 'idTest' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idWebUsuario' });
     this.belongsTo(models.webEmpresasTestPruebas, { as: 'prueba', foreignKey: 'idPrueba' });
+    this.belongsTo(models.testCerebros, { as: 'cerebroDominante', foreignKey: 'dominante' });
+    this.belongsTo(models.testCerebros, { as: 'cerebroSubDominante', foreignKey: 'subdominante' });
     this.hasMany(models.testResdetalle, { as: 'testDetalle', foreignKey: 'idTestResgeneral' });
   }
 

@@ -5,6 +5,12 @@ const TABLE_NAME = 'test_cerebros';
 const MODEL_NAME = 'testCerebros';
 
 const Schema = {
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   nombre: DataTypes.STRING(40),
   aprende: DataTypes.STRING(40),
   alias: DataTypes.STRING(40),
@@ -60,6 +66,8 @@ class ExtendedModel extends Model {
       as: 'recomendaciones',
       foreignKey: 'idCerebro',
     });
+    this.hasMany(models.testResgeneral, { as: 'resgeneralDominates', foreignKey: 'dominante' });
+    this.hasMany(models.testResgeneral, { as: 'resgeneralSubDominates', foreignKey: 'subdominante' });
   }
 
   static config(sequelize) {
