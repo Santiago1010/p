@@ -14,11 +14,6 @@ const Schema = {
     type: DataTypes.STRING(15),
     allowNull: false,
   },
-  estado: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 1,
-  },
   tipoTest: {
     type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
     allowNull: false,
@@ -27,6 +22,20 @@ const Schema = {
   textos: {
     type: DataTypes.STRING(50),
     allowNull: false,
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
@@ -40,7 +49,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

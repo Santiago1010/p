@@ -11,25 +11,38 @@ const Schema = {
     primaryKey: true,
   },
   codtest: DataTypes.STRING(15),
-  titulo: DataTypes.STRING(50),
-  descripcion: DataTypes.STRING(150),
-  tipo: DataTypes.STRING(150),
+  titulo: DataTypes.STRING(2000),
+  subtitulo: DataTypes.STRING(200),
+  descripcion: DataTypes.TEXT,
   desde: DataTypes.INTEGER,
   hasta: DataTypes.INTEGER,
-  totalPreguntas: {
-    field: 'total_preguntas',
-    type: DataTypes.INTEGER,
+  portada: {
+    type: DataTypes.STRING(150),
   },
-  estado: DataTypes.ENUM('ACTIVO', 'INACTIVO'),
   tipoTest: {
     field: 'tipo_test',
     type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.testResgeneral, { as: 'respuestasTests', foreignKey: 'idTest' });
+    this.hasMany(models.testGeneralPreguntas, { as: 'testPreguntas', foreignKey: 'idTestGeneral' });
     this.belongsToMany(models.testPreguntas, {
       through: { model: models.testGeneralPreguntas },
       as: 'preguntas',
@@ -43,7 +56,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
