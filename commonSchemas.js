@@ -145,22 +145,32 @@ const arraySchema = (nombrePropiedad, location, optional = true, unique = true) 
   };
 };
 
-const dateSchema = (nombrePropiedad, location = 'body', optional = true) => {
+const dateSchema = (nombrePropiedad, location = 'body', optional = true, isoDate = false) => {
   const notEmpty = optional
     ? undefined
     : {
         errorMessage: `${nombrePropiedad} requerido`,
         bail: true,
       };
+  const isDate = !isoDate
+    ? {
+        errorMessage: `${nombrePropiedad} debe ser una fecha válida`,
+        bail: true,
+      }
+    : undefined;
 
+  const isISO8601 = isoDate
+    ? {
+        errorMessage: `${nombrePropiedad} debe ser una fecha válida`,
+        bail: true,
+      }
+    : undefined;
   return {
     in: location,
     optional: optional,
     notEmpty,
-    isDate: {
-      errorMessage: `${nombrePropiedad} debe ser una fecha válida`,
-      bail: true,
-    },
+    isDate,
+    isISO8601,
   };
 };
 
