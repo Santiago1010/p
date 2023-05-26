@@ -18,6 +18,7 @@ const Schema = {
   hasta: DataTypes.INTEGER,
   portada: {
     type: DataTypes.STRING(150),
+    defaultValue: 'https://virtualapidev.thebiznation.com/bizdata/api/v1/home/archivo/15134510383/44638892038',
   },
   tipoTest: {
     field: 'tipo_test',
