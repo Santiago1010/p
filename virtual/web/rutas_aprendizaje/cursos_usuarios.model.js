@@ -66,6 +66,10 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webCursos, { as: 'curso', foreignKey: 'idCurso' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idUsuario' });
+    this.hasMany(models.webRutasAprendizajeCursosEmpresaUsuarios, {
+      as: 'cursoEmpresaUsuario',
+      foreignKey: 'idRutaAprendizajeCursoUsuario',
+    });
     this.belongsToMany(models.webEmpresas, {
       through: { model: models.webRutasAprendizajeCursosEmpresaUsuarios },
       as: 'empresas',

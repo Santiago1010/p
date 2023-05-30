@@ -72,6 +72,10 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
+    this.hasOne(models.webCursosProgresoEmpresaUsuarios, {
+      as: 'progresoEmpresa',
+      foreignKey: 'idCursoProgresoUsuario',
+    });
     this.belongsToMany(models.webEmpresas, {
       through: { model: models.webCursosProgresoEmpresaUsuarios },
       as: 'empresas',
