@@ -32,6 +32,11 @@ const Schema = {
     field: 'id_responsable',
     unique: 'producto_responsable_UN',
   },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
   updatedAt: {
     field: 'updated_at',
     type: DataTypes.DATE,
@@ -40,11 +45,6 @@ const Schema = {
   deletedAt: {
     field: 'deleted_at',
     type: DataTypes.DATE,
-  },
-  deletedFor: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-    field: 'deleted_for',
   },
 };
 class ExtendedModel extends Model {

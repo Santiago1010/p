@@ -31,6 +31,9 @@ const Schema = {
       const tablaAsociada = this.getDataValue('tablaAsociada');
       return tablaAsociada ? tablaAsociada.replace('webSuscripciones', '').toLowerCase() : '';
     },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
+    },
   },
   createdAt: {
     field: 'created_at',
