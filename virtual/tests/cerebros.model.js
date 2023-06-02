@@ -53,13 +53,13 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.testActividades, { as: 'actividades', foreignKey: 'idCerebro' });
-    this.hasMany(models.testSessionReporteCerebro, {
-      as: 'reportesCerebroDominante',
-      foreignKey: 'idCerebroDominante',
+    this.hasMany(models.testSessionReportesCerebros, {
+      as: 'reportesCerebro',
+      foreignKey: 'idCerebro',
     });
-    this.hasMany(models.testSessionReporteCerebro, {
+    this.hasMany(models.testSessionReportesCerebros, {
       as: 'reportesCerebroSubDominante',
-      foreignKey: 'idCerebroSubDominante',
+      foreignKey: 'idCerebroSubdominante',
     });
     this.belongsToMany(models.testRecomendaciones, {
       through: { model: models.testRecomendacionesDetalle },

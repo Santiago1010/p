@@ -88,11 +88,6 @@ class ExtendedModel extends Model {
       as: 'usuarios',
       foreignKey: 'idEmpresa',
     });
-    this.belongsToMany(models.testSessionReportes, {
-      through: { model: models.webEmpresasTestReportes },
-      as: 'reportes',
-      foreignKey: 'idEmpresa',
-    });
     this.belongsToMany(models.testRecomendaciones, {
       through: { model: models.webEmpresasTestRecomendaciones },
       as: 'recomendaciones',

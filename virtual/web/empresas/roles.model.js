@@ -38,10 +38,16 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
     this.hasMany(models.webUsuariosEmpresas, { as: 'usuarios', foreignKey: 'rolEmpresa' });
+    this.hasMany(models.webSuscripcionesTestReportes, { as: 'suscripcionesTestReportes', foreignKey: 'idRol' });
     this.belongsToMany(models.testSessionReportes, {
-      through: { model: models.webEmpresasTestReportes },
+      through: { model: models.webSuscripcionesTestReportes },
       as: 'reportes',
-      foreignKey: 'rolEmpresa',
+      foreignKey: 'idRol',
+    });
+    this.belongsToMany(models.webSuscripcionesTest, {
+      through: { model: models.webSuscripcionesTestReportes },
+      as: 'suscripcionesTest',
+      foreignKey: 'idRol',
     });
   }
 
