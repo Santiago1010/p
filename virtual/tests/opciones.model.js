@@ -5,8 +5,10 @@ const MODEL_NAME = 'testOpciones';
 
 const Schema = {
   id: {
-    primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
   },
   titulo: {
     type: DataTypes.STRING,

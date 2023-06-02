@@ -14,10 +14,19 @@ const Schema = {
   titulo: DataTypes.STRING(2000),
   subtitulo: DataTypes.STRING(200),
   descripcion: DataTypes.TEXT,
-  desde: DataTypes.INTEGER,
-  hasta: DataTypes.INTEGER,
+  desde: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+  },
+  hasta: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+  },
   portada: {
     type: DataTypes.STRING(150),
+    allowNull: true,
     defaultValue: 'https://virtualapidev.thebiznation.com/bizdata/api/v1/home/archivo/15134510383/44638892038',
   },
   tipoTest: {

@@ -55,7 +55,7 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.testTipo, { as: 'tipoCerebro', foreignKey: 'tipo' });
-    this.hasMany(models.testGeneralPreguntas, { as: 'testPreguntas', foreignKey: 'idPregunta' });
+    this.hasMany(models.testGeneralPreguntas, { as: 'testsPreguntas', foreignKey: 'idPregunta' });
     this.belongsToMany(models.testGeneral, {
       through: { model: models.testGeneralPreguntas },
       as: 'tests',
