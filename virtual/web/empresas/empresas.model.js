@@ -93,11 +93,6 @@ class ExtendedModel extends Model {
       as: 'recomendaciones',
       foreignKey: 'idEmpresa',
     });
-    this.belongsToMany(models.testActividadesEjercicios, {
-      through: { model: models.webEmpresasTestActividades },
-      as: 'ejercicios',
-      foreignKey: 'idEmpresa',
-    });
     this.belongsToMany(models.webRutasAprendizajeCursosUsuarios, {
       through: { model: models.webRutasAprendizajeCursosEmpresaUsuarios },
       as: 'progresoCursosUsuarios',

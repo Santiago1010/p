@@ -1,35 +1,29 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_empresas_test_pruebas';
-const MODEL_NAME = 'webEmpresasTestPruebas';
+const TABLE_NAME = 'test_habilidades';
+const MODEL_NAME = 'testHabilidades';
 
 const Schema = {
-  idPrueba: {
+  idHabilidad: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_prueba',
-  },
-  idEmpresa: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'web_empresas',
-      key: 'id_empresa',
-    },
-    field: 'id_empresa',
+    field: 'id_habilidad',
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  fechaActivacion: {
-    type: DataTypes.DATEONLY,
+  descripcion: {
+    type: DataTypes.STRING(255),
     allowNull: false,
-    comment: 'Fecha de activación de la prueba',
-    field: 'fecha_activacion',
+  },
+  orden: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1,
   },
   createdAt: {
     field: 'created_at',
@@ -48,8 +42,10 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
-    this.hasMany(models.testActividadesProgresoUsuarios, { as: 'actividadesProgresos', foreignKey: 'idPrueba' });
+    this.hasMany(models.testActividadesConfiguracion, {
+      as: 'actividadesConfiguracion',
+      foreignKey: 'idHabilidad',
+    });
   }
 
   static config(sequelize) {

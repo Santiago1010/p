@@ -82,6 +82,10 @@ class ExtendedModel extends Model {
     this.hasMany(models.viewUsuariosStats, { as: 'statsUsuario', foreignKey: 'idEmpresa', sourceKey: 'idEmpresa' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idUsuario' });
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
+    this.hasMany(models.testActividadesProgresoUsuarios, {
+      as: 'actividadesProgresos',
+      foreignKey: 'idUsuarioEmpresa',
+    });
   }
 
   static config(sequelize) {

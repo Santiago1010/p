@@ -1,35 +1,29 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_empresas_test_pruebas';
-const MODEL_NAME = 'webEmpresasTestPruebas';
+const TABLE_NAME = 'test_actividades';
+const MODEL_NAME = 'testActividades';
 
 const Schema = {
-  idPrueba: {
+  idActividad: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_prueba',
+    field: 'id_actividad',
   },
-  idEmpresa: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'web_empresas',
-      key: 'id_empresa',
-    },
-    field: 'id_empresa',
-  },
-  nombre: {
-    type: DataTypes.STRING(100),
+  titulo: {
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  fechaActivacion: {
-    type: DataTypes.DATEONLY,
+  descripcion: {
+    type: DataTypes.STRING(255),
     allowNull: false,
-    comment: 'Fecha de activación de la prueba',
-    field: 'fecha_activacion',
+  },
+  logro: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    comment: 'Mensaje de logro al completar la actividad',
   },
   createdAt: {
     field: 'created_at',
@@ -48,8 +42,16 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
-    this.hasMany(models.testActividadesProgresoUsuarios, { as: 'actividadesProgresos', foreignKey: 'idPrueba' });
+    this.hasMany(models.testActividadesConfiguracion, {
+      as: 'configuraciones',
+      foreignKey: 'idActividad',
+    });
+    this.hasMany(models.testActividadesRecursos, { as: 'recursos', foreignKey: 'idActividad' });
+    this.belongsToMany(models.testCerebros, {
+      through: { model: models.testActividadesConfiguracion },
+      as: 'cerebros',
+      foreignKey: 'idActividad',
+    });
   }
 
   static config(sequelize) {

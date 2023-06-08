@@ -52,7 +52,6 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.testActividades, { as: 'actividades', foreignKey: 'idCerebro' });
     this.hasMany(models.testSessionReportesCerebros, {
       as: 'reportesCerebro',
       foreignKey: 'idCerebro',
@@ -68,6 +67,12 @@ class ExtendedModel extends Model {
     });
     this.hasMany(models.testResgeneral, { as: 'resgeneralDominates', foreignKey: 'dominante' });
     this.hasMany(models.testResgeneral, { as: 'resgeneralSubDominates', foreignKey: 'subdominante' });
+    this.hasMany(models.testActividadesConfiguracion, { as: 'actividadesConfiguracion', foreignKey: 'idCerebro' });
+    this.belongsToMany(models.testActividades, {
+      through: { model: models.testActividadesConfiguracion },
+      as: 'actividades',
+      foreignKey: 'idCerebro',
+    });
   }
 
   static config(sequelize) {
