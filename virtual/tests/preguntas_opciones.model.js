@@ -25,7 +25,16 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.testPreguntas, {
+      foreignKey: 'idPregunta',
+      as: 'pregunta',
+    });
+    this.belongsTo(models.testOpciones, {
+      foreignKey: 'idOpcion',
+      as: 'opcion',
+    });
+  }
 
   static config(sequelize) {
     return {
