@@ -15,6 +15,8 @@ const Schema = {
   },
   descripcion: {
     type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null,
   },
   createdAt: {
     field: 'created_at',
