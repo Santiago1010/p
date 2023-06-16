@@ -68,11 +68,11 @@ const Schema = {
     allowNull: true,
     get() {
       const tipo = this.getDataValue('tipoRecurso');
+      const imageLocation = this.getDataValue('recurso');
+
       if (tipo === 'video') {
         return `${imageLocation}`;
       }
-
-      const imageLocation = this.getDataValue('recurso');
 
       const hostImage = config.images.host;
       if (!imageLocation) {
