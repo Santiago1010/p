@@ -49,7 +49,6 @@ const Schema = {
       throw new Error('Estado es un campo virtual no se puede guardar');
     },
   },
-
 };
 class ExtendedModel extends Model {
   static associate(models) {

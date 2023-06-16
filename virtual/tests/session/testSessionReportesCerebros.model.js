@@ -3,6 +3,8 @@ const { Model, DataTypes } = require('sequelize');
 const TABLE_NAME = 'test_session_reportes_cerebros';
 const MODEL_NAME = 'testSessionReportesCerebros';
 
+const config = require('./../../../../config');
+
 const Schema = {
   idReporteCerebro: {
     autoIncrement: true,
@@ -64,6 +66,20 @@ const Schema = {
   recurso: {
     type: DataTypes.STRING(255),
     allowNull: true,
+    get() {
+      const tipo = this.getDataValue('tipoRecurso');
+      if (tipo === 'video') {
+        return `${imageLocation}`;
+      }
+
+      const imageLocation = this.getDataValue('recurso');
+
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   tipoRecurso: {
     type: DataTypes.BLOB,

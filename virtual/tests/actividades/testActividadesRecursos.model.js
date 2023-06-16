@@ -4,6 +4,8 @@ const { Model, DataTypes } = require('sequelize');
 const TABLE_NAME = 'test_actividades_recursos';
 const MODEL_NAME = 'testActividadesRecursos';
 
+const config = require('./../../../../config');
+
 const Schema = {
   idRecurso: {
     autoIncrement: true,
@@ -30,6 +32,21 @@ const Schema = {
     type: DataTypes.STRING(255),
     allowNull: true,
     comment: 'Para tipo audioVisual y se refiere al link del recurso',
+    get() {
+      const tipo = this.getDataValue('tipo');
+      if (tipo === 'audioVisual') {
+        const recurso = this.getDataValue('recurso');
+        const isLink = recurso.startsWith('http');
+
+        if (!isLink) {
+          const hostImage = config.images.host;
+          return `${hostImage}${recurso}`;
+        }
+
+        return recurso;
+      }
+      return null;
+    },
   },
   idCurso: {
     type: DataTypes.INTEGER,

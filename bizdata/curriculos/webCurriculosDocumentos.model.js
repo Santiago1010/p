@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('./../../../config');
 
 const TABLE_NAME = 'web_curriculos_documentos';
 const MODEL_NAME = 'webCurriculosDocumentos';
@@ -24,6 +25,19 @@ const Schema = {
   url: {
     type: DataTypes.STRING(255),
     allowNull: true,
+    get() {
+      const tipo = this.getDataValue('tipo');
+      const imageLocation = this.getDataValue('url');
+      if (tipo === 'video') {
+        return `${imageLocation}`;
+      }
+
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   idCurriculo: {
     type: DataTypes.INTEGER,
