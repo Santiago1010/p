@@ -60,6 +60,7 @@ class ExtendedModel extends Model {
     });
     this.hasMany(models.webCursosQuiz, { as: 'cursosQuiz', foreignKey: 'idTestGeneral' });
     this.hasMany(models.testActividadesRecursos, { as: 'actividadesRecursos', foreignKey: 'idTest' });
+    this.hasMany(models.webCurriculosEvaluaciones, { as: 'curriculosEvaluaciones', foreignKey: 'idTest' });
   }
 
   static config(sequelize) {

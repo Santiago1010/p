@@ -81,6 +81,10 @@ class ExtendedModel extends Model {
       as: 'gruposDocente',
       foreignKey: 'idUsuario',
     });
+    this.hasMany(models.webCurriculosEvaluacionesResgeneral, {
+      as: 'evaluacionesResgeneral',
+      foreignKey: 'idBizUsuario',
+    });
   }
 
   static config(sequelize) {
