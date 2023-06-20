@@ -31,6 +31,7 @@ const Schema = {
   recurso: {
     type: DataTypes.STRING(255),
     allowNull: true,
+    defaultValue: null,
     comment: 'Para tipo audioVisual y se refiere al link del recurso',
     get() {
       const tipo = this.getDataValue('tipo');
@@ -51,6 +52,7 @@ const Schema = {
   idCurso: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: null,
     comment: 'Para tipo curso',
     references: {
       model: 'web_cursos',
@@ -61,6 +63,7 @@ const Schema = {
   idTest: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: null,
     comment: 'Para tipo  evaluacion o autoEvaluacion',
     references: {
       model: 'test_general',
