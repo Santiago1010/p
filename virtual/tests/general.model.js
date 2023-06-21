@@ -31,7 +31,7 @@ const Schema = {
   },
   tipoTest: {
     field: 'tipo_test',
-    type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
+    type: DataTypes.ENUM('test', 'encuesta', 'quiz', 'actividad'),
   },
   createdAt: {
     field: 'created_at',

@@ -52,6 +52,15 @@ class ExtendedModel extends Model {
       as: 'cerebros',
       foreignKey: 'idActividad',
     });
+    this.hasMany(models.webSuscripcionesTestActividades, {
+      as: 'suscripcionesTestActividades',
+      foreignKey: 'idActividad',
+    });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesTestActividades },
+      as: 'suscripciones',
+      foreignKey: 'idActividad',
+    });
   }
 
   static config(sequelize) {
