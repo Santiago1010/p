@@ -22,7 +22,7 @@ const Schema = {
     field: 'id_propuesta',
   },
   aplicaIva: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: true,
     field: 'aplica_iva',
   },
@@ -33,6 +33,10 @@ const Schema = {
   },
   descuento: {
     type: DataTypes.DECIMAL(10, 2),
+    allowNull: true,
+  },
+  abogado: {
+    type: DataTypes.BOOLEAN,
     allowNull: true,
   },
   createdAt: {

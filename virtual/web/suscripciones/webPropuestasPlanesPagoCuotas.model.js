@@ -28,10 +28,12 @@ const Schema = {
   fecha: {
     type: DataTypes.DATEONLY,
     allowNull: false,
+    comment: 'Fecha para pagar la cuota',
   },
   fechaPago: {
     type: DataTypes.DATEONLY,
     allowNull: true,
+    comment: 'Fecha en la que se realizo el pago de la cuota, si es NULL no se ha pagado',
     field: 'fecha_pago',
   },
   vaucher: {
