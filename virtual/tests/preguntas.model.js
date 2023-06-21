@@ -70,7 +70,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.testResdetalle, { as: 'testDetalle', foreignKey: 'idTestResgeneral' });
     this.hasMany(models.webCursosModulosLecciones, { as: 'moduloLeccion', foreignKey: 'testCodpre' });
     this.hasMany(models.webCursosQuizResdetalle, { as: 'quizResdetalle', foreignKey: 'idPregunta' });
-    this.hasMany(models.webCurriculosEvaluacionesResdetalle, { as: 'evaluacionRestedalle', foreignKey: 'idPregunta' });
+    this.hasMany(models.webCurriculosEvaluacionesResdetalle, { as: 'evaluacionResdetalle', foreignKey: 'idPregunta' });
   }
 
   static config(sequelize) {
