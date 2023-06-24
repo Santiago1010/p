@@ -12,14 +12,14 @@ const Schema = {
     primaryKey: true,
     field: 'id_progreso',
   },
-  idConfiguracion: {
+  idActividad: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'test_actividades_configuracion',
-      key: 'id_configuracion',
+      model: 'test_actividades',
+      key: 'id_actividad',
     },
-    field: 'id_configuracion',
+    field: 'id_actividad',
   },
   idUsuarioEmpresa: {
     type: DataTypes.INTEGER,
@@ -67,9 +67,9 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.testActividadesConfiguracion, {
-      as: 'configuracion',
-      foreignKey: 'idConfiguracion',
+    this.belongsTo(models.testActividades, {
+      as: 'actividad',
+      foreignKey: 'idActividad',
     });
     this.belongsTo(models.webEmpresasTestPruebas, { as: 'prueba', foreignKey: 'idPrueba' });
     this.belongsTo(models.webUsuariosEmpresas, { as: 'usuarioEmpresa', foreignKey: 'idUsuarioEmpresa' });

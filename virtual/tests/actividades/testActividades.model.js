@@ -46,19 +46,14 @@ class ExtendedModel extends Model {
       as: 'configuraciones',
       foreignKey: 'idActividad',
     });
-    this.hasMany(models.testActividadesRecursos, { as: 'recursos', foreignKey: 'idActividad' });
+    this.hasOne(models.testActividadesRecursos, { as: 'recurso', foreignKey: 'idActividad' });
     this.belongsToMany(models.testCerebros, {
       through: { model: models.testActividadesConfiguracion },
       as: 'cerebros',
       foreignKey: 'idActividad',
     });
-    this.hasMany(models.webSuscripcionesTestActividades, {
-      as: 'suscripcionesTestActividades',
-      foreignKey: 'idActividad',
-    });
-    this.belongsToMany(models.webSuscripciones, {
-      through: { model: models.webSuscripcionesTestActividades },
-      as: 'suscripciones',
+    this.hasMany(models.testActividadesProgresoUsuarios, {
+      as: 'progresoUsuarios',
       foreignKey: 'idActividad',
     });
   }

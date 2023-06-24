@@ -20,10 +20,10 @@ const Schema = {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  orden: {
-    type: DataTypes.INTEGER,
+  default: {
+    type: DataTypes.TINYINT,
     allowNull: false,
-    defaultValue: 1,
+    defaultValue: 0,
   },
   createdAt: {
     field: 'created_at',
@@ -44,6 +44,15 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.testActividadesConfiguracion, {
       as: 'actividadesConfiguracion',
+      foreignKey: 'idHabilidad',
+    });
+    this.hasMany(models.webSuscripcionesTestHabilidades, {
+      as: 'suscripcionesTestHabilidades',
+      foreignKey: 'idHabilidad',
+    });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesTestHabilidades },
+      as: 'suscripciones',
       foreignKey: 'idHabilidad',
     });
   }

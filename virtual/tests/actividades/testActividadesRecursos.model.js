@@ -22,6 +22,7 @@ const Schema = {
       key: 'id_actividad',
     },
     field: 'id_actividad',
+    unique: 'recurso_actividad_UN',
   },
   tipo: {
     type: DataTypes.ENUM('audioVisual', 'curso', 'evaluacion', 'autoEvaluacion'),
@@ -37,7 +38,7 @@ const Schema = {
       const tipo = this.getDataValue('tipo');
       if (tipo === 'audioVisual') {
         const recurso = this.getDataValue('recurso');
-        const isLink = recurso.startsWith('http');
+        const isLink = recurso?.startsWith('http');
 
         if (!isLink) {
           const hostImage = config.images.host;
