@@ -55,6 +55,36 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
   };
 };
 
+const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min, max } = {}) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+        notEmpty: true,
+      };
+
+  const optionsFloat = min || max ? {} : undefined;
+  if (min) {
+    optionsFloat.min = min;
+  }
+
+  if (max) {
+    optionsFloat.max = max;
+  }
+
+  return {
+    in: location,
+    optional,
+    ...(notEmpty && { notEmpty }),
+    isFloat: {
+      errorMessage: `${nombrePropiedad} debe ser un valor decimal`,
+      bail: true,
+      options: optionsFloat,
+    },
+  };
+};
+
 const isInSchema = (
   nombrePropiedad,
   location = 'body',
@@ -142,6 +172,24 @@ const arraySchema = (nombrePropiedad, location, optional = true, unique = true) 
       errorMessage: `${nombrePropiedad} debe ser un array`,
     },
     customSanitizer,
+  };
+};
+
+const objectSchema = (nombrePropiedad, location, optional = true, unique = true) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    isObject: {
+      errorMessage: `${nombrePropiedad} debe ser un objeto`,
+    },
   };
 };
 
@@ -277,4 +325,6 @@ module.exports = {
   arraySchema,
   booleanSchema,
   boolSchema,
+  objectSchema,
+  floatSchema,
 };
