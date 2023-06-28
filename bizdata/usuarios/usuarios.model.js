@@ -11,23 +11,80 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
   },
-  username: DataTypes.STRING,
-  password: DataTypes.STRING,
-  empresaId: { field: 'empresa_id', type: DataTypes.INTEGER },
-  nombre: DataTypes.STRING,
-  rol: DataTypes.INTEGER,
-  fechaInicio: {
-    field: 'fecha_inicio',
-    type: DataTypes.DATE,
+  username: {
+    type: DataTypes.STRING(155),
+    allowNull: false,
+    unique: 'username',
   },
-  fechaFin: { field: 'fecha_fin', type: DataTypes.DATE },
-  activo: DataTypes.INTEGER,
-  licencias: DataTypes.INTEGER,
-  email: DataTypes.STRING,
-  celular: DataTypes.STRING,
+  password: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  empresaId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'web_empresas',
+      key: 'id_empresa',
+    },
+    field: 'empresa_id',
+  },
+  nombre: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  rol: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'biz_roles',
+      key: 'id',
+    },
+  },
+  fechaInicio: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'fecha_inicio',
+  },
+  fechaFin: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'fecha_fin',
+  },
+  licencias: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1,
+  },
+  email: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  celular: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  documento: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   idFoto: {
     type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'web_imagenes',
+      key: 'id_imagen',
+    },
     field: 'id_foto',
+  },
+  idWebUsuario: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'web_usuarios',
+      key: 'id_usuario',
+    },
+    field: 'id_web_usuario',
   },
   createdAt: {
     field: 'created_at',
@@ -85,6 +142,7 @@ class ExtendedModel extends Model {
       as: 'evaluacionesResgeneral',
       foreignKey: 'idBizUsuario',
     });
+    this.belongsTo(models.webUsuarios, { as: 'webUsuario', foreignKey: 'idWebUsuario' });
   }
 
   static config(sequelize) {
