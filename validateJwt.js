@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const initModels = require('../models/db/init-models');
 const { sequelize } = require('../database/config');
+const ValidatePermission = require('../helpers/validatePermission');
+const customError = require('../helpers/customError');
 const { usuarios } = initModels(sequelize);
 
 const validateJwt = async (req, res, next) => {
@@ -19,6 +21,12 @@ const validateJwt = async (req, res, next) => {
       });
     }
     req.user = usuario;
+    const validatePermission = await ValidatePermission.validateRoute(req.originalUrl, req.method, usuario.id);
+
+    if (!validatePermission) {
+      return next(customError('Usuario no tiene permiso para realizar esta acción', 403));
+    }
+
     return next();
   } catch (error) {
     console.log(error);
