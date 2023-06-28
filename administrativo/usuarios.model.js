@@ -67,6 +67,7 @@ class ExtendedModel extends Model {
       as: 'departamentos',
       foreignKey: 'idUsuario',
     });
+    this.hasMany(models.permisosApiOpcionesUsuarios, { as: 'permisos', foreignKey: 'idUsuario' });
   }
 
   static config(sequelize) {
