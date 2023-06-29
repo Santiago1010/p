@@ -1,10 +1,12 @@
-const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max } = {}) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max, emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   const isLength = max
     ? {
@@ -15,7 +17,7 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
 
   return {
     in: location,
-    optional: optional,
+    optional: optional && !emptyConditional,
     notEmpty,
     isString: {
       errorMessage: `${nombrePropiedad} debe ser una cadena de texto`,
@@ -25,14 +27,15 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
   };
 };
 
-const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, max } = {}) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-        notEmpty: true,
-      };
+const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, max, emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   const optionsInt = min || max ? {} : undefined;
   if (min) {
@@ -45,8 +48,8 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
 
   return {
     in: location,
-    optional,
-    ...(notEmpty && { notEmpty }),
+    optional: optional && !emptyConditional,
+    notEmpty,
     isInt: {
       errorMessage: `${nombrePropiedad} debe ser entero`,
       bail: true,
@@ -200,6 +203,7 @@ const dateSchema = (nombrePropiedad, location = 'body', optional = true, isoDate
         errorMessage: `${nombrePropiedad} requerido`,
         bail: true,
       };
+
   const isDate = !isoDate
     ? {
         errorMessage: `${nombrePropiedad} debe ser una fecha válida`,
