@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'web_certificados_firmas';
 const MODEL_NAME = 'webCertificadosFirmas';
@@ -41,6 +42,14 @@ const Schema = {
     type: DataTypes.STRING(150),
     allowNull: true,
     field: 'link_firma',
+    get() {
+      const imageLocation = this.getDataValue('linkFirma');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   createdAt: {
     field: 'created_at',

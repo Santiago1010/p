@@ -52,7 +52,6 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webCertificados, { as: 'certificado', foreignKey: 'idCertificado' });
     this.belongsTo(models.webCursos, { as: 'curso', foreignKey: 'idCurso' });
-    this.hasMany(models.webCursosQuizResgeneral, { as: 'respuestasQuiz', foreignKey: 'idCursoCertificado' });
   }
 
   static config(sequelize) {

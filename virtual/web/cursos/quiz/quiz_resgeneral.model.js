@@ -51,10 +51,10 @@ const Schema = {
     allowNull: false,
     defaultValue: 0,
   },
-  idCursoCertificado: {
+  idCertificado: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'id_curso_certificado',
+    field: 'id_certificado',
   },
 };
 
@@ -62,7 +62,7 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webCursosQuiz, { as: 'quiz', foreignKey: 'idQuiz' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idUsuario' });
-    this.belongsTo(models.webCursosCertificados, { as: 'certificado', foreignKey: 'idCursoCertificado' });
+    this.belongsTo(models.webCertificados, { as: 'certificado', foreignKey: 'idCertificado' });
 
     this.hasMany(models.webCursosQuizResdetalle, { as: 'resdetalle', foreignKey: 'idQuizResgeneral' });
   }

@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'web_certificados';
 const MODEL_NAME = 'webCertificados';
@@ -31,6 +32,14 @@ const Schema = {
     type: DataTypes.STRING(150),
     allowNull: true,
     field: 'fondo_certificado',
+    get() {
+      const imageLocation = this.getDataValue('fondo');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   colorFooter: {
     type: DataTypes.STRING(7),
@@ -88,6 +97,7 @@ class ExtendedModel extends Model {
       as: 'patrocinadores',
       foreignKey: 'idCertificado',
     });
+    this.hasMany(models.webCursosQuizResgeneral, { as: 'respuestasQuiz', foreignKey: 'idCertificado' });
   }
 
   static config(sequelize) {
