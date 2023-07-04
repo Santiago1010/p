@@ -6,6 +6,7 @@ const MODEL_NAME = 'webCertificadosLogos';
 
 const Schema = {
   idLogo: {
+    autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,

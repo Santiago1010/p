@@ -210,8 +210,13 @@ class ExtendedModel extends Model {
 
     this.hasMany(models.webCursosQuiz, { as: 'quiz', foreignKey: 'idCurso' });
 
-    this.hasMany(models.webCursosCertificados, { as: 'certificados', foreignKey: 'idCurso' });
+    this.hasMany(models.webCursosCertificados, { as: 'cursosCertificados', foreignKey: 'idCurso' });
 
+    this.belongsToMany(models.webCertificados, {
+      through: { model: models.webCursosCertificados },
+      as: 'certificados',
+      foreignKey: 'idCurso',
+    });
     this.hasMany(models.webCursosRating, { as: 'ratingCursos', foreignKey: 'idCurso' });
     this.hasMany(models.webCursosProgresoUsuarios, { as: 'progresoUsuarios', foreignKey: 'idCurso' });
     this.hasMany(models.testActividadesRecursos, { as: 'actividadesRecursos', foreignKey: 'idCurso' });
