@@ -174,6 +174,12 @@ class ExtendedModel extends Model {
       as: 'habilidades',
       foreignKey: 'idSuscripcion',
     });
+    this.hasMany(models.webFormulariosSuscripciones, { as: 'formulariosSuscripciones', foreignKey: 'idSuscripcion' });
+    this.belongsToMany(models.webFormularios, {
+      through: { model: models.webFormulariosSuscripciones },
+      as: 'formularios',
+      foreignKey: 'idSuscripcion',
+    });
   }
 
   static config(sequelize) {

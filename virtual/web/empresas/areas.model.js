@@ -44,6 +44,12 @@ class ExtendedModel extends Model {
       as: 'retos',
       foreignKey: 'idArea',
     });
+    this.hasMany(models.webFormulariosAreas, { as: 'formulariosAreas', foreignKey: 'idArea' });
+    this.belongsToMany(models.webFormularios, {
+      through: { model: models.webFormulariosAreas },
+      as: 'formularios',
+      foreignKey: 'idArea',
+    });
   }
 
   static config(sequelize) {

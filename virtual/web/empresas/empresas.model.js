@@ -109,6 +109,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.planNegocioArchivos, { as: 'planNegocioArchivos', foreignKey: 'idEmpresa' });
     this.hasMany(models.bizUsuarios, { as: 'bizUsuarios', foreignKey: 'empresaId' });
     this.hasMany(models.webEmpresasTestPruebas, { as: 'pruebas', foreignKey: 'idEmpresa' });
+    this.hasMany(models.webFormularios, { as: 'formularios', foreignKey: 'idEmpresa' });
   }
 
   static config(sequelize) {
