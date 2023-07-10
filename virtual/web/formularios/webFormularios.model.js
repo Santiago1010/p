@@ -36,6 +36,10 @@ const Schema = {
     allowNull: true,
     comment: 'id del html de los campos que se quieren ocultar en el formulario',
     field: 'campos_ocultos',
+    get() {
+      const camposOcultos = this.getDataValue('camposOcultos');
+      return camposOcultos.split(',');
+    },
   },
   createdAt: {
     field: 'created_at',
