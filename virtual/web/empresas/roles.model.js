@@ -55,6 +55,12 @@ class ExtendedModel extends Model {
       as: 'formularios',
       foreignKey: 'idRol',
     });
+    this.hasMany(models.testGeneralRoles, { as: 'testGeneralesRoles', foreignKey: 'idRol' });
+    this.belongsToMany(models.testGeneral, {
+      through: { model: models.testGeneralRoles },
+      as: 'testGenerales',
+      foreignKey: 'idRol',
+    });
   }
 
   static config(sequelize) {

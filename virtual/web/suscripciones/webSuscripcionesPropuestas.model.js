@@ -45,6 +45,13 @@ const Schema = {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
+  rolDinamico: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: 0,
+    comment: 'Configurar si se dispara el modal para elegir el rol dinamicamente en Virtual',
+    field: 'rol_dinamico',
+  },
   fechaTest: {
     type: DataTypes.DATE,
     allowNull: false,
