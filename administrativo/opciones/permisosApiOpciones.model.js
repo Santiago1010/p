@@ -52,7 +52,7 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    // this.belongsTo(models.opciones, { as: 'opcion', foreignKey: 'idOpcion' });
+    this.belongsTo(models.Opciones, { as: 'opcion', foreignKey: 'idOpcion' });
     this.hasMany(models.permisosApiOpcionesUsuarios, { as: 'permisosUsuarios', foreignKey: 'idPermiso' });
   }
 
