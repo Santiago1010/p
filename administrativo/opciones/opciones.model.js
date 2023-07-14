@@ -54,8 +54,8 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.opciones, { as: 'opcionPadre', foreignKey: 'depende' });
-    this.hasMany(models.opciones, { as: 'subOpciones', foreignKey: 'depende' });
+    this.belongsTo(models.Opciones, { as: 'opcionPadre', foreignKey: 'depende' });
+    this.hasMany(models.Opciones, { as: 'subOpciones', foreignKey: 'depende' });
     this.hasMany(models.permisosApiOpciones, { as: 'permisos', foreignKey: 'idOpcion' });
   }
 
