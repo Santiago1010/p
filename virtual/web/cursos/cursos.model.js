@@ -48,7 +48,7 @@ const Schema = {
     field: 'subtitulo_curso',
   },
   descripcion: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(300),
     allowNull: false,
     field: 'descripcion_curso',
   },
