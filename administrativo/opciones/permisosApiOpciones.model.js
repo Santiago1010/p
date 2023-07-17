@@ -54,6 +54,11 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.Opciones, { as: 'opcion', foreignKey: 'idOpcion' });
     this.hasMany(models.permisosApiOpcionesUsuarios, { as: 'permisosUsuarios', foreignKey: 'idPermiso' });
+    this.belongsToMany(models.Usuarios, {
+      through: { model: models.permisosApiOpcionesUsuarios },
+      as: 'usuarios',
+      foreignKey: 'idPermiso',
+    });
   }
 
   static config(sequelize) {
