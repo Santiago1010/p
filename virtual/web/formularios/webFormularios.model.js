@@ -12,6 +12,11 @@ const Schema = {
     primaryKey: true,
     field: 'id_formulario',
   },
+  titulo: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    comment: 'Titulo personalizado del formulario',
+  },
   idEmpresa: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -40,6 +45,20 @@ const Schema = {
       const camposOcultos = this.getDataValue('camposOcultos');
       return camposOcultos.split(',');
     },
+  },
+  password: {
+    type: DataTypes.STRING(200),
+    allowNull: false,
+  },
+  header: {
+    type: DataTypes.STRING(250),
+    allowNull: true,
+    comment: 'Imagen de encabezado personalizado del formulario',
+  },
+  footer: {
+    type: DataTypes.STRING(250),
+    allowNull: true,
+    comment: 'Imagen de pie de pagina personalizado del formulario',
   },
   createdAt: {
     field: 'created_at',
