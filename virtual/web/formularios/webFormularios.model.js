@@ -50,15 +50,23 @@ const Schema = {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
-  header: {
+  headerRegistroExitoso: {
     type: DataTypes.STRING(250),
     allowNull: true,
-    comment: 'Imagen de encabezado personalizado del formulario',
+    comment: 'Imagen de encabezado personalizado del mensaje de registro exitoso (email y registro)',
+    field: 'header_registro_exitoso',
   },
-  footer: {
+  headerConfirmacionCuenta: {
     type: DataTypes.STRING(250),
     allowNull: true,
-    comment: 'Imagen de pie de pagina personalizado del formulario',
+    comment: 'Imagen de pie de pagina personalizado del mensaje de confirmacion de cuenta',
+    field: 'header_confirmacion_cuenta',
+  },
+  headerError: {
+    type: DataTypes.STRING(250),
+    allowNull: true,
+    comment: 'Imagen de pie de pagina personalizado del mensaje de error',
+    field: 'header_error',
   },
   createdAt: {
     field: 'created_at',
