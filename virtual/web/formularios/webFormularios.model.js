@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'web_formularios';
 const MODEL_NAME = 'webFormularios';
@@ -55,18 +56,42 @@ const Schema = {
     allowNull: true,
     comment: 'Imagen de encabezado personalizado del mensaje de registro exitoso (email y registro)',
     field: 'header_registro_exitoso',
+    get() {
+      const imageLocation = this.getDataValue('headerRegistroExitoso');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   headerConfirmacionCuenta: {
     type: DataTypes.STRING(250),
     allowNull: true,
     comment: 'Imagen de pie de pagina personalizado del mensaje de confirmacion de cuenta',
     field: 'header_confirmacion_cuenta',
+    get() {
+      const imageLocation = this.getDataValue('headerConfirmacionCuenta');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   headerError: {
     type: DataTypes.STRING(250),
     allowNull: true,
     comment: 'Imagen de pie de pagina personalizado del mensaje de error',
     field: 'header_error',
+    get() {
+      const imageLocation = this.getDataValue('headerError');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   createdAt: {
     field: 'created_at',
