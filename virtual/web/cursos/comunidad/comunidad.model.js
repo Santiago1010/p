@@ -55,6 +55,8 @@ class ExtendedModel extends Model {
     this.hasMany(models.webCursosComunidadComentarios, { as: 'comentarios', foreignKey: 'idCursoComunidad' });
     this.hasMany(models.webCursosComunidadLikes, { as: 'likes', foreignKey: 'idCursoComunidad' });
     this.belongsTo(models.webUsuarios, { as: 'usuario', foreignKey: 'idUsuario' });
+    this.belongsTo(models.webCursos, { as: 'curso', foreignKey: 'idCurso' });
+    this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
   }
 
   static config(sequelize) {

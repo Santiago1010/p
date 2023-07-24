@@ -23,27 +23,27 @@ const Schema = {
     field: 'id_curso_categoria',
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: false,
     field: 'nombre_curso',
   },
   h1: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'h1_curso',
   },
   url: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'url_curso',
   },
   metatitle: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'metatitle_curso',
   },
   subtitulo: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'subtitulo_curso',
   },
@@ -53,12 +53,12 @@ const Schema = {
     field: 'descripcion_curso',
   },
   metadescripcion: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'descripcion_especifico_curso',
   },
   keywordsEspecifico: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'keywords_especifico_curso',
   },
@@ -141,8 +141,9 @@ const Schema = {
     field: 'precio_curso',
   },
   duracion: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 0,
     field: 'duracion_curso',
   },
   idioma: {
