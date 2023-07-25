@@ -226,7 +226,7 @@ const dateSchema = (nombrePropiedad, location = 'body', optional = true, isoDate
   };
 };
 
-const ordenSchema = (location = 'body', optional = true, min = 1, max = 100) => {
+const ordenSchema = (location = 'body', optional = true, min = 1, max = 150) => {
   return {
     in: location,
     optional: optional,
@@ -266,7 +266,7 @@ const tipoSchema = (location, optional = true, options = []) => {
   };
 };
 
-const logo = (location, optional = true, max = 100) => {
+const logo = (location, optional = true, max = 150) => {
   return {
     in: location,
     optional: optional,
@@ -281,7 +281,7 @@ const logo = (location, optional = true, max = 100) => {
   };
 };
 
-const nombre = (location, optional = true, max = 100) => {
+const nombre = (location, optional = true, max = 150) => {
   return {
     in: location,
     optional: optional,
