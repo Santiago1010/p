@@ -10,7 +10,7 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
 
   const isLength = max
     ? {
-        errorMessage: `${nombrePropiedad}no debe ser mayor ${max} +  caracteres`,
+        errorMessage: `${nombrePropiedad} no debe ser mayor ${max} +  caracteres`,
         options: { max: max },
       }
     : undefined;
