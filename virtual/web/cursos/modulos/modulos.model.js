@@ -22,7 +22,7 @@ const Schema = {
     field: 'id_curso',
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(150),
     allowNull: true,
     field: 'nombre_modulo',
   },
