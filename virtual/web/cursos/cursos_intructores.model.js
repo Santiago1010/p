@@ -30,6 +30,21 @@ const Schema = {
     },
     field: 'id_instructor',
   },
+  modContrato: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'mod_contrato',
+  },
+  validadoEn: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    field: 'validado_en',
+  },
+  firma: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    field: 'firma',
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
@@ -47,7 +62,20 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.webCursos, {
+      foreignKey: 'idCurso',
+      as: 'curso',
+    });
+    this.belongsTo(models.webInstructores, {
+      foreignKey: 'idInstructor',
+      as: 'instructor',
+    });
+    this.belongsTo(models.admContratosModelos, {
+      foreignKey: 'modContrato',
+      as: 'contratoModelo',
+    });
+  }
 
   static config(sequelize) {
     return {

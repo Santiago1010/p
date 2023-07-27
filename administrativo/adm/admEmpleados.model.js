@@ -1,5 +1,5 @@
 'use strict';
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const config = require('../../../config');
 
 const TABLE_NAME = 'adm_empleados';
@@ -10,6 +10,14 @@ const Schema = {
     type: DataTypes.STRING(30),
     allowNull: false,
     primaryKey: true,
+  },
+  nomemp: {
+    type: DataTypes.STRING(60),
+    allowNull: false,
+  },
+  apemp: {
+    type: DataTypes.STRING(60),
+    allowNull: false,
   },
   nombreCompleto: {
     type: DataTypes.VIRTUAL,
@@ -22,14 +30,6 @@ const Schema = {
     set(value) {
       throw new Error('nombreCompleto es un campo virtual no se puede guardar');
     },
-  },
-  nomemp: {
-    type: DataTypes.STRING(60),
-    allowNull: false,
-  },
-  apemp: {
-    type: DataTypes.STRING(60),
-    allowNull: false,
   },
   tipide: {
     type: DataTypes.INTEGER,
@@ -85,12 +85,20 @@ const Schema = {
     },
   },
   eps: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'adm_eps',
+      key: 'id',
+    },
   },
   fondo: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'adm_fondo_pensiones',
+      key: 'id',
+    },
   },
   banco: {
     type: DataTypes.INTEGER,
@@ -141,7 +149,32 @@ const Schema = {
     allowNull: false,
     defaultValue: 0,
   },
+  arl: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    references: {
+      model: 'adm_arl',
+      key: 'id_arl',
+    },
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+    onUpdate: DataTypes.NOW,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    defaultValue: null,
+  },
 };
+
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasOne(models.Usuarios, { as: 'usuario', foreignKey: 'codemp' });
@@ -157,6 +190,30 @@ class ExtendedModel extends Model {
       as: 'productos',
       foreignKey: 'idResponsable',
     });
+    this.belongsTo(models.admEps, {
+      foreignKey: 'eps',
+      as: 'epsEmpleado',
+    });
+    this.belongsTo(models.admArl, {
+      foreignKey: 'arl',
+      as: 'arlEmpleado',
+    });
+    this.belongsTo(models.admFondo, {
+      foreignKey: 'fondo',
+      as: 'fondoEmpleado',
+    });
+    this.belongsTo(models.admBancos, {
+      foreignKey: 'banco',
+      as: 'bancoEmpleado',
+    });
+    this.belongsTo(models.admPaises, {
+      foreignKey: 'paisNacimiento',
+      as: 'paisNacimientoEmpleado',
+    });
+    this.belongsTo(models.admCiudades, {
+      foreignKey: 'ciudadNacimiento',
+      as: 'ciudadNacimientoEmpleado',
+    });
   }
 
   static config(sequelize) {
@@ -164,7 +221,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
