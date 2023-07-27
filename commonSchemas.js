@@ -37,12 +37,12 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
           bail: true,
         };
 
-  const optionsInt = min || max ? {} : undefined;
-  if (min) {
+  const optionsInt = min != undefined || max != undefined ? {} : undefined;
+  if (min != undefined) {
     optionsInt.min = min;
   }
 
-  if (max) {
+  if (max != undefined) {
     optionsInt.max = max;
   }
 
