@@ -31,16 +31,13 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
-      estado: {
-        type: DataTypes.ENUM('ACTIVO', 'INACTIVO'),
+      periodo_prueba: {
+        type: DataTypes.STRING(100),
         allowNull: true,
+        comment: 'Periodo de prueba del contrato',
       },
       addusr: {
         type: DataTypes.STRING(20),
-        allowNull: true,
-      },
-      fchadd: {
-        type: DataTypes.DATE,
         allowNull: true,
       },
       descripcion: {
@@ -66,6 +63,10 @@ module.exports = function (sequelize, DataTypes) {
       mod_contrato: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'adm_contratos_modelos',
+          key: 'id',
+        },
       },
       auxilio: {
         type: DataTypes.DECIMAL(10, 0),
@@ -79,18 +80,29 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(250),
         allowNull: true,
       },
-      acuerdo_confidencialidad: {
-        type: DataTypes.TINYINT,
+      validado_en: {
+        type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: 0,
+        comment: 'Fecha  de validación del contrato',
       },
-      mod_contrato_confidencialidad: {
-        type: DataTypes.INTEGER,
+      firma: {
+        type: DataTypes.STRING(150),
         allowNull: true,
-        references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
-        },
+        comment: 'Link a la firma del empleado',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
@@ -110,9 +122,9 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'codusr' }],
         },
         {
-          name: 'adm_empleados_contrato_FK',
+          name: 'mod_contrato',
           using: 'BTREE',
-          fields: [{ name: 'mod_contrato_confidencialidad' }],
+          fields: [{ name: 'mod_contrato' }],
         },
       ],
     }

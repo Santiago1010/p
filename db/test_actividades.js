@@ -3,40 +3,38 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
     'test_actividades',
     {
-      id: {
+      id_actividad: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(150),
+      titulo: {
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
-      cerebro: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        references: {
-          model: 'test_cerebros',
-          key: 'id',
-        },
-      },
-      cant_ejerc: {
-        type: DataTypes.INTEGER,
+      descripcion: {
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
-      tipo: {
-        type: DataTypes.ENUM('Recomendacion', 'Actividad'),
+      logro: {
+        type: DataTypes.STRING(255),
         allowNull: false,
+        comment: 'Mensaje de logro al completar la actividad',
       },
-      addusr: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      fecha: {
+      created_at: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
@@ -48,12 +46,7 @@ module.exports = function (sequelize, DataTypes) {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id' }],
-        },
-        {
-          name: 'FK_test_actividades_test_cerebros',
-          using: 'BTREE',
-          fields: [{ name: 'cerebro' }],
+          fields: [{ name: 'id_actividad' }],
         },
       ],
     }

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'web_empresas_test_reportes',
+    'web_suscripciones_test_reportes',
     {
       id: {
         autoIncrement: true,
@@ -9,23 +9,23 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      id_empresa: {
+      id_suscripcion_test: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
+          model: 'web_suscripciones_test',
+          key: 'id_suscripcion_test',
         },
       },
-      id_session_reporte: {
+      id_reporte: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'test_session_reportes',
           key: 'id',
         },
       },
-      id_rol_usuario_empresa: {
+      id_rol: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -33,23 +33,24 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
-      estado: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 1,
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      addusr: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      fchnac: {
+      deleted_at: {
         type: DataTypes.DATE,
         allowNull: true,
       },
     },
     {
       sequelize,
-      tableName: 'web_empresas_test_reportes',
+      tableName: 'web_suscripciones_test_reportes',
       timestamps: false,
       indexes: [
         {
@@ -59,19 +60,20 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id' }],
         },
         {
-          name: 'FK_web_empresas_reportes_test_web_empresas',
+          name: 'id_suscripcion_reporte_rol_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_empresa' }],
+          fields: [{ name: 'id_suscripcion_test' }, { name: 'id_reporte' }, { name: 'id_rol' }],
         },
         {
-          name: 'FK_web_empresas_reportes_test_test_session_reportes',
+          name: 'id_reporte',
           using: 'BTREE',
-          fields: [{ name: 'id_session_reporte' }],
+          fields: [{ name: 'id_reporte' }],
         },
         {
-          name: 'FK_web_empresas_reportes_test_web_empresas_roles',
+          name: 'id_rol',
           using: 'BTREE',
-          fields: [{ name: 'id_rol_usuario_empresa' }],
+          fields: [{ name: 'id_rol' }],
         },
       ],
     }

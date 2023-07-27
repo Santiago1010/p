@@ -14,10 +14,19 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: '',
       },
-      estado: {
-        type: DataTypes.TINYINT,
+      updated_at: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

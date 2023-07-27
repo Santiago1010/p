@@ -91,6 +91,11 @@ module.exports = function (sequelize, DataTypes) {
           key: 'idCiudades',
         },
       },
+      certificados: {
+        type: DataTypes.TINYINT.UNSIGNED,
+        allowNull: false,
+        defaultValue: 1,
+      },
     },
     {
       sequelize,

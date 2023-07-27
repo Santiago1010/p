@@ -30,7 +30,29 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       tipo: {
-        type: DataTypes.ENUM('Empresas', 'Programas'),
+        type: DataTypes.ENUM('cursos', 'programas', 'cursosEmpresa'),
+        allowNull: false,
+        defaultValue: 'cursos',
+      },
+      personalizado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0,
+        comment:
+          'Si la plantilla de certifcado es personalizada o no, solo deberia haber maximo 1 certificado default por tipo',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

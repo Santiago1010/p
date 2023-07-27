@@ -3,18 +3,36 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
     'crm_productos',
     {
-      id_producto_promocion: {
+      id_producto: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre_producto_promocion: {
+      nombre: {
         type: DataTypes.STRING(50),
-        allowNull: true,
+        allowNull: false,
+      },
+      descripcion: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
       },
       tabla_asociada: {
         type: DataTypes.STRING(50),
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },
@@ -27,7 +45,7 @@ module.exports = function (sequelize, DataTypes) {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_producto_promocion' }],
+          fields: [{ name: 'id_producto' }],
         },
       ],
     }

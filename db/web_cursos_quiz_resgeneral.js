@@ -44,12 +44,12 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0,
       },
-      id_curso_certificado: {
+      id_certificado: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'web_cursos_certificados',
-          key: 'id_curso_certificado',
+          model: 'web_certificados',
+          key: 'id_certificado',
         },
       },
     },
@@ -71,14 +71,14 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id_usuario' }, { name: 'id_quiz' }],
         },
         {
-          name: 'web_cursos_quiz_resgeneral_FK_2',
-          using: 'BTREE',
-          fields: [{ name: 'id_curso_certificado' }],
-        },
-        {
           name: 'web_cursos_quiz_resgeneral_FK_1',
           using: 'BTREE',
           fields: [{ name: 'id_quiz' }],
+        },
+        {
+          name: 'id_certificado',
+          using: 'BTREE',
+          fields: [{ name: 'id_certificado' }],
         },
       ],
     }

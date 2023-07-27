@@ -29,6 +29,65 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
+      descripcion: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      rol_dinamico: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0,
+        comment: 'Configurar si se dispara el modal para elegir el rol dinamicamente en Virtual',
+      },
+      fecha_test: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      fecha_entrega: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      tipo_cliente: {
+        type: DataTypes.ENUM('micro', 'macro'),
+        allowNull: false,
+        defaultValue: 'micro',
+      },
+      valor_venta: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true,
+      },
+      nombre_completo_asesor: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
+      celular_asesor: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      deleted_for: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
     },
     {
       sequelize,

@@ -46,11 +46,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      activo: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-        defaultValue: 1,
-      },
       licencias: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -75,6 +70,28 @@ module.exports = function (sequelize, DataTypes) {
           model: 'web_imagenes',
           key: 'id_imagen',
         },
+      },
+      id_web_usuario: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'web_usuarios',
+          key: 'id_usuario',
+        },
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
@@ -108,6 +125,11 @@ module.exports = function (sequelize, DataTypes) {
           name: 'biz_usuarios_ibfk_3',
           using: 'BTREE',
           fields: [{ name: 'id_foto' }],
+        },
+        {
+          name: 'biz_usuarios_id_web_usuario_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_web_usuario' }],
         },
       ],
     }

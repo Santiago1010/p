@@ -17,35 +17,35 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       nombre_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       h1_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       url_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       metatitle_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       subtitulo_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       descripcion_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(500),
         allowNull: true,
       },
       descripcion_especifico_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       keywords_especifico_curso: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       audiencia_curso: {
@@ -87,8 +87,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       duracion_curso: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        comment: 'Duración del curso en segundos',
       },
       idioma_curso: {
         type: DataTypes.STRING(100),

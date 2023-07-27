@@ -21,6 +21,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
+      icono: {
+        type: DataTypes.STRING(30),
+        allowNull: true,
+      },
       orden: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -37,6 +41,20 @@ module.exports = function (sequelize, DataTypes) {
           model: 'biz_opciones',
           key: 'id',
         },
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

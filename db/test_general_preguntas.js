@@ -25,14 +25,6 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codpre',
         },
       },
-      puntaje_pregunta: {
-        type: DataTypes.DECIMAL(10, 0),
-        allowNull: true,
-      },
-      tiempo: {
-        type: DataTypes.TIME,
-        allowNull: true,
-      },
     },
     {
       sequelize,

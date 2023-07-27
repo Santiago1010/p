@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       id_curso_modulo_leccion: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'web_cursos_modulos_lecciones',
           key: 'id_curso_modulo_leccion',
@@ -25,20 +25,30 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      recurso: {
-        type: DataTypes.BIGINT,
-        allowNull: true,
-      },
-      imagen: {
-        type: DataTypes.STRING(100),
+      parrafo2: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       imagetext: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.TEXT,
         allowNull: true,
       },
-      textimagen: {
-        type: DataTypes.TEXT,
+      imagen: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

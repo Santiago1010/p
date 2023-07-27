@@ -34,15 +34,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       fecha_inicio: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: true,
       },
       fecha_fin: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-      },
-      hora: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.DATE,
         allowNull: true,
       },
       medio: {
@@ -66,7 +62,23 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       estado: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: 0,
+        comment: '0=Pendiente,1=Progreso,2=Finalizado',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

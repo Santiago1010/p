@@ -25,6 +25,20 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id_curriculo',
         },
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
@@ -36,6 +50,12 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'id_suscripcion_curriculo' }],
+        },
+        {
+          name: 'suscripcion_curriculo_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'id_suscripcion' }, { name: 'id_curriculo' }],
         },
         {
           name: 'web_suscripciones_curriculos_FK',

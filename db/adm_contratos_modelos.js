@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      tipo: {
+      nombre: {
         type: DataTypes.STRING(80),
         allowNull: false,
       },
@@ -21,15 +21,29 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE(4),
         allowNull: false,
       },
-      documento: {
-        type: DataTypes.ENUM('contrato', 'confidencial'),
+      categoria: {
+        type: DataTypes.ENUM('empleado', 'instructor'),
+        allowNull: false,
+        defaultValue: 'empleado',
+      },
+      tipo: {
+        type: DataTypes.ENUM('contrato', 'documento'),
         allowNull: false,
         defaultValue: 'contrato',
       },
-      estado: {
-        type: DataTypes.TINYINT,
+      created_at: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

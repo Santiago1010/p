@@ -9,6 +9,16 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
+      tipo_doc: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        defaultValue: '0',
+      },
+      documento: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        defaultValue: '0',
+      },
       nombre_completo_usuario: {
         type: DataTypes.STRING(100),
         allowNull: true,
@@ -62,6 +72,11 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      cambiar_password: {
+        type: DataTypes.TINYINT.UNSIGNED,
+        allowNull: false,
+        defaultValue: 0,
+      },
       aplico_test_cerebral: {
         type: DataTypes.INTEGER,
         allowNull: true,
@@ -77,16 +92,33 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
       sobre_mi: {
         type: DataTypes.STRING(300),
+        allowNull: true,
+      },
+      token_recuperacion: {
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
     },
     {
       sequelize,
       tableName: 'web_usuarios',
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',

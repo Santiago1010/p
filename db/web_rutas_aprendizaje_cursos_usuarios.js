@@ -36,6 +36,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
         comment: 'Fecha de aprobación del curso',
       },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,

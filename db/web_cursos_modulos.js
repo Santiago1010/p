@@ -18,11 +18,25 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       nombre_modulo: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       orden_modulo: {
         type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

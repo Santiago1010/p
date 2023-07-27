@@ -1,51 +1,51 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'web_empresas_test_actividades',
+    'web_retos_cursos',
     {
-      id_empresa_activdad_test: {
+      id_reto_curso: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      cod_ejercicio: {
+      id_reto: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'test_actividades_ejercicios',
-          key: 'cod_ejercicio',
+          model: 'web_retos',
+          key: 'id_reto',
         },
       },
-      id_empresa: {
+      id_curso: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
+          model: 'web_cursos',
+          key: 'id_curso',
         },
       },
     },
     {
       sequelize,
-      tableName: 'web_empresas_test_actividades',
+      tableName: 'web_retos_cursos',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_empresa_activdad_test' }],
+          fields: [{ name: 'id_reto_curso' }],
         },
         {
-          name: 'FK_web_empresas_test_activades_test_actividades_ejercicios',
+          name: 'id_reto',
           using: 'BTREE',
-          fields: [{ name: 'cod_ejercicio' }],
+          fields: [{ name: 'id_reto' }],
         },
         {
-          name: 'FK_web_empresas_test_activades_web_empresas',
+          name: 'id_curso',
           using: 'BTREE',
-          fields: [{ name: 'id_empresa' }],
+          fields: [{ name: 'id_curso' }],
         },
       ],
     }

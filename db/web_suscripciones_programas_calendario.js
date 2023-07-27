@@ -34,16 +34,18 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
-      enviados: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      informe: {
-        type: DataTypes.STRING(150),
-        allowNull: true,
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      estado: {
-        type: DataTypes.INTEGER,
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

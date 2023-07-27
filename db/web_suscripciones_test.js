@@ -9,14 +9,6 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      id_test: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'test_general',
-          key: 'id',
-        },
-      },
       id_suscripcion: {
         type: DataTypes.INTEGER,
         allowNull: true,
@@ -24,11 +16,26 @@ module.exports = function (sequelize, DataTypes) {
           model: 'web_suscripciones',
           key: 'id_suscripcion',
         },
+        unique: 'FK_web_suscripciones_test_web_suscripciones',
       },
       categoria: {
         type: DataTypes.ENUM('Basico', 'Avanzado'),
         allowNull: true,
         defaultValue: 'Basico',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
@@ -45,11 +52,6 @@ module.exports = function (sequelize, DataTypes) {
         {
           name: 'id_test_id_suscripcion',
           unique: true,
-          using: 'BTREE',
-          fields: [{ name: 'id_test' }, { name: 'id_suscripcion' }],
-        },
-        {
-          name: 'FK_web_suscripciones_test_web_suscripciones',
           using: 'BTREE',
           fields: [{ name: 'id_suscripcion' }],
         },

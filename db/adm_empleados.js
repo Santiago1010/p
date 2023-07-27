@@ -45,15 +45,7 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(12),
         allowNull: false,
       },
-      passemp: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
       diremp: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      sdapass: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -65,64 +57,33 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codcrg',
         },
       },
-      nomcargo: {
-        type: DataTypes.STRING(300),
-        allowNull: false,
-      },
       fotusr: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      prfemp: {
+      eps: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        comment: 'perfil',
         references: {
-          model: 'usuarios_perfil',
+          model: 'adm_eps',
           key: 'id',
         },
       },
-      dirgrp: {
+      arl: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      stdemp: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-        defaultValue: 'ACTIVO',
-        comment: 'estado',
-      },
-      codinf: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        comment: 'codigo verificacion',
-      },
-      sednom: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: 'sede razon social',
-      },
-      depuser: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
-          model: 'adm_dependencias',
-          key: 'coddep',
+          model: 'adm_arl',
+          key: 'id_arl',
         },
       },
-      niv_escolar: {
-        type: DataTypes.ENUM('Ninguno', 'Preescolar', 'Primaria', 'Secundaria & Media'),
-        allowNull: false,
-      },
-      eps: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
       fondo: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'adm_fondo_pensiones',
+          key: 'id',
+        },
       },
       banco: {
         type: DataTypes.INTEGER,
@@ -132,10 +93,6 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
-      nom_cuenta: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-      },
       tipo_cuenta: {
         type: DataTypes.STRING(50),
         allowNull: false,
@@ -144,53 +101,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      ctbedt: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        comment: 'Editar procesos contables',
-      },
       updusr: {
         type: DataTypes.STRING(15),
         allowNull: false,
       },
-      fchupd: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      entrevista: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        comment: 'Realiza entrevista',
-      },
-      updestudy: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
       ultfirma: {
         type: DataTypes.STRING(80),
-        allowNull: false,
-      },
-      evalucion: {
-        type: DataTypes.ENUM('Empleado', 'Docente', 'General'),
-        allowNull: false,
-        defaultValue: 'Empleado',
-      },
-      contratos: {
-        type: DataTypes.STRING(50),
         allowNull: true,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      revisar_proyectos: {
-        type: DataTypes.STRING(80),
-        allowNull: false,
-        comment: 'revisar_test',
+        defaultValue: '0',
       },
       pais_nacimiento: {
         type: DataTypes.INTEGER,
@@ -213,6 +131,20 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0,
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
@@ -224,21 +156,6 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'codemp' }],
-        },
-        {
-          name: 'FK_adm_empleados_adm_dependencias',
-          using: 'BTREE',
-          fields: [{ name: 'depuser' }],
-        },
-        {
-          name: 'Fk_adm_perfil_id',
-          using: 'BTREE',
-          fields: [{ name: 'prfemp' }],
-        },
-        {
-          name: 'adm_empleados_FK',
-          using: 'BTREE',
-          fields: [{ name: 'contratos' }],
         },
         {
           name: 'adm_empleados_FK_1',
@@ -264,6 +181,21 @@ module.exports = function (sequelize, DataTypes) {
           name: 'adm_empleados_Fk_tipo_documento',
           using: 'BTREE',
           fields: [{ name: 'tipide' }],
+        },
+        {
+          name: 'eps',
+          using: 'BTREE',
+          fields: [{ name: 'eps' }],
+        },
+        {
+          name: 'arl',
+          using: 'BTREE',
+          fields: [{ name: 'arl' }],
+        },
+        {
+          name: 'fondo',
+          using: 'BTREE',
+          fields: [{ name: 'fondo' }],
         },
       ],
     }

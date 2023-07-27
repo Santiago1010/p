@@ -1,22 +1,25 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'web_suscripciones_curriculos_grupos_ventas',
+    'web_suscripciones_curriculos_periodos',
     {
-      id_suscripcion_curriculo_grupo_venta: {
+      id_periodo: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_suscripcion_curriculo_grupo: {
+      id_suscripcion_curriculo: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0,
         references: {
-          model: 'web_suscripciones_curriculos_grupos',
-          key: 'id_suscripcion_curriculo_grupo',
+          model: 'web_suscripciones_curriculos',
+          key: 'id_suscripcion_curriculo',
         },
+      },
+      nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
       },
       fecha_inicio: {
         type: DataTypes.DATE,
@@ -26,31 +29,36 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      valor: {
-        type: DataTypes.DECIMAL(20, 6),
+      created_at: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: 0.0,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      moneda: {
-        type: DataTypes.STRING(10),
+      updated_at: {
+        type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
       sequelize,
-      tableName: 'web_suscripciones_curriculos_grupos_ventas',
+      tableName: 'web_suscripciones_curriculos_periodos',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_suscripcion_curriculo_grupo_venta' }],
+          fields: [{ name: 'id_periodo' }],
         },
         {
-          name: 'web_suscripciones_curriculos_grupos_ventas_FK',
+          name: 'id_suscripcion_curriculo',
           using: 'BTREE',
-          fields: [{ name: 'id_suscripcion_curriculo_grupo' }],
+          fields: [{ name: 'id_suscripcion_curriculo' }],
         },
       ],
     }

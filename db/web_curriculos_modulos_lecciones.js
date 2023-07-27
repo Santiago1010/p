@@ -18,7 +18,23 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       nombre: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(350),
+        allowNull: true,
+      },
+      descripcion: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      objetivos: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      recursos: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      actividades: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       tipo: {
@@ -33,10 +49,19 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      estado: {
-        type: DataTypes.TINYINT,
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: 1,
       },
     },
     {

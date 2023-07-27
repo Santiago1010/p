@@ -21,11 +21,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
-      estado: {
-        type: DataTypes.TINYINT,
-        allowNull: true,
-        defaultValue: 1,
-      },
       nombre: {
         type: DataTypes.STRING(100),
         allowNull: true,
@@ -34,12 +29,25 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
       tableName: 'web_curriculos',
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',

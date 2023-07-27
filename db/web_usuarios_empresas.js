@@ -43,7 +43,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       id_nivel_actual: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'web_niveles',
           key: 'id_nivel',
@@ -83,12 +83,25 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
       tableName: 'web_usuarios_empresas',
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',

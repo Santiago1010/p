@@ -34,15 +34,24 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      estado: {
-        type: DataTypes.ENUM('ACTIVO', 'INACTIVO'),
-        allowNull: false,
-        defaultValue: 'ACTIVO',
-      },
       opciones_correctas: {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

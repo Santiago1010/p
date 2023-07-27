@@ -25,6 +25,14 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id_usuario',
         },
       },
+      id_prueba: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'web_empresas_test_pruebas',
+          key: 'id_prueba',
+        },
+      },
       derecho: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -126,68 +134,17 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0.0,
       },
-      solucion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      espacio: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      cronologia_ini: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-      },
-      cronologia_fin: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-      },
-      cronologia_hora: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      personaje: {
-        type: DataTypes.STRING(250),
-        allowNull: true,
-      },
-      otropersonaje: {
-        type: DataTypes.STRING(250),
-        allowNull: true,
-      },
-      proced_actividades: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      proced_ejecutadas: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      proced_hacer: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      proced_recursos: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      proced_indicadores: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      proced_exigidor: {
-        type: DataTypes.STRING(300),
-        allowNull: true,
-      },
-      proced_sanciones: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      usradd: {
-        type: DataTypes.STRING(80),
+      created_at: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: '0',
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      fecha: {
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
         type: DataTypes.DATE,
         allowNull: true,
       },
@@ -204,15 +161,10 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id' }],
         },
         {
-          name: 'test_resgeneral_id_test_IDX',
+          name: 'id_usuario_prueba_UN',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_test' }, { name: 'id_web_usuario' }],
-        },
-        {
-          name: 'FK_test_resgeneral_web_usuarios',
-          using: 'BTREE',
-          fields: [{ name: 'id_web_usuario' }],
+          fields: [{ name: 'id_web_usuario' }, { name: 'id_prueba' }],
         },
         {
           name: 'test_resgeneral_FK',
@@ -223,6 +175,16 @@ module.exports = function (sequelize, DataTypes) {
           name: 'test_resgeneral_FK_1',
           using: 'BTREE',
           fields: [{ name: 'subdominante' }],
+        },
+        {
+          name: 'FK_test_resgeneral_test_general',
+          using: 'BTREE',
+          fields: [{ name: 'id_test' }],
+        },
+        {
+          name: 'FK_test_resgeneral_pruebas',
+          using: 'BTREE',
+          fields: [{ name: 'id_prueba' }],
         },
       ],
     }

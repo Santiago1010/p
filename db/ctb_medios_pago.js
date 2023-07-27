@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_contratos_validate',
+    'ctb_medios_pago',
     {
       id: {
         autoIncrement: true,
@@ -9,31 +9,24 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      mail: {
-        type: DataTypes.STRING(60),
+      nombre: {
+        type: DataTypes.STRING(120),
         allowNull: false,
       },
-      codcontrato: {
-        type: DataTypes.STRING(80),
+      franquicia: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      code: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      estado: {
-        type: DataTypes.TINYINT,
-        allowNull: true,
         defaultValue: 0,
+      },
+      activo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
       },
     },
     {
       sequelize,
-      tableName: 'adm_contratos_validate',
+      tableName: 'ctb_medios_pago',
       timestamps: false,
       indexes: [
         {
@@ -41,11 +34,6 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'id' }],
-        },
-        {
-          name: 'FK_cod_contrato_contra_validate',
-          using: 'BTREE',
-          fields: [{ name: 'codcontrato' }],
         },
       ],
     }

@@ -1,51 +1,44 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'web_cursos_contratos_validate',
+    'web_retos_iteracion',
     {
-      id: {
+      id_reto_iteracion: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      mail: {
-        type: DataTypes.STRING(60),
-        allowNull: false,
-      },
-      id_curso_instructor: {
+      id_reto: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'web_cursos_instructores',
-          key: 'id_curso_instructor',
+          model: 'web_retos',
+          key: 'id_reto',
         },
+        unique: 'web_retos_iteracion_ibfk_1',
       },
-      code: {
-        type: DataTypes.TEXT,
+      numero_iteraciones: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-      },
-      estado: {
-        type: DataTypes.TINYINT,
-        allowNull: true,
-        defaultValue: 0,
       },
     },
     {
       sequelize,
-      tableName: 'web_cursos_contratos_validate',
+      tableName: 'web_retos_iteracion',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id' }],
+          fields: [{ name: 'id_reto_iteracion' }],
         },
         {
-          name: 'FK_web_cursos_contratos_validate',
+          name: 'id_reto',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_curso_instructor' }],
+          fields: [{ name: 'id_reto' }],
         },
       ],
     }

@@ -9,14 +9,6 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(300),
-        allowNull: false,
-      },
-      celular: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
       email: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -28,16 +20,11 @@ module.exports = function (sequelize, DataTypes) {
       },
       codemp: {
         type: DataTypes.STRING(15),
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'adm_empleados',
           key: 'codemp',
         },
-      },
-      activo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 1,
       },
       id_perfil: {
         type: DataTypes.INTEGER,
@@ -47,10 +34,19 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
-      repro_cita_admision: {
-        type: DataTypes.INTEGER,
+      created_at: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

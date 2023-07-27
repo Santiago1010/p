@@ -13,18 +13,28 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(15),
         allowNull: false,
       },
-      estado: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-        defaultValue: 1,
-      },
       tipo_test: {
-        type: DataTypes.ENUM('test', 'encuesta', 'quiz'),
+        type: DataTypes.ENUM('test', 'encuesta', 'quiz', 'actividad'),
         allowNull: false,
+        defaultValue: 'test',
       },
       textos: {
         type: DataTypes.STRING(50),
         allowNull: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

@@ -25,16 +25,37 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id_instructor',
         },
       },
-      tipo_contrato: {
+      mod_contrato: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        comment: 'Se deberian ligar solo modelos de tipo contrato',
         references: {
-          model: 'web_cursos_modelos_contratos',
+          model: 'adm_contratos_modelos',
           key: 'id',
         },
       },
-      firma_contrato: {
-        type: DataTypes.STRING(60),
+      validado_en: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        comment: 'Fecha  de validación del contrato',
+      },
+      firma: {
+        type: DataTypes.STRING(150),
+        allowNull: true,
+        comment: 'Link a la firma del instructor',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },
@@ -61,9 +82,9 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id_instructor' }],
         },
         {
-          name: 'web_cursos_instructores_FK',
+          name: 'web_cursos_instructores_mod_contrato_foreign_idx',
           using: 'BTREE',
-          fields: [{ name: 'tipo_contrato' }],
+          fields: [{ name: 'mod_contrato' }],
         },
       ],
     }

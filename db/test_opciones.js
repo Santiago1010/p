@@ -10,11 +10,25 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
       titulo: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(500),
         allowNull: true,
       },
       descripcion: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(300),
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

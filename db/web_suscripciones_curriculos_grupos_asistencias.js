@@ -35,6 +35,20 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
@@ -48,9 +62,13 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id_suscripcion_curriculo_grupo_asistencia' }],
         },
         {
-          name: 'web_suscripciones_curriculos_grupos_asistencias_FK',
+          name: 'web_suscripciones_curriculos_grupos_asistencias_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_suscripcion_curriculo_grupo_cronograma' }],
+          fields: [
+            { name: 'id_suscripcion_curriculo_grupo_cronograma' },
+            { name: 'id_suscripcion_curriculo_estudiante' },
+          ],
         },
         {
           name: 'web_suscripciones_curriculos_grupos_asistencias_FK_1',

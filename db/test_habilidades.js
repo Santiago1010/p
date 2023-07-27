@@ -1,47 +1,52 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'web_cursos_modelos_contratos',
+    'test_habilidades',
     {
-      id: {
+      id_habilidad: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      tipo: {
-        type: DataTypes.STRING(80),
+      nombre: {
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       descripcion: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
-      anio: {
-        type: DataTypes.DATE(4),
-        allowNull: false,
-      },
-      documento: {
-        type: DataTypes.ENUM('contrato', 'confidencial'),
-        allowNull: false,
-        defaultValue: 'contrato',
-      },
-      estado: {
+      default: {
         type: DataTypes.TINYINT,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: 0,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
       sequelize,
-      tableName: 'web_cursos_modelos_contratos',
+      tableName: 'test_habilidades',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id' }],
+          fields: [{ name: 'id_habilidad' }],
         },
       ],
     }

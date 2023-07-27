@@ -18,11 +18,11 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       nombre_leccion: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(150),
         allowNull: true,
       },
       descripcion_leccion: {
-        type: DataTypes.STRING(500),
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       tipo_recurso_leccion: {
@@ -49,6 +49,20 @@ module.exports = function (sequelize, DataTypes) {
           model: 'test_preguntas',
           key: 'codpre',
         },
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

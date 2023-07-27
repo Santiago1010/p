@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'crm_contratos_modelos',
+    'ctb_pagos_cuentas',
     {
       id: {
         autoIncrement: true,
@@ -9,18 +9,23 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      titulo_contrato: {
-        type: DataTypes.STRING(100),
+      nombre: {
+        type: DataTypes.STRING(80),
         allowNull: true,
       },
-      contenido_contrato: {
-        type: DataTypes.TEXT,
+      numero: {
+        type: DataTypes.STRING(20),
         allowNull: true,
+      },
+      activo: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
       },
     },
     {
       sequelize,
-      tableName: 'crm_contratos_modelos',
+      tableName: 'ctb_pagos_cuentas',
       timestamps: false,
       indexes: [
         {
