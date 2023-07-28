@@ -32,13 +32,13 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.admEmpleados, { foreignKey: 'id', as: 'empleados' });
-    this.hasMany(models.admCiudades, { foreignKey: 'id', as: 'ciudades' });
+    // this.hasMany(models.admEmpleados, { foreignKey: 'id', as: 'empleados' });
+    // this.hasMany(models.admCiudades, { foreignKey: 'id', as: 'ciudades' });
     //this.hasMany(models.admDepartamentos, { foreignKey: 'id', as: 'departamentos' });
     //this.hasMany(models.ctbProveedores, { foreignKey: 'id', as: 'proveedores' });
     //this.hasMany(models.matriculasFamiliares, { foreignKey: 'id', as: 'matriculasFamiliares' });
-    this.hasMany(models.webEmpresas, { foreignKey: 'id', as: 'empresas' });
-    this.hasMany(models.webInstructores, { foreignKey: 'id', as: 'instructores' });
+    // this.hasMany(models.webEmpresas, { foreignKey: 'id', as: 'empresas' });
+    // this.hasMany(models.webInstructores, { foreignKey: 'id', as: 'instructores' });
   }
 
   static config(sequelize) {
