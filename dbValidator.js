@@ -1,11 +1,13 @@
 // Helper para hacer validaciones en base de datos,
 // principalmente cuando se chequea el esquema con express-validator
 class DbValidator {
-  static async existsInModelById(Model, id, { paranoid } = {}) {
+  static async existsInModelById(Model, id, { paranoid, attributes } = {}) {
     const optionQuery = {
+      attributes: attributes ? attributes : [Model.primaryKeyAttribute],
       paranoid: paranoid != undefined ? paranoid : undefined,
     };
     const element = await Model.findByPk(id, optionQuery);
+    console.log(element);
     if (!element) {
       throw new Error(`${Model.getTableName()}:Id ${id} no existe`);
     }
