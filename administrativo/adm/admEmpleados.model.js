@@ -25,7 +25,9 @@ const Schema = {
       const nomemp = this.getDataValue('nomemp');
       const apemp = this.getDataValue('apemp');
 
-      return `${nomemp} ${apemp}`.replace(/\s+/g, ' ').trim();
+      const completo = `${nomemp} ${apemp}`;
+
+      return completo.replace(/\s+/g, ' ').trim();
     },
     set(value) {
       throw new Error('nombreCompleto es un campo virtual no se puede guardar');
@@ -162,16 +164,19 @@ const Schema = {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
+    field: 'created_at',
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
+    field: 'updated_at',
   },
   deletedAt: {
     type: DataTypes.DATE,
     defaultValue: null,
+    field: 'deleted_at',
   },
 };
 
@@ -189,6 +194,10 @@ class ExtendedModel extends Model {
       through: { model: models.crmProductosResponsables },
       as: 'productos',
       foreignKey: 'idResponsable',
+    });
+    this.belongsTo(models.admCargos, {
+      foreignKey: 'cargo',
+      as: 'cargoEmpleado',
     });
     this.belongsTo(models.admEps, {
       foreignKey: 'eps',

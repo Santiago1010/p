@@ -11,14 +11,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
   },
-  nombre: {
-    type: DataTypes.STRING(300),
-    allowNull: false,
-  },
-  celular: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
   email: {
     type: DataTypes.TEXT,
     allowNull: true,
@@ -32,31 +24,36 @@ const Schema = {
     type: DataTypes.STRING(15),
     allowNull: true,
     references: {
-      model: 'adm_empleados',
+      model: 'admEmpleados',
       key: 'codemp',
     },
-  },
-  activo: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 1,
   },
   idPerfil: {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'usuarios_perfil',
+      model: 'usuariosPerfil',
       key: 'id',
     },
     field: 'id_perfil',
   },
-  reproCitaAdmision: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    field: 'repro_cita_admision',
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    allowNull: true,
   },
 };
+
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'codemp' });
@@ -73,6 +70,7 @@ class ExtendedModel extends Model {
       as: 'permisosApiOpciones',
       foreignKey: 'idUsuario',
     });
+    this.belongsTo(models.usuariosPerfil, { as: 'perfil', foreignKey: 'idPerfil' });
   }
 
   static config(sequelize) {
@@ -80,7 +78,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

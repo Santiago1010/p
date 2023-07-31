@@ -34,7 +34,7 @@ class ExtendedModel extends Model {
       as: 'contratosFunciones',
     });
     this.hasMany(models.admEmpleados, {
-      foreignKey: 'codcrg',
+      foreignKey: 'cargo',
       as: 'empleados',
     });
     this.belongsToMany(models.admFunciones, {

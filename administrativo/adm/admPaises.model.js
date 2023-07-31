@@ -32,7 +32,7 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    // this.hasMany(models.admEmpleados, { foreignKey: 'id', as: 'empleados' });
+    this.hasMany(models.admEmpleados, { foreignKey: 'paisNacimiento', as: 'empleados' });
     // this.hasMany(models.admCiudades, { foreignKey: 'id', as: 'ciudades' });
     //this.hasMany(models.admDepartamentos, { foreignKey: 'id', as: 'departamentos' });
     //this.hasMany(models.ctbProveedores, { foreignKey: 'id', as: 'proveedores' });
