@@ -38,7 +38,7 @@ class ExtendedModel extends Model {
       as: 'pais',
     });
     this.hasMany(models.admCiudades, {
-      foreignKey: 'id',
+      foreignKey: 'idDepartamento',
       as: 'ciudades',
     });
     /*this.hasMany(models.matriculaFamiliares, {

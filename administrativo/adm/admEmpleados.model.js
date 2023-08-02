@@ -126,7 +126,7 @@ const Schema = {
   },
   ultfirma: {
     type: DataTypes.STRING(80),
-    allowNull: false,
+    allowNull: true,
   },
   paisNacimiento: {
     type: DataTypes.INTEGER,
@@ -222,6 +222,14 @@ class ExtendedModel extends Model {
     this.belongsTo(models.admCiudades, {
       foreignKey: 'ciudadNacimiento',
       as: 'ciudadNacimientoEmpleado',
+    });
+    this.hasMany(models.admEmpleadosEstudios, {
+      as: 'estudios',
+      foreignKey: 'codemp',
+    });
+    this.belongsTo(models.configTiposIdentificacion, {
+      foreignKey: 'tipide',
+      as: 'tipoIdentificacion',
     });
   }
 

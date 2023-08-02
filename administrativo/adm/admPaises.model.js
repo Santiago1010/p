@@ -33,8 +33,8 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.admEmpleados, { foreignKey: 'paisNacimiento', as: 'empleados' });
-    // this.hasMany(models.admCiudades, { foreignKey: 'id', as: 'ciudades' });
-    //this.hasMany(models.admDepartamentos, { foreignKey: 'id', as: 'departamentos' });
+    this.hasMany(models.admCiudades, { foreignKey: 'paisesCodigo', as: 'ciudades' });
+    this.hasMany(models.admDepartamentos, { foreignKey: 'idPais', as: 'departamentos' });
     //this.hasMany(models.ctbProveedores, { foreignKey: 'id', as: 'proveedores' });
     //this.hasMany(models.matriculasFamiliares, { foreignKey: 'id', as: 'matriculasFamiliares' });
     // this.hasMany(models.webEmpresas, { foreignKey: 'id', as: 'empresas' });
@@ -46,6 +46,7 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
+      timestamps: false,
     };
   }
 }
