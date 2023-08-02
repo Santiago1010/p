@@ -21,13 +21,15 @@ const Schema = {
     type: DataTypes.ENUM('Término Fijo', 'Término indefinido', 'Civil por prestación de servicios', 'Aprendizaje'),
     defaultValue: 'Término Fijo',
   },
-  fecha_inicio: {
+  fechaInicio: {
     type: DataTypes.DATEONLY,
     defaultValue: null,
+    field: 'fecha_inicio',
   },
-  fecha_fin: {
+  fechaFin: {
     type: DataTypes.DATEONLY,
     defaultValue: null,
+    field: 'fecha_fin',
   },
   periodo_prueba: {
     type: DataTypes.STRING(100),
@@ -87,25 +89,28 @@ const Schema = {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
+    field: 'created_at',
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
+    field: 'updated_at',
   },
   deletedAt: {
     type: DataTypes.DATE,
     defaultValue: null,
+    field: 'deleted_at',
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.admContratosFunciones, {
+    /*this.belongsTo(models.admContratosFunciones, {
       foreignKey: 'adm_contratos_funciones_id',
       as: 'contratosFunciones',
-    });
+    });*/
     this.hasMany(models.admEmpleadosContratoAnexos, {
       foreignKey: 'codcontrato',
       as: 'empleadosContratoAnexos',
