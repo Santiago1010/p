@@ -33,6 +33,7 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
+      timestamps: false,
     };
   }
 }

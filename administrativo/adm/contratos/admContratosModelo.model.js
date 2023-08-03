@@ -38,34 +38,24 @@ const Schema = {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
+    field: 'created_at',
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
+    field: 'updated_at',
   },
   deletedAt: {
     type: DataTypes.DATE,
     defaultValue: null,
+    field: 'deleted_at',
   },
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {
-    this.belongsTo(models.admContratosModelos, {
-      foreignKey: 'mod_contrato',
-      as: 'contratoModelo',
-    });
-    this.belongsTo(models.admContratosModelos, {
-      foreignKey: 'mod_anexo',
-      as: 'anexoModelo',
-    });
-    this.belongsTo(models.admContratosModelos, {
-      foreignKey: 'mod_contrato',
-      as: 'contratoEmpleadoModelo',
-    });
-  }
+  static associate(models) {}
 
   static config(sequelize) {
     return {

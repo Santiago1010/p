@@ -23,21 +23,26 @@ const Schema = {
   },
   fechaInicio: {
     type: DataTypes.DATEONLY,
+    allowNull: true,
     defaultValue: null,
     field: 'fecha_inicio',
   },
   fechaFin: {
     type: DataTypes.DATEONLY,
+    allowNull: true,
     defaultValue: null,
     field: 'fecha_fin',
   },
-  periodo_prueba: {
+  periodoPrueba: {
     type: DataTypes.STRING(100),
+    allowNull: true,
     defaultValue: null,
     comment: 'Periodo de prueba del contrato',
+    field: 'periodo_prueba',
   },
   addusr: {
     type: DataTypes.STRING(20),
+    allowNull: true,
     defaultValue: null,
   },
   descripcion: {
@@ -45,43 +50,57 @@ const Schema = {
   },
   valor: {
     type: DataTypes.DECIMAL(10, 0),
+    allowNull: true,
     defaultValue: null,
   },
-  valor_total: {
+  valorTotal: {
     type: DataTypes.INTEGER(11),
+    allowNull: true,
     defaultValue: null,
+    field: 'valor_total',
   },
   fchliquidacion: {
     type: DataTypes.DATE,
+    allowNull: true,
     defaultValue: null,
   },
   usrliquidacion: {
     type: DataTypes.STRING(50),
+    allowNull: true,
     defaultValue: null,
   },
-  mod_contrato: {
+  modContrato: {
     type: DataTypes.INTEGER(11),
+    allowNull: true,
     defaultValue: null,
+    field: 'mod_contrato',
   },
   auxilio: {
     type: DataTypes.DECIMAL(10, 0),
+    allowNull: true,
     defaultValue: null,
   },
   horario: {
     type: DataTypes.STRING(250),
+    allowNull: true,
     defaultValue: null,
   },
-  lugar_trabajo: {
+  lugarTrabajo: {
     type: DataTypes.STRING(250),
+    allowNull: true,
     defaultValue: null,
+    field: 'lugar_trabajo',
   },
-  validado_en: {
+  validadoEn: {
     type: DataTypes.DATE,
+    allowNull: true,
     defaultValue: null,
     comment: 'Fecha de validación del contrato',
+    field: 'validado_en',
   },
   firma: {
     type: DataTypes.STRING(150),
+    allowNull: true,
     defaultValue: null,
     comment: 'Link a la firma del empleado',
   },
@@ -100,6 +119,7 @@ const Schema = {
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
     defaultValue: null,
     field: 'deleted_at',
   },
