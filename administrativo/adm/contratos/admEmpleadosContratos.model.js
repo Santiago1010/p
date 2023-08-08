@@ -1,6 +1,5 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
-//const config = require('../../../config');
 
 const TABLE_NAME = 'adm_empleados_contrato';
 const MODEL_NAME = 'admEmpleadosContrato';
@@ -11,15 +10,17 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
   },
+  idTipo: {
+    type: DataTypes.INTEGER(11),
+    allowNull: false,
+    defaultValue: 1,
+    field: 'id_tipo',
+  },
   codusr: {
     type: DataTypes.STRING(30),
     allowNull: false,
     primaryKey: true,
     defaultValue: '',
-  },
-  tipo: {
-    type: DataTypes.ENUM('Término Fijo', 'Término indefinido', 'Civil por prestación de servicios', 'Aprendizaje'),
-    defaultValue: 'Término Fijo',
   },
   fechaInicio: {
     type: DataTypes.DATEONLY,
@@ -127,10 +128,18 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    /*this.belongsTo(models.admContratosFunciones, {
-      foreignKey: 'adm_contratos_funciones_id',
-      as: 'contratosFunciones',
-    });*/
+    this.belongsTo(models.admEmpleados, {
+      foreignKey: 'codusr',
+      as: 'empleado',
+    });
+    this.belongsTo(models.admContratosModelos, {
+      foreignKey: 'modContrato',
+      as: 'contratoModelo',
+    });
+    this.belongsTo(models.admContratosTipos, {
+      foreignKey: 'idTipo',
+      as: 'tipoContrato',
+    });
     this.hasMany(models.admEmpleadosContratoAnexos, {
       foreignKey: 'codcontrato',
       as: 'empleadosContratoAnexos',
