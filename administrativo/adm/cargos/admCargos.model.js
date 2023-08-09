@@ -9,28 +9,26 @@ const Schema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'codcrg',
+    allowNull: false,
   },
   nomcarg: {
     type: DataTypes.STRING(250),
     allowNull: true,
-    field: 'nomcarg',
   },
   activo: {
     type: DataTypes.INTEGER,
     defaultValue: 1,
-    field: 'activo',
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.admCargosPlataformas, {
-      foreignKey: 'codcrg',
+      foreignKey: 'idCargo',
       as: 'cargosPlataforma',
     });
     this.hasMany(models.admContratosFunciones, {
-      foreignKey: 'codcrg',
+      foreignKey: 'codCrg',
       as: 'contratosFunciones',
     });
     this.hasMany(models.admEmpleados, {

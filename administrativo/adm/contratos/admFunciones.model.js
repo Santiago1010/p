@@ -24,7 +24,12 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsToMany(models.admCargos, {
       through: { model: models.admFuncionesCargos },
-      foreignKey: 'codcrg',
+      foreignKey: 'idFuncion',
+      as: 'cargos',
+    });
+    this.hasMany(models.admContratosFunciones, {
+      foreignKey: 'idFuncion',
+      as: 'contratosFunciones',
     });
   }
 

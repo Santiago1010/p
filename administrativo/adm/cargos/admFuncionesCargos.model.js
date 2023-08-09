@@ -9,30 +9,30 @@ const Schema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'adm_cargos',
+      model: 'admCargos',
       key: 'codcrg',
     },
+    field: 'idcargo',
   },
   idFuncion: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'adm_funciones',
+      model: 'admFunciones',
       key: 'id',
     },
+    field: 'idfuncion',
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.admCargos, {
-      foreignKey: 'idcargo',
-      targetKey: 'codcrg',
+      foreignKey: 'idCargo',
       as: 'cargo',
     });
     this.belongsTo(models.admFunciones, {
-      foreignKey: 'idfuncion',
-      targetKey: 'id',
+      foreignKey: 'idFuncion',
       as: 'funcion',
     });
   }
@@ -42,8 +42,7 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
     };
   }
 }
