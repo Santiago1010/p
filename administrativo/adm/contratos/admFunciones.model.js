@@ -27,6 +27,12 @@ class ExtendedModel extends Model {
       foreignKey: 'idFuncion',
       as: 'cargos',
     });
+    this.belongsToMany(models.admEmpleadosContrato, {
+      through: { model: models.admContratosFunciones },
+      foreignKey: 'idFuncion',
+      otherKey: 'codContrato',
+      as: 'contratos',
+    });
     this.hasMany(models.admContratosFunciones, {
       foreignKey: 'idFuncion',
       as: 'contratosFunciones',

@@ -36,7 +36,7 @@ class ExtendedModel extends Model {
       as: 'cargo',
     });
     this.belongsTo(models.admFunciones, {
-      foreignKey: 'id',
+      foreignKey: 'idFuncion',
       as: 'funcion',
     });
     this.belongsTo(models.admEmpleadosContrato, {

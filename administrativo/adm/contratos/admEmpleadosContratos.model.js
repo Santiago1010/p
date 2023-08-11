@@ -144,6 +144,22 @@ class ExtendedModel extends Model {
       foreignKey: 'codcontrato',
       as: 'empleadosContratoAnexos',
     });
+    this.belongsToMany(models.admContratosModelos, {
+      through: { model: models.admEmpleadosContratoAnexos, unique: false },
+      foreignKey: 'idContrato',
+      otherKey: 'modAnexo',
+      as: 'anexos',
+    });
+    this.hasMany(models.admContratosFunciones, {
+      foreignKey: 'codContrato',
+      as: 'funciones',
+    });
+    this.belongsToMany(models.admFunciones, {
+      through: { model: models.admContratosFunciones },
+      foreignKey: 'codContrato',
+      otherKey: 'idFuncion',
+      as: 'contratoFunciones',
+    });
   }
 
   static config(sequelize) {

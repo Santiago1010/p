@@ -55,7 +55,12 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.admContratosModelos, {
+      foreignKey: 'modContrato',
+      as: 'contratoModelo',
+    });
+  }
 
   static config(sequelize) {
     return {

@@ -45,11 +45,11 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.admEmpleadosContrato, {
-      foreignKey: 'id_contrato',
+      foreignKey: 'idContrato',
       as: 'contrato',
     });
     this.belongsTo(models.admContratosModelos, {
-      foreignKey: 'mod_anexo',
+      foreignKey: 'modAnexo',
       as: 'modeloAnexo',
     });
   }
