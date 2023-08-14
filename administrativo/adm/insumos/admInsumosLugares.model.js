@@ -50,6 +50,7 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.admInsumosLugaresResponsable, {
       foreignKey: 'idLugar',
+      as: 'responsable',
     });
     /*this.hasMany(models.admInsumosInventarios, {
       foreignKey: 'idLugar',

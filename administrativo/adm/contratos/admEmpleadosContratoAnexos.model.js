@@ -1,6 +1,5 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
-//const config = require('../../../config');
 
 const TABLE_NAME = 'adm_empleados_contrato_anexos';
 const MODEL_NAME = 'admEmpleadosContratoAnexos';
@@ -22,6 +21,17 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'mod_anexo',
+  },
+  descripcion: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: null,
+  },
+  fechaInicio: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    defaultValue: null,
+    field: 'fecha_inicio',
   },
   createdAt: {
     type: DataTypes.DATE,
