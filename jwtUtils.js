@@ -3,6 +3,8 @@ const error = require('./customError');
 
 class JwtUtils {
   static async check(req, secret) {
+    console.clear();
+    console.log(req);
     try {
       const token = req.headers.authorization || '';
       if (!token) {
