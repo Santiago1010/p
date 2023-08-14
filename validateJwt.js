@@ -2,8 +2,10 @@ const jwt = require('jsonwebtoken');
 const initModels = require('../models/db/init-models');
 const { sequelize } = require('../database/config');
 const ValidatePermission = require('../helpers/validatePermission');
+const JwtUtils = require('../helpers/jwtUtils');
 const customError = require('../helpers/customError');
 const { usuarios } = initModels(sequelize);
+const config = require('../config');
 
 const validateJwt = async (req, res, next) => {
   const token = req.header('Authorization');
@@ -36,6 +38,20 @@ const validateJwt = async (req, res, next) => {
   }
 };
 
+const validateJWTContrato = async (req, res, next) => {
+  try {
+    const payload = await JwtUtils.check(req, config.contrato.secret);
+    console.log(payload);
+    req.user = payload;
+
+    return next();
+  } catch (err) {
+    console.log(err);
+    return next(err);
+  }
+};
+
 module.exports = {
   validateJwt,
+  validateJWTContrato,
 };
