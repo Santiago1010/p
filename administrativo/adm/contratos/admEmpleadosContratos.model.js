@@ -141,7 +141,7 @@ class ExtendedModel extends Model {
       as: 'tipoContrato',
     });
     this.hasMany(models.admEmpleadosContratoAnexos, {
-      foreignKey: 'codcontrato',
+      foreignKey: 'idContrato',
       as: 'empleadosContratoAnexos',
     });
     this.belongsToMany(models.admContratosModelos, {
