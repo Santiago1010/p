@@ -41,8 +41,7 @@ const validateJwt = async (req, res, next) => {
 const validateJWTContrato = async (req, res, next) => {
   try {
     const payload = await JwtUtils.check(req, config.contrato.secret);
-    console.log(payload);
-    req.user = payload;
+    req.user = payload.data;
 
     return next();
   } catch (err) {
