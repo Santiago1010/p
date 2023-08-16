@@ -1,6 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
-const config = require('../../../config');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'adm_insumos_productos';
 const MODEL_NAME = 'admInsumosProductos';
