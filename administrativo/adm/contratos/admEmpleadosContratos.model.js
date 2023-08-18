@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../config');
 
 const TABLE_NAME = 'adm_empleados_contrato';
 const MODEL_NAME = 'admEmpleadosContrato';
@@ -104,6 +105,14 @@ const Schema = {
     allowNull: true,
     defaultValue: null,
     comment: 'Link a la firma del empleado',
+    get() {
+      const firma = this.getDataValue('firma');
+      const hostImage = config.images.host;
+      if (!firma) {
+        return null;
+      }
+      return `${hostImage}${firma}`;
+    },
   },
   createdAt: {
     type: DataTypes.DATE,

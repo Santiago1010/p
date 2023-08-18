@@ -25,6 +25,10 @@ const Schema = {
     allowNull: false,
     field: 'fecha',
   },
+  perfil: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   codemp: {
     type: DataTypes.INTEGER,
     allowNull: false,
