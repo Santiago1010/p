@@ -196,13 +196,21 @@ const objectSchema = (nombrePropiedad, location, optional = true, unique = true)
   };
 };
 
-const dateSchema = (nombrePropiedad, location = 'body', optional = true, isoDate = false) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+const dateSchema = (
+  nombrePropiedad,
+  location = 'body',
+  optional = true,
+  isoDate = false,
+  { emptyConditional } = {}
+) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   const isDate = !isoDate
     ? {
