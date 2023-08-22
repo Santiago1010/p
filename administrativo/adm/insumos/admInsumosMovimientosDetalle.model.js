@@ -1,29 +1,36 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'adm_insumos_lugares';
-const MODEL_NAME = 'admInsumosLugares';
+const TABLE_NAME = 'adm_insumos_movimientos_detalle';
+const MODEL_NAME = 'admInsumosMovimientosDetalle';
 
 const Schema = {
-  idLugar: {
+  idMovimientoDetalle: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    field: 'id_lugar',
+    field: 'id_movimiento_detalle',
   },
-  nombre: {
-    type: DataTypes.STRING(100),
+  idMovimiento: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'id_movimiento',
   },
-  descripcion: {
-    type: DataTypes.STRING(350),
+  idLugarDestino: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'id_lugar_destino',
   },
-  tipo: {
-    type: DataTypes.ENUM('almacen', 'bodega'),
+  idProducto: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 'almacen',
+    field: 'id_producto',
+  },
+  cantidad: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -48,24 +55,17 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.admInsumosLugaresResponsable, {
-      foreignKey: 'idLugar',
-      as: 'responsable',
+    this.belongsTo(models.admInsumosMovimientos, {
+      foreignKey: 'idMovimiento',
+      as: 'movimiento',
     });
-    this.hasMany(models.admInsumosInventarios, {
-      foreignKey: 'idLugar',
+    this.belongsTo(models.admInsumosLugares, {
+      foreignKey: 'idLugarDestino',
+      as: 'lugarDestino',
     });
-    this.hasMany(models.admInsumosMovimientos, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosMovimientosDetalle, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosOrdenes, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosProductosLugares, {
-      foreignKey: 'idLugar',
+    this.belongsTo(models.admInsumosProductos, {
+      foreignKey: 'idProducto',
+      as: 'producto',
     });
   }
 

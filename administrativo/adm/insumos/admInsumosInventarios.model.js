@@ -1,29 +1,41 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'adm_insumos_lugares';
-const MODEL_NAME = 'admInsumosLugares';
+const TABLE_NAME = 'adm_insumos_inventarios';
+const MODEL_NAME = 'admInsumosInventarios';
 
 const Schema = {
-  idLugar: {
+  idInventario: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
+    field: 'id_inventario',
+  },
+  idLugar: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
     field: 'id_lugar',
   },
-  nombre: {
-    type: DataTypes.STRING(100),
+  idEmpleado: {
+    type: DataTypes.STRING(30),
     allowNull: false,
+    field: 'id_empleado',
   },
-  descripcion: {
-    type: DataTypes.STRING(350),
+  fechaInicio: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
+    field: 'fecha_inicio',
   },
-  tipo: {
-    type: DataTypes.ENUM('almacen', 'bodega'),
+  fechaFin: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
-    defaultValue: 'almacen',
+    field: 'fecha_fin',
+  },
+  total: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -48,24 +60,17 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.admInsumosLugaresResponsable, {
+    this.belongsTo(models.admInsumosLugares, {
       foreignKey: 'idLugar',
-      as: 'responsable',
+      as: 'lugar',
     });
-    this.hasMany(models.admInsumosInventarios, {
-      foreignKey: 'idLugar',
+    this.belongsTo(models.admEmpleados, {
+      foreignKey: 'idEmpleado',
+      as: 'empleado',
     });
-    this.hasMany(models.admInsumosMovimientos, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosMovimientosDetalle, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosOrdenes, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosProductosLugares, {
-      foreignKey: 'idLugar',
+    this.hasMany(models.admInsumosInventariosDetalle, {
+      foreignKey: 'idInventario',
+      as: 'detalles',
     });
   }
 

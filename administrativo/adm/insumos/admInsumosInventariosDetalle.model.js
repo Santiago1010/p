@@ -1,29 +1,31 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'adm_insumos_lugares';
-const MODEL_NAME = 'admInsumosLugares';
+const TABLE_NAME = 'adm_insumos_invetarios_detalle';
+const MODEL_NAME = 'admInsumosInventariosDetalle';
 
 const Schema = {
-  idLugar: {
+  idInventarioDetalle: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    field: 'id_lugar',
+    field: 'id_inventario_detalle',
   },
-  nombre: {
-    type: DataTypes.STRING(100),
+  idInventario: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'id_inventario',
   },
-  descripcion: {
-    type: DataTypes.STRING(350),
+  idProducto: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'id_producto',
   },
-  tipo: {
-    type: DataTypes.ENUM('almacen', 'bodega'),
+  cantidad: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 'almacen',
+    defaultValue: 0,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -48,24 +50,13 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.admInsumosLugaresResponsable, {
-      foreignKey: 'idLugar',
-      as: 'responsable',
+    this.belongsTo(models.admInsumosInventarios, {
+      foreignKey: 'idInventario',
+      as: 'inventario',
     });
-    this.hasMany(models.admInsumosInventarios, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosMovimientos, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosMovimientosDetalle, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosOrdenes, {
-      foreignKey: 'idLugar',
-    });
-    this.hasMany(models.admInsumosProductosLugares, {
-      foreignKey: 'idLugar',
+    this.belongsTo(models.admInsumosProductos, {
+      foreignKey: 'idProducto',
+      as: 'producto',
     });
   }
 

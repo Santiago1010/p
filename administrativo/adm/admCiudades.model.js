@@ -46,7 +46,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.admEmpleados, { foreignKey: 'ciudadNacimiento', as: 'empleados' });
     // this.hasMany(models.ctbProveedores, { foreignKey: 'idCiudades', as: 'proveedores' });
     // this.hasMany(models.matriculasFamiliares, { foreignKey: 'idCiudades', as: 'matriculasFamiliares' });
-    this.hasMany(models.webEmpresas, { foreignKey: 'idCiudades', as: 'empresas' });
+    // this.hasMany(models.webEmpresas, { foreignKey: 'idCiudades', as: 'empresas' });
   }
 
   static config(sequelize) {

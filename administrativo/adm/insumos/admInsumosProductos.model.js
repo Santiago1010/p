@@ -80,7 +80,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idProducto',
       as: 'ordenDetalles',
     });
-    /*this.hasMany(models.admInsumosInvetariosDetalle, {
+    this.hasMany(models.admInsumosInventariosDetalle, {
       foreignKey: 'idProducto',
       as: 'inventarioDetalles',
     });
@@ -88,10 +88,6 @@ class ExtendedModel extends Model {
       foreignKey: 'idProducto',
       as: 'movimientoDetalles',
     });
-    this.hasMany(models.admInsumosProductosDetalle, {
-      foreignKey: 'idProducto',
-      as: 'productoDetalles',
-    });*/
   }
 
   static config(sequelize) {
