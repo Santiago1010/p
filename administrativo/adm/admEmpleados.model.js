@@ -127,6 +127,14 @@ const Schema = {
   ultfirma: {
     type: DataTypes.STRING(80),
     allowNull: true,
+    get() {
+      const imageLocation = this.getDataValue('ultfirma');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   paisNacimiento: {
     type: DataTypes.INTEGER,
