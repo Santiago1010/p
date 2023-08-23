@@ -1,39 +1,29 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'ctb_caja_menor_responsables',
     {
-      id_anexo: {
+      id_caja_resp: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
+      id_empleado: {
+        type: DataTypes.STRING(30),
         allowNull: false,
         references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
+          model: 'adm_empleados',
+          key: 'codemp',
         },
       },
-      mod_anexo: {
+      id_caja_menor: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
+          model: 'ctb_caja_menor',
+          key: 'id_caja_menor',
         },
-      },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
-      },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +42,25 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'ctb_caja_menor_responsables',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_caja_resp' }],
         },
         {
-          name: 'id_contrato',
+          name: 'caja_menor_responsable_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_empleado' }, { name: 'id_caja_menor' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_caja_menor',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_caja_menor' }],
         },
       ],
     }

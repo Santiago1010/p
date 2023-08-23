@@ -1,39 +1,38 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'acf_solicitudes_ordenes_detalle',
     {
-      id_anexo: {
+      id_solicitud_orden_detalle: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
-        allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      mod_anexo: {
+      id_solicitud_orden: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
+          model: 'acf_solicitudes_ordenes',
+          key: 'id_solicitud_orden',
         },
       },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      id_solicitud_detalle: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'acf_solicitudes_detalle',
+          key: 'id_solicitud_detalle',
+        },
+        unique: 'acf_solicitudes_ordenes_detalle_ibfk_2',
       },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
+      diagnostico: {
+        type: DataTypes.STRING(500),
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      },
+      trabajo: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +51,25 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'acf_solicitudes_ordenes_detalle',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_solicitud_orden_detalle' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_solicitud_detalle',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_solicitud_detalle' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_solicitud_orden',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_solicitud_orden' }],
         },
       ],
     }

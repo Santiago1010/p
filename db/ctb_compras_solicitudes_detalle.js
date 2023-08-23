@@ -1,39 +1,43 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'ctb_compras_solicitudes_detalle',
     {
-      id_anexo: {
+      id_solicitud_item: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
-        allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      mod_anexo: {
+      id_solicitud: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
+          model: 'ctb_compras_solicitudes',
+          key: 'id_solicitud',
         },
       },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      nombre: {
+        type: DataTypes.STRING(250),
+        allowNull: false,
       },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
+      especificacion: {
+        type: DataTypes.STRING(500),
+        allowNull: false,
+      },
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        comment: 'Cantidad de productos ingresados',
+      },
+      id_orden_compra: {
+        type: DataTypes.INTEGER,
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
+        references: {
+          model: 'ctb_compras_ordenes',
+          key: 'id_orden_compra',
+        },
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +56,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'ctb_compras_solicitudes_detalle',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_solicitud_item' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_solicitud',
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_solicitud' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_orden_compra',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_orden_compra' }],
         },
       ],
     }

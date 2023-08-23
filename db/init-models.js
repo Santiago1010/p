@@ -1,6 +1,32 @@
 var DataTypes = require('sequelize').DataTypes;
 var _SequelizeMeta = require('./SequelizeMeta');
 var _acd_elementos = require('./acd_elementos');
+var _acf_actas = require('./acf_actas');
+var _acf_actas_detalle = require('./acf_actas_detalle');
+var _acf_areas = require('./acf_areas');
+var _acf_areas_responsables = require('./acf_areas_responsables');
+var _acf_bajas = require('./acf_bajas');
+var _acf_bajas_detalle = require('./acf_bajas_detalle');
+var _acf_categoria = require('./acf_categoria');
+var _acf_componentes = require('./acf_componentes');
+var _acf_equipos = require('./acf_equipos');
+var _acf_herramientas = require('./acf_herramientas');
+var _acf_herramientas_categorias = require('./acf_herramientas_categorias');
+var _acf_herramientas_responsables = require('./acf_herramientas_responsables');
+var _acf_inventario = require('./acf_inventario');
+var _acf_inventario_detalle = require('./acf_inventario_detalle');
+var _acf_movimientos = require('./acf_movimientos');
+var _acf_movimientos_detalle = require('./acf_movimientos_detalle');
+var _acf_plan_mantenimiento = require('./acf_plan_mantenimiento');
+var _acf_solicitudes = require('./acf_solicitudes');
+var _acf_solicitudes_detalle = require('./acf_solicitudes_detalle');
+var _acf_solicitudes_evaluacion = require('./acf_solicitudes_evaluacion');
+var _acf_solicitudes_evaluacion_criterios = require('./acf_solicitudes_evaluacion_criterios');
+var _acf_solicitudes_ordenes = require('./acf_solicitudes_ordenes');
+var _acf_solicitudes_ordenes_detalle = require('./acf_solicitudes_ordenes_detalle');
+var _acf_traslados = require('./acf_traslados');
+var _acf_traslados_detalle = require('./acf_traslados_detalle');
+var _acf_ubicaciones = require('./acf_ubicaciones');
 var _actualizar_pagos = require('./actualizar_pagos');
 var _adm_arl = require('./adm_arl');
 var _adm_bancos = require('./adm_bancos');
@@ -10,6 +36,7 @@ var _adm_cargos_plataformas = require('./adm_cargos_plataformas');
 var _adm_ciudades = require('./adm_ciudades');
 var _adm_contratos_funciones = require('./adm_contratos_funciones');
 var _adm_contratos_modelos = require('./adm_contratos_modelos');
+var _adm_contratos_tipos = require('./adm_contratos_tipos');
 var _adm_departamentos = require('./adm_departamentos');
 var _adm_dependencias = require('./adm_dependencias');
 var _adm_email_plantillas = require('./adm_email_plantillas');
@@ -26,6 +53,17 @@ var _adm_funciones = require('./adm_funciones');
 var _adm_funciones_cargos = require('./adm_funciones_cargos');
 var _adm_grupos = require('./adm_grupos');
 var _adm_grupos_integrantes = require('./adm_grupos_integrantes');
+var _adm_insumos_inventarios = require('./adm_insumos_inventarios');
+var _adm_insumos_invetarios_detalle = require('./adm_insumos_invetarios_detalle');
+var _adm_insumos_lugares = require('./adm_insumos_lugares');
+var _adm_insumos_lugares_responsable = require('./adm_insumos_lugares_responsable');
+var _adm_insumos_movimientos = require('./adm_insumos_movimientos');
+var _adm_insumos_movimientos_detalle = require('./adm_insumos_movimientos_detalle');
+var _adm_insumos_ordenes = require('./adm_insumos_ordenes');
+var _adm_insumos_ordenes_detalle = require('./adm_insumos_ordenes_detalle');
+var _adm_insumos_productos = require('./adm_insumos_productos');
+var _adm_insumos_productos_categorias = require('./adm_insumos_productos_categorias');
+var _adm_insumos_productos_lugares = require('./adm_insumos_productos_lugares');
 var _adm_paises = require('./adm_paises');
 var _adm_plataformas = require('./adm_plataformas');
 var _adm_sedes = require('./adm_sedes');
@@ -47,6 +85,15 @@ var _crm_productos = require('./crm_productos');
 var _crm_productos_responsables = require('./crm_productos_responsables');
 var _crm_propuestas_responsables = require('./crm_propuestas_responsables');
 var _crm_suscripciones_productos = require('./crm_suscripciones_productos');
+var _ctb_caja_menor = require('./ctb_caja_menor');
+var _ctb_caja_menor_egresos = require('./ctb_caja_menor_egresos');
+var _ctb_caja_menor_ingresos = require('./ctb_caja_menor_ingresos');
+var _ctb_caja_menor_responsables = require('./ctb_caja_menor_responsables');
+var _ctb_compras_ordenes = require('./ctb_compras_ordenes');
+var _ctb_compras_ordenes_entrega = require('./ctb_compras_ordenes_entrega');
+var _ctb_compras_ordenes_entrega_detalle = require('./ctb_compras_ordenes_entrega_detalle');
+var _ctb_compras_solicitudes = require('./ctb_compras_solicitudes');
+var _ctb_compras_solicitudes_detalle = require('./ctb_compras_solicitudes_detalle');
 var _ctb_doc_electronicos = require('./ctb_doc_electronicos');
 var _ctb_doc_electronicos_productos = require('./ctb_doc_electronicos_productos');
 var _ctb_doc_electronicos_productos_componentes = require('./ctb_doc_electronicos_productos_componentes');
@@ -170,6 +217,7 @@ var _web_cursos_rating = require('./web_cursos_rating');
 var _web_empresas = require('./web_empresas');
 var _web_empresas_areas = require('./web_empresas_areas');
 var _web_empresas_asesores = require('./web_empresas_asesores');
+var _web_empresas_publicidad = require('./web_empresas_publicidad');
 var _web_empresas_roles = require('./web_empresas_roles');
 var _web_empresas_test_pruebas = require('./web_empresas_test_pruebas');
 var _web_empresas_test_recomendaciones = require('./web_empresas_test_recomendaciones');
@@ -250,6 +298,32 @@ var _web_usuarios_suscripciones = require('./web_usuarios_suscripciones');
 function initModels(sequelize) {
   var SequelizeMeta = _SequelizeMeta(sequelize, DataTypes);
   var acd_elementos = _acd_elementos(sequelize, DataTypes);
+  var acf_actas = _acf_actas(sequelize, DataTypes);
+  var acf_actas_detalle = _acf_actas_detalle(sequelize, DataTypes);
+  var acf_areas = _acf_areas(sequelize, DataTypes);
+  var acf_areas_responsables = _acf_areas_responsables(sequelize, DataTypes);
+  var acf_bajas = _acf_bajas(sequelize, DataTypes);
+  var acf_bajas_detalle = _acf_bajas_detalle(sequelize, DataTypes);
+  var acf_categoria = _acf_categoria(sequelize, DataTypes);
+  var acf_componentes = _acf_componentes(sequelize, DataTypes);
+  var acf_equipos = _acf_equipos(sequelize, DataTypes);
+  var acf_herramientas = _acf_herramientas(sequelize, DataTypes);
+  var acf_herramientas_categorias = _acf_herramientas_categorias(sequelize, DataTypes);
+  var acf_herramientas_responsables = _acf_herramientas_responsables(sequelize, DataTypes);
+  var acf_inventario = _acf_inventario(sequelize, DataTypes);
+  var acf_inventario_detalle = _acf_inventario_detalle(sequelize, DataTypes);
+  var acf_movimientos = _acf_movimientos(sequelize, DataTypes);
+  var acf_movimientos_detalle = _acf_movimientos_detalle(sequelize, DataTypes);
+  var acf_plan_mantenimiento = _acf_plan_mantenimiento(sequelize, DataTypes);
+  var acf_solicitudes = _acf_solicitudes(sequelize, DataTypes);
+  var acf_solicitudes_detalle = _acf_solicitudes_detalle(sequelize, DataTypes);
+  var acf_solicitudes_evaluacion = _acf_solicitudes_evaluacion(sequelize, DataTypes);
+  var acf_solicitudes_evaluacion_criterios = _acf_solicitudes_evaluacion_criterios(sequelize, DataTypes);
+  var acf_solicitudes_ordenes = _acf_solicitudes_ordenes(sequelize, DataTypes);
+  var acf_solicitudes_ordenes_detalle = _acf_solicitudes_ordenes_detalle(sequelize, DataTypes);
+  var acf_traslados = _acf_traslados(sequelize, DataTypes);
+  var acf_traslados_detalle = _acf_traslados_detalle(sequelize, DataTypes);
+  var acf_ubicaciones = _acf_ubicaciones(sequelize, DataTypes);
   var actualizar_pagos = _actualizar_pagos(sequelize, DataTypes);
   var adm_arl = _adm_arl(sequelize, DataTypes);
   var adm_bancos = _adm_bancos(sequelize, DataTypes);
@@ -259,6 +333,7 @@ function initModels(sequelize) {
   var adm_ciudades = _adm_ciudades(sequelize, DataTypes);
   var adm_contratos_funciones = _adm_contratos_funciones(sequelize, DataTypes);
   var adm_contratos_modelos = _adm_contratos_modelos(sequelize, DataTypes);
+  var adm_contratos_tipos = _adm_contratos_tipos(sequelize, DataTypes);
   var adm_departamentos = _adm_departamentos(sequelize, DataTypes);
   var adm_dependencias = _adm_dependencias(sequelize, DataTypes);
   var adm_email_plantillas = _adm_email_plantillas(sequelize, DataTypes);
@@ -275,6 +350,17 @@ function initModels(sequelize) {
   var adm_funciones_cargos = _adm_funciones_cargos(sequelize, DataTypes);
   var adm_grupos = _adm_grupos(sequelize, DataTypes);
   var adm_grupos_integrantes = _adm_grupos_integrantes(sequelize, DataTypes);
+  var adm_insumos_inventarios = _adm_insumos_inventarios(sequelize, DataTypes);
+  var adm_insumos_invetarios_detalle = _adm_insumos_invetarios_detalle(sequelize, DataTypes);
+  var adm_insumos_lugares = _adm_insumos_lugares(sequelize, DataTypes);
+  var adm_insumos_lugares_responsable = _adm_insumos_lugares_responsable(sequelize, DataTypes);
+  var adm_insumos_movimientos = _adm_insumos_movimientos(sequelize, DataTypes);
+  var adm_insumos_movimientos_detalle = _adm_insumos_movimientos_detalle(sequelize, DataTypes);
+  var adm_insumos_ordenes = _adm_insumos_ordenes(sequelize, DataTypes);
+  var adm_insumos_ordenes_detalle = _adm_insumos_ordenes_detalle(sequelize, DataTypes);
+  var adm_insumos_productos = _adm_insumos_productos(sequelize, DataTypes);
+  var adm_insumos_productos_categorias = _adm_insumos_productos_categorias(sequelize, DataTypes);
+  var adm_insumos_productos_lugares = _adm_insumos_productos_lugares(sequelize, DataTypes);
   var adm_paises = _adm_paises(sequelize, DataTypes);
   var adm_plataformas = _adm_plataformas(sequelize, DataTypes);
   var adm_sedes = _adm_sedes(sequelize, DataTypes);
@@ -296,6 +382,15 @@ function initModels(sequelize) {
   var crm_productos_responsables = _crm_productos_responsables(sequelize, DataTypes);
   var crm_propuestas_responsables = _crm_propuestas_responsables(sequelize, DataTypes);
   var crm_suscripciones_productos = _crm_suscripciones_productos(sequelize, DataTypes);
+  var ctb_caja_menor = _ctb_caja_menor(sequelize, DataTypes);
+  var ctb_caja_menor_egresos = _ctb_caja_menor_egresos(sequelize, DataTypes);
+  var ctb_caja_menor_ingresos = _ctb_caja_menor_ingresos(sequelize, DataTypes);
+  var ctb_caja_menor_responsables = _ctb_caja_menor_responsables(sequelize, DataTypes);
+  var ctb_compras_ordenes = _ctb_compras_ordenes(sequelize, DataTypes);
+  var ctb_compras_ordenes_entrega = _ctb_compras_ordenes_entrega(sequelize, DataTypes);
+  var ctb_compras_ordenes_entrega_detalle = _ctb_compras_ordenes_entrega_detalle(sequelize, DataTypes);
+  var ctb_compras_solicitudes = _ctb_compras_solicitudes(sequelize, DataTypes);
+  var ctb_compras_solicitudes_detalle = _ctb_compras_solicitudes_detalle(sequelize, DataTypes);
   var ctb_doc_electronicos = _ctb_doc_electronicos(sequelize, DataTypes);
   var ctb_doc_electronicos_productos = _ctb_doc_electronicos_productos(sequelize, DataTypes);
   var ctb_doc_electronicos_productos_componentes = _ctb_doc_electronicos_productos_componentes(sequelize, DataTypes);
@@ -422,6 +517,7 @@ function initModels(sequelize) {
   var web_empresas = _web_empresas(sequelize, DataTypes);
   var web_empresas_areas = _web_empresas_areas(sequelize, DataTypes);
   var web_empresas_asesores = _web_empresas_asesores(sequelize, DataTypes);
+  var web_empresas_publicidad = _web_empresas_publicidad(sequelize, DataTypes);
   var web_empresas_roles = _web_empresas_roles(sequelize, DataTypes);
   var web_empresas_test_pruebas = _web_empresas_test_pruebas(sequelize, DataTypes);
   var web_empresas_test_recomendaciones = _web_empresas_test_recomendaciones(sequelize, DataTypes);
@@ -537,6 +633,126 @@ function initModels(sequelize) {
   });
   gnr_parametros_usuarios.belongsTo(acd_elementos, { as: 'tipo_acd_elemento', foreignKey: 'tipo' });
   acd_elementos.hasMany(gnr_parametros_usuarios, { as: 'gnr_parametros_usuarios', foreignKey: 'tipo' });
+  acf_actas_detalle.belongsTo(acf_actas, { as: 'id_acta_acf_acta', foreignKey: 'id_acta' });
+  acf_actas.hasMany(acf_actas_detalle, { as: 'acf_actas_detalles', foreignKey: 'id_acta' });
+  acf_areas_responsables.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_areas_responsables, { as: 'acf_areas_responsables', foreignKey: 'id_area' });
+  acf_categoria.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_categoria, { as: 'acf_categoria', foreignKey: 'id_area' });
+  acf_equipos.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_equipos, { as: 'acf_equipos', foreignKey: 'id_area' });
+  acf_herramientas.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_herramientas, { as: 'acf_herramienta', foreignKey: 'id_area' });
+  acf_plan_mantenimiento.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_plan_mantenimiento, { as: 'acf_plan_mantenimientos', foreignKey: 'id_area' });
+  acf_inventario.belongsTo(acf_areas_responsables, {
+    as: 'id_area_resp_acf_areas_responsable',
+    foreignKey: 'id_area_resp',
+  });
+  acf_areas_responsables.hasMany(acf_inventario, { as: 'acf_inventarios', foreignKey: 'id_area_resp' });
+  acf_solicitudes.belongsTo(acf_areas_responsables, {
+    as: 'id_area_resp_acf_areas_responsable',
+    foreignKey: 'id_area_resp',
+  });
+  acf_areas_responsables.hasMany(acf_solicitudes, { as: 'acf_solicitudes', foreignKey: 'id_area_resp' });
+  acf_bajas_detalle.belongsTo(acf_bajas, { as: 'id_baja_acf_baja', foreignKey: 'id_baja' });
+  acf_bajas.hasMany(acf_bajas_detalle, { as: 'acf_bajas_detalles', foreignKey: 'id_baja' });
+  acf_equipos.belongsTo(acf_categoria, { as: 'id_categoria_acf_categorium', foreignKey: 'id_categoria' });
+  acf_categoria.hasMany(acf_equipos, { as: 'acf_equipos', foreignKey: 'id_categoria' });
+  acf_actas_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_actas_detalle, { as: 'acf_actas_detalles', foreignKey: 'id_equipo' });
+  acf_bajas_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_bajas_detalle, { as: 'acf_bajas_detalles', foreignKey: 'id_equipo' });
+  acf_componentes.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_componentes, { as: 'acf_componentes', foreignKey: 'id_equipo' });
+  acf_inventario_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_inventario_detalle, { as: 'acf_inventario_detalles', foreignKey: 'id_equipo' });
+  acf_movimientos_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_movimientos_detalle, { as: 'acf_movimientos_detalles', foreignKey: 'id_equipo' });
+  acf_solicitudes_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_solicitudes_detalle, { as: 'acf_solicitudes_detalles', foreignKey: 'id_equipo' });
+  acf_traslados_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_traslados_detalle, { as: 'acf_traslados_detalles', foreignKey: 'id_equipo' });
+  acf_herramientas_responsables.belongsTo(acf_herramientas, {
+    as: 'id_herramienta_acf_herramienta',
+    foreignKey: 'id_herramienta',
+  });
+  acf_herramientas.hasMany(acf_herramientas_responsables, {
+    as: 'acf_herramientas_responsables',
+    foreignKey: 'id_herramienta',
+  });
+  acf_herramientas.belongsTo(acf_herramientas_categorias, {
+    as: 'id_categoria_acf_herramientas_categoria',
+    foreignKey: 'id_categoria',
+  });
+  acf_herramientas_categorias.hasMany(acf_herramientas, { as: 'acf_herramienta', foreignKey: 'id_categoria' });
+  acf_inventario_detalle.belongsTo(acf_inventario, { as: 'id_inventario_acf_inventario', foreignKey: 'id_inventario' });
+  acf_inventario.hasMany(acf_inventario_detalle, { as: 'acf_inventario_detalles', foreignKey: 'id_inventario' });
+  acf_movimientos_detalle.belongsTo(acf_movimientos, {
+    as: 'id_movimiento_acf_movimiento',
+    foreignKey: 'id_movimiento',
+  });
+  acf_movimientos.hasMany(acf_movimientos_detalle, { as: 'acf_movimientos_detalles', foreignKey: 'id_movimiento' });
+  acf_solicitudes.belongsTo(acf_plan_mantenimiento, {
+    as: 'id_plan_mantenimiento_acf_plan_mantenimiento',
+    foreignKey: 'id_plan_mantenimiento',
+  });
+  acf_plan_mantenimiento.hasMany(acf_solicitudes, { as: 'acf_solicitudes', foreignKey: 'id_plan_mantenimiento' });
+  acf_solicitudes_detalle.belongsTo(acf_solicitudes, { as: 'id_solicitud_acf_solicitude', foreignKey: 'id_solicitud' });
+  acf_solicitudes.hasMany(acf_solicitudes_detalle, { as: 'acf_solicitudes_detalles', foreignKey: 'id_solicitud' });
+  acf_solicitudes_evaluacion.belongsTo(acf_solicitudes, {
+    as: 'id_solicitud_acf_solicitude',
+    foreignKey: 'id_solicitud',
+  });
+  acf_solicitudes.hasMany(acf_solicitudes_evaluacion, {
+    as: 'acf_solicitudes_evaluacions',
+    foreignKey: 'id_solicitud',
+  });
+  acf_solicitudes_ordenes.belongsTo(acf_solicitudes, { as: 'id_solicitud_acf_solicitude', foreignKey: 'id_solicitud' });
+  acf_solicitudes.hasMany(acf_solicitudes_ordenes, { as: 'acf_solicitudes_ordenes', foreignKey: 'id_solicitud' });
+  acf_solicitudes_ordenes_detalle.belongsTo(acf_solicitudes_detalle, {
+    as: 'id_solicitud_detalle_acf_solicitudes_detalle',
+    foreignKey: 'id_solicitud_detalle',
+  });
+  acf_solicitudes_detalle.hasOne(acf_solicitudes_ordenes_detalle, {
+    as: 'acf_solicitudes_ordenes_detalle',
+    foreignKey: 'id_solicitud_detalle',
+  });
+  acf_solicitudes_evaluacion.belongsTo(acf_solicitudes_evaluacion_criterios, {
+    as: 'id_criterio_acf_solicitudes_evaluacion_criterio',
+    foreignKey: 'id_criterio',
+  });
+  acf_solicitudes_evaluacion_criterios.hasMany(acf_solicitudes_evaluacion, {
+    as: 'acf_solicitudes_evaluacions',
+    foreignKey: 'id_criterio',
+  });
+  acf_solicitudes_ordenes_detalle.belongsTo(acf_solicitudes_ordenes, {
+    as: 'id_solicitud_orden_acf_solicitudes_ordene',
+    foreignKey: 'id_solicitud_orden',
+  });
+  acf_solicitudes_ordenes.hasMany(acf_solicitudes_ordenes_detalle, {
+    as: 'acf_solicitudes_ordenes_detalles',
+    foreignKey: 'id_solicitud_orden',
+  });
+  acf_traslados_detalle.belongsTo(acf_traslados, { as: 'id_traslado_acf_traslado', foreignKey: 'id_traslado' });
+  acf_traslados.hasMany(acf_traslados_detalle, { as: 'acf_traslados_detalles', foreignKey: 'id_traslado' });
+  acf_traslados_detalle.belongsTo(acf_traslados, { as: 'id_prestamo_acf_traslado', foreignKey: 'id_prestamo' });
+  acf_traslados.hasMany(acf_traslados_detalle, { as: 'id_prestamo_acf_traslados_detalles', foreignKey: 'id_prestamo' });
+  acf_equipos.belongsTo(acf_ubicaciones, { as: 'id_ubicacion_acf_ubicacione', foreignKey: 'id_ubicacion' });
+  acf_ubicaciones.hasMany(acf_equipos, { as: 'acf_equipos', foreignKey: 'id_ubicacion' });
+  acf_traslados.belongsTo(acf_ubicaciones, {
+    as: 'id_ubicacion_origen_acf_ubicacione',
+    foreignKey: 'id_ubicacion_origen',
+  });
+  acf_ubicaciones.hasMany(acf_traslados, { as: 'acf_traslados', foreignKey: 'id_ubicacion_origen' });
+  acf_traslados.belongsTo(acf_ubicaciones, {
+    as: 'id_ubicacion_destino_acf_ubicacione',
+    foreignKey: 'id_ubicacion_destino',
+  });
+  acf_ubicaciones.hasMany(acf_traslados, {
+    as: 'id_ubicacion_destino_acf_traslados',
+    foreignKey: 'id_ubicacion_destino',
+  });
   adm_empleados.belongsTo(adm_arl, { as: 'arl_adm_arl', foreignKey: 'arl' });
   adm_arl.hasMany(adm_empleados, { as: 'adm_empleados', foreignKey: 'arl' });
   adm_empleados.belongsTo(adm_bancos, { as: 'banco_adm_banco', foreignKey: 'banco' });
@@ -579,6 +795,8 @@ function initModels(sequelize) {
     foreignKey: 'mod_contrato',
   });
   adm_contratos_modelos.hasMany(web_cursos_instructores, { as: 'web_cursos_instructores', foreignKey: 'mod_contrato' });
+  adm_empleados_contrato.belongsTo(adm_contratos_tipos, { as: 'id_tipo_adm_contratos_tipo', foreignKey: 'id_tipo' });
+  adm_contratos_tipos.hasMany(adm_empleados_contrato, { as: 'adm_empleados_contratos', foreignKey: 'id_tipo' });
   adm_ciudades.belongsTo(adm_departamentos, { as: 'id_departamento_adm_departamento', foreignKey: 'id_departamento' });
   adm_departamentos.hasMany(adm_ciudades, { as: 'adm_ciudades', foreignKey: 'id_departamento' });
   matricula_familiares.belongsTo(adm_departamentos, {
@@ -601,6 +819,46 @@ function initModels(sequelize) {
     as: 'adm_email_plantillas_resps',
     foreignKey: 'id_email_plantilla',
   });
+  acf_actas.belongsTo(adm_empleados, { as: 'id_empleado_acta_adm_empleado', foreignKey: 'id_empleado_acta' });
+  adm_empleados.hasMany(acf_actas, { as: 'acf_acta', foreignKey: 'id_empleado_acta' });
+  acf_actas.belongsTo(adm_empleados, { as: 'id_empleado_recibe_adm_empleado', foreignKey: 'id_empleado_recibe' });
+  adm_empleados.hasMany(acf_actas, { as: 'id_empleado_recibe_acf_acta', foreignKey: 'id_empleado_recibe' });
+  acf_areas_responsables.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_areas_responsables, { as: 'acf_areas_responsables', foreignKey: 'id_empleado' });
+  acf_bajas.belongsTo(adm_empleados, { as: 'id_empleado_genera_adm_empleado', foreignKey: 'id_empleado_genera' });
+  adm_empleados.hasMany(acf_bajas, { as: 'acf_bajas', foreignKey: 'id_empleado_genera' });
+  acf_bajas.belongsTo(adm_empleados, { as: 'id_empleado_autoriza_adm_empleado', foreignKey: 'id_empleado_autoriza' });
+  adm_empleados.hasMany(acf_bajas, { as: 'id_empleado_autoriza_acf_bajas', foreignKey: 'id_empleado_autoriza' });
+  acf_equipos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_equipos, { as: 'acf_equipos', foreignKey: 'id_empleado' });
+  acf_herramientas.belongsTo(adm_empleados, { as: 'resp_mfa_adm_empleado', foreignKey: 'resp_mfa' });
+  adm_empleados.hasMany(acf_herramientas, { as: 'acf_herramienta', foreignKey: 'resp_mfa' });
+  acf_herramientas_responsables.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_herramientas_responsables, {
+    as: 'acf_herramientas_responsables',
+    foreignKey: 'id_empleado',
+  });
+  acf_movimientos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_movimientos, { as: 'acf_movimientos', foreignKey: 'id_empleado' });
+  acf_solicitudes.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_solicitudes, { as: 'acf_solicitudes', foreignKey: 'id_empleado' });
+  acf_solicitudes_ordenes.belongsTo(adm_empleados, {
+    as: 'id_empleado_genera_adm_empleado',
+    foreignKey: 'id_empleado_genera',
+  });
+  adm_empleados.hasMany(acf_solicitudes_ordenes, { as: 'acf_solicitudes_ordenes', foreignKey: 'id_empleado_genera' });
+  acf_solicitudes_ordenes.belongsTo(adm_empleados, {
+    as: 'id_empleado_ejecuta_adm_empleado',
+    foreignKey: 'id_empleado_ejecuta',
+  });
+  adm_empleados.hasMany(acf_solicitudes_ordenes, {
+    as: 'id_empleado_ejecuta_acf_solicitudes_ordenes',
+    foreignKey: 'id_empleado_ejecuta',
+  });
+  acf_traslados.belongsTo(adm_empleados, { as: 'id_empleado_genera_adm_empleado', foreignKey: 'id_empleado_genera' });
+  adm_empleados.hasMany(acf_traslados, { as: 'acf_traslados', foreignKey: 'id_empleado_genera' });
+  acf_traslados.belongsTo(adm_empleados, { as: 'id_empleado_recibe_adm_empleado', foreignKey: 'id_empleado_recibe' });
+  adm_empleados.hasMany(acf_traslados, { as: 'id_empleado_recibe_acf_traslados', foreignKey: 'id_empleado_recibe' });
   adm_empleados_contrato.belongsTo(adm_empleados, { as: 'codusr_adm_empleado', foreignKey: 'codusr' });
   adm_empleados.hasMany(adm_empleados_contrato, { as: 'adm_empleados_contratos', foreignKey: 'codusr' });
   adm_empleados_estudios.belongsTo(adm_empleados, { as: 'codemp_adm_empleado', foreignKey: 'codemp' });
@@ -609,6 +867,20 @@ function initModels(sequelize) {
   adm_empleados.hasMany(adm_empleados_plataformas, { as: 'adm_empleados_plataformas', foreignKey: 'codemp' });
   adm_grupos_integrantes.belongsTo(adm_empleados, { as: 'codemp_adm_empleado', foreignKey: 'codemp' });
   adm_empleados.hasMany(adm_grupos_integrantes, { as: 'adm_grupos_integrantes', foreignKey: 'codemp' });
+  adm_insumos_inventarios.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(adm_insumos_inventarios, { as: 'adm_insumos_inventarios', foreignKey: 'id_empleado' });
+  adm_insumos_lugares_responsable.belongsTo(adm_empleados, {
+    as: 'id_empleado_adm_empleado',
+    foreignKey: 'id_empleado',
+  });
+  adm_empleados.hasMany(adm_insumos_lugares_responsable, {
+    as: 'adm_insumos_lugares_responsables',
+    foreignKey: 'id_empleado',
+  });
+  adm_insumos_movimientos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(adm_insumos_movimientos, { as: 'adm_insumos_movimientos', foreignKey: 'id_empleado' });
+  adm_insumos_ordenes.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(adm_insumos_ordenes, { as: 'adm_insumos_ordenes', foreignKey: 'id_empleado' });
   crm_productos_responsables.belongsTo(adm_empleados, {
     as: 'id_responsable_adm_empleado',
     foreignKey: 'id_responsable',
@@ -622,6 +894,49 @@ function initModels(sequelize) {
     as: 'crm_propuestas_responsables',
     foreignKey: 'id_responsable',
   });
+  ctb_caja_menor_ingresos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(ctb_caja_menor_ingresos, { as: 'ctb_caja_menor_ingresos', foreignKey: 'id_empleado' });
+  ctb_caja_menor_ingresos.belongsTo(adm_empleados, {
+    as: 'id_empleado_autoriza_adm_empleado',
+    foreignKey: 'id_empleado_autoriza',
+  });
+  adm_empleados.hasMany(ctb_caja_menor_ingresos, {
+    as: 'id_empleado_autoriza_ctb_caja_menor_ingresos',
+    foreignKey: 'id_empleado_autoriza',
+  });
+  ctb_caja_menor_responsables.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(ctb_caja_menor_responsables, { as: 'ctb_caja_menor_responsables', foreignKey: 'id_empleado' });
+  ctb_compras_ordenes.belongsTo(adm_empleados, {
+    as: 'id_empleado_autoriza_adm_empleado',
+    foreignKey: 'id_empleado_autoriza',
+  });
+  adm_empleados.hasMany(ctb_compras_ordenes, { as: 'ctb_compras_ordenes', foreignKey: 'id_empleado_autoriza' });
+  ctb_compras_ordenes_entrega.belongsTo(adm_empleados, {
+    as: 'id_empleado_entrega_adm_empleado',
+    foreignKey: 'id_empleado_entrega',
+  });
+  adm_empleados.hasMany(ctb_compras_ordenes_entrega, {
+    as: 'ctb_compras_ordenes_entregas',
+    foreignKey: 'id_empleado_entrega',
+  });
+  ctb_compras_ordenes_entrega.belongsTo(adm_empleados, {
+    as: 'id_empleado_recibe_adm_empleado',
+    foreignKey: 'id_empleado_recibe',
+  });
+  adm_empleados.hasMany(ctb_compras_ordenes_entrega, {
+    as: 'id_empleado_recibe_ctb_compras_ordenes_entregas',
+    foreignKey: 'id_empleado_recibe',
+  });
+  ctb_compras_ordenes_entrega.belongsTo(adm_empleados, {
+    as: 'id_empleado_firma_adm_empleado',
+    foreignKey: 'id_empleado_firma',
+  });
+  adm_empleados.hasMany(ctb_compras_ordenes_entrega, {
+    as: 'id_empleado_firma_ctb_compras_ordenes_entregas',
+    foreignKey: 'id_empleado_firma',
+  });
+  ctb_compras_solicitudes.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(ctb_compras_solicitudes, { as: 'ctb_compras_solicitudes', foreignKey: 'id_empleado' });
   ctb_novedad_cambios.belongsTo(adm_empleados, { as: 'addusr_adm_empleado', foreignKey: 'addusr' });
   adm_empleados.hasMany(ctb_novedad_cambios, { as: 'ctb_novedad_cambios', foreignKey: 'addusr' });
   ctb_novedad_control_creditos.belongsTo(adm_empleados, { as: 'usuario_adm_empleado', foreignKey: 'usuario' });
@@ -644,6 +959,11 @@ function initModels(sequelize) {
   adm_empleados.hasMany(pqrs, { as: 'pqrs', foreignKey: 'id_empleado' });
   usuarios.belongsTo(adm_empleados, { as: 'codemp_adm_empleado', foreignKey: 'codemp' });
   adm_empleados.hasMany(usuarios, { as: 'usuarios', foreignKey: 'codemp' });
+  acf_actas.belongsTo(adm_empleados_contrato, {
+    as: 'id_contrato_recibe_adm_empleados_contrato',
+    foreignKey: 'id_contrato_recibe',
+  });
+  adm_empleados_contrato.hasMany(acf_actas, { as: 'acf_acta', foreignKey: 'id_contrato_recibe' });
   adm_contratos_funciones.belongsTo(adm_empleados_contrato, {
     as: 'codcontrato_adm_empleados_contrato',
     foreignKey: 'codcontrato',
@@ -677,6 +997,106 @@ function initModels(sequelize) {
     as: 'pevl_evaluacion_integrantes',
     foreignKey: 'id_integrante',
   });
+  adm_insumos_invetarios_detalle.belongsTo(adm_insumos_inventarios, {
+    as: 'id_inventario_adm_insumos_inventario',
+    foreignKey: 'id_inventario',
+  });
+  adm_insumos_inventarios.hasMany(adm_insumos_invetarios_detalle, {
+    as: 'adm_insumos_invetarios_detalles',
+    foreignKey: 'id_inventario',
+  });
+  adm_insumos_inventarios.belongsTo(adm_insumos_lugares, { as: 'id_lugar_adm_insumos_lugare', foreignKey: 'id_lugar' });
+  adm_insumos_lugares.hasMany(adm_insumos_inventarios, { as: 'adm_insumos_inventarios', foreignKey: 'id_lugar' });
+  adm_insumos_lugares_responsable.belongsTo(adm_insumos_lugares, {
+    as: 'id_lugar_adm_insumos_lugare',
+    foreignKey: 'id_lugar',
+  });
+  adm_insumos_lugares.hasMany(adm_insumos_lugares_responsable, {
+    as: 'adm_insumos_lugares_responsables',
+    foreignKey: 'id_lugar',
+  });
+  adm_insumos_movimientos.belongsTo(adm_insumos_lugares, {
+    as: 'id_lugar_origen_adm_insumos_lugare',
+    foreignKey: 'id_lugar_origen',
+  });
+  adm_insumos_lugares.hasMany(adm_insumos_movimientos, {
+    as: 'adm_insumos_movimientos',
+    foreignKey: 'id_lugar_origen',
+  });
+  adm_insumos_movimientos_detalle.belongsTo(adm_insumos_lugares, {
+    as: 'id_lugar_destino_adm_insumos_lugare',
+    foreignKey: 'id_lugar_destino',
+  });
+  adm_insumos_lugares.hasMany(adm_insumos_movimientos_detalle, {
+    as: 'adm_insumos_movimientos_detalles',
+    foreignKey: 'id_lugar_destino',
+  });
+  adm_insumos_ordenes.belongsTo(adm_insumos_lugares, { as: 'id_lugar_adm_insumos_lugare', foreignKey: 'id_lugar' });
+  adm_insumos_lugares.hasMany(adm_insumos_ordenes, { as: 'adm_insumos_ordenes', foreignKey: 'id_lugar' });
+  adm_insumos_productos_lugares.belongsTo(adm_insumos_lugares, {
+    as: 'id_lugar_adm_insumos_lugare',
+    foreignKey: 'id_lugar',
+  });
+  adm_insumos_lugares.hasMany(adm_insumos_productos_lugares, {
+    as: 'adm_insumos_productos_lugares',
+    foreignKey: 'id_lugar',
+  });
+  adm_insumos_movimientos_detalle.belongsTo(adm_insumos_movimientos, {
+    as: 'id_movimiento_adm_insumos_movimiento',
+    foreignKey: 'id_movimiento',
+  });
+  adm_insumos_movimientos.hasMany(adm_insumos_movimientos_detalle, {
+    as: 'adm_insumos_movimientos_detalles',
+    foreignKey: 'id_movimiento',
+  });
+  adm_insumos_ordenes_detalle.belongsTo(adm_insumos_ordenes, {
+    as: 'id_orden_adm_insumos_ordene',
+    foreignKey: 'id_orden',
+  });
+  adm_insumos_ordenes.hasMany(adm_insumos_ordenes_detalle, {
+    as: 'adm_insumos_ordenes_detalles',
+    foreignKey: 'id_orden',
+  });
+  adm_insumos_invetarios_detalle.belongsTo(adm_insumos_productos, {
+    as: 'id_producto_adm_insumos_producto',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos.hasMany(adm_insumos_invetarios_detalle, {
+    as: 'adm_insumos_invetarios_detalles',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_movimientos_detalle.belongsTo(adm_insumos_productos, {
+    as: 'id_producto_adm_insumos_producto',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos.hasMany(adm_insumos_movimientos_detalle, {
+    as: 'adm_insumos_movimientos_detalles',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_ordenes_detalle.belongsTo(adm_insumos_productos, {
+    as: 'id_producto_adm_insumos_producto',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos.hasMany(adm_insumos_ordenes_detalle, {
+    as: 'adm_insumos_ordenes_detalles',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos_lugares.belongsTo(adm_insumos_productos, {
+    as: 'id_producto_adm_insumos_producto',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos.hasMany(adm_insumos_productos_lugares, {
+    as: 'adm_insumos_productos_lugares',
+    foreignKey: 'id_producto',
+  });
+  adm_insumos_productos.belongsTo(adm_insumos_productos_categorias, {
+    as: 'id_categoria_adm_insumos_productos_categoria',
+    foreignKey: 'id_categoria',
+  });
+  adm_insumos_productos_categorias.hasMany(adm_insumos_productos, {
+    as: 'adm_insumos_productos',
+    foreignKey: 'id_categoria',
+  });
   adm_ciudades.belongsTo(adm_paises, { as: 'paises_Codigo_adm_paise', foreignKey: 'paises_Codigo' });
   adm_paises.hasMany(adm_ciudades, { as: 'adm_ciudades', foreignKey: 'paises_Codigo' });
   adm_departamentos.belongsTo(adm_paises, { as: 'id_pais_adm_paise', foreignKey: 'id_pais' });
@@ -693,6 +1113,8 @@ function initModels(sequelize) {
   adm_paises.hasMany(web_instructores, { as: 'web_instructores', foreignKey: 'pais' });
   adm_cargos_plataformas.belongsTo(adm_plataformas, { as: 'idPlataforma_adm_plataforma', foreignKey: 'idPlataforma' });
   adm_plataformas.hasMany(adm_cargos_plataformas, { as: 'adm_cargos_plataformas', foreignKey: 'idPlataforma' });
+  acf_ubicaciones.belongsTo(adm_sedes, { as: 'id_sede_adm_sede', foreignKey: 'id_sede' });
+  adm_sedes.hasMany(acf_ubicaciones, { as: 'acf_ubicaciones', foreignKey: 'id_sede' });
   adm_dependencias.belongsTo(adm_sedes, { as: 'depsed_adm_sede', foreignKey: 'depsed' });
   adm_sedes.hasMany(adm_dependencias, { as: 'adm_dependencia', foreignKey: 'depsed' });
   calendario.belongsTo(adm_sedes, { as: 'codsed_adm_sede', foreignKey: 'codsed' });
@@ -767,6 +1189,66 @@ function initModels(sequelize) {
   crm_productos.hasMany(crm_productos_responsables, { as: 'crm_productos_responsables', foreignKey: 'id_producto' });
   crm_suscripciones_productos.belongsTo(crm_productos, { as: 'id_producto_crm_producto', foreignKey: 'id_producto' });
   crm_productos.hasMany(crm_suscripciones_productos, { as: 'crm_suscripciones_productos', foreignKey: 'id_producto' });
+  ctb_caja_menor_egresos.belongsTo(ctb_caja_menor, { as: 'id_caja_menor_ctb_caja_menor', foreignKey: 'id_caja_menor' });
+  ctb_caja_menor.hasMany(ctb_caja_menor_egresos, { as: 'ctb_caja_menor_egresos', foreignKey: 'id_caja_menor' });
+  ctb_caja_menor_ingresos.belongsTo(ctb_caja_menor, {
+    as: 'id_caja_menor_ctb_caja_menor',
+    foreignKey: 'id_caja_menor',
+  });
+  ctb_caja_menor.hasMany(ctb_caja_menor_ingresos, { as: 'ctb_caja_menor_ingresos', foreignKey: 'id_caja_menor' });
+  ctb_caja_menor_responsables.belongsTo(ctb_caja_menor, {
+    as: 'id_caja_menor_ctb_caja_menor',
+    foreignKey: 'id_caja_menor',
+  });
+  ctb_caja_menor.hasMany(ctb_caja_menor_responsables, {
+    as: 'ctb_caja_menor_responsables',
+    foreignKey: 'id_caja_menor',
+  });
+  ctb_compras_ordenes_entrega.belongsTo(ctb_compras_ordenes, {
+    as: 'id_orden_compra_ctb_compras_ordene',
+    foreignKey: 'id_orden_compra',
+  });
+  ctb_compras_ordenes.hasMany(ctb_compras_ordenes_entrega, {
+    as: 'ctb_compras_ordenes_entregas',
+    foreignKey: 'id_orden_compra',
+  });
+  ctb_compras_solicitudes_detalle.belongsTo(ctb_compras_ordenes, {
+    as: 'id_orden_compra_ctb_compras_ordene',
+    foreignKey: 'id_orden_compra',
+  });
+  ctb_compras_ordenes.hasMany(ctb_compras_solicitudes_detalle, {
+    as: 'ctb_compras_solicitudes_detalles',
+    foreignKey: 'id_orden_compra',
+  });
+  ctb_compras_ordenes_entrega_detalle.belongsTo(ctb_compras_ordenes_entrega, {
+    as: 'id_orden_entrega_ctb_compras_ordenes_entrega',
+    foreignKey: 'id_orden_entrega',
+  });
+  ctb_compras_ordenes_entrega.hasMany(ctb_compras_ordenes_entrega_detalle, {
+    as: 'ctb_compras_ordenes_entrega_detalles',
+    foreignKey: 'id_orden_entrega',
+  });
+  ctb_compras_ordenes.belongsTo(ctb_compras_solicitudes, {
+    as: 'id_solicitud_ctb_compras_solicitude',
+    foreignKey: 'id_solicitud',
+  });
+  ctb_compras_solicitudes.hasMany(ctb_compras_ordenes, { as: 'ctb_compras_ordenes', foreignKey: 'id_solicitud' });
+  ctb_compras_solicitudes_detalle.belongsTo(ctb_compras_solicitudes, {
+    as: 'id_solicitud_ctb_compras_solicitude',
+    foreignKey: 'id_solicitud',
+  });
+  ctb_compras_solicitudes.hasMany(ctb_compras_solicitudes_detalle, {
+    as: 'ctb_compras_solicitudes_detalles',
+    foreignKey: 'id_solicitud',
+  });
+  ctb_compras_ordenes_entrega_detalle.belongsTo(ctb_compras_solicitudes_detalle, {
+    as: 'id_solicitud_item_ctb_compras_solicitudes_detalle',
+    foreignKey: 'id_solicitud_item',
+  });
+  ctb_compras_solicitudes_detalle.hasMany(ctb_compras_ordenes_entrega_detalle, {
+    as: 'ctb_compras_ordenes_entrega_detalles',
+    foreignKey: 'id_solicitud_item',
+  });
   ctb_doc_electronicos_productos.belongsTo(ctb_doc_electronicos, {
     as: 'id_doc_electronico_ctb_doc_electronico',
     foreignKey: 'id_doc_electronico',
@@ -864,6 +1346,12 @@ function initModels(sequelize) {
     as: 'web_rutas_aprendizaje_categoria',
     foreignKey: 'id_producto',
   });
+  acf_solicitudes_ordenes.belongsTo(ctb_proveedores, { as: 'id_proveedor_ctb_proveedore', foreignKey: 'id_proveedor' });
+  ctb_proveedores.hasMany(acf_solicitudes_ordenes, { as: 'acf_solicitudes_ordenes', foreignKey: 'id_proveedor' });
+  adm_insumos_ordenes.belongsTo(ctb_proveedores, { as: 'id_proveedor_ctb_proveedore', foreignKey: 'id_proveedor' });
+  ctb_proveedores.hasMany(adm_insumos_ordenes, { as: 'adm_insumos_ordenes', foreignKey: 'id_proveedor' });
+  ctb_compras_ordenes.belongsTo(ctb_proveedores, { as: 'id_proveedor_ctb_proveedore', foreignKey: 'id_proveedor' });
+  ctb_proveedores.hasMany(ctb_compras_ordenes, { as: 'ctb_compras_ordenes', foreignKey: 'id_proveedor' });
   ctb_proveedores_pagos.belongsTo(ctb_proveedores, { as: 'proveedor_ctb_proveedore', foreignKey: 'proveedor' });
   ctb_proveedores.hasMany(ctb_proveedores_pagos, { as: 'ctb_proveedores_pagos', foreignKey: 'proveedor' });
   ctb_proveedores_detalles.belongsTo(ctb_proveedores_pagos, {
@@ -890,6 +1378,11 @@ function initModels(sequelize) {
   departamentos.hasMany(calendario, { as: 'calendarios', foreignKey: 'id_departamento' });
   calendario_categorias.belongsTo(departamentos, { as: 'id_departamento_departamento', foreignKey: 'id_departamento' });
   departamentos.hasMany(calendario_categorias, { as: 'calendario_categoria', foreignKey: 'id_departamento' });
+  ctb_compras_solicitudes.belongsTo(departamentos, {
+    as: 'id_departamento_departamento',
+    foreignKey: 'id_departamento',
+  });
+  departamentos.hasMany(ctb_compras_solicitudes, { as: 'ctb_compras_solicitudes', foreignKey: 'id_departamento' });
   departamentos_opciones.belongsTo(departamentos, {
     as: 'id_departamento_departamento',
     foreignKey: 'id_departamento',
@@ -1542,6 +2035,8 @@ function initModels(sequelize) {
   });
   web_empresas_areas.belongsTo(web_empresas, { as: 'id_empresa_web_empresa', foreignKey: 'id_empresa' });
   web_empresas.hasMany(web_empresas_areas, { as: 'web_empresas_areas', foreignKey: 'id_empresa' });
+  web_empresas_publicidad.belongsTo(web_empresas, { as: 'id_empresa_web_empresa', foreignKey: 'id_empresa' });
+  web_empresas.hasMany(web_empresas_publicidad, { as: 'web_empresas_publicidads', foreignKey: 'id_empresa' });
   web_empresas_roles.belongsTo(web_empresas, { as: 'id_empresa_web_empresa', foreignKey: 'id_empresa' });
   web_empresas.hasMany(web_empresas_roles, { as: 'web_empresas_roles', foreignKey: 'id_empresa' });
   web_empresas_test_pruebas.belongsTo(web_empresas, { as: 'id_empresa_web_empresa', foreignKey: 'id_empresa' });
@@ -2247,6 +2742,32 @@ function initModels(sequelize) {
   return {
     SequelizeMeta,
     acd_elementos,
+    acf_actas,
+    acf_actas_detalle,
+    acf_areas,
+    acf_areas_responsables,
+    acf_bajas,
+    acf_bajas_detalle,
+    acf_categoria,
+    acf_componentes,
+    acf_equipos,
+    acf_herramientas,
+    acf_herramientas_categorias,
+    acf_herramientas_responsables,
+    acf_inventario,
+    acf_inventario_detalle,
+    acf_movimientos,
+    acf_movimientos_detalle,
+    acf_plan_mantenimiento,
+    acf_solicitudes,
+    acf_solicitudes_detalle,
+    acf_solicitudes_evaluacion,
+    acf_solicitudes_evaluacion_criterios,
+    acf_solicitudes_ordenes,
+    acf_solicitudes_ordenes_detalle,
+    acf_traslados,
+    acf_traslados_detalle,
+    acf_ubicaciones,
     actualizar_pagos,
     adm_arl,
     adm_bancos,
@@ -2256,6 +2777,7 @@ function initModels(sequelize) {
     adm_ciudades,
     adm_contratos_funciones,
     adm_contratos_modelos,
+    adm_contratos_tipos,
     adm_departamentos,
     adm_dependencias,
     adm_email_plantillas,
@@ -2272,6 +2794,17 @@ function initModels(sequelize) {
     adm_funciones_cargos,
     adm_grupos,
     adm_grupos_integrantes,
+    adm_insumos_inventarios,
+    adm_insumos_invetarios_detalle,
+    adm_insumos_lugares,
+    adm_insumos_lugares_responsable,
+    adm_insumos_movimientos,
+    adm_insumos_movimientos_detalle,
+    adm_insumos_ordenes,
+    adm_insumos_ordenes_detalle,
+    adm_insumos_productos,
+    adm_insumos_productos_categorias,
+    adm_insumos_productos_lugares,
     adm_paises,
     adm_plataformas,
     adm_sedes,
@@ -2293,6 +2826,15 @@ function initModels(sequelize) {
     crm_productos_responsables,
     crm_propuestas_responsables,
     crm_suscripciones_productos,
+    ctb_caja_menor,
+    ctb_caja_menor_egresos,
+    ctb_caja_menor_ingresos,
+    ctb_caja_menor_responsables,
+    ctb_compras_ordenes,
+    ctb_compras_ordenes_entrega,
+    ctb_compras_ordenes_entrega_detalle,
+    ctb_compras_solicitudes,
+    ctb_compras_solicitudes_detalle,
     ctb_doc_electronicos,
     ctb_doc_electronicos_productos,
     ctb_doc_electronicos_productos_componentes,
@@ -2416,6 +2958,7 @@ function initModels(sequelize) {
     web_empresas,
     web_empresas_areas,
     web_empresas_asesores,
+    web_empresas_publicidad,
     web_empresas_roles,
     web_empresas_test_pruebas,
     web_empresas_test_recomendaciones,

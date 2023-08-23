@@ -1,39 +1,47 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'ctb_compras_solicitudes',
     {
-      id_anexo: {
+      id_solicitud: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
+      nombre: {
+        type: DataTypes.STRING(250),
+        allowNull: false,
+      },
+      estado: {
+        type: DataTypes.ENUM('nueva', 'aprobada', 'denegada', 'tramite', 'progreso', 'entregada'),
+        allowNull: false,
+        defaultValue: 'nueva',
+        comment: 'Estado de solicitud',
+      },
+      descripcion: {
+        type: DataTypes.STRING(500),
+        allowNull: false,
+      },
+      observacion_denegada: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+      },
+      id_empleado: {
+        type: DataTypes.STRING(30),
         allowNull: false,
         references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
+          model: 'adm_empleados',
+          key: 'codemp',
         },
       },
-      mod_anexo: {
+      id_departamento: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
+          model: 'departamentos',
           key: 'id',
         },
-      },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
-      },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +60,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'ctb_compras_solicitudes',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_solicitud' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_empleado',
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_empleado' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_departamento',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_departamento' }],
         },
       ],
     }

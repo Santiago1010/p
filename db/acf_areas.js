@@ -1,54 +1,48 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_estudios',
+    'acf_areas',
     {
-      id: {
+      id_area: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      niv_escolar: {
-        type: DataTypes.STRING(45),
+      nombre: {
+        type: DataTypes.STRING(120),
         allowNull: false,
       },
-      titulo: {
-        type: DataTypes.STRING(180),
+      tipo: {
+        type: DataTypes.ENUM('activo', 'herramienta'),
         allowNull: false,
+        defaultValue: 'activo',
       },
-      fecha: {
-        type: DataTypes.DATEONLY,
+      created_at: {
+        type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      perfil: {
-        type: DataTypes.STRING(180),
+      updated_at: {
+        type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      codemp: {
-        type: DataTypes.STRING(15),
+      deleted_at: {
+        type: DataTypes.DATE,
         allowNull: true,
-        references: {
-          model: 'adm_empleados',
-          key: 'codemp',
-        },
       },
     },
     {
       sequelize,
-      tableName: 'adm_empleados_estudios',
+      tableName: 'acf_areas',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id' }],
-        },
-        {
-          name: 'adm_empleados_estudios_FK',
-          using: 'BTREE',
-          fields: [{ name: 'codemp' }],
+          fields: [{ name: 'id_area' }],
         },
       ],
     }

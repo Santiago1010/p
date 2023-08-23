@@ -8,6 +8,16 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
+      id_tipo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+        comment: 'Referencia a tipo de contrato',
+        references: {
+          model: 'adm_contratos_tipos',
+          key: 'id_tipo',
+        },
+      },
       codusr: {
         type: DataTypes.STRING(30),
         allowNull: false,
@@ -17,11 +27,6 @@ module.exports = function (sequelize, DataTypes) {
           model: 'adm_empleados',
           key: 'codemp',
         },
-      },
-      tipo: {
-        type: DataTypes.ENUM('Término Fijo', 'Término indefinido', 'Civil por prestación de servicios', 'Aprendizaje'),
-        allowNull: true,
-        defaultValue: 'Término Fijo',
       },
       fecha_inicio: {
         type: DataTypes.DATEONLY,
@@ -125,6 +130,11 @@ module.exports = function (sequelize, DataTypes) {
           name: 'mod_contrato',
           using: 'BTREE',
           fields: [{ name: 'mod_contrato' }],
+        },
+        {
+          name: 'adm_empleados_contrato_id_tipo_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_tipo' }],
         },
       ],
     }

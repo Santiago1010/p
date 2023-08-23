@@ -108,7 +108,6 @@ module.exports = function (sequelize, DataTypes) {
       ultfirma: {
         type: DataTypes.STRING(80),
         allowNull: true,
-        defaultValue: '0',
       },
       pais_nacimiento: {
         type: DataTypes.INTEGER,

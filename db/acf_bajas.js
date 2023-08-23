@@ -1,39 +1,51 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'acf_bajas',
     {
-      id_anexo: {
+      id_baja: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
+      tipo: {
+        type: DataTypes.ENUM('traslado', 'donacion', 'subasta', 'definitiva', 'destruccion'),
+        allowNull: false,
+        defaultValue: 'traslado',
+        comment: 'Motivo de la baja',
+      },
+      fecha: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
+      justificacion: {
+        type: DataTypes.STRING(350),
+        allowNull: false,
+      },
+      id_empleado_genera: {
+        type: DataTypes.STRING(30),
         allowNull: false,
         references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
+          model: 'adm_empleados',
+          key: 'codemp',
         },
       },
-      mod_anexo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
-        },
-      },
-      descripcion: {
-        type: DataTypes.TEXT,
+      id_empleado_autoriza: {
+        type: DataTypes.STRING(30),
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
+        references: {
+          model: 'adm_empleados',
+          key: 'codemp',
+        },
       },
-      fecha_inicio: {
+      fecha_autoriza: {
         type: DataTypes.DATEONLY,
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      },
+      firma_autoriza: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +64,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'acf_bajas',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_baja' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_empleado_genera',
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_empleado_genera' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_empleado_autoriza',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_empleado_autoriza' }],
         },
       ],
     }

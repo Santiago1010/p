@@ -1,39 +1,37 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'acf_componentes',
     {
-      id_anexo: {
+      id_componente: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
-        allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      mod_anexo: {
+      id_equipo: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
+          model: 'acf_equipos',
+          key: 'id_equipo',
         },
       },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      nombre: {
+        type: DataTypes.STRING(250),
+        allowNull: false,
       },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
+      marca: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
+      serial: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
+      justificacion_baja: {
+        type: DataTypes.STRING(250),
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +50,19 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'acf_componentes',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_componente' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_equipo',
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
-        },
-        {
-          name: 'mod_anexo',
-          using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_equipo' }],
         },
       ],
     }

@@ -1,39 +1,26 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'adm_contratos_tipos',
     {
-      id_anexo: {
+      id_tipo: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
+      nombre: {
+        type: DataTypes.STRING(255),
         allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      mod_anexo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
-        },
       },
       descripcion: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(255),
         allowNull: true,
-        comment: 'No es nulo para Otro Si',
       },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      multiples: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +39,14 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'adm_contratos_tipos',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
-        },
-        {
-          name: 'id_contrato',
-          using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
-        },
-        {
-          name: 'mod_anexo',
-          using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_tipo' }],
         },
       ],
     }

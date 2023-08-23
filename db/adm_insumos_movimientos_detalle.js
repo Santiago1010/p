@@ -1,39 +1,43 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_empleados_contrato_anexos',
+    'adm_insumos_movimientos_detalle',
     {
-      id_anexo: {
+      id_movimiento_detalle: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_contrato: {
-        type: DataTypes.STRING(80),
-        allowNull: false,
-        references: {
-          model: 'adm_empleados_contrato',
-          key: 'codcontrato',
-        },
-      },
-      mod_anexo: {
+      id_movimiento: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'adm_contratos_modelos',
-          key: 'id',
+          model: 'adm_insumos_movimientos',
+          key: 'id_movimiento',
         },
       },
-      descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      id_lugar_destino: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'adm_insumos_lugares',
+          key: 'id_lugar',
+        },
       },
-      fecha_inicio: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
-        comment: 'No es nulo para Otro Si',
+      id_producto: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'adm_insumos_productos',
+          key: 'id_producto',
+        },
+      },
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        comment: 'Cantidad de productos movidos',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -52,24 +56,29 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_empleados_contrato_anexos',
+      tableName: 'adm_insumos_movimientos_detalle',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_anexo' }],
+          fields: [{ name: 'id_movimiento_detalle' }],
         },
         {
-          name: 'id_contrato',
+          name: 'id_movimiento',
           using: 'BTREE',
-          fields: [{ name: 'id_contrato' }],
+          fields: [{ name: 'id_movimiento' }],
         },
         {
-          name: 'mod_anexo',
+          name: 'id_lugar_destino',
           using: 'BTREE',
-          fields: [{ name: 'mod_anexo' }],
+          fields: [{ name: 'id_lugar_destino' }],
+        },
+        {
+          name: 'id_producto',
+          using: 'BTREE',
+          fields: [{ name: 'id_producto' }],
         },
       ],
     }
