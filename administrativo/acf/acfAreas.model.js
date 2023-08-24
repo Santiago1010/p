@@ -1,43 +1,25 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_plan_mantenimiento';
-const MODEL_NAME = 'acfPlanMantenimiento';
+const TABLE_NAME = 'acf_areas';
+const MODEL_NAME = 'acfAreas';
 
 const Schema = {
-  idPlanMantenimiento: {
+  idArea: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_plan_mantenimiento',
-  },
-  idArea: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'acf_areas',
-      key: 'id_area',
-    },
     field: 'id_area',
   },
   nombre: {
-    type: DataTypes.STRING(250),
+    type: DataTypes.STRING(120),
     allowNull: false,
   },
-  objetivo: {
-    type: DataTypes.STRING(500),
+  tipo: {
+    type: DataTypes.ENUM('activo', 'herramienta'),
     allowNull: false,
-  },
-  fechaInicio: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-    field: 'fecha_inicio',
-  },
-  fechaFin: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-    field: 'fecha_fin',
+    defaultValue: 'activo',
   },
   createdAt: {
     field: 'created_at',
@@ -56,8 +38,16 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.acfSolicitudes, { as: 'solicitudes', foreignKey: 'idPlanMantenimiento' });
-    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
+    this.hasMany(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idArea' });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.acfAreasResponsables },
+      as: 'responsables',
+      foreignKey: 'idArea',
+    });
+    this.hasMany(models.acfEquipos, { as: 'equipos', foreignKey: 'idArea' });
+    this.hasMany(models.acfCategoria, { as: 'categorias', foreignKey: 'idArea' });
+    this.hasMany(models.acfHerramientas, { as: 'herramientas', foreignKey: 'idArea' });
+    this.hasMany(models.acfPlanMantenimiento, { as: 'planesMantenimiento', foreignKey: 'idArea' });
   }
 
   static config(sequelize) {

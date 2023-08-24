@@ -32,7 +32,12 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.hasMany(models.acfSolicitudesEvaluacion, {
+      as: 'evaluaciones',
+      foreignKey: 'idCriterio',
+    });
+  }
 
   static config(sequelize) {
     return {

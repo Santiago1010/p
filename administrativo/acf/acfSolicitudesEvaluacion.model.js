@@ -1,8 +1,8 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_solicitudes_evaluacion_criterios';
-const MODEL_NAME = 'acfSolicitudesEvaluacionCriterios';
+const TABLE_NAME = 'acf_solicitudes_evaluacion';
+const MODEL_NAME = 'acfSolicitudesEvaluacion';
 
 const Schema = {
   idSolicitudEvaluacion: {
@@ -50,7 +50,10 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
+    this.belongsTo(models.acfSolicitudesEvaluacionCriterios, { as: 'criterio', foreignKey: 'idCriterio' });
+  }
 
   static config(sequelize) {
     return {

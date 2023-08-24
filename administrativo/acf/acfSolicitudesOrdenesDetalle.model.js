@@ -55,7 +55,10 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.acfSolicitudesDetalle, { as: 'detalleSolicitud', foreignKey: 'idSolicitudDetalle' });
+    this.belongsTo(models.acfSolicitudesOrdenes, { as: 'orden', foreignKey: 'idSolicitudOrden' });
+  }
 
   static config(sequelize) {
     return {

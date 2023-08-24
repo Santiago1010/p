@@ -52,7 +52,10 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.hasMany(models.acfInventarioDetalle, { as: 'detalles', foreignKey: 'idInventario' });
+    this.belongsTo(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idAreaResp' });
+  }
 
   static config(sequelize) {
     return {

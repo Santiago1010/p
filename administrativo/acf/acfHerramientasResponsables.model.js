@@ -46,7 +46,10 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.acfHerramientas, { as: 'herramienta', foreignKey: 'idHerramienta' });
+    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+  }
 
   static config(sequelize) {
     return {

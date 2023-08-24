@@ -169,6 +169,7 @@ class ExtendedModel extends Model {
       otherKey: 'idFuncion',
       as: 'contratoFunciones',
     });
+    this.hasMany(models.acfActas, { as: 'actas', foreignKey: 'idContratoRecibe' });
   }
 
   static config(sequelize) {

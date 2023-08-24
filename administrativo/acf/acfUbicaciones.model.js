@@ -1,34 +1,37 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_solicitudes_detalle';
-const MODEL_NAME = 'acfSolicitudesDetalle';
+const TABLE_NAME = 'acf_ubicaciones';
+const MODEL_NAME = 'acfUbicaciones';
 
 const Schema = {
-  idSolicitudDetalle: {
+  idUbicacion: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_solicitud_detalle',
+    field: 'id_ubicacion',
   },
-  idSolicitud: {
+  idSede: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'acf_solicitudes',
-      key: 'id_solicitud',
+      model: 'adm_sedes',
+      key: 'codsed',
     },
-    field: 'id_solicitud',
+    field: 'id_sede',
   },
-  idEquipo: {
-    type: DataTypes.INTEGER,
+  nombre: {
+    type: DataTypes.STRING(150),
     allowNull: false,
-    references: {
-      model: 'acf_equipos',
-      key: 'id_equipo',
-    },
-    field: 'id_equipo',
+  },
+  descripcion: {
+    type: DataTypes.STRING(250),
+    allowNull: false,
+  },
+  orden: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
   },
   createdAt: {
     field: 'created_at',
@@ -47,8 +50,10 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
-    this.belongsTo(models.acfEquipos, { as: 'equipo', foreignKey: 'idEquipo' });
+    this.hasMany(models.acfEquipos, { as: 'equipos', foreignKey: 'idUbicacion' });
+    this.belongsTo(models.admSedes, { as: 'sede', foreignKey: 'idSede' });
+    this.hasMany(models.acfTraslados, { as: 'trasladosOrigen', foreignKey: 'idUbicacionOrigen' });
+    this.hasMany(models.acfTraslados, { as: 'trasladosDestino', foreignKey: 'idUbicacionDestino' });
   }
 
   static config(sequelize) {

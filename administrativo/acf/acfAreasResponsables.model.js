@@ -1,34 +1,36 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_solicitudes_detalle';
-const MODEL_NAME = 'acfSolicitudesDetalle';
+const TABLE_NAME = 'acf_areas_responsables';
+const MODEL_NAME = 'acfAreasResponsables';
 
 const Schema = {
-  idSolicitudDetalle: {
+  idAreaResp: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_solicitud_detalle',
+    field: 'id_area_resp',
   },
-  idSolicitud: {
+  idArea: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'acf_solicitudes',
-      key: 'id_solicitud',
+      model: 'acf_areas',
+      key: 'id_area',
     },
-    field: 'id_solicitud',
+    field: 'id_area',
+    unique: 'acf_areas_responsable_UN',
   },
-  idEquipo: {
-    type: DataTypes.INTEGER,
+  idEmpleado: {
+    type: DataTypes.STRING(30),
     allowNull: false,
     references: {
-      model: 'acf_equipos',
-      key: 'id_equipo',
+      model: 'adm_empleados',
+      key: 'codemp',
     },
-    field: 'id_equipo',
+    field: 'id_empleado',
+    unique: 'acf_areas_responsable_UN',
   },
   createdAt: {
     field: 'created_at',
@@ -47,8 +49,10 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
-    this.belongsTo(models.acfEquipos, { as: 'equipo', foreignKey: 'idEquipo' });
+    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
+    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfInventario, { as: 'inventarios', foreignKey: 'idAreaResp' });
+    this.hasMany(models.acfSolicitudes, { as: 'solicitudes', foreignKey: 'idAreaResp' });
   }
 
   static config(sequelize) {

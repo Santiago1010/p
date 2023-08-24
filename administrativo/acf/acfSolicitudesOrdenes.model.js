@@ -83,7 +83,13 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
+    this.hasMany(models.acfSolicitudesOrdenesDetalle, { as: 'detalles', foreignKey: 'idSolicitudOrden' });
+    this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
+    this.belongsTo(models.admEmpleados, { as: 'empleadoEjecuta', foreignKey: 'idEmpleadoEjecuta' });
+    this.belongsTo(models.ctbProveedores, { as: 'proveedor', foreignKey: 'idProveedor' });
+  }
 
   static config(sequelize) {
     return {

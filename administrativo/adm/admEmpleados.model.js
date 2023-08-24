@@ -239,6 +239,29 @@ class ExtendedModel extends Model {
       foreignKey: 'tipide',
       as: 'tipoIdentificacion',
     });
+    this.hasMany(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idEmpleado' });
+    this.belongsToMany(models.acfAreas, {
+      through: { model: models.acfAreasResponsables },
+      as: 'areas',
+      foreignKey: 'idEmpleado',
+    });
+
+    this.hasMany(models.acfEquipos, { as: 'equipos', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfActas, { as: 'actas', foreignKey: 'idEmpleadoActa' });
+    this.hasMany(models.acfActas, { as: 'actasRecibidas', foreignKey: 'idEmpleadoRecibe' });
+    this.hasMany(models.acfBajas, { as: 'bajas', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfBajas, { as: 'bajasAutorizadas', foreignKey: 'idEmpleadoAutoriza' });
+    this.hasMany(models.acfMovimientos, { as: 'movimientos', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfTraslados, { as: 'traslados', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfTraslados, { as: 'trasladosRecibidos', foreignKey: 'idEmpleadoRecibe' });
+    this.hasMany(models.acfHerramientas, { as: 'herramientasMfa', foreignKey: 'respMfa' });
+    this.hasMany(models.acfHerramientasResponsables, { as: 'herramientasResponsables', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfSolicitudes, { as: 'solicitudes', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenesGeneradas', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfSolicitudesOrdenes, {
+      as: 'ordenesEjecutadas',
+      foreignKey: 'idEmpleadoEjecuta',
+    });
   }
 
   static config(sequelize) {

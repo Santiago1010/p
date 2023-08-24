@@ -1,34 +1,44 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_solicitudes_detalle';
-const MODEL_NAME = 'acfSolicitudesDetalle';
+const TABLE_NAME = 'acf_movimientos';
+const MODEL_NAME = 'acfMovimientos';
 
 const Schema = {
-  idSolicitudDetalle: {
+  idMovimiento: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_solicitud_detalle',
+    field: 'id_movimiento',
   },
-  idSolicitud: {
-    type: DataTypes.INTEGER,
+  idEmpleado: {
+    type: DataTypes.STRING(30),
     allowNull: false,
     references: {
-      model: 'acf_solicitudes',
-      key: 'id_solicitud',
+      model: 'adm_empleados',
+      key: 'codemp',
     },
-    field: 'id_solicitud',
+    field: 'id_empleado',
   },
-  idEquipo: {
-    type: DataTypes.INTEGER,
+  fechaHoraSalida: {
+    type: DataTypes.DATE,
     allowNull: false,
-    references: {
-      model: 'acf_equipos',
-      key: 'id_equipo',
-    },
-    field: 'id_equipo',
+    field: 'fecha_hora_salida',
+  },
+  fechaHoraDevolucion: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'fecha_hora_devolucion',
+  },
+  justificacion: {
+    type: DataTypes.STRING(350),
+    allowNull: false,
+  },
+  lugarTraslado: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    field: 'lugar_traslado',
   },
   createdAt: {
     field: 'created_at',
@@ -47,8 +57,8 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
-    this.belongsTo(models.acfEquipos, { as: 'equipo', foreignKey: 'idEquipo' });
+    this.hasMany(models.acfMovimientosDetalle, { as: 'detalles', foreignKey: 'idMovimiento' });
+    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
   }
 
   static config(sequelize) {

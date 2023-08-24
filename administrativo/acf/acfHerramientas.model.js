@@ -100,7 +100,12 @@ const Schema = {
   },
 };
 class ExtendedModel extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.hasMany(models.acfHerramientasResponsables, { as: 'herramientasResponsables', foreignKey: 'idHerramienta' });
+    this.belongsTo(models.acfHerramientasCategorias, { as: 'categoria', foreignKey: 'idCategoria' });
+    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
+    this.belongsTo(models.admEmpleados, { as: 'responsableMfa', foreignKey: 'respMfa' });
+  }
 
   static config(sequelize) {
     return {
