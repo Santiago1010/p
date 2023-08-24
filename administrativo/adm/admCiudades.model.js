@@ -44,9 +44,9 @@ class ExtendedModel extends Model {
     this.belongsTo(models.admPaises, { foreignKey: 'paisesCodigo', as: 'pais' });
     this.belongsTo(models.admDepartamentos, { foreignKey: 'idDepartamento', as: 'departamento' });
     this.hasMany(models.admEmpleados, { foreignKey: 'ciudadNacimiento', as: 'empleados' });
-    // this.hasMany(models.ctbProveedores, { foreignKey: 'idCiudades', as: 'proveedores' });
+    this.hasMany(models.ctbProveedores, { as: 'proveedores', foreignKey: 'ciudad' });
     // this.hasMany(models.matriculasFamiliares, { foreignKey: 'idCiudades', as: 'matriculasFamiliares' });
-    // this.hasMany(models.webEmpresas, { foreignKey: 'idCiudades', as: 'empresas' });
+    this.hasMany(models.webEmpresas, { as: 'empresas', foreignKey: 'idCiudad' });
   }
 
   static config(sequelize) {

@@ -38,6 +38,7 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.admEmpleados, { as: 'empleados', foreignKey: 'banco' });
+    this.hasMany(models.ctbProveedores, { as: 'proveedores', foreignKey: 'banco' });
   }
 
   static config(sequelize) {

@@ -28,7 +28,15 @@ const Schema = {
     field: 'correo_empresa',
     type: DataTypes.STRING(100),
   },
-  activo: DataTypes.INTEGER,
+  idWebEmpresaAsesor: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'web_empresas_asesores',
+      key: 'id_web_empresa_asesor',
+    },
+    field: 'id_web_empresa_asesor',
+  },
   logo: {
     type: DataTypes.STRING(100),
     allowNull: true,
@@ -40,6 +48,16 @@ const Schema = {
       }
       return `${hostImage}${imageLocation}`;
     },
+  },
+  digitoEmpresa: {
+    type: DataTypes.STRING(10),
+    allowNull: true,
+    field: 'digito_empresa',
+  },
+  razonSocial: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'razon_social',
   },
   telefono: {
     type: DataTypes.STRING(40),
@@ -70,10 +88,42 @@ const Schema = {
     comment: 'camara comercio fiole',
     field: 'cc_url',
   },
+  idPais: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_paises',
+      key: 'id',
+    },
+    field: 'id_pais',
+  },
+  idCiudad: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_ciudades',
+      key: 'idCiudades',
+    },
+    field: 'id_ciudad',
+  },
   certificados: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: 1,
+  },
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
@@ -110,6 +160,10 @@ class ExtendedModel extends Model {
     this.hasMany(models.bizUsuarios, { as: 'bizUsuarios', foreignKey: 'empresaId' });
     this.hasMany(models.webEmpresasTestPruebas, { as: 'pruebas', foreignKey: 'idEmpresa' });
     this.hasMany(models.webFormularios, { as: 'formularios', foreignKey: 'idEmpresa' });
+    this.hasMany(models.webEmpresasPublicidad, { as: 'publicidad', foreignKey: 'idEmpresa' });
+    this.belongsTo(models.admCiudades, { as: 'ciudad', foreignKey: 'idCiudad' });
+    this.belongsTo(models.admPaises, { as: 'pais', foreignKey: 'idPais' });
+    this.belongsTo(models.webEmpresasAsesores, { as: 'asesor', foreignKey: 'idWebEmpresaAsesor' });
   }
 
   static config(sequelize) {
@@ -117,7 +171,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }

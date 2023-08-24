@@ -35,9 +35,9 @@ class ExtendedModel extends Model {
     this.hasMany(models.admEmpleados, { foreignKey: 'paisNacimiento', as: 'empleados' });
     this.hasMany(models.admCiudades, { foreignKey: 'paisesCodigo', as: 'ciudades' });
     this.hasMany(models.admDepartamentos, { foreignKey: 'idPais', as: 'departamentos' });
-    //this.hasMany(models.ctbProveedores, { foreignKey: 'id', as: 'proveedores' });
+    this.hasMany(models.ctbProveedores, { as: 'proveedores', foreignKey: 'pais' });
     //this.hasMany(models.matriculasFamiliares, { foreignKey: 'id', as: 'matriculasFamiliares' });
-    // this.hasMany(models.webEmpresas, { foreignKey: 'id', as: 'empresas' });
+    this.hasMany(models.webEmpresas, { as: 'empresas', foreignKey: 'idPais' });
     // this.hasMany(models.webInstructores, { foreignKey: 'id', as: 'instructores' });
   }
 

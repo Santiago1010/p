@@ -170,7 +170,7 @@ class ExtendedModel extends Model {
       as: 'redes',
       foreignKey: 'idUsuario',
     });
-    this.hasMany(models.webCursosQuizResgeneral, { as: 'repuestasQuiz', foreignKey: 'idUsuario' });
+    this.hasMany(models.webCursosQuizResgeneral, { as: 'respuestasQuiz', foreignKey: 'idUsuario' });
     this.hasMany(models.webEventosAsistencias, { as: 'eventosAsistencias', foreignKey: 'idUsuario' });
     this.hasMany(models.webSuscripcionesCurriculosEstudiantes, {
       as: 'estudiantesCurriculo',
