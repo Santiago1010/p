@@ -201,7 +201,7 @@ const dateSchema = (
   location = 'body',
   optional = true,
   isoDate = false,
-  { emptyConditional } = {}
+  { min, max, emptyConditional } = {}
 ) => {
   const notEmpty =
     optional && !emptyConditional
@@ -225,12 +225,43 @@ const dateSchema = (
         bail: true,
       }
     : undefined;
+
+  const minDate = min
+    ? {
+        isAfter: min,
+        errorMessage: `${nombrePropiedad} debe ser posterior a ${min}`,
+        bail: true,
+      }
+    : undefined;
+
+  const maxDate = max
+    ? {
+        isBefore: max,
+        errorMessage: `${nombrePropiedad} debe ser anterior a ${max}`,
+        bail: true,
+      }
+    : undefined;
+
   return {
     in: location,
     optional: optional,
     notEmpty,
     isDate,
     isISO8601,
+    custom: {
+      options: (value) => {
+        console.log(min);
+        console.log(max);
+        if (minDate && new Date(value) < new Date(min)) {
+          throw new Error(`${nombrePropiedad} debe ser posterior a ${min}`);
+        }
+
+        if (maxDate && new Date(value) > new Date(max)) {
+          throw new Error(`${nombrePropiedad} debe ser anterior a ${max}`);
+        }
+        return true;
+      },
+    },
   };
 };
 
