@@ -72,6 +72,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idInventario',
       as: 'detalles',
     });
+    this.belongsToMany(models.admInsumosProductos, {
+      through: models.admInsumosInventariosDetalle,
+      foreignKey: 'idInventario',
+      as: 'productos',
+    });
   }
 
   static config(sequelize) {
