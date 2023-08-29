@@ -16,7 +16,18 @@ const validateJwt = async (req, res, next) => {
   }
   try {
     const { id } = jwt.verify(token, process.env.PRIVATEKEY);
-    const usuario = await usuarios.findOne({ where: { id } });
+    const usuario = await usuarios.findOne({
+      where: { id },
+      /*include: [
+        {
+          model: Departamentos,
+          as: 'departamentos',
+          through: { attributes: [] },
+          attributes: ['id', 'nombre', 'pqr'],
+          where: { activo: 1 },
+        },
+      ],*/
+    });
     if (!usuario) {
       return res.status(401).send({
         msg: 'token no valido - 2',
