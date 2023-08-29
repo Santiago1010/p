@@ -85,6 +85,33 @@ const Schema = {
     allowNull: true,
     field: 'celular_asesor',
   },
+  estado: {
+    type: DataTypes.ENUM('pendiente', 'parametrizacion', 'testing', 'produccion'),
+    allowNull: false,
+    defaultValue: 'pendiente',
+    get() {
+      const deletedAt = this.getDataValue('deletedAt');
+
+      if (deletedAt !== null) {
+        return 'desistido';
+      }
+
+      const estado = this.getDataValue('estado');
+
+      if (estado === 'produccion') {
+        const today = new Date();
+        today.setUTCHours(5, 0, 0, 0);
+
+        const fechaFin = new Date(this.getDataValue('fechaFin'));
+
+        if (fechaFin.getTime() < today.getTime()) {
+          return 'finalizado';
+        }
+      }
+
+      return estado;
+    },
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
@@ -104,16 +131,6 @@ const Schema = {
     allowNull: true,
     field: 'deleted_for',
   },
-  estado: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      let deletedAt = this.getDataValue('deletedAt');
-      return deletedAt ? 0 : 1;
-    },
-    set(value) {
-      throw new Error('Estado es un campo virtual no se puede guardar');
-    },
-  },
 };
 class ExtendedModel extends Model {
   static associate(models) {
@@ -126,6 +143,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idPropuesta',
     });
     this.hasMany(models.webPropuestasPlanesPago, { as: 'planesPago', foreignKey: 'idPropuesta' });
+    this.hasMany(models.webSuscripcionesPropuestasHistorial, { as: 'historial', foreignKey: 'idPropuesta' });
   }
 
   static config(sequelize) {

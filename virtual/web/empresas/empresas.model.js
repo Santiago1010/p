@@ -28,6 +28,11 @@ const Schema = {
     field: 'correo_empresa',
     type: DataTypes.STRING(100),
   },
+  correoCobro: {
+    field: 'correo_cobro',
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
   idWebEmpresaAsesor: {
     type: DataTypes.INTEGER,
     allowNull: true,

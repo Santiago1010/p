@@ -54,12 +54,11 @@ const Schema = {
     },
     field: 'id_proveedor',
   },
-  nivelPrioridad: {
+  prioridad: {
     type: DataTypes.ENUM('alto', 'medio', 'bajo'),
     allowNull: false,
     defaultValue: 'medio',
     comment: 'prioridad de la orden',
-    field: 'nivel_prioridad',
   },
   estado: {
     type: DataTypes.ENUM('progeso', 'finalizado'),
