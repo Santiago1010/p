@@ -7,7 +7,6 @@ class DbValidator {
       paranoid: paranoid != undefined ? paranoid : undefined,
     };
     const element = await Model.findByPk(id, optionQuery);
-    console.log(element);
     if (!element) {
       throw new Error(`${Model.getTableName()}:Id ${id} no existe`);
     }
