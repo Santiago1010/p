@@ -50,22 +50,32 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.admInsumosLugaresResponsable, {
       foreignKey: 'idLugar',
-      as: 'responsable',
+      as: 'lugaresResponsables',
     });
     this.hasMany(models.admInsumosInventarios, {
       foreignKey: 'idLugar',
+      as: 'inventarios',
     });
     this.hasMany(models.admInsumosMovimientos, {
       foreignKey: 'idLugar',
+      as: 'movimientos',
     });
     this.hasMany(models.admInsumosMovimientosDetalle, {
       foreignKey: 'idLugar',
+      as: 'movimientosDetalles',
     });
     this.hasMany(models.admInsumosOrdenes, {
       foreignKey: 'idLugar',
+      as: 'ordenes',
     });
     this.hasMany(models.admInsumosProductosLugares, {
       foreignKey: 'idLugar',
+      as: 'productosLugares',
+    });
+    this.belongsToMany(models.admInsumosProductos, {
+      through: { model: models.admInsumosProductosLugares },
+      foreignKey: 'idLugar',
+      as: 'productos',
     });
   }
 
