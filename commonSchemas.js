@@ -250,8 +250,6 @@ const dateSchema = (
     isISO8601,
     custom: {
       options: (value) => {
-        console.log(min);
-        console.log(max);
         if (minDate && new Date(value) < new Date(min)) {
           throw new Error(`${nombrePropiedad} debe ser posterior a ${min}`);
         }
