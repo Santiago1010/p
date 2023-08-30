@@ -76,6 +76,27 @@ const Schema = {
     },
     field: 'id_tarjeta',
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      let today = new Date();
+      today.setUTCHours(0, 0, 0, 0);
+
+      const fechaCuota = new Date(this.getDataValue('fecha'));
+      const fechaPago = this.getDataValue('fechaPago');
+
+      if (fechaPago === null && fechaCuota.getTime() < today.getTime()) {
+        return 'mora';
+      } else if (fechaPago !== null) {
+        return 'pagado';
+      } else {
+        return 'pendiente';
+      }
+    },
+    set(value) {
+      throw new Error('Estado es un campo virtual no se puede guardar');
+    },
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

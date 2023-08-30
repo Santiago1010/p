@@ -142,7 +142,6 @@ class ExtendedModel extends Model {
       as: 'responsables',
       foreignKey: 'idPropuesta',
     });
-    this.hasMany(models.webPropuestasPlanesPago, { as: 'planesPago', foreignKey: 'idPropuesta' });
     this.hasMany(models.webSuscripcionesPropuestasHistorial, { as: 'historial', foreignKey: 'idPropuesta' });
   }
 

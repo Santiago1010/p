@@ -12,14 +12,19 @@ const Schema = {
     primaryKey: true,
     field: 'id_plan',
   },
-  idPropuesta: {
+  idHistorial: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'web_suscripciones_propuestas',
-      key: 'id_suscripcion_propuesta',
+      model: 'web_suscripciones_propuestas_historial',
+      key: 'id_historial',
     },
-    field: 'id_propuesta',
+    unique: 'web_propuestas_planes_pago_id_historial_foreign_idx',
+    field: 'id_historial',
+  },
+  observacion: {
+    type: DataTypes.STRING(500),
+    allowNull: true,
   },
   aplicaIva: {
     type: DataTypes.DECIMAL(10, 2),
@@ -61,9 +66,9 @@ class ExtendedModel extends Model {
       as: 'seguimientos',
       foreignKey: 'idPlan',
     });
-    this.belongsTo(models.webSuscripcionesPropuestas, {
-      as: 'propuesta',
-      foreignKey: 'idPropuesta',
+    this.belongsTo(models.webSuscripcionesPropuestasHistorial, {
+      as: 'historial',
+      foreignKey: 'idHistorial',
     });
   }
 
