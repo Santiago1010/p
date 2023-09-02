@@ -262,6 +262,12 @@ class ExtendedModel extends Model {
       as: 'ordenesEjecutadas',
       foreignKey: 'idEmpleadoEjecuta',
     });
+
+    this.belongsToMany(models.admInsumosLugares, {
+      through: { model: models.admInsumosLugaresResponsable },
+      foreignKey: 'idEmpleado',
+      as: 'lugares',
+    });
   }
 
   static config(sequelize) {

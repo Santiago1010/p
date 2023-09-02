@@ -4,6 +4,8 @@ const { Model, DataTypes } = require('sequelize');
 const TABLE_NAME = 'adm_insumos_ordenes';
 const MODEL_NAME = 'admInsumosOrdenes';
 
+const config = require('../../../../config');
+
 const Schema = {
   idOrden: {
     type: DataTypes.INTEGER,
@@ -64,6 +66,14 @@ const Schema = {
     type: DataTypes.STRING(250),
     allowNull: true,
     field: 'firma_recibe',
+    get() {
+      const imageFirma = this.getDataValue('firmaRecibe');
+      const hostImage = config.images.host;
+      if (!imageFirma) {
+        return null;
+      }
+      return `${hostImage}${imageFirma}`;
+    },
   },
   fechaRecibido: {
     type: DataTypes.DATEONLY,

@@ -52,6 +52,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idLugar',
       as: 'lugaresResponsables',
     });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.admInsumosLugaresResponsable },
+      foreignKey: 'idLugar',
+      as: 'responsables',
+    });
     this.hasMany(models.admInsumosInventarios, {
       foreignKey: 'idLugar',
       as: 'inventarios',
