@@ -93,19 +93,22 @@ const isInSchema = (
   location = 'body',
   optional = true,
   options = [0, 1, 2],
-  customSanitizer = undefined
+  customSanitizer = undefined,
+  { emptyConditional } = {}
 ) => {
   const errorMessage = `${nombrePropiedad} debe ser ${options.slice(0, -1).join(', ')} o ${options.slice(-1)}`;
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   return {
     in: location,
-    optional: optional,
+    optional: optional && !emptyConditional,
     notEmpty,
     isIn: {
       options: [options],
