@@ -23,6 +23,11 @@ const Schema = {
     allowNull: false,
     field: 'id_proveedor',
   },
+  idEmpleadoGenera: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'id_empleado_genera',
+  },
   observacion: {
     type: DataTypes.STRING(500),
     allowNull: false,
@@ -163,6 +168,10 @@ class ExtendedModel extends Model {
     this.belongsTo(models.admEmpleados, {
       foreignKey: 'idEmpleadoAutoriza',
       as: 'empleadoAutoriza',
+    });
+    this.belongsTo(models.admEmpleados, {
+      foreignKey: 'idEmpleadoGenera',
+      as: 'empleadoGenera',
     });
     this.hasMany(models.ctbComprasOrdenesEntrega, {
       foreignKey: 'idOrdenCompra',

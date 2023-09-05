@@ -80,6 +80,11 @@ const Schema = {
     allowNull: true,
     field: 'fecha_recibido',
   },
+  numeroFactura: {
+    type: DataTypes.INTEGER(11),
+    allowNull: true,
+    field: 'nro_factura',
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
