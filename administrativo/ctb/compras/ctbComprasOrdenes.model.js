@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'ctb_compras_ordenes';
 const MODEL_NAME = 'ctbComprasOrdenes';
@@ -47,16 +48,40 @@ const Schema = {
   cotizacion: {
     type: DataTypes.STRING(200),
     allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('cotizacion');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   cotizacionAd1: {
     type: DataTypes.STRING(200),
     allowNull: true,
     field: 'cotizacion_ad1',
+    get() {
+      const imageLocation = this.getDataValue('cotizacionAd1');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   cotizacionAd2: {
     type: DataTypes.STRING(200),
     allowNull: true,
     field: 'cotizacion_ad2',
+    get() {
+      const imageLocation = this.getDataValue('cotizacionAd2');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   idEmpleadoAutoriza: {
     type: DataTypes.STRING(30),
