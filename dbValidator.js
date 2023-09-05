@@ -13,23 +13,23 @@ class DbValidator {
     return true;
   }
 
-  static async existsInModelByField(Model, fieldname = '', fieldvalue) {
+  static async existsInModelByField(Model, fieldname = '', fieldvalue, { paranoid } = {}) {
     let field = {};
     field[`${fieldname}`] = fieldvalue;
 
-    const element = await Model.findOne({ where: field });
+    const element = await Model.findOne({ where: field, paranoid: paranoid != undefined ? paranoid : undefined });
     if (!element) {
       throw new Error(`${Model.getTableName()}(${fieldname}):${fieldvalue} no existe`);
     }
     return true;
   }
 
-  static async uniqueInModelByField(Model, fieldname = '', fieldvalue) {
+  static async uniqueInModelByField(Model, fieldname = '', fieldvalue, { paranoid } = {}) {
     let field = {};
     field[`${fieldname}`] = fieldvalue;
-    const element = await Model.findOne({ where: field });
+    const element = await Model.findOne({ where: field, paranoid: paranoid != undefined ? paranoid : undefined });
     if (element) {
-      throw new Error(`${Model.getTableName()}(${fieldname}):${fieldvalue} ya existe en la base de datos`);
+      throw new Error(`${fieldvalue} ya existe en la base de datos`);
     }
     return true;
   }
