@@ -50,6 +50,11 @@ const Schema = {
     type: DataTypes.STRING(150),
     allowNull: false,
   },
+  correoCorporativo: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    field: 'correo_corporativo',
+  },
   sexemp: {
     type: DataTypes.STRING(50),
     allowNull: false,
@@ -92,6 +97,15 @@ const Schema = {
     references: {
       model: 'adm_eps',
       key: 'id',
+    },
+  },
+  arl: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    references: {
+      model: 'adm_arl',
+      key: 'id_arl',
     },
   },
   fondo: {
@@ -153,20 +167,6 @@ const Schema = {
       key: 'idCiudades',
     },
     field: 'ciudad_nacimiento',
-  },
-  credencial: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  arl: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    references: {
-      model: 'adm_arl',
-      key: 'id_arl',
-    },
   },
   createdAt: {
     type: DataTypes.DATE,
