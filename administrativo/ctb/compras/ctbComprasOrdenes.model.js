@@ -113,6 +113,22 @@ const Schema = {
     allowNull: true,
     field: 'valoracion_orden',
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const idEmpleadoAutoriza = this.getDataValue('idEmpleadoAutoriza');
+      const fechaAutoriza = this.getDataValue('fechaAutoriza');
+
+      if (idEmpleadoAutoriza && fechaAutoriza) {
+        return 'firmada';
+      }
+
+      return 'pendiente';
+    },
+    set(value) {
+      throw new Error('`estado` es un campo virtual no se puede guardar');
+    },
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
