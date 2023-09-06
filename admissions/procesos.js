@@ -66,7 +66,6 @@ const validarDocumentos = async (id_admision) => {
       documentosaceptados++;
     }
   });
-  console.log(totalDocumentos, documentosaceptados);
   if (totalDocumentos == documentosaceptados) {
     await admision_aspirantes_anio.update(
       {
