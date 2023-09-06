@@ -10,7 +10,6 @@ const validatePermission = async (req, res, next) => {
     path = req.path;
   }
 
-  console.log('validando', path);
   const permiso = await validarOpcion(path, method, id);
 
   /*

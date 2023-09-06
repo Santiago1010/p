@@ -12,7 +12,6 @@ const validateJwt = async (req, res, next) => {
     req.user = { id, datos };
     return next();
   } catch (error) {
-    console.log(error);
     return res.status(401).send({
       msg: 'token no valido - 3',
     });
