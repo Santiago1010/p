@@ -13,6 +13,12 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(250),
         allowNull: false,
       },
+      prioridad: {
+        type: DataTypes.ENUM('baja', 'media', 'alta'),
+        allowNull: false,
+        defaultValue: 'media',
+        comment: 'Prioridad de la solicitud',
+      },
       estado: {
         type: DataTypes.ENUM('nueva', 'aprobada', 'denegada', 'tramite', 'progreso', 'entregada'),
         allowNull: false,

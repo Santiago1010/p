@@ -32,6 +32,12 @@ module.exports = function (sequelize, DataTypes) {
       mailemp: {
         type: DataTypes.STRING(150),
         allowNull: false,
+        unique: 'mailemp_UN',
+      },
+      correo_corporativo: {
+        type: DataTypes.STRING(150),
+        allowNull: true,
+        unique: 'correo_corporativo_UN',
       },
       sexemp: {
         type: DataTypes.STRING(50),
@@ -125,11 +131,6 @@ module.exports = function (sequelize, DataTypes) {
           key: 'idCiudades',
         },
       },
-      credencial: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-        defaultValue: 0,
-      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -155,6 +156,18 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'codemp' }],
+        },
+        {
+          name: 'mailemp_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'mailemp' }],
+        },
+        {
+          name: 'correo_corporativo_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'correo_corporativo' }],
         },
         {
           name: 'adm_empleados_FK_1',

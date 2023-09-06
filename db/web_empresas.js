@@ -25,6 +25,11 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
+      correo_cobro: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        comment: 'Correo de para realizar cobro',
+      },
       id_web_empresa_asesor: {
         type: DataTypes.INTEGER,
         allowNull: true,
@@ -32,11 +37,6 @@ module.exports = function (sequelize, DataTypes) {
           model: 'web_empresas_asesores',
           key: 'id_web_empresa_asesor',
         },
-      },
-      activo: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 1,
       },
       logo: {
         type: DataTypes.STRING(100),
@@ -95,6 +95,20 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TINYINT.UNSIGNED,
         allowNull: false,
         defaultValue: 1,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {

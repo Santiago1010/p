@@ -47,11 +47,10 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
-      nivel_prioridad: {
+      prioridad: {
         type: DataTypes.ENUM('alto', 'medio', 'bajo'),
         allowNull: false,
         defaultValue: 'medio',
-        comment: 'prioridad de la orden',
       },
       estado: {
         type: DataTypes.ENUM('progeso', 'finalizado'),

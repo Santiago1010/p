@@ -4,34 +4,22 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_notificaciones',
     {
       id_usuario_notificacion: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: 'web_usuarios',
-          key: 'id_usuario',
-        },
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
-        },
       },
       id_test: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'test_general',
-          key: 'id',
-        },
       },
       texto_notificacion: {
         type: DataTypes.STRING(100),

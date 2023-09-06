@@ -4,10 +4,10 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_curriculos_ciclos',
     {
       id_suscripcion_curriculo_ciclo: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       nombre_ciclo: {
         type: DataTypes.STRING(50),

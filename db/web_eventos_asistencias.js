@@ -4,6 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     'web_eventos_asistencias',
     {
       id_evento_asistencia: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -11,6 +12,7 @@ module.exports = function (sequelize, DataTypes) {
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        comment: 'Id del usuario ligado a la asistencia, null si no hay usuario ligado',
         references: {
           model: 'web_usuarios',
           key: 'id_usuario',
@@ -18,59 +20,28 @@ module.exports = function (sequelize, DataTypes) {
       },
       id_evento: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        comment: 'Id del evento asociado a la asistencia',
         references: {
           model: 'web_eventos',
           key: 'id_eventos',
         },
       },
-      timemodified: {
-        type: DataTypes.BIGINT,
-        allowNull: true,
-      },
-      vista: {
-        type: DataTypes.STRING(20),
-        allowNull: true,
-      },
-      join_time: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      leave_time: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      leave_reason: {
+      nombre: {
         type: DataTypes.STRING(200),
         allowNull: true,
+        comment: 'Nombre del usuario desde Zoom',
       },
-      location: {
+      email: {
         type: DataTypes.STRING(200),
         allowNull: true,
+        comment: 'Email del usuario desde Zoom',
       },
-      ip_address: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      network_type: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      user_name: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      device: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      uuid: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-      },
-      meet_date: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
+      tipo: {
+        type: DataTypes.ENUM('enVivo', 'grabacion'),
+        allowNull: false,
+        defaultValue: 'enVivo',
+        comment: 'Tipo de asistencia del usuario al evento',
       },
       estado: {
         type: DataTypes.INTEGER,
@@ -105,12 +76,19 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id_evento_asistencia' }],
         },
         {
-          name: 'FK_web_eventos_asistencias_web_usuarios',
+          name: 'id_usuario_evento_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_usuario' }],
+          fields: [{ name: 'id_usuario' }, { name: 'id_evento' }],
         },
         {
-          name: 'FK_web_eventos_asistencias_web_eventos',
+          name: 'email_evento_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'email' }, { name: 'id_evento' }],
+        },
+        {
+          name: 'web_eventos_asistencias_id_evento_foreign_idx',
           using: 'BTREE',
           fields: [{ name: 'id_evento' }],
         },

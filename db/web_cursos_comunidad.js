@@ -34,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       contenido: {
-        type: DataTypes.STRING(300),
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
       fecha: {

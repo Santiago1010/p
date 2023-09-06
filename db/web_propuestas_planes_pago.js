@@ -9,13 +9,18 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      id_propuesta: {
+      id_historial: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'web_suscripciones_propuestas',
-          key: 'id_suscripcion_propuesta',
+          model: 'web_suscripciones_propuestas_historial',
+          key: 'id_historial',
         },
+        unique: 'web_propuestas_planes_pago_id_historial_foreign_idx',
+      },
+      observacion: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
       },
       aplica_iva: {
         type: DataTypes.DECIMAL(10, 2),
@@ -60,9 +65,10 @@ module.exports = function (sequelize, DataTypes) {
           fields: [{ name: 'id_plan' }],
         },
         {
-          name: 'id_propuesta',
+          name: 'id_historial',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_propuesta' }],
+          fields: [{ name: 'id_historial' }],
         },
       ],
     }

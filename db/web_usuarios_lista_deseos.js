@@ -4,34 +4,22 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_lista_deseos',
     {
       id_usuario_lista_deseo: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_usuarios',
-          key: 'id_usuario',
-        },
       },
       id_ruta_aprendizaje: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_rutas_aprendizaje',
-          key: 'id_ruta_aprendizaje',
-        },
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
-        },
       },
     },
     {

@@ -4,18 +4,14 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_propuestas',
     {
       id_suscripcion_propuesta: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
-        },
       },
       total_licencias: {
         type: DataTypes.INTEGER,
@@ -69,6 +65,13 @@ module.exports = function (sequelize, DataTypes) {
       celular_asesor: {
         type: DataTypes.STRING(20),
         allowNull: true,
+      },
+      estado: {
+        type: DataTypes.ENUM('pendiente', 'parametrizacion', 'testing', 'produccion'),
+        allowNull: false,
+        defaultValue: 'pendiente',
+        comment:
+          'Estado de la propuesta. Para los estados finalizado y desistido se validan con la fecha de fin y deleted_at',
       },
       created_at: {
         type: DataTypes.DATE,

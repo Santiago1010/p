@@ -26,7 +26,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       comentario: {
-        type: DataTypes.STRING(300),
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
       fecha: {

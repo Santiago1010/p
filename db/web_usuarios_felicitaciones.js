@@ -4,26 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_felicitaciones',
     {
       id_usuario_felicitacion: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_usuario_origen: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_usuarios',
-          key: 'id_usuario',
-        },
       },
       id_usuario_destino: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_usuarios',
-          key: 'id_usuario',
-        },
       },
       punto_redimido: {
         type: DataTypes.INTEGER,
@@ -34,10 +26,6 @@ module.exports = function (sequelize, DataTypes) {
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
-        },
       },
     },
     {

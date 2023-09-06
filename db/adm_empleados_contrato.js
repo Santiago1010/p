@@ -37,9 +37,8 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       periodo_prueba: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.DATEONLY,
         allowNull: true,
-        comment: 'Periodo de prueba del contrato',
       },
       addusr: {
         type: DataTypes.STRING(20),

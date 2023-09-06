@@ -25,6 +25,14 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
+      id_empleado_genera: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        references: {
+          model: 'adm_empleados',
+          key: 'codemp',
+        },
+      },
       observacion: {
         type: DataTypes.STRING(500),
         allowNull: false,
@@ -127,6 +135,11 @@ module.exports = function (sequelize, DataTypes) {
           name: 'id_empleado_autoriza',
           using: 'BTREE',
           fields: [{ name: 'id_empleado_autoriza' }],
+        },
+        {
+          name: 'ctb_compras_ordenes_id_empleado_genera_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_empleado_genera' }],
         },
       ],
     }

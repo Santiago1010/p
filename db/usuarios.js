@@ -10,8 +10,9 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
       email: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+        type: DataTypes.STRING(150),
+        allowNull: false,
+        unique: 'email_UN',
       },
       pass: {
         type: DataTypes.TEXT,
@@ -25,6 +26,7 @@ module.exports = function (sequelize, DataTypes) {
           model: 'adm_empleados',
           key: 'codemp',
         },
+        unique: 'usuarios_ibfk_1',
       },
       id_perfil: {
         type: DataTypes.INTEGER,
@@ -59,6 +61,18 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'id' }],
+        },
+        {
+          name: 'email_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'email' }],
+        },
+        {
+          name: 'codemp_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'codemp' }],
         },
         {
           name: 'FK_usuarios_usuarios_perfil',

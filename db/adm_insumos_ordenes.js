@@ -26,7 +26,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       id_proveedor: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'ctb_proveedores',
           key: 'id',
@@ -73,6 +73,10 @@ module.exports = function (sequelize, DataTypes) {
       },
       fecha_recibido: {
         type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      nro_factura: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       created_at: {

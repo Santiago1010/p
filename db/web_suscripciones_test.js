@@ -4,19 +4,14 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_test',
     {
       id_suscripcion_test: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_suscripcion: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_suscripciones',
-          key: 'id_suscripcion',
-        },
-        unique: 'FK_web_suscripciones_test_web_suscripciones',
       },
       categoria: {
         type: DataTypes.ENUM('Basico', 'Avanzado'),

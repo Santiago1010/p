@@ -4,26 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_programas_calendario_detalle',
     {
       id_programa_cronograma: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_programa_calendario: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_suscripciones_programas_calendario',
-          key: 'id_programa_calendario',
-        },
       },
       id_capsula: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_programas_formacion_modulos_capsulas',
-          key: 'id_modulo_capsula',
-        },
       },
       fecha: {
         type: DataTypes.DATEONLY,

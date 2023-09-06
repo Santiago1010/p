@@ -4,35 +4,23 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones',
     {
       id_suscripcion: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_suscripcion_linea: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
-        references: {
-          model: 'web_suscripciones_lineas',
-          key: 'id_suscripcion_linea',
-        },
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_empresas',
-          key: 'id_empresa',
-        },
       },
       id_propuesta: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_suscripciones_propuestas',
-          key: 'id_suscripcion_propuesta',
-        },
       },
       nombre_suscripcion: {
         type: DataTypes.STRING(100),
@@ -68,10 +56,6 @@ module.exports = function (sequelize, DataTypes) {
       tipo: {
         type: DataTypes.STRING(15),
         allowNull: true,
-        references: {
-          model: 'biz_filtros',
-          key: 'id_filtro',
-        },
       },
       total_licencias: {
         type: DataTypes.INTEGER,

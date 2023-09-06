@@ -4,35 +4,23 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_rutas_aprendizaje',
     {
       id_suscripcion_ruta_aprendizaje: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       id_suscripcion: {
         type: DataTypes.INTEGER,
         allowNull: true,
         comment: 'null: ruta aprendizaje predeterminada, idUsuario -> rutaAutogestionada',
-        references: {
-          model: 'web_suscripciones',
-          key: 'id_suscripcion',
-        },
       },
       id_ruta_aprendizaje: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_rutas_aprendizaje',
-          key: 'id_ruta_aprendizaje',
-        },
       },
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: 'web_usuarios',
-          key: 'id_usuario',
-        },
       },
       orden: {
         type: DataTypes.INTEGER,
