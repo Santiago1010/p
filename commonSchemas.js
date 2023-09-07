@@ -58,14 +58,15 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
   };
 };
 
-const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min, max } = {}) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-        notEmpty: true,
-      };
+const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min, max, emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   const optionsFloat = min || max ? {} : undefined;
   if (min) {
@@ -78,7 +79,7 @@ const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min,
 
   return {
     in: location,
-    optional,
+    optional: optional && !emptyConditional,
     ...(notEmpty && { notEmpty }),
     isFloat: {
       errorMessage: `${nombrePropiedad} debe ser un valor decimal`,
