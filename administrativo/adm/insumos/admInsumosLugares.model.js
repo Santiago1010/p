@@ -62,11 +62,11 @@ class ExtendedModel extends Model {
       as: 'inventarios',
     });
     this.hasMany(models.admInsumosMovimientos, {
-      foreignKey: 'idLugar',
+      foreignKey: 'idLugarOrigen',
       as: 'movimientos',
     });
     this.hasMany(models.admInsumosMovimientosDetalle, {
-      foreignKey: 'idLugar',
+      foreignKey: 'idLugarDestino',
       as: 'movimientosDetalles',
     });
     this.hasMany(models.admInsumosOrdenes, {

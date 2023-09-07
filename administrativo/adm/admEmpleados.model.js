@@ -263,6 +263,15 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleadoEjecuta',
     });
 
+    this.hasMany(models.ctbCajaMenorResponsables, {
+      foreignKey: 'idEmpleado',
+      as: 'cajaMenorResponsables',
+    });
+    this.belongsToMany(models.ctbCajaMenor, {
+      through: { model: models.ctbCajaMenorResponsables },
+      as: 'cajasMenores',
+      foreignKey: 'idEmpleado',
+    });
     this.belongsToMany(models.admInsumosLugares, {
       through: { model: models.admInsumosLugaresResponsable },
       foreignKey: 'idEmpleado',
