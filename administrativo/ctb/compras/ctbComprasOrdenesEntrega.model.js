@@ -38,6 +38,21 @@ const Schema = {
     field: 'id_empleado_firma',
     defaultValue: null,
   },
+  firmada: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const idEmpleadoFirma = this.getDataValue('idEmpleadoFirma');
+
+      if (idEmpleadoFirma) {
+        return true;
+      }
+
+      return false;
+    },
+    set(value) {
+      throw new Error('`firmada` es un campo virtual no se puede guardar');
+    },
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
