@@ -28,12 +28,12 @@ const Schema = {
     field: 'total_licencias',
   },
   fechaInicio: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     field: 'fecha_inicio',
   },
   fechaFin: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     field: 'fecha_fin',
   },
@@ -53,13 +53,13 @@ const Schema = {
     field: 'rol_dinamico',
   },
   fechaTest: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
     field: 'fecha_test',
   },
   fechaEntrega: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
     field: 'fecha_entrega',
