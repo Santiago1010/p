@@ -36,6 +36,7 @@ const Schema = {
     type: DataTypes.STRING(30),
     allowNull: true,
     field: 'id_empleado_firma',
+    defaultValue: null,
   },
   createdAt: {
     type: DataTypes.DATE,
