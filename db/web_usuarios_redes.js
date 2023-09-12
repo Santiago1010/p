@@ -4,18 +4,26 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_redes',
     {
       id_usuario_red: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_red: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_redes_sociales',
+          key: 'id_red',
+        },
       },
       id_web_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_usuarios',
+          key: 'id_usuario',
+        },
       },
       username: {
         type: DataTypes.STRING(150),

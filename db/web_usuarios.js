@@ -4,10 +4,10 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios',
     {
       id_usuario: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       tipo_doc: {
         type: DataTypes.STRING(20),
@@ -42,6 +42,7 @@ module.exports = function (sequelize, DataTypes) {
       email_usuario: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: 'web_usuario_email_UN',
       },
       celular_usuario: {
         type: DataTypes.STRING(100),
@@ -54,10 +55,18 @@ module.exports = function (sequelize, DataTypes) {
       foto_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_imagenes',
+          key: 'id_imagen',
+        },
       },
       portada_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_imagenes',
+          key: 'id_imagen',
+        },
       },
       password_usuario: {
         type: DataTypes.STRING(100),

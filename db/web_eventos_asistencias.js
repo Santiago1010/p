@@ -43,6 +43,11 @@ module.exports = function (sequelize, DataTypes) {
         defaultValue: 'enVivo',
         comment: 'Tipo de asistencia del usuario al evento',
       },
+      tiempo: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        comment: 'Tiempo en reunion - segundos',
+      },
       estado: {
         type: DataTypes.INTEGER,
         allowNull: true,

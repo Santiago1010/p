@@ -4,14 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_propuestas_historial',
     {
       id_historial: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_propuesta: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'web_suscripciones_propuestas',
+          key: 'id_suscripcion_propuesta',
+        },
       },
       descripcion: {
         type: DataTypes.STRING(50),

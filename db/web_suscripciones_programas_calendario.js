@@ -4,15 +4,19 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_programas_calendario',
     {
       id_programa_calendario: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_suscripcion_prog_formacion: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
+        references: {
+          model: 'web_suscripciones_programas_formacion',
+          key: 'id_suscripcion_programa_formacion',
+        },
       },
       titulo: {
         type: DataTypes.STRING(100),

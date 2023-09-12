@@ -4,14 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_curriculos_grupos_cronograma',
     {
       id_suscripcion_curriculo_grupo_cronograma: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_suscripcion_curriculo_grupo: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_suscripciones_curriculos_grupos',
+          key: 'id_suscripcion_curriculo_grupo',
+        },
       },
       fecha_clase: {
         type: DataTypes.DATEONLY,

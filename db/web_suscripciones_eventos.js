@@ -4,18 +4,26 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_eventos',
     {
       id_suscripcion_evento: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_suscripcion: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_suscripciones',
+          key: 'id_suscripcion',
+        },
       },
       id_evento: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_eventos',
+          key: 'id_eventos',
+        },
       },
       created_at: {
         type: DataTypes.DATE,

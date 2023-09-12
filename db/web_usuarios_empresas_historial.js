@@ -4,14 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_empresas_historial',
     {
       id_historial: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'web_empresas',
+          key: 'id_empresa',
+        },
       },
       tipo: {
         type: DataTypes.ENUM('eliminados', 'creados'),

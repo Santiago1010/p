@@ -4,25 +4,29 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_propuestas',
     {
       id_suscripcion_propuesta: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_empresas',
+          key: 'id_empresa',
+        },
       },
       total_licencias: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
       fecha_inicio: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       fecha_fin: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       nombre: {
@@ -40,14 +44,12 @@ module.exports = function (sequelize, DataTypes) {
         comment: 'Configurar si se dispara el modal para elegir el rol dinamicamente en Virtual',
       },
       fecha_test: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
-        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       fecha_entrega: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
-        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       tipo_cliente: {
         type: DataTypes.ENUM('micro', 'macro'),

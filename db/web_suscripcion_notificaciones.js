@@ -4,18 +4,26 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripcion_notificaciones',
     {
       id_suscripcion_notificacion: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_empresas',
+          key: 'id_empresa',
+        },
       },
       id_notificacion: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_notificaciones',
+          key: 'id_notificacion',
+        },
       },
       cantidad: {
         type: DataTypes.INTEGER,

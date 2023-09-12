@@ -4,10 +4,10 @@ module.exports = function (sequelize, DataTypes) {
     'web_suscripciones_lineas',
     {
       id_suscripcion_linea: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       nombre_linea: {
         type: DataTypes.STRING(50),

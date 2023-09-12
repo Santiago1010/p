@@ -4,14 +4,18 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_puntos',
     {
       id_usuario_punto: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'web_usuarios',
+          key: 'id_usuario',
+        },
       },
       puntos: {
         type: DataTypes.INTEGER,
@@ -25,6 +29,10 @@ module.exports = function (sequelize, DataTypes) {
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_empresas',
+          key: 'id_empresa',
+        },
       },
     },
     {

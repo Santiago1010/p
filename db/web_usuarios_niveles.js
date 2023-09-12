@@ -4,19 +4,27 @@ module.exports = function (sequelize, DataTypes) {
     'web_usuarios_niveles',
     {
       id_usuario_nivel: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_usuarios',
+          key: 'id_usuario',
+        },
       },
       id_nivel: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
+        references: {
+          model: 'web_niveles',
+          key: 'id_nivel',
+        },
       },
       fecha: {
         type: DataTypes.DATE,
@@ -26,6 +34,10 @@ module.exports = function (sequelize, DataTypes) {
       id_empresa: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'web_empresas',
+          key: 'id_empresa',
+        },
       },
     },
     {
