@@ -53,12 +53,14 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    // this.hasMany(models.ctbCajaMenorEgresos, {
-    //   foreignKey: 'cajaMenorId',
-    // });
-    // this.hasMany(models.ctbCajaMenorIngresos, {
-    //   foreignKey: 'cajaMenorId',
-    // });
+    this.hasMany(models.ctbCajaMenorEgresos, {
+      foreignKey: 'idCajaMenor',
+      as: 'egresos',
+    });
+    this.hasMany(models.ctbCajaMenorIngresos, {
+      foreignKey: 'idCajaMenor',
+      as: 'ingresos',
+    });
     this.hasMany(models.ctbCajaMenorResponsables, {
       foreignKey: 'idCajaMenor',
       as: 'cajaMenorResponsables',
