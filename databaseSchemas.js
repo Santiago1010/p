@@ -51,4 +51,40 @@ const uniqueFieldSchema = (
   };
 };
 
-module.exports = { idSchemaFactory, uniqueFieldSchema };
+const stringIdArray = (nombrePropiedad, location = 'body', Model, optional = true, { min, max } = {}) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  return {
+    in: location,
+    optional,
+    notEmpty,
+    custom: {
+      options: (stringArrayComma) => {
+        const array = stringArrayComma.split(',');
+        if (min != undefined || max != undefined) {
+          if (min != undefined) {
+            if (array.length < min) {
+              return Promise.reject(`Mínima cantidad de elementos: ${min}`);
+            }
+          }
+          if (max != undefined) {
+            if (array.length > max) {
+              return Promise.reject(`Máxima cantidad de elementos: ${max}`);
+            }
+          }
+        }
+        return Promise.all(array.map((idElement) => DbValidator.existsInModelById(Model, idElement)));
+      },
+    },
+    customSanitizer: {
+      options: (stringArrayComma) => stringArrayComma.split(','),
+    },
+  };
+};
+
+module.exports = { idSchemaFactory, uniqueFieldSchema, stringIdArray };
