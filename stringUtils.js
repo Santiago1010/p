@@ -3,6 +3,7 @@
 class StringUtils {
   static capitalize(string) {
     //Capitaliza una sola palabra
+    if (!string) return null;
     const lowerCase = string.toLowerCase();
     return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
   }
