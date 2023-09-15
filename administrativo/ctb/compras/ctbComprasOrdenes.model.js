@@ -98,6 +98,11 @@ const Schema = {
     allowNull: true,
     field: 'fecha_autoriza',
   },
+  estado: {
+    type: DataTypes.ENUM('pendiente', 'firmada', 'progreso', 'entregada'),
+    allowNull: false,
+    defaultValue: 'pendiente',
+  },
   observacionProveedor: {
     type: DataTypes.STRING(350),
     allowNull: true,
@@ -117,22 +122,6 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: true,
     field: 'valoracion_orden',
-  },
-  estado: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      const idEmpleadoAutoriza = this.getDataValue('idEmpleadoAutoriza');
-      const fechaAutoriza = this.getDataValue('fechaAutoriza');
-
-      if (idEmpleadoAutoriza && fechaAutoriza) {
-        return 'firmada';
-      }
-
-      return 'pendiente';
-    },
-    set(value) {
-      throw new Error('`estado` es un campo virtual no se puede guardar');
-    },
   },
   createdAt: {
     type: DataTypes.DATE,

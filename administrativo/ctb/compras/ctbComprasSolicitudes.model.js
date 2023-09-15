@@ -45,6 +45,48 @@ const Schema = {
     allowNull: false,
     field: 'id_departamento',
   },
+  diasPasadosDesdeCreacion: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const estado = this.getDataValue('estado');
+      const createdAt = this.getDataValue('createdAt');
+
+      if (estado === 'aprobada') {
+        const creado = new Date(createdAt);
+        const currentDate = new Date();
+        const timeDifference = currentDate - creado;
+        const daysSinceCreation = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        return daysSinceCreation;
+      }
+
+      return 'No aplica';
+    },
+    set(value) {
+      throw new Error('`diasPasadosDesdeCreacion` es un campo virtual, no se puede guardar');
+    },
+  },
+  diasPasadosDesdeActualizacion: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const estado = this.getDataValue('estado');
+      const updatedAt = this.getDataValue('updatedAt');
+
+      if (estado === 'aprobada') {
+        const actualizado = new Date(updatedAt);
+        const currentDate = new Date();
+        const timeDifference = currentDate - actualizado;
+        const daysSinceCreation = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        return daysSinceCreation;
+      }
+
+      return 'No aplica';
+    },
+    set(value) {
+      throw new Error('`diasPasadosDesdeActualizacion` es un campo virtual, no se puede guardar');
+    },
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

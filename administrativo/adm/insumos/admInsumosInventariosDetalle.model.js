@@ -1,7 +1,7 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'adm_insumos_invetarios_detalle';
+const TABLE_NAME = 'adm_insumos_inventarios_detalle';
 const MODEL_NAME = 'admInsumosInventariosDetalle';
 
 const Schema = {
@@ -26,6 +26,10 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0,
+  },
+  total: {
+    type: DataTypes.INTEGER(11),
+    allowNull: true,
   },
   createdAt: {
     type: DataTypes.DATE,
