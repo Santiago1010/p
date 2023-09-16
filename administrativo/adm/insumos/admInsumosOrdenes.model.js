@@ -26,7 +26,7 @@ const Schema = {
   },
   idProveedor: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: 'id_proveedor',
   },
   idLugar: {

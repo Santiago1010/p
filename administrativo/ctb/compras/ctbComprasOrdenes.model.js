@@ -102,6 +102,9 @@ const Schema = {
     type: DataTypes.ENUM('pendiente', 'firmada', 'progreso', 'entregada'),
     allowNull: false,
     defaultValue: 'pendiente',
+    get() {
+      return this.getDataValue('deletedAt') !== null ? 'denegada' : this.getDataValue('estado');
+    },
   },
   observacionProveedor: {
     type: DataTypes.STRING(350),

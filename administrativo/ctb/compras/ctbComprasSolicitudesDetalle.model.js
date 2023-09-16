@@ -66,7 +66,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idOrdenCompra',
       as: 'ordenCompra',
     });
-    this.hasMany(models.ctbComprasOrdenesEntregaDetalle, {
+    this.hasOne(models.ctbComprasOrdenesEntregaDetalle, {
       foreignKey: 'idSolicitudItem',
       as: 'ordenesEntregaDetalle',
     });
