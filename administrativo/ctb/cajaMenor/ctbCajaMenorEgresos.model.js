@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'ctb_caja_menor_egresos';
 const MODEL_NAME = 'ctbCajaMenorEgresos';
@@ -16,6 +17,29 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'id_caja_menor',
+  },
+  tipo: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const idIngreso = this.getDataValue('idIngreso');
+
+      return idIngreso == null ? 'devolucion' : 'recibo';
+    },
+    set() {
+      throw new Error('`tipo` es un campo virtual no se puede guardar');
+    },
+  },
+  idIngreso: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'id_ingreso',
+    defaultValue: null,
+    comment: 'Relación al ingreso (Evento). Si es NULL, se trata de una devolución.',
+  },
+  idEmpleado: {
+    type: DataTypes.STRING(30),
+    allowNull: false,
+    field: 'id_empleado',
   },
   valor: {
     type: DataTypes.DECIMAL(10, 2),
@@ -51,6 +75,27 @@ const Schema = {
   firma: {
     type: DataTypes.STRING(200),
     allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('firma');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
+  },
+  factura: {
+    type: DataTypes.STRING(200),
+    allowNull: true,
+    defaultValue: null,
+    get() {
+      const imageLocation = this.getDataValue('factura');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -78,6 +123,14 @@ class ExtendedModel extends Model {
     this.belongsTo(models.ctbCajaMenor, {
       foreignKey: 'idCajaMenor',
       as: 'cajaMenor',
+    });
+    this.belongsTo(models.admEmpleados, {
+      foreignKey: 'idEmpleado',
+      as: 'empleado',
+    });
+    this.belongsTo(models.ctbCajaMenorIngresos, {
+      foreignKey: 'idIngreso',
+      as: 'ingreso',
     });
   }
 

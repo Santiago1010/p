@@ -22,6 +22,10 @@ const Schema = {
     allowNull: false,
     defaultValue: 0.0,
   },
+  descripcion: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
   observacion: {
     type: DataTypes.STRING(450),
     allowNull: false,
@@ -49,6 +53,21 @@ const Schema = {
     type: DataTypes.DATEONLY,
     allowNull: true,
     field: 'fecha_autoriza',
+  },
+  fechaInicio: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_inicio',
+  },
+  fechaFin: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_fin',
+  },
+  fechaLimite: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_limite',
   },
   valorAprobado: {
     type: DataTypes.DECIMAL(10, 2),
