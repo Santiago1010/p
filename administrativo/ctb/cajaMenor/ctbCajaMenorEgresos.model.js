@@ -62,7 +62,8 @@ const Schema = {
   },
   documento: {
     type: DataTypes.STRING(20),
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   nombre: {
     type: DataTypes.STRING(150),
@@ -70,7 +71,8 @@ const Schema = {
   },
   celular: {
     type: DataTypes.STRING(10),
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   firma: {
     type: DataTypes.STRING(200),
