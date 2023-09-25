@@ -183,6 +183,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idWebUsuario',
     });
     this.hasOne(models.bizUsuarios, { as: 'bizUsuario', foreignKey: 'idWebUsuario' });
+    this.hasMany(models.webFormulariosCodigos, { as: 'codigos', foreignKey: 'idUsuario' });
   }
 
   static config(sequelize) {

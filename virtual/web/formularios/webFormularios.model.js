@@ -51,6 +51,11 @@ const Schema = {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
+  codigo: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: 0,
+  },
   headerRegistroExitoso: {
     type: DataTypes.STRING(250),
     allowNull: true,
@@ -129,6 +134,7 @@ class ExtendedModel extends Model {
       as: 'roles',
       foreignKey: 'idFormulario',
     });
+    this.hasMany(models.webFormulariosCodigos, { as: 'codigos', foreignKey: 'idFormulario' });
   }
 
   static config(sequelize) {
