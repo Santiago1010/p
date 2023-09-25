@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../config');
 
 const TABLE_NAME = 'acf_equipos';
 const MODEL_NAME = 'acfEquipos';
@@ -78,11 +79,20 @@ const Schema = {
   imagen: {
     type: DataTypes.STRING(200),
     allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('imagen');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
-  valor: {
+  precio: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
     defaultValue: 0.0,
+    field: 'valor',
   },
   depreciacion: {
     type: DataTypes.DECIMAL(10, 2),
@@ -140,6 +150,7 @@ const Schema = {
     type: DataTypes.DATE,
   },
 };
+
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });

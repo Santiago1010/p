@@ -1,5 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'acf_herramientas';
 const MODEL_NAME = 'acfHerramientas';
@@ -37,6 +38,14 @@ const Schema = {
   imagen: {
     type: DataTypes.STRING(200),
     allowNull: true,
+    get() {
+      const imageLocation = this.getDataValue('imagen');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   observacion: {
     type: DataTypes.STRING(500),
@@ -102,6 +111,12 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.acfHerramientasResponsables, { as: 'herramientasResponsables', foreignKey: 'idHerramienta' });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.acfHerramientasResponsables },
+      as: 'responsables',
+      foreignKey: 'idHerramienta',
+      otherKey: 'idEmpleado',
+    });
     this.belongsTo(models.acfHerramientasCategorias, { as: 'categoria', foreignKey: 'idCategoria' });
     this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
     this.belongsTo(models.admEmpleados, { as: 'responsableMfa', foreignKey: 'respMfa' });

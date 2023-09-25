@@ -277,6 +277,12 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleado',
       as: 'lugares',
     });
+    this.belongsToMany(models.acfHerramientas, {
+      through: 'acfHerramientasResponsables',
+      as: 'herramientas',
+      foreignKey: 'idEmpleado',
+      otherKey: 'idHerramienta',
+    });
   }
 
   static config(sequelize) {
