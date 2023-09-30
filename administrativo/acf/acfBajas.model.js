@@ -72,6 +72,12 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.acfBajasDetalle, { as: 'detalles', foreignKey: 'idBaja' });
+    this.belongsToMany(models.acfEquipos, {
+      through: { model: models.acfBajasDetalle },
+      foreignKey: 'idBaja',
+      otherKey: 'idEquipo',
+      as: 'equipos',
+    });
     this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
     this.belongsTo(models.admEmpleados, { as: 'empleadoAutoriza', foreignKey: 'idEmpleadoAutoriza' });
   }

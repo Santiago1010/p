@@ -44,6 +44,15 @@ const Schema = {
     type: DataTypes.STRING(350),
     allowNull: false,
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.getDataValue('firmaActa') ? 'Firmada' : 'Sin firmar';
+    },
+    set() {
+      throw new Error('El campo `estado` es virtual y no puede ser "seteado"');
+    },
+  },
   firmaActa: {
     type: DataTypes.STRING(350),
     allowNull: true,
@@ -77,6 +86,12 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.acfActasDetalle, { as: 'detalles', foreignKey: 'idActa' });
+    this.belongsToMany(models.acfEquipos, {
+      through: { model: models.acfActasDetalle },
+      foreignKey: 'idActa',
+      otherKey: 'idEquipo',
+      as: 'activos',
+    });
     this.belongsTo(models.admEmpleados, { as: 'empleadoActa', foreignKey: 'idEmpleadoActa' });
     this.belongsTo(models.admEmpleados, { as: 'empleadoRecibe', foreignKey: 'idEmpleadoRecibe' });
     this.belongsTo(models.admEmpleadosContrato, {

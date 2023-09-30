@@ -64,6 +64,25 @@ const Schema = {
     allowNull: true,
     field: 's_apellido',
   },
+  nombreCompleto: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const nombres = this.getDataValue('nombres');
+      const apellidos = this.getDataValue('apellidos');
+
+      const completo = `${nombres} ${apellidos}`;
+
+      var formattedString = completo.replace(/\s+/g, ' ');
+
+      formattedString = formattedString.toLowerCase();
+
+      formattedString = formattedString.replace(/(^|\s)\S/g, function (match) {
+        return match.toUpperCase();
+      });
+
+      return formattedString;
+    },
+  },
   celular: {
     type: DataTypes.STRING(20),
     allowNull: true,

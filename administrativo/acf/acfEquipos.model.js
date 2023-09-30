@@ -164,6 +164,18 @@ class ExtendedModel extends Model {
     this.hasMany(models.acfTrasladosDetalle, { as: 'trasladosDetalles', foreignKey: 'idEquipo' });
     this.hasMany(models.acfInventarioDetalle, { as: 'inventariosDetalles', foreignKey: 'idEquipo' });
     this.hasMany(models.acfSolicitudesDetalle, { as: 'solicitudesDetalles', foreignKey: 'idEquipo' });
+    this.belongsToMany(models.acfActas, {
+      through: { model: models.acfActasDetalle },
+      foreignKey: 'idEquipo',
+      otherKey: 'idActa',
+      as: 'actas',
+    });
+    this.belongsToMany(models.acfBajas, {
+      through: { model: models.acfBajasDetalle },
+      foreignKey: 'idEquipo',
+      otherKey: 'idBaja',
+      as: 'bajas',
+    });
   }
 
   static config(sequelize) {
