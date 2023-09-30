@@ -267,6 +267,59 @@ const dateSchema = (
   };
 };
 
+const dateRangeSchema = (nombrePropiedad, location, optional = true, { min, max, emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
+
+  return {
+    in: location,
+    optional: optional,
+    notEmpty,
+    custom: {
+      options: (value) => {
+        const regex = /^(\d{4}-\d{2}-\d{2})\s*[-,]\s*(\d{4}-\d{2}-\d{2})$/;
+
+        const fechas = value.match(regex);
+
+        if (!fechas) {
+          throw new Error('Formato de rango de fechas inválido');
+        }
+
+        const fechaInicio = new Date(fechas[1]).getTime();
+        const fechaFin = new Date(fechas[2]).getTime();
+
+        if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+          throw new Error('Fechas inválidas en el rango');
+        }
+
+        let mensajeMinMax = '';
+
+        if (min && fechaInicio < new Date(min).getTime()) {
+          mensajeMinMax += `La fecha inicial es menor a ${min}`;
+        }
+
+        if (max && fechaFin > new Date(max).getTime()) {
+          mensajeMinMax += mensajeMinMax !== '' ? ' y la ' : 'La ';
+
+          mensajeMinMax += `fecha final es mayor a ${max}`;
+        }
+
+        if (mensajeMinMax !== '') {
+          throw new Error(mensajeMinMax);
+        }
+
+        return true;
+      },
+    },
+  };
+};
+
 const ordenSchema = (location = 'body', optional = true, min = 1, max = 150) => {
   return {
     in: location,
@@ -367,6 +420,7 @@ module.exports = {
   intSchema,
   isInSchema,
   dateSchema,
+  dateRangeSchema,
   arraySchema,
   booleanSchema,
   boolSchema,
