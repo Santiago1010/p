@@ -16,6 +16,14 @@ const Schema = {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
+  idArea: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'acf_areas',
+      key: 'id_area',
+    },
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
@@ -37,6 +45,7 @@ class ExtendedModel extends Model {
       as: 'evaluaciones',
       foreignKey: 'idCriterio',
     });
+    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
   }
 
   static config(sequelize) {

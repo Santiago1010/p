@@ -61,9 +61,9 @@ const Schema = {
     comment: 'prioridad de la orden',
   },
   estado: {
-    type: DataTypes.ENUM('progeso', 'finalizado'),
+    type: DataTypes.ENUM('nueva', 'progeso', 'finalizado'),
     allowNull: false,
-    defaultValue: 'progeso',
+    defaultValue: 'nueva',
     comment: 'Estado de la orden de trabajo',
   },
   createdAt: {

@@ -257,6 +257,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.acfHerramientas, { as: 'herramientasMfa', foreignKey: 'respMfa' });
     this.hasMany(models.acfHerramientasResponsables, { as: 'herramientasResponsables', foreignKey: 'idEmpleado' });
     this.hasMany(models.acfSolicitudes, { as: 'solicitudes', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfSolicitudes, { as: 'solicitudesGeneradas', foreignKey: 'idEmpleadoGenera' });
     this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenesGeneradas', foreignKey: 'idEmpleadoGenera' });
     this.hasMany(models.acfSolicitudesOrdenes, {
       as: 'ordenesEjecutadas',

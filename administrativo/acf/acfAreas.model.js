@@ -48,6 +48,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.acfCategoria, { as: 'categorias', foreignKey: 'idArea' });
     this.hasMany(models.acfHerramientas, { as: 'herramientas', foreignKey: 'idArea' });
     this.hasMany(models.acfPlanMantenimiento, { as: 'planesMantenimiento', foreignKey: 'idArea' });
+    this.hasMany(models.acfSolicitudesEvaluacionCriterios, { as: 'criteriosEvaluacion', foreignKey: 'idArea' });
   }
 
   static config(sequelize) {

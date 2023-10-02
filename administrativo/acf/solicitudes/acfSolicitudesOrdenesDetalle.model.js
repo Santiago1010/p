@@ -39,6 +39,16 @@ const Schema = {
     type: DataTypes.STRING(500),
     allowNull: true,
   },
+  fechaTrabajo: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_trabajo',
+  },
+  estado: {
+    type: DataTypes.ENUM('nueva', 'progeso', 'finalizado'),
+    allowNull: false,
+    defaultValue: 'nueva',
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

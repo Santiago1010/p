@@ -21,6 +21,15 @@ const Schema = {
     },
     field: 'id_empleado',
   },
+  idEmpleadoGenera: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+    references: {
+      model: 'adm_empleados',
+      key: 'codemp',
+    },
+    field: 'id_empleado_genera',
+  },
   idAreaResp: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -68,10 +77,10 @@ const Schema = {
     },
     field: 'id_plan_mantenimiento',
   },
-  fechaPlan: {
+  fecha: {
     type: DataTypes.DATEONLY,
     allowNull: true,
-    field: 'fecha_plan',
+    field: 'fecha',
   },
   createdAt: {
     field: 'created_at',
@@ -99,6 +108,7 @@ class ExtendedModel extends Model {
     this.hasMany(models.acfSolicitudesEvaluacion, { as: 'evaluaciones', foreignKey: 'idSolicitud' });
     this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenes', foreignKey: 'idSolicitud' });
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+    this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
   }
 
   static config(sequelize) {
