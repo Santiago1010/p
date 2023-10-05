@@ -49,7 +49,7 @@ const Schema = {
     field: 'celular_instructor',
   },
   cargo: DataTypes.STRING(100),
-  biografia: DataTypes.STRING(250),
+  biografia: DataTypes.STRING(500),
   foto: {
     type: DataTypes.STRING(150),
     get() {

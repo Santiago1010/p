@@ -19,6 +19,7 @@ const Schema = {
       key: 'id_usuario',
     },
     field: 'id_usuario',
+    unique: 'usuario_evento_UN',
   },
   idEvento: {
     type: DataTypes.INTEGER,
@@ -28,61 +29,29 @@ const Schema = {
       key: 'id_eventos',
     },
     field: 'id_evento',
+    unique: ['usuario_evento_UN', 'email_evento_UN'],
   },
-  timemodified: {
-    type: DataTypes.BIGINT,
-    allowNull: true,
-  },
-  vista: {
-    type: DataTypes.STRING(20),
-    allowNull: true,
-  },
-  joinTime: {
-    type: DataTypes.DATE,
-    allowNull: true,
-    field: 'join_time',
-  },
-  leaveTime: {
-    type: DataTypes.DATE,
-    allowNull: true,
-    field: 'leave_time',
-  },
-  leaveReason: {
+  nombre: {
     type: DataTypes.STRING(200),
     allowNull: true,
-    field: 'leave_reason',
+    comment: 'Nombre del usuario desde Zoom',
   },
-  location: {
+  email: {
     type: DataTypes.STRING(200),
     allowNull: true,
+    comment: 'Email del usuario desde Zoom',
+    unique: 'email_evento_UN',
   },
-  ipAddress: {
-    type: DataTypes.STRING(200),
-    allowNull: true,
-    field: 'ip_address',
+  tipo: {
+    type: DataTypes.ENUM('enVivo', 'grabacion'),
+    allowNull: false,
+    defaultValue: 'enVivo',
+    comment: 'Tipo de asistencia del usuario al evento',
   },
-  networkType: {
-    type: DataTypes.STRING(200),
+  tiempo: {
+    type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'network_type',
-  },
-  userName: {
-    type: DataTypes.STRING(200),
-    allowNull: true,
-    field: 'user_name',
-  },
-  device: {
-    type: DataTypes.STRING(200),
-    allowNull: true,
-  },
-  uuid: {
-    type: DataTypes.STRING(200),
-    allowNull: true,
-  },
-  meetDate: {
-    type: DataTypes.STRING(200),
-    allowNull: true,
-    field: 'meet_date',
+    comment: 'Tiempo en reunion - segundos',
   },
   estado: {
     type: DataTypes.INTEGER,

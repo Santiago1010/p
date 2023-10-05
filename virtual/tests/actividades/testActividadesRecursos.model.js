@@ -50,6 +50,11 @@ const Schema = {
       return null;
     },
   },
+  formato: {
+    type: DataTypes.ENUM('video', 'imagen', 'documento'),
+    allowNull: true,
+    comment: 'Formato de recurso Audiovisual para tipo de actividad audioVisual',
+  },
   idCurso: {
     type: DataTypes.INTEGER,
     allowNull: true,

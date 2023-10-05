@@ -31,10 +31,16 @@ const Schema = {
     field: 'id_usuario_empresa',
   },
   progreso: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: 0,
-    comment: '0: pendiente, 1: completado',
+    comment: '0: pendiente, 1: progreso, 2: completado',
+  },
+  progresoString: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.progreso == 0 ? 'pendiente' : this.progreso == 1 ? 'progreso' : 'completado';
+    },
   },
   puntaje: {
     type: DataTypes.DECIMAL(10, 2),
