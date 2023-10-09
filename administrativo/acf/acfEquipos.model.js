@@ -36,7 +36,7 @@ const Schema = {
   },
   serial: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
   },
   idArea: {
     type: DataTypes.INTEGER,
@@ -101,7 +101,7 @@ const Schema = {
   },
   fechaCaducidad: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
+    allowNull: true,
     field: 'fecha_caducidad',
   },
   fechaGarantia: {
@@ -175,6 +175,12 @@ class ExtendedModel extends Model {
       foreignKey: 'idEquipo',
       otherKey: 'idBaja',
       as: 'bajas',
+    });
+    this.belongsToMany(models.acfSolicitudes, {
+      through: { model: models.acfSolicitudesDetalle },
+      foreignKey: 'idEquipo',
+      otherKey: 'idSolicitud',
+      as: 'solicitudes',
     });
   }
 

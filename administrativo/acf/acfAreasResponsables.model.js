@@ -32,6 +32,11 @@ const Schema = {
     field: 'id_empleado',
     unique: 'acf_areas_responsable_UN',
   },
+  principal: {
+    type: DataTypes.TINYINT,
+    allowNull: true,
+    defaultValue: null,
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

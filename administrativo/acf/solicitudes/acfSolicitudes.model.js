@@ -41,7 +41,7 @@ const Schema = {
   },
   tipo: {
     type: DataTypes.ENUM(
-      'desistalacion',
+      'desinstalacion',
       'instalacion',
       'correctivo',
       'preventivo',
@@ -105,6 +105,12 @@ class ExtendedModel extends Model {
     });
     this.belongsTo(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idAreaResp' });
     this.hasMany(models.acfSolicitudesDetalle, { as: 'detalles', foreignKey: 'idSolicitud' });
+    this.belongsToMany(models.acfEquipos, {
+      through: { model: models.acfSolicitudesDetalle },
+      foreignKey: 'idSolicitud',
+      otherKey: 'idEquipo',
+      as: 'equipos',
+    });
     this.hasMany(models.acfSolicitudesEvaluacion, { as: 'evaluaciones', foreignKey: 'idSolicitud' });
     this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenes', foreignKey: 'idSolicitud' });
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });

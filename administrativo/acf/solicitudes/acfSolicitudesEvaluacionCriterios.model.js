@@ -23,6 +23,7 @@ const Schema = {
       model: 'acf_areas',
       key: 'id_area',
     },
+    field: 'id_area',
   },
   createdAt: {
     field: 'created_at',
