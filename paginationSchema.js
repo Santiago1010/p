@@ -1,4 +1,12 @@
 const limitPageSchema = {
+  search: {
+    in: 'query',
+    optional: true,
+    isString: {
+      errorMessage: `search debe ser una cadena de texto`,
+      bail: true,
+    },
+  },
   limit: {
     in: 'query',
     optional: true,
