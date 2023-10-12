@@ -5,7 +5,7 @@ class ValidatePermission {
     const urlWithoutQueryParams = this.deleteQueryParams(urlWithId);
 
     // Elimina ul slash / si queda al final de los reemplazos anteriores y despues de reemplazar la version
-    const urlToSearch = this.replaceVersion(urlWithoutQueryParams).replace(/\/$/, '');
+    const urlToSearch = this.replaceVersion(urlWithoutQueryParams).replace(/\/$/, '').trim();
 
     const tieneRestriccion = await permisosApiOpciones.findOne({
       attributes: ['idPermiso'],
