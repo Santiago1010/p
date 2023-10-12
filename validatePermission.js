@@ -1,8 +1,11 @@
 const { permisosApiOpciones, permisosApiOpcionesUsuarios } = require('./../database/config').sequelize.models;
 class ValidatePermission {
   static async validateRoute(url, method, idUsuario) {
-    const urlWithId = await this.replaceParamsWithId(url);
-    const urlToSearch = await this.replaceVersion(urlWithId);
+    const urlWithId = this.replaceParamsWithId(url);
+    const urlWithoutQueryParams = this.deleteQueryParams(urlWithId);
+
+    // Elimina ul slash / si queda al final de los reemplazos anteriores y despues de reemplazar la version
+    const urlToSearch = this.replaceVersion(urlWithoutQueryParams).replace(/\/$/, '');
 
     const tieneRestriccion = await permisosApiOpciones.findOne({
       attributes: ['idPermiso'],
@@ -27,7 +30,7 @@ class ValidatePermission {
     return usuarioTienePermiso ? true : false;
   }
 
-  static async replaceParamsWithId(url) {
+  static replaceParamsWithId(url) {
     const paramRegex = /\/(\d+)(?=\/|$)/g;
     const replacedUrl = url.replace(paramRegex, '/:id');
 
@@ -43,6 +46,13 @@ class ValidatePermission {
     }
 
     return url;
+  }
+
+  static deleteQueryParams(url) {
+    const paramRegex = /\?.*$/;
+    const replacedUrl = url.replace(paramRegex, '');
+
+    return replacedUrl;
   }
 }
 
