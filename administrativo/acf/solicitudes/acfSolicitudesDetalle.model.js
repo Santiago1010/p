@@ -49,6 +49,7 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
     this.belongsTo(models.acfEquipos, { as: 'equipo', foreignKey: 'idEquipo' });
+    this.hasMany(models.acfSolicitudesOrdenesDetalle, { as: 'ordenesDetalle', foreignKey: 'idSolicitudDetalle' });
   }
 
   static config(sequelize) {
