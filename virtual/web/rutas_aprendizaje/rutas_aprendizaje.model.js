@@ -78,6 +78,10 @@ class ExtendedModel extends Model {
       as: 'suscripciones',
       foreignKey: 'idRutaAprendizaje',
     });
+    this.hasMany(models.webRutasAprendizajeCursos, {
+      as: 'rutasCursos',
+      foreignKey: 'idRutaAprendizaje',
+    });
     this.belongsToMany(models.webCursos, {
       through: { model: models.webRutasAprendizajeCursos },
       as: 'cursos',

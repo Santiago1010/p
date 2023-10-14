@@ -119,7 +119,7 @@ const Schema = {
   },
   estado: {
     type: DataTypes.TINYINT.UNSIGNED,
-    defaultValue: 2,
+    defaultValue: 1,
     allowNull: false,
     comment: '0:Inactivo, 1:Activo, 2:No publicado',
   },
@@ -168,11 +168,10 @@ const Schema = {
     defaultValue: 'Propio',
     field: 'origen_curso',
   },
-  fechaCurso: {
+  fechaLanzamiento: {
     type: DataTypes.DATE,
     allowNull: false,
     field: 'fecha_curso',
-    defaultValue: new Date(),
   },
   fechaAdd: {
     type: DataTypes.DATE,
