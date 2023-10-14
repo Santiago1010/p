@@ -85,6 +85,11 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
     this.hasMany(models.acfSolicitudesOrdenesDetalle, { as: 'detalles', foreignKey: 'idSolicitudOrden' });
+    this.belongsToMany(models.acfSolicitudesDetalle, {
+      through: { model: models.acfSolicitudesOrdenesDetalle },
+      foreignKey: 'idSolicitudOrden',
+      as: 'solicitudesDetalle',
+    });
     this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
     this.belongsTo(models.admEmpleados, { as: 'empleadoEjecuta', foreignKey: 'idEmpleadoEjecuta' });
     this.belongsTo(models.ctbProveedores, { as: 'proveedor', foreignKey: 'idProveedor' });

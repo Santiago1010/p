@@ -50,6 +50,11 @@ class ExtendedModel extends Model {
     this.belongsTo(models.acfSolicitudes, { as: 'solicitud', foreignKey: 'idSolicitud' });
     this.belongsTo(models.acfEquipos, { as: 'equipo', foreignKey: 'idEquipo' });
     this.hasMany(models.acfSolicitudesOrdenesDetalle, { as: 'ordenesDetalle', foreignKey: 'idSolicitudDetalle' });
+    this.belongsToMany(models.acfSolicitudesOrdenes, {
+      through: { model: models.acfSolicitudesOrdenesDetalle },
+      foreignKey: 'idSolicitudDetalle',
+      as: 'ordenes',
+    });
   }
 
   static config(sequelize) {
