@@ -58,7 +58,7 @@ class ExtendedModel extends Model {
       through: { model: models.acfInventarioDetalle },
       foreignKey: 'idInventario',
       otherKey: 'idEquipo',
-      as: 'equipos',
+      as: 'equiposInventariados',
     });
     this.belongsTo(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idAreaResp' });
     this.belongsToMany(models.admEmpleados, {
