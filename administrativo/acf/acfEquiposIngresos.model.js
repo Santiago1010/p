@@ -1,40 +1,42 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'acf_herramientas_responsables';
-const MODEL_NAME = 'acfHerramientasResponsables';
+const TABLE_NAME = 'acf_equipos_ingresos';
+const MODEL_NAME = 'acfEquiposIngresos';
 
 const Schema = {
-  idAreaResponsable: {
+  id: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_area_resp',
+    field: 'id',
   },
-  idArea: {
+  idEquipo: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'acfAreas',
-      key: 'idArea',
+      model: 'acfEquipos',
+      key: 'idEquipo',
     },
-    field: 'id_area',
+    field: 'id_equipo',
+  },
+  cantidad: {
+    type: DataTypes.INTEGER(11),
+    allowNull: false,
   },
   idEmpleado: {
     type: DataTypes.STRING(30),
-    allowNull: false,
     references: {
-      model: 'adm_empleados',
+      model: 'admEmpleados',
       key: 'codemp',
     },
     field: 'id_empleado',
   },
-  principal: {
-    type: DataTypes.TINYINT,
-    field: 'principal',
-    defaultValue: null,
-    allowNull: true,
+  fechaIngreso: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+    field: 'fecha_ingreso',
   },
   createdAt: {
     field: 'created_at',
@@ -54,9 +56,8 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
-    this.belongsTo(models.acfHerramientas, { as: 'herramienta', foreignKey: 'idHerramienta' });
-    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+    this.belongsTo(models.acfEquipos, { foreignKey: 'idEquipo' });
+    this.belongsTo(models.admEmpleados, { foreignKey: 'idEmpleado' });
   }
 
   static config(sequelize) {
