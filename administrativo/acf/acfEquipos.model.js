@@ -167,7 +167,6 @@ class ExtendedModel extends Model {
     this.belongsToMany(models.acfActas, {
       through: { model: models.acfActasDetalle },
       foreignKey: 'idEquipo',
-      otherKey: 'idActa',
       as: 'actas',
     });
     this.belongsToMany(models.acfBajas, {
