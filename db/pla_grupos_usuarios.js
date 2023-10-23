@@ -1,29 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_ordenes',
+    'pla_grupos_usuarios',
     {
-      id_solicitud_orden: {
+      id_grupo_usuario: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_solicitud: {
+      id_grupo: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'acf_solicitudes',
-          key: 'id_solicitud',
+          model: 'pla_grupos',
+          key: 'id_grupo',
         },
       },
-      tipo: {
-        type: DataTypes.ENUM('interno', 'externo'),
-        allowNull: false,
-        defaultValue: 'interno',
-        comment: 'Tipo de persona ejecutar la orden',
-      },
-      id_empleado_genera: {
+      id_empleado: {
         type: DataTypes.STRING(30),
         allowNull: false,
         references: {
@@ -31,31 +25,21 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codemp',
         },
       },
-      id_empleado_ejecuta: {
-        type: DataTypes.STRING(30),
-        allowNull: true,
+      id_rol: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
-          model: 'adm_empleados',
-          key: 'codemp',
+          model: 'pla_roles',
+          key: 'id_rol',
         },
       },
-      id_proveedor: {
+      id_anio: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'ctb_proveedores',
+          model: 'config_anios',
           key: 'id',
         },
-      },
-      prioridad: {
-        type: DataTypes.ENUM('alto', 'medio', 'bajo'),
-        allowNull: false,
-        defaultValue: 'medio',
-      },
-      estado: {
-        type: DataTypes.ENUM('nueva', 'progreso', 'finalizado'),
-        allowNull: false,
-        defaultValue: 'nueva',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -74,34 +58,35 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_ordenes',
+      tableName: 'pla_grupos_usuarios',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_solicitud_orden' }],
+          fields: [{ name: 'id_grupo_usuario' }],
         },
         {
-          name: 'id_solicitud',
+          name: 'pla_grupos_usuarios_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_solicitud' }],
+          fields: [{ name: 'id_grupo' }, { name: 'id_empleado' }, { name: 'id_anio' }],
         },
         {
-          name: 'id_empleado_genera',
+          name: 'id_empleado',
           using: 'BTREE',
-          fields: [{ name: 'id_empleado_genera' }],
+          fields: [{ name: 'id_empleado' }],
         },
         {
-          name: 'id_empleado_ejecuta',
+          name: 'id_rol',
           using: 'BTREE',
-          fields: [{ name: 'id_empleado_ejecuta' }],
+          fields: [{ name: 'id_rol' }],
         },
         {
-          name: 'id_proveedor',
+          name: 'id_anio',
           using: 'BTREE',
-          fields: [{ name: 'id_proveedor' }],
+          fields: [{ name: 'id_anio' }],
         },
       ],
     }

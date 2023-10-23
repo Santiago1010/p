@@ -22,6 +22,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0.0,
       },
+      descripcion: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
       observacion: {
         type: DataTypes.STRING(450),
         allowNull: false,
@@ -53,6 +57,18 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       fecha_autoriza: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      fecha_inicio: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      fecha_fin: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      fecha_limite: {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },

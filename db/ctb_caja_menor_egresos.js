@@ -17,6 +17,23 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id_caja_menor',
         },
       },
+      id_ingreso: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        comment: 'Relación a el ingreso (Evento) si es NULL se trata de una devolución',
+        references: {
+          model: 'ctb_caja_menor_ingresos',
+          key: 'id_ingreso',
+        },
+      },
+      id_empleado: {
+        type: DataTypes.STRING(30),
+        allowNull: true,
+        references: {
+          model: 'adm_empleados',
+          key: 'codemp',
+        },
+      },
       valor: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
@@ -38,19 +55,23 @@ module.exports = function (sequelize, DataTypes) {
       },
       documento: {
         type: DataTypes.STRING(20),
-        allowNull: false,
+        allowNull: true,
       },
       nombre: {
         type: DataTypes.STRING(150),
-        allowNull: false,
+        allowNull: true,
       },
       celular: {
         type: DataTypes.STRING(10),
-        allowNull: false,
+        allowNull: true,
       },
       firma: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: true,
+      },
+      factura: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -82,6 +103,16 @@ module.exports = function (sequelize, DataTypes) {
           name: 'id_caja_menor',
           using: 'BTREE',
           fields: [{ name: 'id_caja_menor' }],
+        },
+        {
+          name: 'ctb_caja_menor_egresos_id_ingreso_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_ingreso' }],
+        },
+        {
+          name: 'ctb_caja_menor_egresos_id_empleado_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_empleado' }],
         },
       ],
     }

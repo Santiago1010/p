@@ -10,6 +10,7 @@ var _acf_bajas_detalle = require('./acf_bajas_detalle');
 var _acf_categoria = require('./acf_categoria');
 var _acf_componentes = require('./acf_componentes');
 var _acf_equipos = require('./acf_equipos');
+var _acf_equipos_ingresos = require('./acf_equipos_ingresos');
 var _acf_herramientas = require('./acf_herramientas');
 var _acf_herramientas_categorias = require('./acf_herramientas_categorias');
 var _acf_herramientas_responsables = require('./acf_herramientas_responsables');
@@ -54,7 +55,7 @@ var _adm_funciones_cargos = require('./adm_funciones_cargos');
 var _adm_grupos = require('./adm_grupos');
 var _adm_grupos_integrantes = require('./adm_grupos_integrantes');
 var _adm_insumos_inventarios = require('./adm_insumos_inventarios');
-var _adm_insumos_invetarios_detalle = require('./adm_insumos_invetarios_detalle');
+var _adm_insumos_inventarios_detalle = require('./adm_insumos_inventarios_detalle');
 var _adm_insumos_lugares = require('./adm_insumos_lugares');
 var _adm_insumos_lugares_responsable = require('./adm_insumos_lugares_responsable');
 var _adm_insumos_movimientos = require('./adm_insumos_movimientos');
@@ -140,6 +141,21 @@ var _pevl_evaluacion_indicador = require('./pevl_evaluacion_indicador');
 var _pevl_evaluacion_integrante = require('./pevl_evaluacion_integrante');
 var _pevl_evaluacion_programacion = require('./pevl_evaluacion_programacion');
 var _pevl_evaluacion_programacion_grupo = require('./pevl_evaluacion_programacion_grupo');
+var _pla_criterios = require('./pla_criterios');
+var _pla_evaluaciones = require('./pla_evaluaciones');
+var _pla_evaluaciones_configuracion = require('./pla_evaluaciones_configuracion');
+var _pla_evaluaciones_criterio_puntaje = require('./pla_evaluaciones_criterio_puntaje');
+var _pla_evaluaciones_indicadores = require('./pla_evaluaciones_indicadores');
+var _pla_evaluaciones_responsables = require('./pla_evaluaciones_responsables');
+var _pla_grupos = require('./pla_grupos');
+var _pla_grupos_evaluacion = require('./pla_grupos_evaluacion');
+var _pla_grupos_usuarios = require('./pla_grupos_usuarios');
+var _pla_indicador_opciones = require('./pla_indicador_opciones');
+var _pla_indicadores = require('./pla_indicadores');
+var _pla_opciones = require('./pla_opciones');
+var _pla_resdetalle = require('./pla_resdetalle');
+var _pla_resgeneral = require('./pla_resgeneral');
+var _pla_roles = require('./pla_roles');
 var _plan_negocio_archivos = require('./plan_negocio_archivos');
 var _pqrs = require('./pqrs');
 var _pqrs_respuesta = require('./pqrs_respuesta');
@@ -228,6 +244,7 @@ var _web_eventos_recursos = require('./web_eventos_recursos');
 var _web_filtros_intervalos = require('./web_filtros_intervalos');
 var _web_formularios = require('./web_formularios');
 var _web_formularios_areas = require('./web_formularios_areas');
+var _web_formularios_codigos = require('./web_formularios_codigos');
 var _web_formularios_roles = require('./web_formularios_roles');
 var _web_formularios_suscripciones = require('./web_formularios_suscripciones');
 var _web_imagenes = require('./web_imagenes');
@@ -308,6 +325,7 @@ function initModels(sequelize) {
   var acf_categoria = _acf_categoria(sequelize, DataTypes);
   var acf_componentes = _acf_componentes(sequelize, DataTypes);
   var acf_equipos = _acf_equipos(sequelize, DataTypes);
+  var acf_equipos_ingresos = _acf_equipos_ingresos(sequelize, DataTypes);
   var acf_herramientas = _acf_herramientas(sequelize, DataTypes);
   var acf_herramientas_categorias = _acf_herramientas_categorias(sequelize, DataTypes);
   var acf_herramientas_responsables = _acf_herramientas_responsables(sequelize, DataTypes);
@@ -352,7 +370,7 @@ function initModels(sequelize) {
   var adm_grupos = _adm_grupos(sequelize, DataTypes);
   var adm_grupos_integrantes = _adm_grupos_integrantes(sequelize, DataTypes);
   var adm_insumos_inventarios = _adm_insumos_inventarios(sequelize, DataTypes);
-  var adm_insumos_invetarios_detalle = _adm_insumos_invetarios_detalle(sequelize, DataTypes);
+  var adm_insumos_inventarios_detalle = _adm_insumos_inventarios_detalle(sequelize, DataTypes);
   var adm_insumos_lugares = _adm_insumos_lugares(sequelize, DataTypes);
   var adm_insumos_lugares_responsable = _adm_insumos_lugares_responsable(sequelize, DataTypes);
   var adm_insumos_movimientos = _adm_insumos_movimientos(sequelize, DataTypes);
@@ -441,6 +459,21 @@ function initModels(sequelize) {
   var pevl_evaluacion_integrante = _pevl_evaluacion_integrante(sequelize, DataTypes);
   var pevl_evaluacion_programacion = _pevl_evaluacion_programacion(sequelize, DataTypes);
   var pevl_evaluacion_programacion_grupo = _pevl_evaluacion_programacion_grupo(sequelize, DataTypes);
+  var pla_criterios = _pla_criterios(sequelize, DataTypes);
+  var pla_evaluaciones = _pla_evaluaciones(sequelize, DataTypes);
+  var pla_evaluaciones_configuracion = _pla_evaluaciones_configuracion(sequelize, DataTypes);
+  var pla_evaluaciones_criterio_puntaje = _pla_evaluaciones_criterio_puntaje(sequelize, DataTypes);
+  var pla_evaluaciones_indicadores = _pla_evaluaciones_indicadores(sequelize, DataTypes);
+  var pla_evaluaciones_responsables = _pla_evaluaciones_responsables(sequelize, DataTypes);
+  var pla_grupos = _pla_grupos(sequelize, DataTypes);
+  var pla_grupos_evaluacion = _pla_grupos_evaluacion(sequelize, DataTypes);
+  var pla_grupos_usuarios = _pla_grupos_usuarios(sequelize, DataTypes);
+  var pla_indicador_opciones = _pla_indicador_opciones(sequelize, DataTypes);
+  var pla_indicadores = _pla_indicadores(sequelize, DataTypes);
+  var pla_opciones = _pla_opciones(sequelize, DataTypes);
+  var pla_resdetalle = _pla_resdetalle(sequelize, DataTypes);
+  var pla_resgeneral = _pla_resgeneral(sequelize, DataTypes);
+  var pla_roles = _pla_roles(sequelize, DataTypes);
   var plan_negocio_archivos = _plan_negocio_archivos(sequelize, DataTypes);
   var pqrs = _pqrs(sequelize, DataTypes);
   var pqrs_respuesta = _pqrs_respuesta(sequelize, DataTypes);
@@ -529,6 +562,7 @@ function initModels(sequelize) {
   var web_filtros_intervalos = _web_filtros_intervalos(sequelize, DataTypes);
   var web_formularios = _web_formularios(sequelize, DataTypes);
   var web_formularios_areas = _web_formularios_areas(sequelize, DataTypes);
+  var web_formularios_codigos = _web_formularios_codigos(sequelize, DataTypes);
   var web_formularios_roles = _web_formularios_roles(sequelize, DataTypes);
   var web_formularios_suscripciones = _web_formularios_suscripciones(sequelize, DataTypes);
   var web_imagenes = _web_imagenes(sequelize, DataTypes);
@@ -647,6 +681,11 @@ function initModels(sequelize) {
   acf_areas.hasMany(acf_herramientas, { as: 'acf_herramienta', foreignKey: 'id_area' });
   acf_plan_mantenimiento.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
   acf_areas.hasMany(acf_plan_mantenimiento, { as: 'acf_plan_mantenimientos', foreignKey: 'id_area' });
+  acf_solicitudes_evaluacion_criterios.belongsTo(acf_areas, { as: 'id_area_acf_area', foreignKey: 'id_area' });
+  acf_areas.hasMany(acf_solicitudes_evaluacion_criterios, {
+    as: 'acf_solicitudes_evaluacion_criterios',
+    foreignKey: 'id_area',
+  });
   acf_inventario.belongsTo(acf_areas_responsables, {
     as: 'id_area_resp_acf_areas_responsable',
     foreignKey: 'id_area_resp',
@@ -667,6 +706,8 @@ function initModels(sequelize) {
   acf_equipos.hasMany(acf_bajas_detalle, { as: 'acf_bajas_detalles', foreignKey: 'id_equipo' });
   acf_componentes.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
   acf_equipos.hasMany(acf_componentes, { as: 'acf_componentes', foreignKey: 'id_equipo' });
+  acf_equipos_ingresos.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
+  acf_equipos.hasMany(acf_equipos_ingresos, { as: 'acf_equipos_ingresos', foreignKey: 'id_equipo' });
   acf_inventario_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
   acf_equipos.hasMany(acf_inventario_detalle, { as: 'acf_inventario_detalles', foreignKey: 'id_equipo' });
   acf_movimientos_detalle.belongsTo(acf_equipos, { as: 'id_equipo_acf_equipo', foreignKey: 'id_equipo' });
@@ -833,6 +874,8 @@ function initModels(sequelize) {
   adm_empleados.hasMany(acf_bajas, { as: 'id_empleado_autoriza_acf_bajas', foreignKey: 'id_empleado_autoriza' });
   acf_equipos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
   adm_empleados.hasMany(acf_equipos, { as: 'acf_equipos', foreignKey: 'id_empleado' });
+  acf_equipos_ingresos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(acf_equipos_ingresos, { as: 'acf_equipos_ingresos', foreignKey: 'id_empleado' });
   acf_herramientas.belongsTo(adm_empleados, { as: 'resp_mfa_adm_empleado', foreignKey: 'resp_mfa' });
   adm_empleados.hasMany(acf_herramientas, { as: 'acf_herramienta', foreignKey: 'resp_mfa' });
   acf_herramientas_responsables.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
@@ -844,6 +887,11 @@ function initModels(sequelize) {
   adm_empleados.hasMany(acf_movimientos, { as: 'acf_movimientos', foreignKey: 'id_empleado' });
   acf_solicitudes.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
   adm_empleados.hasMany(acf_solicitudes, { as: 'acf_solicitudes', foreignKey: 'id_empleado' });
+  acf_solicitudes.belongsTo(adm_empleados, { as: 'id_empleado_genera_adm_empleado', foreignKey: 'id_empleado_genera' });
+  adm_empleados.hasMany(acf_solicitudes, {
+    as: 'id_empleado_genera_acf_solicitudes',
+    foreignKey: 'id_empleado_genera',
+  });
   acf_solicitudes_ordenes.belongsTo(adm_empleados, {
     as: 'id_empleado_genera_adm_empleado',
     foreignKey: 'id_empleado_genera',
@@ -896,6 +944,8 @@ function initModels(sequelize) {
     as: 'crm_propuestas_responsables',
     foreignKey: 'id_responsable',
   });
+  ctb_caja_menor_egresos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(ctb_caja_menor_egresos, { as: 'ctb_caja_menor_egresos', foreignKey: 'id_empleado' });
   ctb_caja_menor_ingresos.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
   adm_empleados.hasMany(ctb_caja_menor_ingresos, { as: 'ctb_caja_menor_ingresos', foreignKey: 'id_empleado' });
   ctb_caja_menor_ingresos.belongsTo(adm_empleados, {
@@ -965,6 +1015,17 @@ function initModels(sequelize) {
   adm_empleados.hasMany(evl_autempleados, { as: 'evl_autempleados', foreignKey: 'codevld' });
   gnr_parametros_usuarios.belongsTo(adm_empleados, { as: 'codemp_adm_empleado', foreignKey: 'codemp' });
   adm_empleados.hasMany(gnr_parametros_usuarios, { as: 'gnr_parametros_usuarios', foreignKey: 'codemp' });
+  pla_evaluaciones_responsables.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(pla_evaluaciones_responsables, {
+    as: 'pla_evaluaciones_responsables',
+    foreignKey: 'id_empleado',
+  });
+  pla_grupos_usuarios.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
+  adm_empleados.hasMany(pla_grupos_usuarios, { as: 'pla_grupos_usuarios', foreignKey: 'id_empleado' });
+  pla_resgeneral.belongsTo(adm_empleados, { as: 'id_evaluado_adm_empleado', foreignKey: 'id_evaluado' });
+  adm_empleados.hasMany(pla_resgeneral, { as: 'pla_resgenerals', foreignKey: 'id_evaluado' });
+  pla_resgeneral.belongsTo(adm_empleados, { as: 'id_evaluador_adm_empleado', foreignKey: 'id_evaluador' });
+  adm_empleados.hasMany(pla_resgeneral, { as: 'id_evaluador_pla_resgenerals', foreignKey: 'id_evaluador' });
   pqrs.belongsTo(adm_empleados, { as: 'id_empleado_adm_empleado', foreignKey: 'id_empleado' });
   adm_empleados.hasMany(pqrs, { as: 'pqrs', foreignKey: 'id_empleado' });
   usuarios.belongsTo(adm_empleados, { as: 'codemp_adm_empleado', foreignKey: 'codemp' });
@@ -1007,12 +1068,12 @@ function initModels(sequelize) {
     as: 'pevl_evaluacion_integrantes',
     foreignKey: 'id_integrante',
   });
-  adm_insumos_invetarios_detalle.belongsTo(adm_insumos_inventarios, {
+  adm_insumos_inventarios_detalle.belongsTo(adm_insumos_inventarios, {
     as: 'id_inventario_adm_insumos_inventario',
     foreignKey: 'id_inventario',
   });
-  adm_insumos_inventarios.hasMany(adm_insumos_invetarios_detalle, {
-    as: 'adm_insumos_invetarios_detalles',
+  adm_insumos_inventarios.hasMany(adm_insumos_inventarios_detalle, {
+    as: 'adm_insumos_inventarios_detalles',
     foreignKey: 'id_inventario',
   });
   adm_insumos_inventarios.belongsTo(adm_insumos_lugares, { as: 'id_lugar_adm_insumos_lugare', foreignKey: 'id_lugar' });
@@ -1067,12 +1128,12 @@ function initModels(sequelize) {
     as: 'adm_insumos_ordenes_detalles',
     foreignKey: 'id_orden',
   });
-  adm_insumos_invetarios_detalle.belongsTo(adm_insumos_productos, {
+  adm_insumos_inventarios_detalle.belongsTo(adm_insumos_productos, {
     as: 'id_producto_adm_insumos_producto',
     foreignKey: 'id_producto',
   });
-  adm_insumos_productos.hasMany(adm_insumos_invetarios_detalle, {
-    as: 'adm_insumos_invetarios_detalles',
+  adm_insumos_productos.hasMany(adm_insumos_inventarios_detalle, {
+    as: 'adm_insumos_inventarios_detalles',
     foreignKey: 'id_producto',
   });
   adm_insumos_movimientos_detalle.belongsTo(adm_insumos_productos, {
@@ -1176,6 +1237,13 @@ function initModels(sequelize) {
   config_anios.hasMany(adm_grupos, { as: 'adm_grupos', foreignKey: 'id_anio' });
   config_periodo.belongsTo(config_anios, { as: 'id_anio_config_anio', foreignKey: 'id_anio' });
   config_anios.hasMany(config_periodo, { as: 'config_periodos', foreignKey: 'id_anio' });
+  pla_evaluaciones_configuracion.belongsTo(config_anios, { as: 'id_anio_config_anio', foreignKey: 'id_anio' });
+  config_anios.hasMany(pla_evaluaciones_configuracion, {
+    as: 'pla_evaluaciones_configuracions',
+    foreignKey: 'id_anio',
+  });
+  pla_grupos_usuarios.belongsTo(config_anios, { as: 'id_anio_config_anio', foreignKey: 'id_anio' });
+  config_anios.hasMany(pla_grupos_usuarios, { as: 'pla_grupos_usuarios', foreignKey: 'id_anio' });
   matricula_familiares.belongsTo(config_ciudades, {
     as: 'ident_expedicion_config_ciudade',
     foreignKey: 'ident_expedicion',
@@ -1214,6 +1282,11 @@ function initModels(sequelize) {
     as: 'ctb_caja_menor_responsables',
     foreignKey: 'id_caja_menor',
   });
+  ctb_caja_menor_egresos.belongsTo(ctb_caja_menor_ingresos, {
+    as: 'id_ingreso_ctb_caja_menor_ingreso',
+    foreignKey: 'id_ingreso',
+  });
+  ctb_caja_menor_ingresos.hasMany(ctb_caja_menor_egresos, { as: 'ctb_caja_menor_egresos', foreignKey: 'id_ingreso' });
   ctb_compras_ordenes_entrega.belongsTo(ctb_compras_ordenes, {
     as: 'id_orden_compra_ctb_compras_ordene',
     foreignKey: 'id_orden_compra',
@@ -1536,6 +1609,88 @@ function initModels(sequelize) {
     as: 'pevl_evaluacion_integrantes',
     foreignKey: 'id_programacion_grupo',
   });
+  pla_evaluaciones_criterio_puntaje.belongsTo(pla_criterios, {
+    as: 'id_criterio_pla_criterio',
+    foreignKey: 'id_criterio',
+  });
+  pla_criterios.hasMany(pla_evaluaciones_criterio_puntaje, {
+    as: 'pla_evaluaciones_criterio_puntajes',
+    foreignKey: 'id_criterio',
+  });
+  pla_indicadores.belongsTo(pla_criterios, { as: 'id_criterio_pla_criterio', foreignKey: 'id_criterio' });
+  pla_criterios.hasMany(pla_indicadores, { as: 'pla_indicadores', foreignKey: 'id_criterio' });
+  pla_evaluaciones_configuracion.belongsTo(pla_evaluaciones, {
+    as: 'id_evaluacion_pla_evaluacione',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones.hasMany(pla_evaluaciones_configuracion, {
+    as: 'pla_evaluaciones_configuracions',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones_criterio_puntaje.belongsTo(pla_evaluaciones, {
+    as: 'id_evaluacion_pla_evaluacione',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones.hasMany(pla_evaluaciones_criterio_puntaje, {
+    as: 'pla_evaluaciones_criterio_puntajes',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones_indicadores.belongsTo(pla_evaluaciones, {
+    as: 'id_evaluacion_pla_evaluacione',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones.hasMany(pla_evaluaciones_indicadores, {
+    as: 'pla_evaluaciones_indicadores',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones_responsables.belongsTo(pla_evaluaciones, {
+    as: 'id_evaluacion_pla_evaluacione',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_evaluaciones.hasMany(pla_evaluaciones_responsables, {
+    as: 'pla_evaluaciones_responsables',
+    foreignKey: 'id_evaluacion',
+  });
+  pla_grupos_evaluacion.belongsTo(pla_evaluaciones_configuracion, {
+    as: 'id_configuracion_pla_evaluaciones_configuracion',
+    foreignKey: 'id_configuracion',
+  });
+  pla_evaluaciones_configuracion.hasMany(pla_grupos_evaluacion, {
+    as: 'pla_grupos_evaluacions',
+    foreignKey: 'id_configuracion',
+  });
+  pla_grupos_evaluacion.belongsTo(pla_grupos, { as: 'id_grupo_pla_grupo', foreignKey: 'id_grupo' });
+  pla_grupos.hasMany(pla_grupos_evaluacion, { as: 'pla_grupos_evaluacions', foreignKey: 'id_grupo' });
+  pla_grupos_usuarios.belongsTo(pla_grupos, { as: 'id_grupo_pla_grupo', foreignKey: 'id_grupo' });
+  pla_grupos.hasMany(pla_grupos_usuarios, { as: 'pla_grupos_usuarios', foreignKey: 'id_grupo' });
+  pla_resgeneral.belongsTo(pla_grupos_evaluacion, {
+    as: 'id_eval_grupos_pla_grupos_evaluacion',
+    foreignKey: 'id_eval_grupos',
+  });
+  pla_grupos_evaluacion.hasMany(pla_resgeneral, { as: 'pla_resgenerals', foreignKey: 'id_eval_grupos' });
+  pla_resdetalle.belongsTo(pla_indicador_opciones, {
+    as: 'id_indicador_opcion_pla_indicador_opcione',
+    foreignKey: 'id_indicador_opcion',
+  });
+  pla_indicador_opciones.hasMany(pla_resdetalle, { as: 'pla_resdetalles', foreignKey: 'id_indicador_opcion' });
+  pla_evaluaciones_indicadores.belongsTo(pla_indicadores, {
+    as: 'id_indicador_pla_indicadore',
+    foreignKey: 'id_indicador',
+  });
+  pla_indicadores.hasMany(pla_evaluaciones_indicadores, {
+    as: 'pla_evaluaciones_indicadores',
+    foreignKey: 'id_indicador',
+  });
+  pla_indicador_opciones.belongsTo(pla_indicadores, { as: 'id_indicador_pla_indicadore', foreignKey: 'id_indicador' });
+  pla_indicadores.hasMany(pla_indicador_opciones, { as: 'pla_indicador_opciones', foreignKey: 'id_indicador' });
+  pla_indicadores.belongsTo(pla_indicadores, { as: 'depende_pla_indicadore', foreignKey: 'depende' });
+  pla_indicadores.hasMany(pla_indicadores, { as: 'pla_indicadores', foreignKey: 'depende' });
+  pla_indicador_opciones.belongsTo(pla_opciones, { as: 'id_opcion_pla_opcione', foreignKey: 'id_opcion' });
+  pla_opciones.hasMany(pla_indicador_opciones, { as: 'pla_indicador_opciones', foreignKey: 'id_opcion' });
+  pla_resdetalle.belongsTo(pla_resgeneral, { as: 'id_resgeneral_pla_resgeneral', foreignKey: 'id_resgeneral' });
+  pla_resgeneral.hasMany(pla_resdetalle, { as: 'pla_resdetalles', foreignKey: 'id_resgeneral' });
+  pla_grupos_usuarios.belongsTo(pla_roles, { as: 'id_rol_pla_role', foreignKey: 'id_rol' });
+  pla_roles.hasMany(pla_grupos_usuarios, { as: 'pla_grupos_usuarios', foreignKey: 'id_rol' });
   pqrs_respuesta.belongsTo(pqrs, { as: 'pqr', foreignKey: 'pqrs_id' });
   pqrs.hasMany(pqrs_respuesta, { as: 'pqrs_respuesta', foreignKey: 'pqrs_id' });
   pqrs.belongsTo(pqrs_tipo_perfil, { as: 'tipo_perfil_pqrs_tipo_perfil', foreignKey: 'tipo_perfil' });
@@ -2174,6 +2329,11 @@ function initModels(sequelize) {
   });
   web_formularios_areas.belongsTo(web_formularios, { as: 'id_formulario_web_formulario', foreignKey: 'id_formulario' });
   web_formularios.hasMany(web_formularios_areas, { as: 'web_formularios_areas', foreignKey: 'id_formulario' });
+  web_formularios_codigos.belongsTo(web_formularios, {
+    as: 'id_formulario_web_formulario',
+    foreignKey: 'id_formulario',
+  });
+  web_formularios.hasMany(web_formularios_codigos, { as: 'web_formularios_codigos', foreignKey: 'id_formulario' });
   web_formularios_roles.belongsTo(web_formularios, { as: 'id_formulario_web_formulario', foreignKey: 'id_formulario' });
   web_formularios.hasMany(web_formularios_roles, { as: 'web_formularios_roles', foreignKey: 'id_formulario' });
   web_formularios_suscripciones.belongsTo(web_formularios, {
@@ -2677,6 +2837,8 @@ function initModels(sequelize) {
   web_usuarios.hasMany(web_cursos_rating, { as: 'web_cursos_ratings', foreignKey: 'id_usuario' });
   web_eventos_asistencias.belongsTo(web_usuarios, { as: 'id_usuario_web_usuario', foreignKey: 'id_usuario' });
   web_usuarios.hasMany(web_eventos_asistencias, { as: 'web_eventos_asistencia', foreignKey: 'id_usuario' });
+  web_formularios_codigos.belongsTo(web_usuarios, { as: 'id_usuario_web_usuario', foreignKey: 'id_usuario' });
+  web_usuarios.hasMany(web_formularios_codigos, { as: 'web_formularios_codigos', foreignKey: 'id_usuario' });
   web_imagenes.belongsTo(web_usuarios, { as: 'id_web_usuario_web_usuario', foreignKey: 'id_web_usuario' });
   web_usuarios.hasMany(web_imagenes, { as: 'web_imagenes', foreignKey: 'id_web_usuario' });
   web_planes_estudio.belongsTo(web_usuarios, { as: 'id_usuario_web_usuario', foreignKey: 'id_usuario' });
@@ -2769,6 +2931,7 @@ function initModels(sequelize) {
     acf_categoria,
     acf_componentes,
     acf_equipos,
+    acf_equipos_ingresos,
     acf_herramientas,
     acf_herramientas_categorias,
     acf_herramientas_responsables,
@@ -2813,7 +2976,7 @@ function initModels(sequelize) {
     adm_grupos,
     adm_grupos_integrantes,
     adm_insumos_inventarios,
-    adm_insumos_invetarios_detalle,
+    adm_insumos_inventarios_detalle,
     adm_insumos_lugares,
     adm_insumos_lugares_responsable,
     adm_insumos_movimientos,
@@ -2899,6 +3062,21 @@ function initModels(sequelize) {
     pevl_evaluacion_integrante,
     pevl_evaluacion_programacion,
     pevl_evaluacion_programacion_grupo,
+    pla_criterios,
+    pla_evaluaciones,
+    pla_evaluaciones_configuracion,
+    pla_evaluaciones_criterio_puntaje,
+    pla_evaluaciones_indicadores,
+    pla_evaluaciones_responsables,
+    pla_grupos,
+    pla_grupos_evaluacion,
+    pla_grupos_usuarios,
+    pla_indicador_opciones,
+    pla_indicadores,
+    pla_opciones,
+    pla_resdetalle,
+    pla_resgeneral,
+    pla_roles,
     plan_negocio_archivos,
     pqrs,
     pqrs_respuesta,
@@ -2987,6 +3165,7 @@ function initModels(sequelize) {
     web_filtros_intervalos,
     web_formularios,
     web_formularios_areas,
+    web_formularios_codigos,
     web_formularios_roles,
     web_formularios_suscripciones,
     web_imagenes,

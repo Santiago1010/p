@@ -1,25 +1,21 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'pla_evaluaciones',
     {
-      id_criterio_evalua: {
+      id_evaluacion: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
       nombre: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(150),
         allowNull: false,
       },
-      id_area: {
-        type: DataTypes.INTEGER,
+      descripcion: {
+        type: DataTypes.STRING(650),
         allowNull: true,
-        references: {
-          model: 'acf_areas',
-          key: 'id_area',
-        },
       },
       created_at: {
         type: DataTypes.DATE,
@@ -38,19 +34,14 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'pla_evaluaciones',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
-        },
-        {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
-          using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_evaluacion' }],
         },
       ],
     }

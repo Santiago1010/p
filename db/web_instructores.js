@@ -42,7 +42,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       biografia: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(500),
         allowNull: true,
       },
       f_nacimiento: {

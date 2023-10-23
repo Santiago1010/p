@@ -1,25 +1,33 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'pla_resdetalle',
     {
-      id_criterio_evalua: {
+      id_resdetalle: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
+      id_resgeneral: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'pla_resgeneral',
+          key: 'id_resgeneral',
+        },
       },
-      id_area: {
+      id_indicador_opcion: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'acf_areas',
-          key: 'id_area',
+          model: 'pla_indicador_opciones',
+          key: 'id_indicador_opcion',
         },
+      },
+      respuesta: {
+        type: DataTypes.STRING(300),
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -38,19 +46,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'pla_resdetalle',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'id_resdetalle' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'id_resgeneral',
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_resgeneral' }],
+        },
+        {
+          name: 'id_indicador_opcion',
+          using: 'BTREE',
+          fields: [{ name: 'id_indicador_opcion' }],
         },
       ],
     }

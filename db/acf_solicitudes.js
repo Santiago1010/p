@@ -17,6 +17,14 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codemp',
         },
       },
+      id_empleado_genera: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        references: {
+          model: 'adm_empleados',
+          key: 'codemp',
+        },
+      },
       id_area_resp: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -27,7 +35,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       tipo: {
         type: DataTypes.ENUM(
-          'desistalacion',
+          'desinstalacion',
           'instalacion',
           'correctivo',
           'preventivo',
@@ -37,7 +45,6 @@ module.exports = function (sequelize, DataTypes) {
         ),
         allowNull: false,
         defaultValue: 'correctivo',
-        comment: 'Tipo de solicitud',
       },
       descripcion: {
         type: DataTypes.STRING(350),
@@ -61,7 +68,7 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id_plan_mantenimiento',
         },
       },
-      fecha_plan: {
+      fecha: {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
@@ -105,6 +112,11 @@ module.exports = function (sequelize, DataTypes) {
           name: 'id_plan_mantenimiento',
           using: 'BTREE',
           fields: [{ name: 'id_plan_mantenimiento' }],
+        },
+        {
+          name: 'acf_solicitudes_id_empleado_genera_foreign_idx',
+          using: 'BTREE',
+          fields: [{ name: 'id_empleado_genera' }],
         },
       ],
     }

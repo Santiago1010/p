@@ -25,6 +25,11 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codemp',
         },
       },
+      principal: {
+        type: DataTypes.TINYINT,
+        allowNull: true,
+        comment: 'Responsable del area -> 1=Si, NULL=No',
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -56,6 +61,12 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'id_area' }, { name: 'id_empleado' }],
+        },
+        {
+          name: 'area_principal_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'id_area' }, { name: 'principal' }],
         },
         {
           name: 'id_empleado',

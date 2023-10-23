@@ -79,6 +79,11 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
+      estado: {
+        type: DataTypes.ENUM('pendiente', 'firmada', 'progreso', 'entregada'),
+        allowNull: false,
+        defaultValue: 'pendiente',
+      },
       observacion_proveedor: {
         type: DataTypes.STRING(350),
         allowNull: true,

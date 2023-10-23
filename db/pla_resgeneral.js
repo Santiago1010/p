@@ -1,29 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_ordenes',
+    'pla_resgeneral',
     {
-      id_solicitud_orden: {
+      id_resgeneral: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      id_solicitud: {
+      id_eval_grupos: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'acf_solicitudes',
-          key: 'id_solicitud',
+          model: 'pla_grupos_evaluacion',
+          key: 'id_eval_grupos',
         },
       },
-      tipo: {
-        type: DataTypes.ENUM('interno', 'externo'),
-        allowNull: false,
-        defaultValue: 'interno',
-        comment: 'Tipo de persona ejecutar la orden',
-      },
-      id_empleado_genera: {
+      id_evaluado: {
         type: DataTypes.STRING(30),
         allowNull: false,
         references: {
@@ -31,31 +25,17 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codemp',
         },
       },
-      id_empleado_ejecuta: {
+      id_evaluador: {
         type: DataTypes.STRING(30),
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'adm_empleados',
           key: 'codemp',
         },
       },
-      id_proveedor: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'ctb_proveedores',
-          key: 'id',
-        },
-      },
-      prioridad: {
-        type: DataTypes.ENUM('alto', 'medio', 'bajo'),
+      puntaje_total: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 'medio',
-      },
-      estado: {
-        type: DataTypes.ENUM('nueva', 'progreso', 'finalizado'),
-        allowNull: false,
-        defaultValue: 'nueva',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -74,34 +54,30 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_ordenes',
+      tableName: 'pla_resgeneral',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_solicitud_orden' }],
+          fields: [{ name: 'id_resgeneral' }],
         },
         {
-          name: 'id_solicitud',
+          name: 'pla_resgeneral_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_solicitud' }],
+          fields: [{ name: 'id_eval_grupos' }, { name: 'id_evaluado' }, { name: 'id_evaluador' }],
         },
         {
-          name: 'id_empleado_genera',
+          name: 'id_evaluado',
           using: 'BTREE',
-          fields: [{ name: 'id_empleado_genera' }],
+          fields: [{ name: 'id_evaluado' }],
         },
         {
-          name: 'id_empleado_ejecuta',
+          name: 'id_evaluador',
           using: 'BTREE',
-          fields: [{ name: 'id_empleado_ejecuta' }],
-        },
-        {
-          name: 'id_proveedor',
-          using: 'BTREE',
-          fields: [{ name: 'id_proveedor' }],
+          fields: [{ name: 'id_evaluador' }],
         },
       ],
     }

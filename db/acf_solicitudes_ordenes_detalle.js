@@ -34,6 +34,15 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(500),
         allowNull: true,
       },
+      fecha_trabajo: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      estado: {
+        type: DataTypes.ENUM('nueva', 'progreso', 'finalizado'),
+        allowNull: false,
+        defaultValue: 'nueva',
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,

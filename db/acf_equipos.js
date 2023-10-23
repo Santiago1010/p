@@ -31,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       serial: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
       },
       id_area: {
         type: DataTypes.INTEGER,
@@ -83,8 +83,8 @@ module.exports = function (sequelize, DataTypes) {
         defaultValue: 0.0,
       },
       fecha_caducidad: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
+        type: DataTypes.DATE,
+        allowNull: true,
       },
       fecha_garantia: {
         type: DataTypes.DATEONLY,
@@ -108,7 +108,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
       },
       estado: {
-        type: DataTypes.ENUM('activo', 'prestamo', 'mantemiento', 'baja'),
+        type: DataTypes.ENUM('activo', 'prestamo', 'mantenimiento', 'baja'),
         allowNull: false,
         defaultValue: 'activo',
         comment: 'Estado actual del activo',

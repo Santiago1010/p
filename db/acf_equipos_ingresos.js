@@ -1,25 +1,38 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'acf_equipos_ingresos',
     {
-      id_criterio_evalua: {
+      id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
+      id_equipo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'acf_equipos',
+          key: 'id_equipo',
+        },
+      },
+      cantidad: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      id_area: {
-        type: DataTypes.INTEGER,
+      id_empleado: {
+        type: DataTypes.STRING(30),
         allowNull: true,
         references: {
-          model: 'acf_areas',
-          key: 'id_area',
+          model: 'adm_empleados',
+          key: 'codemp',
         },
+      },
+      fecha_ingreso: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        comment: 'Puede ser distinta a created_at si se quiere registrar otra fecha de ingreso',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -38,19 +51,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'acf_equipos_ingresos',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'id' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'id_equipo',
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_equipo' }],
+        },
+        {
+          name: 'id_empleado',
+          using: 'BTREE',
+          fields: [{ name: 'id_empleado' }],
         },
       ],
     }

@@ -1,25 +1,43 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'pla_evaluaciones_configuracion',
     {
-      id_criterio_evalua: {
+      id_configuracion: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
+      id_anio: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'config_anios',
+          key: 'id',
+        },
+      },
+      id_evaluacion: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'pla_evaluaciones',
+          key: 'id_evaluacion',
+        },
+      },
+      fecha_inicio: {
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
-      id_area: {
-        type: DataTypes.INTEGER,
+      fecha_fin_auto: {
+        type: DataTypes.DATEONLY,
         allowNull: true,
-        references: {
-          model: 'acf_areas',
-          key: 'id_area',
-        },
+        comment: 'Fecha fin de autoevaluacion',
+      },
+      fecha_fin_eva: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        comment: 'Fecha fin de evaluacion',
       },
       created_at: {
         type: DataTypes.DATE,
@@ -38,19 +56,24 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'pla_evaluaciones_configuracion',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'id_configuracion' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'id_anio',
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_anio' }],
+        },
+        {
+          name: 'id_evaluacion',
+          using: 'BTREE',
+          fields: [{ name: 'id_evaluacion' }],
         },
       ],
     }

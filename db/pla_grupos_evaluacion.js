@@ -1,24 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'pla_grupos_evaluacion',
     {
-      id_criterio_evalua: {
+      id_eval_grupos: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-      },
-      id_area: {
+      id_grupo: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'acf_areas',
-          key: 'id_area',
+          model: 'pla_grupos',
+          key: 'id_grupo',
+        },
+      },
+      id_configuracion: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'pla_evaluaciones_configuracion',
+          key: 'id_configuracion',
         },
       },
       created_at: {
@@ -38,19 +42,25 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'pla_grupos_evaluacion',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'id_eval_grupos' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'pla_grupos_evaluacion_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_grupo' }, { name: 'id_configuracion' }],
+        },
+        {
+          name: 'id_configuracion',
+          using: 'BTREE',
+          fields: [{ name: 'id_configuracion' }],
         },
       ],
     }

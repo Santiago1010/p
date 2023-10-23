@@ -28,6 +28,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
         comment: 'Para tipo audioVisual y se refiere al link del recurso',
       },
+      formato: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+        comment: 'Formato de recurso Audiovisual para tipo de actividad audioVisual',
+      },
       id_curso: {
         type: DataTypes.INTEGER,
         allowNull: true,

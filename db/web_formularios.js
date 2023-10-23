@@ -39,6 +39,12 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(200),
         allowNull: false,
       },
+      codigo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0,
+        comment: 'Determina si el formulario requiere ingreso de código de verificación',
+      },
       header_registro_exitoso: {
         type: DataTypes.STRING(250),
         allowNull: true,

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'adm_insumos_invetarios_detalle',
+    'adm_insumos_inventarios_detalle',
     {
       id_inventario_detalle: {
         autoIncrement: true,
@@ -30,6 +30,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0,
       },
+      total: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        comment: 'Cantidad total del producto en lugar a la hora de hacer el inventario',
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -47,7 +52,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'adm_insumos_invetarios_detalle',
+      tableName: 'adm_insumos_inventarios_detalle',
       timestamps: false,
       indexes: [
         {

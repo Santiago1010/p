@@ -1,24 +1,27 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'web_formularios_codigos',
     {
-      id_criterio_evalua: {
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
+      codigo: {
+        type: DataTypes.CHAR(36),
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
+      id_formulario: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'web_formularios',
+          key: 'id_formulario',
+        },
       },
-      id_area: {
+      id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'acf_areas',
-          key: 'id_area',
+          model: 'web_usuarios',
+          key: 'id_usuario',
         },
       },
       created_at: {
@@ -38,19 +41,25 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'web_formularios_codigos',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'codigo' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'codigo_formulario_usuario_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_formulario' }, { name: 'id_usuario' }],
+        },
+        {
+          name: 'id_usuario',
+          using: 'BTREE',
+          fields: [{ name: 'id_usuario' }],
         },
       ],
     }

@@ -25,6 +25,11 @@ module.exports = function (sequelize, DataTypes) {
           key: 'codemp',
         },
       },
+      principal: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        comment: 'Es el responsable principal de la herramienta',
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -56,6 +61,12 @@ module.exports = function (sequelize, DataTypes) {
           unique: true,
           using: 'BTREE',
           fields: [{ name: 'id_herramienta' }, { name: 'id_empleado' }],
+        },
+        {
+          name: 'herramienta_principal_UN',
+          unique: true,
+          using: 'BTREE',
+          fields: [{ name: 'id_herramienta' }, { name: 'principal' }],
         },
         {
           name: 'id_empleado',

@@ -1,24 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    'acf_solicitudes_evaluacion_criterios',
+    'pla_evaluaciones_responsables',
     {
-      id_criterio_evalua: {
+      id_asignacion: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-      },
-      id_area: {
+      id_evaluacion: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: 'acf_areas',
-          key: 'id_area',
+          model: 'pla_evaluaciones',
+          key: 'id_evaluacion',
+        },
+      },
+      id_empleado: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        references: {
+          model: 'adm_empleados',
+          key: 'codemp',
         },
       },
       created_at: {
@@ -38,19 +42,25 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
-      tableName: 'acf_solicitudes_evaluacion_criterios',
+      tableName: 'pla_evaluaciones_responsables',
       timestamps: false,
       indexes: [
         {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_criterio_evalua' }],
+          fields: [{ name: 'id_asignacion' }],
         },
         {
-          name: 'acf_solicitudes_evaluacion_criterios_id_area_foreign_idx',
+          name: 'pla_evaluaciones_responsables_UN',
+          unique: true,
           using: 'BTREE',
-          fields: [{ name: 'id_area' }],
+          fields: [{ name: 'id_evaluacion' }, { name: 'id_empleado' }],
+        },
+        {
+          name: 'id_empleado',
+          using: 'BTREE',
+          fields: [{ name: 'id_empleado' }],
         },
       ],
     }
