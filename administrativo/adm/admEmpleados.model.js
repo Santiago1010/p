@@ -289,6 +289,10 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleado',
       as: 'inventarios',
     });
+    this.hasMany(models.plaEvaluacionesResponsables, { as: 'evaluacionesResponsables', foreignKey: 'idEmpleado' });
+    this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
+    this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });
+    this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluador', foreignKey: 'idEvaluador' });
   }
 
   static config(sequelize) {
