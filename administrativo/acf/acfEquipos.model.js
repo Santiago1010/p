@@ -193,6 +193,11 @@ class ExtendedModel extends Model {
       otherKey: 'idInventario',
       as: 'inventarios',
     });
+    this.belongsToMany(models.acfTraslados, {
+      through: { model: models.acfTrasladosDetalle },
+      foreignKey: 'idEquipo',
+      as: 'traslados',
+    });
   }
 
   static config(sequelize) {

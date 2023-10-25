@@ -142,6 +142,11 @@ class ExtendedModel extends Model {
     this.belongsTo(models.acfUbicaciones, { as: 'ubicacionDestino', foreignKey: 'idUbicacionDestino' });
     this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
     this.belongsTo(models.admEmpleados, { as: 'empleadoRecibe', foreignKey: 'idEmpleadoRecibe' });
+    this.belongsToMany(models.acfEquipos, {
+      through: { model: models.acfTrasladosDetalle },
+      foreignKey: 'idTraslado',
+      as: 'equipos',
+    });
   }
 
   static config(sequelize) {
