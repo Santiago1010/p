@@ -170,6 +170,7 @@ class ExtendedModel extends Model {
       as: 'contratoFunciones',
     });
     this.hasMany(models.acfActas, { as: 'actas', foreignKey: 'idContratoRecibe' });
+    this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNomina', foreignKey: 'codcontrato' });
   }
 
   static config(sequelize) {

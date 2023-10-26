@@ -288,6 +288,12 @@ class ExtendedModel extends Model {
     this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluador', foreignKey: 'idEvaluador' });
+
+    this.hasMany(models.ctbNovedadCambios, { as: 'novedadesCambios', foreignKey: 'addusr' });
+    this.hasMany(models.ctbNovedadTipos, { as: 'novedadesTipos', foreignKey: 'addusr' });
+    this.hasMany(models.ctbNovedadUser, { as: 'novedadesResponsables', foreignKey: 'codusr' });
+    this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNomina', foreignKey: 'codusr' });
+    this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNominaGeneradas', foreignKey: 'addusr' });
   }
 
   static config(sequelize) {
