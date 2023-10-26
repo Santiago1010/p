@@ -284,11 +284,6 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleado',
       otherKey: 'idHerramienta',
     });
-    this.belongsToMany(models.acfInventario, {
-      through: { model: models.acfAreasResponsables },
-      foreignKey: 'idEmpleado',
-      as: 'inventarios',
-    });
     this.hasMany(models.plaEvaluacionesResponsables, { as: 'evaluacionesResponsables', foreignKey: 'idEmpleado' });
     this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });

@@ -61,11 +61,6 @@ class ExtendedModel extends Model {
       as: 'equiposInventariados',
     });
     this.belongsTo(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idAreaResp' });
-    this.belongsToMany(models.admEmpleados, {
-      through: { model: models.acfAreasResponsables },
-      foreignKey: 'idAreaResp',
-      as: 'empleado',
-    });
   }
 
   static config(sequelize) {
