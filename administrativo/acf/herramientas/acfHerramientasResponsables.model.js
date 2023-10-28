@@ -12,14 +12,14 @@ const Schema = {
     primaryKey: true,
     field: 'id_area_resp',
   },
-  idArea: {
+  idHerramienta: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'acfAreas',
-      key: 'idArea',
+      model: 'acfHerramientas',
+      key: 'idHerramienta',
     },
-    field: 'id_area',
+    field: 'id_herramienta',
   },
   idEmpleado: {
     type: DataTypes.STRING(30),
@@ -54,7 +54,6 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.acfAreas, { as: 'area', foreignKey: 'idArea' });
     this.belongsTo(models.acfHerramientas, { as: 'herramienta', foreignKey: 'idHerramienta' });
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
   }

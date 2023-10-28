@@ -246,6 +246,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleado',
     });
 
+    this.hasMany(models.admEmpleadosContrato, {
+      foreignKey: 'codusr',
+      as: 'contratos',
+    });
+
     this.hasMany(models.acfEquipos, { as: 'equipos', foreignKey: 'idEmpleado' });
     this.hasMany(models.acfActas, { as: 'actas', foreignKey: 'idEmpleadoActa' });
     this.hasMany(models.acfActas, { as: 'actasRecibidas', foreignKey: 'idEmpleadoRecibe' });
@@ -288,7 +293,6 @@ class ExtendedModel extends Model {
     this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluador', foreignKey: 'idEvaluador' });
-
     this.hasMany(models.ctbNovedadCambios, { as: 'novedadesCambios', foreignKey: 'addusr' });
     this.hasMany(models.ctbNovedadTipos, { as: 'novedadesTipos', foreignKey: 'addusr' });
     this.hasMany(models.ctbNovedadUser, { as: 'novedadesResponsables', foreignKey: 'codusr' });
