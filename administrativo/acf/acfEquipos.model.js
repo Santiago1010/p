@@ -198,6 +198,10 @@ class ExtendedModel extends Model {
       foreignKey: 'idEquipo',
       as: 'traslados',
     });
+    this.hasMany(models.acfEquiposIngresos, {
+      foreignKey: 'idEquipo',
+      as: 'historialIngresos',
+    });
   }
 
   static config(sequelize) {
