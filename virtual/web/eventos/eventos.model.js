@@ -83,8 +83,43 @@ const Schema = {
     allowNull: true,
   },
   estado: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.VIRTUAL,
+    get() {
+      const deletedAt = this.getDataValue('deletedAt');
+
+      if (deletedAt) {
+        return 'eliminado';
+      }
+      const fechaFin = this.getDataValue('fechaFin');
+      const fechaInicio = this.getDataValue('fechaInicio');
+      const today = new Date();
+      const fechaFinAsDate = new Date(fechaFin);
+      const fechaInicioAsDate = new Date(fechaInicio);
+
+      if (today.getTime() < fechaInicioAsDate.getTime()) {
+        return 'pendiente';
+      }
+
+      if (today.getTime() > fechaInicioAsDate.getTime() && today.getTime() < fechaFinAsDate.getTime()) {
+        return 'progreso';
+      }
+
+      const linkGrabacion = this.getDataValue('linkGrabacion');
+
+      if (today.getTime() > fechaFinAsDate.getTime() && !linkGrabacion) {
+        return 'sinGrabacion';
+      }
+
+      return 'finalizado';
+    },
+    set(value) {
+      throw new Error('Es un campo virtual no se puede guardar');
+    },
+  },
+  linkGrabacion: {
+    type: DataTypes.STRING(200),
     allowNull: true,
+    field: 'link_grabacion',
   },
   createdAt: {
     field: 'created_at',
@@ -99,6 +134,11 @@ const Schema = {
   deletedAt: {
     field: 'deleted_at',
     type: DataTypes.DATE,
+  },
+  deletedFor: {
+    type: DataTypes.STRING(300),
+    allowNull: true,
+    field: 'deleted_for',
   },
 };
 
