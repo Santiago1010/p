@@ -71,6 +71,78 @@ const Schema = {
     allowNull: true,
     defaultValue: null,
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const fin = this.getDataValue('fechaFin');
+      const firma = this.getDataValue('firma');
+      const validadoEn = this.getDataValue('validadoEn');
+      const fchliquidacion = this.getDataValue('fchliquidacion');
+      const usrliquidacion = this.getDataValue('usrliquidacion');
+
+      const today = new Date().getTime();
+      const fechaInicio = new Date(this.getDataValue('fechaInicio')).getTime();
+      const fechaFin = fin ? new Date(fin).getTime() : fin;
+
+      const isVigente = today >= fechaInicio && (fechaFin === null || today <= fechaFin);
+      const isActivo = firma !== null || validadoEn !== null;
+      const isLiquidado = fchliquidacion !== null && usrliquidacion !== null;
+
+      if (isLiquidado) {
+        return 'Liquidado';
+      }
+
+      if (today < fechaInicio || (!isActivo && !isLiquidado)) {
+        return 'No vigente';
+      }
+
+      if (isVigente) {
+        return isActivo ? 'Activo' : 'No vigente';
+      }
+
+      return 'Por liquidar';
+    },
+    set() {
+      throw new Error('`estado` es un campo virtual y no se le puede agregar un valor');
+    },
+  },
+  finalizacionPeriodoPrueba: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const periodoPrueba = this.getDataValue('periodoPrueba');
+
+      const duracion = {
+        año: 365 * 24 * 60 * 60 * 1000,
+        mes: 30 * 24 * 60 * 60 * 1000,
+        día: 24 * 60 * 60 * 1000,
+      };
+
+      const unidades = ['año', 'mes', 'día'];
+      const ahora = new Date();
+      const fechaFinalizacion = new Date(periodoPrueba);
+      let diferenciaEnMilisegundos = fechaFinalizacion - ahora;
+
+      if (diferenciaEnMilisegundos <= 0) {
+        return 'Finalizado';
+      }
+
+      const tiempoFaltante = unidades
+        .map((unidad) => {
+          const cantidad = Math.floor(diferenciaEnMilisegundos / duracion[unidad]);
+          diferenciaEnMilisegundos %= duracion[unidad];
+          return cantidad > 0 ? `${cantidad} ${unidad}${cantidad > 1 ? (unidad !== 'mes' ? 's' : 'es') : ''}` : '';
+        })
+        .filter(Boolean)
+        .join(', ')
+        .replace(/,([^,]*)$/, ' y$1');
+
+      //return `El período de prueba finaliza en ${tiempoFaltante}`;
+      return tiempoFaltante;
+    },
+    set() {
+      throw new Error('`finalizacionPeriodoPrueba` es un campo virtual y no se le puede agregar un valor');
+    },
+  },
   modContrato: {
     type: DataTypes.INTEGER(11),
     allowNull: true,
