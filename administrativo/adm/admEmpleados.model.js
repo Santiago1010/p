@@ -298,6 +298,12 @@ class ExtendedModel extends Model {
     this.hasMany(models.ctbNovedadUser, { as: 'novedadesResponsables', foreignKey: 'codusr' });
     this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNomina', foreignKey: 'codusr' });
     this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNominaGeneradas', foreignKey: 'addusr' });
+    this.belongsToMany(models.plaGrupos, {
+      through: { model: models.plaGruposUsuarios },
+      foreignKey: 'idEmpleado',
+      otherKey: 'idGrupo',
+      as: 'grupos',
+    });
   }
 
   static config(sequelize) {
