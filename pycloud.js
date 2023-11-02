@@ -1,5 +1,6 @@
 const pcloud = require('pcloud-sdk-js');
-const access_token = 'E1vu7ZwtyGBVjzBFYZXbNec7ZsHa0Kwwell0JHSrGcvXL9fPUvk27';
+const config = require('../config');
+const access_token = config.pcloud.accessToken;
 const typeRegularExpression = /\/(.*?)$/;
 const fs = require('fs');
 
