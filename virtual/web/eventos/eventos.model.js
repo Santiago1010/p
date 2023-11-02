@@ -121,6 +121,11 @@ const Schema = {
     allowNull: true,
     field: 'link_grabacion',
   },
+  tiempoGrabacion: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'tiempo_grabacion',
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
