@@ -35,6 +35,10 @@ const Schema = {
     allowNull: false,
     defaultValue: 0,
   },
+  total: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

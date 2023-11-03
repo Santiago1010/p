@@ -33,6 +33,15 @@ const Schema = {
     defaultValue: null,
     field: 'fecha_inicio',
   },
+  valor: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: true,
+  },
+  fechaExtension: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    field: 'fecha_extension',
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
