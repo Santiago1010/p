@@ -5,12 +5,12 @@ const TABLE_NAME = 'acf_herramientas_responsables';
 const MODEL_NAME = 'acfHerramientasResponsables';
 
 const Schema = {
-  idAreaResponsable: {
+  idAsignacion: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_area_resp',
+    field: 'id_asignacion',
   },
   idHerramienta: {
     type: DataTypes.INTEGER,
