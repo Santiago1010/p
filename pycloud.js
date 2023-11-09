@@ -116,4 +116,39 @@ const subirArchivoPcloudRuta = async (base64, categoriaRuta, uniqueIdentifier) =
 
   return { rutaArchivo, nombreArchivo, fileId: file, folderId: folder, stringDB };
 };
-module.exports = { subiArchivosPcloud, decodeBase64, subirArchivoPcloudRuta };
+
+const bajarArchivosPcloud = async (folderid, fileid) => {
+  const folderIdIsNumber = !Number.isNaN(Number(folderid));
+  const fileIdIsNumber = !Number.isNaN(Number(folderid));
+
+  if (!folderIdIsNumber || !fileIdIsNumber) {
+    throw customError('folderid y fileid deben ser números', 400);
+  }
+
+  const folderId = parseInt(folderid);
+  const fileId = parseInt(fileid);
+
+  const clientPcloud = pcloud.createClient(access_token);
+  let folderMetadata;
+
+  try {
+    folderMetadata = await clientPcloud.listfolder(folderId);
+  } catch (error) {
+    throw customError('No existe el directorio', 400);
+  }
+
+  const file = folderMetadata.contents.find((e) => e.fileid == fileId);
+
+  if (!file) {
+    throw customError('No existe el archivo', 400);
+  }
+
+  const downloadedFile = await clientPcloud.downloadfile(file.fileid, file.name);
+
+  const archivo = fs.readFileSync(downloadedFile.path);
+  fs.unlinkSync(downloadedFile.path);
+
+  return { archivo, contentType: file.contenttype, length: file.size };
+};
+
+module.exports = { subiArchivosPcloud, decodeBase64, subirArchivoPcloudRuta, bajarArchivosPcloud };
