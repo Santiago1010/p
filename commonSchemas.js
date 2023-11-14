@@ -158,13 +158,15 @@ const boolSchema = (nombrePropiedad, location = 'body', optional = true) => {
   };
 };
 
-const arraySchema = (nombrePropiedad, location, optional = true, unique = true) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+const arraySchema = (nombrePropiedad, location, optional = true, unique = true, { emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   const customSanitizer = !unique
     ? undefined
@@ -173,7 +175,7 @@ const arraySchema = (nombrePropiedad, location, optional = true, unique = true) 
       };
   return {
     in: location,
-    optional: optional,
+    optional: optional && !emptyConditional,
     notEmpty,
     isArray: {
       errorMessage: `${nombrePropiedad} debe ser un array`,
