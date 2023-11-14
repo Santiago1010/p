@@ -3,6 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'ctb_caja_menor_ingresos';
 const MODEL_NAME = 'ctbCajaMenorIngresos';
+const config = require('../../../../config');
 
 const Schema = {
   idIngreso: {
@@ -35,7 +36,7 @@ const Schema = {
     allowNull: false,
   },
   estado: {
-    type: DataTypes.ENUM('nuevo', 'aprobado', 'denegado'),
+    type: DataTypes.ENUM('nuevo', 'aprobado', 'consignado', 'denegado'),
     allowNull: false,
     defaultValue: 'nuevo',
   },
@@ -73,6 +74,25 @@ const Schema = {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: true,
     field: 'valor_aprobado',
+  },
+  compConsignacion: {
+    type: DataTypes.STRING(155),
+    allowNull: true,
+    field: 'comp_consignacion',
+    comment: 'Comprobante de consignaciòn',
+    get() {
+      const imageLocation = this.getDataValue('compConsignacion');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
+  },
+  fechaConsignacion: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_consignacion',
   },
   observacionDenegado: {
     type: DataTypes.STRING(500),
