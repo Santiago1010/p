@@ -45,7 +45,17 @@ class ExtendedModel extends Model {
       as: 'evaluacionesPuntaje',
       foreignKey: 'idEvaluacion',
     });
+    this.belongsToMany(models.plaCriterios, {
+      through: { model: models.plaEvaluacionesCriterioPuntaje },
+      as: 'criterios',
+      foreignKey: 'idEvaluacion',
+    });
     this.hasMany(models.plaEvaluacionesIndicadores, {
+      as: 'evaluacionesIndicadores',
+      foreignKey: 'idEvaluacion',
+    });
+    this.belongsToMany(models.plaIndicadores, {
+      through: { model: models.plaEvaluacionesIndicadores },
       as: 'indicadores',
       foreignKey: 'idEvaluacion',
     });

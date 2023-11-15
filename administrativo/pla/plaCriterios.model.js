@@ -38,6 +38,11 @@ class ExtendedModel extends Model {
       as: 'evaluacionesPuntaje',
       foreignKey: 'idCriterio',
     });
+    this.belongsToMany(models.plaEvaluaciones, {
+      through: { model: models.plaEvaluacionesCriterioPuntaje },
+      as: 'evaluaciones',
+      foreignKey: 'idCriterio',
+    });
   }
 
   static config(sequelize) {

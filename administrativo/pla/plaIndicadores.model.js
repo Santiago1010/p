@@ -57,6 +57,11 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.plaEvaluacionesIndicadores, { as: 'evaluacionesIndicadores', foreignKey: 'idIndicador' });
+    this.belongsToMany(models.plaEvaluaciones, {
+      through: { model: models.plaEvaluacionesIndicadores },
+      as: 'evaluaciones',
+      foreignKey: 'idIndicador',
+    });
     this.belongsTo(models.plaCriterios, { as: 'criterio', foreignKey: 'idCriterio' });
     this.hasMany(models.plaIndicadorOpciones, { as: 'opciones', foreignKey: 'idIndicador' });
     this.belongsTo(models.plaIndicadores, { as: 'indicadorPrincipal', foreignKey: 'depende' });
