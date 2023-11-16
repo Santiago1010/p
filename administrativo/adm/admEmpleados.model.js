@@ -290,6 +290,11 @@ class ExtendedModel extends Model {
       otherKey: 'idHerramienta',
     });
     this.hasMany(models.plaEvaluacionesResponsables, { as: 'evaluacionesResponsables', foreignKey: 'idEmpleado' });
+    this.belongsToMany(models.plaEvaluaciones, {
+      through: { model: models.plaEvaluacionesResponsables },
+      as: 'evaluaciones',
+      foreignKey: 'idEmpleado',
+    });
     this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });
     this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluador', foreignKey: 'idEvaluador' });

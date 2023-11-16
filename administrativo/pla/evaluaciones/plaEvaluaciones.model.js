@@ -63,6 +63,11 @@ class ExtendedModel extends Model {
       as: 'evaluacionesResponsables',
       foreignKey: 'idEvaluacion',
     });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.plaEvaluacionesResponsables },
+      as: 'responsables',
+      foreignKey: 'idEvaluacion',
+    });
   }
 
   static config(sequelize) {
