@@ -22,7 +22,7 @@ const Schema = {
     field: 'id_plan',
   },
   valor: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.DECIMAL(15, 2),
     allowNull: false,
   },
   fecha: {
