@@ -71,7 +71,7 @@ const Schema = {
     field: 'tipo_cliente',
   },
   valorVenta: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.DECIMAL(15, 2),
     allowNull: true,
     field: 'valor_venta',
   },
