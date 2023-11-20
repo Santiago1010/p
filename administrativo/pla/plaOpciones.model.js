@@ -38,6 +38,11 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.plaIndicadorOpciones, { as: 'indicadoresOpciones', foreignKey: 'idOpcion' });
+    this.belongsToMany(models.plaIndicadores, {
+      through: { model: models.plaIndicadorOpciones },
+      as: 'indicadores',
+      foreignKey: 'idOpcion',
+    });
   }
 
   static config(sequelize) {

@@ -63,7 +63,12 @@ class ExtendedModel extends Model {
       foreignKey: 'idIndicador',
     });
     this.belongsTo(models.plaCriterios, { as: 'criterio', foreignKey: 'idCriterio' });
-    this.hasMany(models.plaIndicadorOpciones, { as: 'opciones', foreignKey: 'idIndicador' });
+    this.hasMany(models.plaIndicadorOpciones, { as: 'indicadorOpciones', foreignKey: 'idIndicador' });
+    this.belongsToMany(models.plaOpciones, {
+      through: { model: models.plaIndicadorOpciones },
+      as: 'opciones',
+      foreignKey: 'idIndicador',
+    });
     this.belongsTo(models.plaIndicadores, { as: 'indicadorPrincipal', foreignKey: 'depende' });
     this.hasMany(models.plaIndicadores, { as: 'subIndicadores', foreignKey: 'depende' });
   }
