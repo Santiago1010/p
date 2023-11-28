@@ -47,6 +47,26 @@ const Schema = {
     comment: 'Fecha fin de evaluacion',
     field: 'fecha_fin_eva',
   },
+  estado: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const fechaInicio = new Date(this.getDataValue('fechaInicio')).getTime();
+      const fechaFinAuto = new Date(this.getDataValue('fechaFinAuto')).getTime();
+      const fechaFinEva = new Date(this.getDataValue('fechaFinEva')).getTime();
+      const currentDate = new Date();
+      currentDate.setUTCHours(5, 0, 0, 0);
+
+      const vigencia = {
+        puedeEvaluarPersonal: fechaInicio <= currentDate && currentDate <= fechaFinEva,
+        puedeAutoEvaluar: fechaInicio <= currentDate && currentDate <= fechaFinAuto,
+      };
+
+      return vigencia;
+    },
+    set() {
+      throw new Error(`\`estado\` es una columna virtual y no puede asignársele un valor`);
+    },
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
