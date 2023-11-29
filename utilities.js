@@ -361,6 +361,11 @@ const comparacionArreglos = (elementosActuales, elementosNuevos) => {
   return { elementosCrear, elementosEliminar };
 };
 
+const eliminarElementosRepetidosArray = (array) => {
+  const arrayLimpio = Array.from(new Set(array));
+  return [...arrayLimpio];
+};
+
 module.exports = {
   decodeBase64,
   decodeCryptoJs,
@@ -371,4 +376,5 @@ module.exports = {
   groupBy,
   saveFile,
   comparacionArreglos,
+  eliminarElementosRepetidosArray,
 };
