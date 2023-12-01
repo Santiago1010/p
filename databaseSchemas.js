@@ -51,21 +51,29 @@ const uniqueFieldSchema = (
   };
 };
 
-const stringIdArray = (nombrePropiedad, location = 'body', Model, optional = true, { min, max } = {}) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+const stringIdArray = (
+  nombrePropiedad,
+  location = 'body',
+  Model,
+  optional = true,
+  { min, max, emptyConditional } = {}
+) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
 
   return {
     in: location,
-    optional,
+    optional: emptyConditional ? undefined : optional && !emptyConditional,
     notEmpty,
     custom: {
       options: (stringArrayComma) => {
-        const array = stringArrayComma.split(',');
+        const array = stringArrayComma.replace(', ', ',').split(',');
         if (min != undefined || max != undefined) {
           if (min != undefined) {
             if (array.length < min) {
@@ -82,7 +90,7 @@ const stringIdArray = (nombrePropiedad, location = 'body', Model, optional = tru
       },
     },
     customSanitizer: {
-      options: (stringArrayComma) => stringArrayComma.split(','),
+      options: (stringArrayComma) => stringArrayComma.replace(', ', ',').split(','),
     },
   };
 };
