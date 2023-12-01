@@ -366,6 +366,10 @@ const eliminarElementosRepetidosArray = (array) => {
   return [...arrayLimpio];
 };
 
+const stringToArray = (string) => {
+  return string.replace(', ', ',').split(',');
+};
+
 module.exports = {
   decodeBase64,
   decodeCryptoJs,
@@ -377,4 +381,5 @@ module.exports = {
   saveFile,
   comparacionArreglos,
   eliminarElementosRepetidosArray,
+  stringToArray,
 };
