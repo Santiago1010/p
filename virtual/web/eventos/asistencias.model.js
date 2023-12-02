@@ -7,6 +7,7 @@ const MODEL_NAME = 'webEventosAsistencias';
 const Schema = {
   idEventoAsistencia: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     allowNull: false,
     primaryKey: true,
     field: 'id_evento_asistencia',
@@ -52,12 +53,6 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: true,
     comment: 'Tiempo en reunion - segundos',
-  },
-  estado: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: 1,
-    comment: '1 = asistion, 2 = no asistio, 3 = con excusa',
   },
   createdAt: {
     field: 'created_at',

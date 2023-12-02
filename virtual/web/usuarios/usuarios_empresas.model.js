@@ -27,10 +27,6 @@ const Schema = {
     field: 'cargo_empresa',
     type: DataTypes.STRING(100),
   },
-  idNivelActual: {
-    field: 'id_nivel_actual',
-    type: DataTypes.INTEGER,
-  },
   ultimoIngreso: {
     field: 'ultima_fecha_ingreso',
     type: DataTypes.DATEONLY,
