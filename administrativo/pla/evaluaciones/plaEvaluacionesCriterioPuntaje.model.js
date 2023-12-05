@@ -32,10 +32,6 @@ const Schema = {
   },
   porcentaje: {
     type: DataTypes.DECIMAL(10, 2),
-    get() {
-      const proncentaje = this.getDataValue('porcentaje');
-      return proncentaje ? `${proncentaje}%` : '0%';
-    },
     allowNull: false,
   },
   createdAt: {
