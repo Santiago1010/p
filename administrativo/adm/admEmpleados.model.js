@@ -309,6 +309,21 @@ class ExtendedModel extends Model {
       otherKey: 'idGrupo',
       as: 'grupos',
     });
+    this.hasOne(models.ctbProveedores, { as: 'proveedor', foreignKey: 'idEmpleado' });
+    this.hasOne(models.ctbProveedoresRespons, { as: 'responsableProveedores', foreignKey: 'idEmpleado' });
+    this.hasMany(models.ctbProveedoresSolicitudes, { as: 'solicitudesProveedor', foreignKey: 'idEmpleado' });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorGeneradas',
+      foreignKey: 'idEmpleadoGenera',
+    });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorAjustes',
+      foreignKey: 'idEmpleadoAjustes',
+    });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorAprueba',
+      foreignKey: 'idEmpleadoAprueba',
+    });
   }
 
   static config(sequelize) {

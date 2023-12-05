@@ -42,6 +42,10 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.plaEvaluacionesConfiguracion, { as: 'evaluacionesConfiguracion', foreignKey: 'idAnio' });
     this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idAnio' });
+    this.hasMany(models.ctbProveedoresSolicitudesRecurrentes, {
+      as: 'solicitudesRecurrentes',
+      foreignKey: 'idAnio',
+    });
   }
 
   static config(sequelize) {

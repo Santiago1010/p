@@ -1,34 +1,32 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'config_tipos_ident';
-const MODEL_NAME = 'configTiposIdentificacion';
+const TABLE_NAME = 'ctb_proveedores_respons';
+const MODEL_NAME = 'ctbProveedoresRespons';
 
 const Schema = {
   id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
     autoIncrement: true,
-    allowNull: false,
-  },
-  codigo: {
     type: DataTypes.INTEGER,
-    unique: true,
+    allowNull: false,
+    primaryKey: true,
   },
-  codigoEpayco: {
-    type: DataTypes.STRING(5),
-    unique: true,
-    field: 'codigo_epayco',
+  idEmpleado: {
+    type: DataTypes.STRING(30),
+    allowNull: false,
+    references: {
+      model: 'adm_empleados',
+      key: 'codemp',
+    },
+    unique: 'FK_ctb_proveedor_respons_adm_empleados',
+    field: 'id_empleado',
   },
-  nombre: {
-    type: DataTypes.STRING(80),
-    allowNull: true,
+  recurrente: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: 0,
   },
-  abreviatura: {
-    type: DataTypes.STRING(10),
-    allowNull: true,
-    field: 'abv',
-  },
+
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
@@ -44,14 +42,13 @@ const Schema = {
     type: DataTypes.DATE,
   },
 };
-
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.admEmpleados, {
-      foreignKey: 'tipide',
-      as: 'empleados',
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudes',
+      foreignKey: 'idResponsable',
     });
-    this.hasMany(models.ctbProveedores, { as: 'proveedores', foreignKey: 'idTipoIdent' });
+    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
   }
 
   static config(sequelize) {

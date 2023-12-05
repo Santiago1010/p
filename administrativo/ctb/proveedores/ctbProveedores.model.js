@@ -13,28 +13,40 @@ const Schema = {
     primaryKey: true,
   },
   tipoPersona: {
-    type: DataTypes.STRING(1),
+    type: DataTypes.ENUM('natural', 'juridica'),
     allowNull: false,
-    defaultValue: 'n',
+    defaultValue: 'natural',
     field: 'tipo_persona',
   },
-  tipoDocumento: {
+  idTipoIdent: {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'ctb_proveedores_tipos_ident',
+      model: 'config_tipos_ident',
       key: 'id',
     },
-    field: 'tipo_documento',
+    field: 'id_tipo_ident',
   },
   documento: {
-    type: DataTypes.STRING(150),
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    unique: 'documento',
+  },
+  digitoVerificacion: {
+    type: DataTypes.INTEGER,
     allowNull: true,
+    comment: 'Digito de verificación en caso de NIT',
+    field: 'digito_verificacion',
   },
   nombreComercial: {
     type: DataTypes.STRING(150),
     allowNull: true,
     field: 'nombre_comercial',
+  },
+  razonSocial: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    field: 'razon_social',
   },
   nombres: {
     type: DataTypes.STRING(150),
@@ -90,18 +102,20 @@ const Schema = {
   email: {
     type: DataTypes.STRING(100),
     allowNull: true,
+    unique: 'email',
   },
   direccion: {
     type: DataTypes.STRING(250),
     allowNull: true,
   },
-  pais: {
-    type: DataTypes.STRING(2),
+  idPais: {
+    type: DataTypes.INTEGER,
     allowNull: true,
     references: {
       model: 'adm_paises',
-      key: 'Codigo',
+      key: 'id',
     },
+    field: 'id_pais',
   },
   ciudad: {
     type: DataTypes.INTEGER,
@@ -111,44 +125,6 @@ const Schema = {
       key: 'idCiudades',
     },
   },
-  banco: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'adm_bancos',
-      key: 'id',
-    },
-  },
-  cuentaPropia: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 1,
-    field: 'cuenta_propia',
-  },
-  nombreTitular: {
-    type: DataTypes.STRING(80),
-    allowNull: true,
-    defaultValue: '',
-    field: 'nombre_titular',
-  },
-  documentoTitular: {
-    type: DataTypes.STRING(20),
-    allowNull: true,
-    defaultValue: '',
-    field: 'documento_titular',
-  },
-  tipoCuenta: {
-    type: DataTypes.STRING(50),
-    allowNull: true,
-    defaultValue: '',
-    field: 'tipo_cuenta',
-  },
-  numeroCuenta: {
-    type: DataTypes.STRING(50),
-    allowNull: true,
-    defaultValue: '',
-    field: 'numero_cuenta',
-  },
   declaranteRenta: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -156,55 +132,69 @@ const Schema = {
     field: 'declarante_renta',
   },
   firma: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(200),
     allowNull: true,
+  },
+  rut: {
+    type: DataTypes.STRING(200),
+    allowNull: true,
+  },
+  soporteEps: {
+    type: DataTypes.STRING(200),
+    allowNull: true,
+    field: 'soporte_eps',
+  },
+  certificacionBancaria: {
+    type: DataTypes.STRING(200),
+    allowNull: true,
+    field: 'certificacion_bancaria',
+  },
+  idEmpleado: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+    references: {
+      model: 'adm_empleados',
+      key: 'codemp',
+    },
+    field: 'id_empleado',
   },
   password: {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  pregunta: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
+  createdAt: {
+    field: 'created_at',
+    type: DataTypes.DATE,
+    allowNull: false,
   },
-  respPregunta: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-    field: 'resp_pregunta',
+  updatedAt: {
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    allowNull: false,
   },
-  rut: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-  },
-  soporteEps: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-    field: 'soporte_eps',
-  },
-  certificacionBancaria: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-    field: 'certificacion_bancaria',
+  deletedAt: {
+    field: 'deleted_at',
+    type: DataTypes.DATE,
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.belongsTo(models.ctbProveedoresTiposIdent, {
-      foreignKey: 'tipoDocumento',
-      as: 'tipoDocumentoProveedor',
-    });
     this.belongsTo(models.admPaises, {
-      foreignKey: 'pais',
+      foreignKey: 'id_pais',
       as: 'paisProveedor',
-    });
-    this.belongsTo(models.admBancos, {
-      foreignKey: 'banco',
-      as: 'bancoProveedor',
     });
     this.belongsTo(models.admCiudades, {
       foreignKey: 'ciudad',
       as: 'ciudadProveedor',
+    });
+    this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+    this.belongsTo(models.configTiposIdentificacion, { as: 'tipoIdent', foreignKey: 'idTipoIdent' });
+    this.hasMany(models.ctbProveedoresCuentas, { as: 'cuentas', foreignKey: 'idProveedor' });
+    this.hasMany(models.ctbProveedoresSolicitudes, { as: 'solicitudes', foreignKey: 'idProveedor' });
+    this.hasMany(models.ctbProveedoresSolicitudesRecurrentes, {
+      as: 'solicitudesRecurrentes',
+      foreignKey: 'idProveedor',
     });
     this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenes', foreignKey: 'idProveedor' });
   }
@@ -214,7 +204,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: false,
+      timestamps: true,
+      paranoid: true,
     };
   }
 }
