@@ -27,6 +27,75 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
   };
 };
 
+const passwordSchema = (nombrePropiedad, location = 'body', optional = true, { min = 16 } = {}) => {
+  const notEmpty = optional
+    ? undefined
+    : {
+        errorMessage: `${nombrePropiedad} requerido`,
+        bail: true,
+      };
+
+  min = process.env.NODE_ENV === 'development' ? 8 : min;
+
+  const isLength = {
+    errorMessage: `${nombrePropiedad} debe tener al menos ${min} caracteres`,
+    options: { min },
+  };
+
+  const containsNumber = {
+    errorMessage: `${nombrePropiedad} debe contener al menos un número`,
+    bail: true,
+    isNumeric: true,
+  };
+
+  const containsPunctuation = {
+    errorMessage: `${nombrePropiedad} debe contener al menos un signo de puntuación`,
+    bail: true,
+    matches: /[!@#$%^&*(),.?":{}|<>]/,
+  };
+
+  const containsSpecialChar = {
+    errorMessage: `${nombrePropiedad} debe contener al menos un carácter especial`,
+    bail: true,
+    matches: /[ñ¡¿*+_-]/,
+  };
+
+  const commonRules = {
+    in: location,
+    optional,
+    notEmpty,
+    isString: {
+      errorMessage: `${nombrePropiedad} debe ser una cadena de texto`,
+      bail: true,
+    },
+    isLength,
+    custom: {
+      options: (value) => {
+        return containsNumber.matches.test(value);
+      },
+      errorMessage: `${nombrePropiedad} no cumple con los requisitos de seguridad`,
+    },
+  };
+
+  if (process.env.NODE_ENV === 'development') {
+    return commonRules;
+  }
+
+  return {
+    ...commonRules,
+    custom: {
+      options: (value) => {
+        return (
+          containsNumber.matches.test(value) &&
+          containsPunctuation.matches.test(value) &&
+          containsSpecialChar.matches.test(value)
+        );
+      },
+      errorMessage: `${nombrePropiedad} no cumple con los requisitos de seguridad`,
+    },
+  };
+};
+
 const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, max, emptyConditional } = {}) => {
   const notEmpty =
     optional && !emptyConditional
@@ -428,4 +497,5 @@ module.exports = {
   boolSchema,
   objectSchema,
   floatSchema,
+  passwordSchema,
 };
