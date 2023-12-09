@@ -2,15 +2,16 @@
 
 class StringUtils {
   static capitalize(string) {
-    //Capitaliza una sola palabra
+    // Capitaliza una sola palabra
     if (!string) return null;
-    const lowerCase = string.toLowerCase();
-    return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
+    const trimmedString = string.trim(); // Elimina espacios al inicio y al final
+    return trimmedString.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
   }
 
   static capitalizeWords(string) {
-    //Capitaliza todas las palabras separadas por espacios
-    return string.split(' ').map(StringUtils.capitalize).join(' ');
+    // Capitaliza todas las palabras separadas por espacios
+    const trimmedString = string.trim(); // Elimina espacios al inicio y al final
+    return trimmedString.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
   }
 }
 
