@@ -1,6 +1,6 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
-//const config = require('../../../config');
+const config = require('../../../../config');
 
 const TABLE_NAME = 'ctb_proveedores';
 const MODEL_NAME = 'ctbProveedores';
@@ -82,6 +82,8 @@ const Schema = {
       const nombres = this.getDataValue('nombres');
       const apellidos = this.getDataValue('apellidos');
 
+      if (!nombres || !apellidos) return null;
+
       const completo = `${nombres} ${apellidos}`;
 
       var formattedString = completo.replace(/\s+/g, ' ');
@@ -133,19 +135,47 @@ const Schema = {
   },
   firma: {
     type: DataTypes.STRING(200),
+    get() {
+      const firma = this.getDataValue('firma');
+
+      if (!firma) return null;
+
+      return `${config.images.host}${firma}`;
+    },
     allowNull: true,
   },
   rut: {
     type: DataTypes.STRING(200),
+    get() {
+      const rut = this.getDataValue('rut');
+
+      if (!rut) return null;
+
+      return `${config.images.host}${rut}`;
+    },
     allowNull: true,
   },
   soporteEps: {
     type: DataTypes.STRING(200),
+    get() {
+      const soporteEps = this.getDataValue('soporteEps');
+
+      if (!soporteEps) return null;
+
+      return `${config.images.host}${soporteEps}`;
+    },
     allowNull: true,
     field: 'soporte_eps',
   },
   certificacionBancaria: {
     type: DataTypes.STRING(200),
+    get() {
+      const certificacionBancaria = this.getDataValue('certificacionBancaria');
+
+      if (!certificacionBancaria) return null;
+
+      return `${config.images.host}${certificacionBancaria}`;
+    },
     allowNull: true,
     field: 'certificacion_bancaria',
   },

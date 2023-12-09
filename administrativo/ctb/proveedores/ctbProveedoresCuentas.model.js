@@ -54,10 +54,9 @@ const Schema = {
   },
   documentoNoPropia: {
     type: DataTypes.STRING(50),
-    allowNull: false,
+    allowNull: true,
     field: 'documento_no_propia',
   },
-
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
