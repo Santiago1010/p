@@ -208,6 +208,7 @@ class ExtendedModel extends Model {
       as: 'solicitudesRecurrentes',
       foreignKey: 'idSolicitud',
     });
+    this.hasOne(models.webSuscripcionesEgresos, { as: 'suscripcionEgreso', foreignKey: 'idProveedorSolicitud' });
   }
 
   static config(sequelize) {

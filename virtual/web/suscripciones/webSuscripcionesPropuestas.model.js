@@ -1,5 +1,4 @@
 'use strict';
-const Sequelize = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'web_suscripciones_propuestas';
@@ -22,6 +21,16 @@ const Schema = {
     },
     field: 'id_empresa',
   },
+  idSede: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'Id de la sede donde se factura',
+    references: {
+      model: 'adm_sedes',
+      key: 'codsed',
+    },
+    field: 'id_sede',
+  },
   totalLicencias: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -38,57 +47,57 @@ const Schema = {
     field: 'fecha_fin',
   },
   nombre: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
+    type: DataTypes.STRING(250),
+    allowNull: false,
+    defaultValue: 'Contrato',
   },
   descripcion: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(500),
     allowNull: true,
   },
-  rolDinamico: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: 0,
-    comment: 'Configurar si se dispara el modal para elegir el rol dinamicamente en Virtual',
-    field: 'rol_dinamico',
-  },
-  fechaTest: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-    defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-    field: 'fecha_test',
-  },
-  fechaEntrega: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-    defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-    field: 'fecha_entrega',
-  },
-  tipoCliente: {
-    type: DataTypes.ENUM('micro', 'macro'),
-    allowNull: false,
-    defaultValue: 'micro',
-    field: 'tipo_cliente',
-  },
-  valorVenta: {
+  valor: {
     type: DataTypes.DECIMAL(15, 2),
-    allowNull: true,
-    field: 'valor_venta',
+    allowNull: false,
+    defaultValue: 0.0,
   },
-  nombreCompletoAsesor: {
+  iva: {
+    type: DataTypes.DECIMAL(4, 3),
+    allowNull: false,
+    defaultValue: 0.19,
+    comment: 'Iva en porcentaje',
+  },
+  total: {
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: false,
+    defaultValue: 0.0,
+    comment: 'Total con iva',
+  },
+  nombreContacto: {
     type: DataTypes.STRING(100),
     allowNull: true,
-    field: 'nombre_completo_asesor',
+    field: 'nombre_contacto',
   },
-  celularAsesor: {
+  celularContacto: {
     type: DataTypes.STRING(20),
     allowNull: true,
-    field: 'celular_asesor',
+    field: 'celular_contacto',
+  },
+  emailContacto: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'email_contacto',
+  },
+  cargoContacto: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'cargo_contacto',
   },
   estado: {
     type: DataTypes.ENUM('pendiente', 'parametrizacion', 'testing', 'produccion'),
     allowNull: false,
     defaultValue: 'pendiente',
+    comment:
+      'Estado de la propuesta. Para los estados finalizado y desistido se validan con la fecha de fin y deleted_at',
     get() {
       const deletedAt = this.getDataValue('deletedAt');
 
@@ -134,15 +143,11 @@ const Schema = {
 };
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idPropuesta' });
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
-    this.hasMany(models.crmPropuestasResponsables, { as: 'propuestasResponsables', foreignKey: 'idPropuesta' });
-    this.belongsToMany(models.admEmpleados, {
-      through: { model: models.crmPropuestasResponsables },
-      as: 'responsables',
-      foreignKey: 'idPropuesta',
-    });
+    this.belongsTo(models.admSedes, { as: 'sede', foreignKey: 'idSede' });
+    this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idPropuesta' });
     this.hasMany(models.webSuscripcionesPropuestasHistorial, { as: 'historial', foreignKey: 'idPropuesta' });
+    this.hasMany(models.webPropuestasVendedores, { as: 'propuestasVendedores', foreignKey: 'idPropuesta' });
   }
 
   static config(sequelize) {

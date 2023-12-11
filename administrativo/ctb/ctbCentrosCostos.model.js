@@ -1,21 +1,25 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_suscripciones_lineas';
-const MODEL_NAME = 'webSuscripcionesLineas';
+const TABLE_NAME = 'ctb_centros_costos';
+const MODEL_NAME = 'ctbCentrosCostos';
 
 const Schema = {
-  idLinea: {
-    field: 'id_suscripcion_linea',
-    type: DataTypes.INTEGER,
+  idCentroCosto: {
     autoIncrement: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
+    field: 'id_centro_costo',
+  },
+  codigo: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    unique: 'codigo',
   },
   nombre: {
-    field: 'nombre_linea',
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(100),
     allowNull: false,
-    defaultValue: '',
   },
   createdAt: {
     field: 'created_at',
@@ -35,7 +39,7 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idLinea' });
+    this.hasMany(models.webSuscripcionesEgresos, { as: 'suscripcionesEgresos', foreignKey: 'idCentroCosto' });
   }
 
   static config(sequelize) {

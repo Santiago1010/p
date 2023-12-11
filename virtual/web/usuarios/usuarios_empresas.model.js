@@ -27,6 +27,14 @@ const Schema = {
     field: 'cargo_empresa',
     type: DataTypes.STRING(100),
   },
+  puntosActual: {
+    field: 'puntos_actual',
+    type: DataTypes.INTEGER,
+  },
+  puntosRetos: {
+    field: 'puntos_retos',
+    type: DataTypes.INTEGER,
+  },
   ultimoIngreso: {
     field: 'ultima_fecha_ingreso',
     type: DataTypes.DATEONLY,
@@ -40,6 +48,29 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0,
+  },
+  tiempoEstudio: {
+    field: 'tiempo_estudio',
+    type: DataTypes.INTEGER,
+  },
+  cursosAprobados: {
+    field: 'cursos_aprobados',
+    type: DataTypes.INTEGER,
+  },
+  cursosFinalizados: {
+    field: 'cursos_finalizados',
+    type: DataTypes.INTEGER,
+  },
+  cursosProgreso: {
+    field: 'cursos_progreso',
+    type: DataTypes.INTEGER,
+  },
+  leccionesFinalizadas: {
+    field: 'lecciones_finalizadas',
+    type: DataTypes.INTEGER,
+  },
+  comentarios: {
+    type: DataTypes.INTEGER,
   },
   rolEmpresa: {
     field: 'rol_empresa',

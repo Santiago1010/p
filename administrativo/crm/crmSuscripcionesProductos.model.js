@@ -32,6 +32,23 @@ const Schema = {
     field: 'id_producto',
     unique: 'suscripcion_producto_UN',
   },
+  autogestionable: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    comment: 'Si el producto en la suscripcion es autogestionable',
+  },
+  limiteCursos: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: true,
+    comment: 'Limite de cursos si es autogestionable',
+    field: 'limite_cursos',
+  },
+  incluirTodos: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    comment: 'Si la suscripcion incluye todos los cursos asignados a la empresa o solo los de la suscripcion',
+    field: 'incluir_todos',
+  },
   estadoResponsable: {
     type: DataTypes.TINYINT,
     allowNull: false,
@@ -83,16 +100,6 @@ const Schema = {
   deletedAt: {
     field: 'deleted_at',
     type: DataTypes.DATE,
-  },
-  estado: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      let deletedAt = this.getDataValue('deletedAt');
-      return deletedAt ? 0 : 1;
-    },
-    set(value) {
-      throw new Error('Estado es un campo virtual no se puede guardar');
-    },
   },
 };
 class ExtendedModel extends Model {

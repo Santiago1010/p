@@ -6,18 +6,20 @@ const MODEL_NAME = 'webSuscripciones';
 
 const Schema = {
   idSuscripcion: {
+    autoIncrement: true,
     field: 'id_suscripcion',
     type: DataTypes.INTEGER,
-    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
-  idLinea: {
-    field: 'id_suscripcion_linea',
-    type: DataTypes.INTEGER,
-  },
   idEmpresa: {
-    field: 'id_empresa',
     type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'web_empresas',
+      key: 'id_empresa',
+    },
+    field: 'id_empresa',
   },
   idPropuesta: {
     type: DataTypes.INTEGER,
@@ -28,42 +30,122 @@ const Schema = {
     },
     field: 'id_propuesta',
   },
+  idCategoria: {
+    field: 'id_categoria',
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'crm_categorias',
+      key: 'id_categoria',
+    },
+  },
   nombre: {
-    field: 'nombre_suscripcion',
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(250),
+    allowNull: false,
+    defaultValue: 'Proyecto',
   },
-  autoGestionable: {
-    field: 'auto_gestionable',
-    type: DataTypes.ENUM('virtual', 'interno', 'externo'),
+  descripcion: {
+    type: DataTypes.STRING(500),
     allowNull: true,
-    default: null,
   },
-  limiteCursos: {
-    field: 'limite_cursos',
-    type: DataTypes.INTEGER,
+  formato: {
+    type: DataTypes.ENUM('virtual', 'presencial', 'hibrido'),
+    allowNull: false,
+    defaultValue: 'virtual',
   },
-  tipo: {
-    type: DataTypes.ENUM('escuela', 'programa'),
-  },
-  totalLicencias: {
-    field: 'total_licencias',
-    type: DataTypes.INTEGER,
-  },
-  incluirTodos: {
-    field: 'incluir_todos',
-    type: DataTypes.TINYINT.UNSIGNED,
+  impacto: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: true,
-    defaultValue: null,
+  },
+  idPais: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 48,
+    references: {
+      model: 'adm_paises',
+      key: 'id',
+    },
+    field: 'id_pais',
+  },
+  idCiudad: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 6881,
+    references: {
+      model: 'adm_ciudades',
+      key: 'idCiudades',
+    },
+    field: 'id_ciudad',
   },
   fechaInicio: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     field: 'fecha_inicio',
   },
   fechaFin: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
     field: 'fecha_fin',
+  },
+  fechaTest: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_test',
+  },
+  fechaEntrega: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_entrega',
+  },
+  fechaCierre: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    field: 'fecha_cierre',
+  },
+  estado: {
+    type: DataTypes.ENUM('pendiente', 'parametrizacion', 'testing', 'produccion'),
+    allowNull: false,
+    defaultValue: 'pendiente',
+    get() {
+      const deletedAt = this.getDataValue('deletedAt');
+
+      if (deletedAt !== null) {
+        return 'desistido';
+      }
+
+      const estado = this.getDataValue('estado');
+
+      if (estado === 'produccion') {
+        const today = new Date();
+        today.setUTCHours(5, 0, 0, 0);
+
+        const fechaFin = new Date(this.getDataValue('fechaFin'));
+
+        if (fechaFin.getTime() < today.getTime()) {
+          return 'finalizado';
+        }
+      }
+
+      return estado;
+    },
+  },
+  valor: {
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: false,
+    defaultValue: 0.0,
+    comment: 'Valor del proyecto basado en el total del contrato para validaciones',
+  },
+  rolDinamico: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: 0,
+    field: 'rol_dinamico',
+  },
+  totalLicencias: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+    field: 'total_licencias',
   },
   createdAt: {
     field: 'created_at',
@@ -79,22 +161,24 @@ const Schema = {
     field: 'deleted_at',
     type: DataTypes.DATE,
   },
-  estado: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      let deletedAt = this.getDataValue('deletedAt');
-      return deletedAt ? 0 : 1;
-    },
-    set(value) {
-      throw new Error('Estado es un campo virtual no se puede guardar');
-    },
+  deletedFor: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    comment: 'Motivo de eliminación',
+    field: 'deleted_for',
   },
 };
 
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
-    this.belongsTo(models.webSuscripcionesLineas, { as: 'linea', foreignKey: 'idLinea' });
+    this.belongsTo(models.webSuscripcionesPropuestas, {
+      as: 'propuesta',
+      foreignKey: 'idPropuesta',
+    });
+    this.belongsTo(models.admPaises, { as: 'pais', foreignKey: 'idPais' });
+    this.belongsTo(models.admCiudades, { as: 'ciudad', foreignKey: 'idCiudad' });
+    this.belongsTo(models.crmCategorias, { as: 'categoria', foreignKey: 'idCategoria' });
     this.belongsToMany(models.webRutasAprendizaje, {
       through: { model: models.webSuscripcionesRutasAprendizaje },
       as: 'rutasAprendizaje',
@@ -118,10 +202,6 @@ class ExtendedModel extends Model {
       through: { model: models.webSuscripcionesCurriculos },
       as: 'curriculos',
       foreignKey: 'idSuscripcion',
-    });
-    this.belongsTo(models.webSuscripcionesPropuestas, {
-      as: 'propuesta',
-      foreignKey: 'idPropuesta',
     });
     this.hasMany(models.webCurriculosDocumentos, { as: 'documentos', foreignKey: 'idSuscripcion' });
     this.hasMany(models.webSuscripcionesCurriculos, { as: 'suscripcionesCurriculos', foreignKey: 'idSuscripcion' });
@@ -180,6 +260,20 @@ class ExtendedModel extends Model {
       as: 'formularios',
       foreignKey: 'idSuscripcion',
     });
+    this.hasMany(models.webSuscripcionesResponsables, {
+      as: 'suscripcionesResponsables',
+      foreignKey: 'idSuscripcion',
+    });
+    this.hasMany(models.webSuscripcionesPropuestasHistorial, {
+      as: 'suscripcionesHistorial',
+      foreignKey: 'idSuscripcion',
+    });
+    this.hasMany(models.webSuscripcionesGruposDemograficos, {
+      as: 'suscripcionesGruposDemograficos',
+      foreignKey: 'idSuscripcion',
+    });
+    this.hasMany(models.webSuscripcionesEgresos, { as: 'suscripcionesEgresos', foreignKey: 'idSuscripcion' });
+    this.hasMany(models.webSuscripcionesTematicas, { as: 'suscripcionesTematicas', foreignKey: 'idSuscripcion' });
   }
 
   static config(sequelize) {

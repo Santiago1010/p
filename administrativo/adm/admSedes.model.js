@@ -41,6 +41,7 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.Calendario, { as: 'calendarios', foreignKey: 'codsed' });
     this.hasMany(models.acfUbicaciones, { as: 'ubicaciones', foreignKey: 'idSede' });
+    this.hasMany(models.webSuscripcionesPropuestas, { as: 'propuestas', foreignKey: 'idSede' });
   }
 
   static config(sequelize) {

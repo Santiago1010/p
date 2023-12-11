@@ -26,15 +26,41 @@ const Schema = {
     allowNull: false,
     comment: 'Descripcion pequeña del historial',
   },
-  valorVenta: {
-    type: DataTypes.DECIMAL(10, 2),
+  valor: {
+    type: DataTypes.DECIMAL(15, 2),
     allowNull: true,
-    field: 'valor_venta',
+  },
+  iva: {
+    type: DataTypes.DECIMAL(4, 3),
+    allowNull: true,
+    comment: 'Iva en porcentaje',
+  },
+  total: {
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: true,
+    comment: 'Total con iva',
   },
   totalLicencias: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: true,
+    comment: 'Total de licencias',
+    field: 'total_licencias',
+  },
+  licenciasAnteriores: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: true,
+    comment: 'Total de licencias anteriores',
+    field: 'licencias_anteriores',
+  },
+  idSuscripcion: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'total_licencias',
+    comment: 'Id de la suscripción a la que se le agregan licencias',
+    references: {
+      model: 'web_suscripciones',
+      key: 'id_suscripcion',
+    },
+    field: 'id_suscripcion',
   },
   fechaFin: {
     type: DataTypes.DATE,
@@ -59,6 +85,7 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webSuscripcionesPropuestas, { as: 'propuesta', foreignKey: 'idPropuesta' });
+    this.belongsTo(models.webSuscripciones, { as: 'suscripcion', foreignKey: 'idSuscripcion' });
     this.hasOne(models.webPropuestasPlanesPago, { as: 'planesPago', foreignKey: 'idHistorial' });
   }
 

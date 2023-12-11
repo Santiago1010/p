@@ -36,9 +36,8 @@ class ExtendedModel extends Model {
     this.hasMany(models.admCiudades, { foreignKey: 'paisesCodigo', as: 'ciudades' });
     this.hasMany(models.admDepartamentos, { foreignKey: 'idPais', as: 'departamentos' });
     this.hasMany(models.ctbProveedores, { as: 'proveedores', foreignKey: 'idPais' });
-    //this.hasMany(models.matriculasFamiliares, { foreignKey: 'id', as: 'matriculasFamiliares' });
     this.hasMany(models.webEmpresas, { as: 'empresas', foreignKey: 'idPais' });
-    // this.hasMany(models.webInstructores, { foreignKey: 'id', as: 'instructores' });
+    this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idPais' });
   }
 
   static config(sequelize) {

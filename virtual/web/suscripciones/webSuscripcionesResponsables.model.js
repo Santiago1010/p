@@ -1,26 +1,25 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'crm_propuestas_responsables';
-const MODEL_NAME = 'crmPropuestasResponsables';
+const TABLE_NAME = 'web_suscripciones_responsables';
+const MODEL_NAME = 'webSuscripcionesResponsables';
 
 const Schema = {
-  idPropuestaResponsable: {
+  idSuscripcionResponsable: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    field: 'id_propuesta_responsable',
+    field: 'id_suscripcion_responsable',
   },
-  idPropuesta: {
+  idSuscripcion: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'web_suscripciones_propuestas',
-      key: 'id_suscripcion_propuesta',
+      model: 'web_suscripciones',
+      key: 'id_suscripcion',
     },
-    field: 'id_propuesta',
-    unique: 'propuesta_responsable_UN',
+    field: 'id_suscripcion',
   },
   idResponsable: {
     type: DataTypes.STRING(30),
@@ -30,7 +29,11 @@ const Schema = {
       key: 'codemp',
     },
     field: 'id_responsable',
-    unique: 'propuesta_responsable_UN',
+  },
+  rol: {
+    type: DataTypes.ENUM('manager', 'colaborador'),
+    allowNull: false,
+    defaultValue: 'colaborador',
   },
   createdAt: {
     field: 'created_at',
@@ -47,13 +50,11 @@ const Schema = {
     type: DataTypes.DATE,
   },
 };
+
 class ExtendedModel extends Model {
   static associate(models) {
+    this.belongsTo(models.webSuscripciones, { as: 'suscripcion', foreignKey: 'idSuscripcion' });
     this.belongsTo(models.admEmpleados, { as: 'responsable', foreignKey: 'idResponsable' });
-    this.belongsTo(models.webSuscripcionesPropuestas, {
-      as: 'propuesta',
-      foreignKey: 'idPropuesta',
-    });
   }
 
   static config(sequelize) {

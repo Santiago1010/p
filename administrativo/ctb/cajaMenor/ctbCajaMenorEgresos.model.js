@@ -134,6 +134,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idIngreso',
       as: 'ingreso',
     });
+    this.hasOne(models.webSuscripcionesEgresos, { as: 'suscripcionEgreso', foreignKey: 'idCajaMenorEgreso' });
   }
 
   static config(sequelize) {

@@ -13,7 +13,7 @@ const Schema = {
     field: 'id_producto',
   },
   nombre: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(150),
     allowNull: false,
   },
   descripcion: {
@@ -23,7 +23,19 @@ const Schema = {
   tablaAsociada: {
     type: DataTypes.STRING(50),
     allowNull: true,
+    comment: 'Indica la tabla asociada al producto para su parametrizacion en plataforma',
+    unique: 'tabla_asociada',
     field: 'tabla_asociada',
+  },
+  plataforma: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: 1,
+  },
+  tipo: {
+    type: DataTypes.ENUM('cursos', 'general', 'otro'),
+    allowNull: true,
+    comment: 'Indica el tipo de producto si es para plataforma',
   },
   parametrizar: {
     type: DataTypes.VIRTUAL,
@@ -49,16 +61,6 @@ const Schema = {
     field: 'deleted_at',
     type: DataTypes.DATE,
   },
-  estado: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      let deletedAt = this.getDataValue('deletedAt');
-      return deletedAt ? 0 : 1;
-    },
-    set(value) {
-      throw new Error('Estado es un campo virtual no se puede guardar');
-    },
-  },
 };
 class ExtendedModel extends Model {
   static associate(models) {
@@ -74,6 +76,7 @@ class ExtendedModel extends Model {
       as: 'responsables',
       foreignKey: 'idProducto',
     });
+    this.hasMany(models.crmCategoriasProductos, { as: 'categoriasProductos', foreignKey: 'idProducto' });
   }
 
   static config(sequelize) {
