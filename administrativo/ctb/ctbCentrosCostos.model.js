@@ -39,7 +39,7 @@ const Schema = {
 
 class ExtendedModel extends Model {
   static associate(models) {
-    this.hasMany(models.webSuscripcionesEgresos, { as: 'suscripcionesEgresos', foreignKey: 'idCentroCosto' });
+    this.hasMany(models.ctbEgresos, { as: 'egresos', foreignKey: 'idCentroCosto' });
   }
 
   static config(sequelize) {

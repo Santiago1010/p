@@ -272,7 +272,7 @@ class ExtendedModel extends Model {
       as: 'suscripcionesGruposDemograficos',
       foreignKey: 'idSuscripcion',
     });
-    this.hasMany(models.webSuscripcionesEgresos, { as: 'suscripcionesEgresos', foreignKey: 'idSuscripcion' });
+    this.hasMany(models.ctbEgresos, { as: 'egresos', foreignKey: 'idSuscripcion' });
     this.hasMany(models.webSuscripcionesTematicas, { as: 'suscripcionesTematicas', foreignKey: 'idSuscripcion' });
   }
 
