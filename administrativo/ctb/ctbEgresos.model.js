@@ -1,8 +1,8 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 
-const TABLE_NAME = 'web_suscripciones_egresos';
-const MODEL_NAME = 'webSuscripcionesEgresos';
+const TABLE_NAME = 'ctb_egresos';
+const MODEL_NAME = 'ctbEgresos';
 
 const Schema = {
   idEgreso: {
@@ -14,7 +14,7 @@ const Schema = {
   },
   idSuscripcion: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: 'web_suscripciones',
       key: 'id_suscripcion',
