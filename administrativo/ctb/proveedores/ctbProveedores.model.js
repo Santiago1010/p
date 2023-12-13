@@ -188,6 +188,15 @@ const Schema = {
     },
     field: 'id_empleado',
   },
+  idEmpleadoGenera: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+    references: {
+      model: 'adm_empleados',
+      key: 'codemp',
+    },
+    field: 'id_empleado_genera',
+  },
   password: {
     type: DataTypes.TEXT,
     allowNull: true,
@@ -219,6 +228,7 @@ class ExtendedModel extends Model {
       as: 'ciudadProveedor',
     });
     this.belongsTo(models.admEmpleados, { as: 'empleado', foreignKey: 'idEmpleado' });
+    this.belongsTo(models.admEmpleados, { as: 'empleadoGenera', foreignKey: 'idEmpleadoGenera' });
     this.belongsTo(models.configTiposIdentificacion, { as: 'tipoIdent', foreignKey: 'idTipoIdent' });
     this.hasMany(models.ctbProveedoresCuentas, { as: 'cuentas', foreignKey: 'idProveedor' });
     this.hasMany(models.ctbProveedoresSolicitudes, { as: 'solicitudes', foreignKey: 'idProveedor' });
