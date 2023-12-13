@@ -319,6 +319,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idEmpleadoAprueba',
     });
     this.hasMany(models.webPropuestasVendedores, { as: 'propuestasVendedores', foreignKey: 'idVendedor' });
+    this.belongsToMany(models.webSuscripcionesPropuestas, {
+      through: { model: models.webPropuestasVendedores },
+      as: 'propuestasVendidas',
+      foreignKey: 'idVendedor',
+    });
     this.hasMany(models.webSuscripcionesResponsables, { as: 'suscripcionesResponsables', foreignKey: 'idResponsable' });
   }
 

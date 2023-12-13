@@ -31,6 +31,24 @@ const Schema = {
     },
     field: 'id_sede',
   },
+  idFuente: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'config_fuentes',
+      key: 'id_fuente',
+    },
+    field: 'id_fuente',
+  },
+  idRolComercial: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'config_rol_comercial',
+      key: 'id_rol_comercial',
+    },
+    field: 'id_rol_comercial',
+  },
   totalLicencias: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -145,9 +163,16 @@ class ExtendedModel extends Model {
   static associate(models) {
     this.belongsTo(models.webEmpresas, { as: 'empresa', foreignKey: 'idEmpresa' });
     this.belongsTo(models.admSedes, { as: 'sede', foreignKey: 'idSede' });
+    this.belongsTo(models.configFuentes, { as: 'fuente', foreignKey: 'idFuente' });
+    this.belongsTo(models.configRolComercial, { as: 'rolComercial', foreignKey: 'idRolComercial' });
     this.hasMany(models.webSuscripciones, { as: 'suscripciones', foreignKey: 'idPropuesta' });
     this.hasMany(models.webSuscripcionesPropuestasHistorial, { as: 'historial', foreignKey: 'idPropuesta' });
     this.hasMany(models.webPropuestasVendedores, { as: 'propuestasVendedores', foreignKey: 'idPropuesta' });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.webPropuestasVendedores },
+      as: 'vendedores',
+      foreignKey: 'idPropuesta',
+    });
   }
 
   static config(sequelize) {

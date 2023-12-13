@@ -135,6 +135,18 @@ const Schema = {
     defaultValue: 0.0,
     comment: 'Valor del proyecto basado en el total del contrato para validaciones',
   },
+  iva: {
+    type: DataTypes.DECIMAL(4, 3),
+    allowNull: false,
+    defaultValue: 0.19,
+    comment: 'Iva en porcentaje',
+  },
+  total: {
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: false,
+    defaultValue: 0.0,
+    comment: 'Total con iva',
+  },
   rolDinamico: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

@@ -63,7 +63,7 @@ const Schema = {
     field: 'id_suscripcion',
   },
   fechaFin: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true,
     field: 'fecha_fin',
   },
