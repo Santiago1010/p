@@ -10,7 +10,7 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
 
   const isLength = max
     ? {
-        errorMessage: `${nombrePropiedad} no debe ser mayor ${max} +  caracteres`,
+        errorMessage: `${nombrePropiedad} no debe ser mayor a ${max} caracteres`,
         options: { max: max },
       }
     : undefined;
@@ -24,6 +24,54 @@ const stringSchema = (nombrePropiedad, location = 'body', optional = true, { max
       bail: true,
     },
     isLength,
+  };
+};
+
+const arrayStringSchema = (
+  nombrePropiedad,
+  location = 'body',
+  optional = true,
+  options = [],
+  { min, max, emptyConditional } = {}
+) => {
+  const errorMessage = `${nombrePropiedad} debe ser ${options.slice(0, -1).join(', ')} o ${options.slice(-1)}`;
+  // Verificar filtros con strings separados por coma
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
+
+  return {
+    in: location,
+    optional: emptyConditional ? undefined : optional && !emptyConditional,
+    notEmpty,
+    custom: {
+      options: (arrayString) => {
+        const array = arrayString.replace(', ', ',').split(',');
+        if (min != undefined || max != undefined) {
+          if (min != undefined) {
+            if (array.length < min) {
+              return Promise.reject(`Mínima cantidad de elementos: ${min}`);
+            }
+          }
+          if (max != undefined) {
+            if (array.length > max) {
+              return Promise.reject(`Máxima cantidad de elementos: ${max}`);
+            }
+          }
+        }
+
+        return array.every((option) => options.includes(option));
+      },
+      errorMessage,
+    },
+    customSanitizer: {
+      options: (stringArrayComma) => stringArrayComma.replace(', ', ',').split(','),
+    },
   };
 };
 
@@ -106,13 +154,17 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
           bail: true,
         };
 
-  const optionsInt = min != undefined || max != undefined ? {} : undefined;
-  if (min != undefined) {
+  const optionsInt = min !== undefined || max !== undefined ? {} : undefined;
+
+  let errorMessage = `${nombrePropiedad} debe ser un valor entero`;
+  if (min !== undefined) {
     optionsInt.min = min;
+    errorMessage += ` mayor o igual a ${min}`;
   }
 
-  if (max != undefined) {
+  if (max !== undefined) {
     optionsInt.max = max;
+    errorMessage += `${min !== undefined ? ' y' : ''} menor o igual a ${max}`;
   }
 
   return {
@@ -120,7 +172,7 @@ const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, m
     optional: optional && !emptyConditional,
     notEmpty,
     isInt: {
-      errorMessage: `${nombrePropiedad} debe ser entero`,
+      errorMessage: errorMessage,
       bail: true,
       options: optionsInt,
     },
@@ -137,13 +189,17 @@ const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min,
           bail: true,
         };
 
-  const optionsFloat = min || max ? {} : undefined;
-  if (min) {
+  const optionsFloat = min !== undefined || max !== undefined ? {} : undefined;
+
+  let errorMessage = `${nombrePropiedad} debe ser un valor decimal`;
+  if (min !== undefined) {
     optionsFloat.min = min;
+    errorMessage += ` mayor o igual a ${min}`;
   }
 
-  if (max) {
+  if (max !== undefined) {
     optionsFloat.max = max;
+    errorMessage += `${min !== undefined ? ' y' : ''} menor o igual a ${max}`;
   }
 
   return {
@@ -151,7 +207,7 @@ const floatSchema = (nombrePropiedad, location = 'body', optional = true, { min,
     optional: optional && !emptyConditional,
     ...(notEmpty && { notEmpty }),
     isFloat: {
-      errorMessage: `${nombrePropiedad} debe ser un valor decimal`,
+      errorMessage: errorMessage,
       bail: true,
       options: optionsFloat,
     },
@@ -498,4 +554,5 @@ module.exports = {
   objectSchema,
   floatSchema,
   passwordSchema,
+  arrayStringSchema,
 };
