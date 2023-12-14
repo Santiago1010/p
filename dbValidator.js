@@ -29,14 +29,22 @@ class DbValidator {
     return true;
   }
 
-  static async uniqueInModelByField(Model, fieldname = '', fieldvalue, { paranoid } = {}) {
+  static async uniqueInModelByField(Model, fieldname = '', fieldvalue, { paranoid, type = 'exist' } = {}) {
     let field = {};
     field[`${fieldname}`] = fieldvalue;
     const element = await Model.findOne({ where: field, paranoid: paranoid != undefined ? paranoid : undefined });
-    if (element) {
-      let msg = env == 'production' ? 'Valor duplicado' : `${Model.getTableName()}:Id ${fieldvalue} ya existe`;
+    if (element && type === 'exist') {
+      let msg =
+        env == 'production' ? 'Valor duplicado' : `${Model.getTableName()}:${fieldname} ${fieldvalue} ya existe`;
       throw new Error(msg);
     }
+
+    if (!element && type === 'noExist') {
+      let msg =
+        env == 'production' ? 'Registro no encontrado' : `${Model.getTableName()}:${fieldname} ${fieldvalue} no existe`;
+      throw new Error(msg);
+    }
+
     return true;
   }
 }
