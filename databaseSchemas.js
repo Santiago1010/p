@@ -30,7 +30,7 @@ const uniqueFieldSchema = (
   fieldName,
   optional = false,
   paranoid = false,
-  { emptyConditional } = {}
+  { emptyConditional, type = 'exist' } = {}
 ) => {
   const notEmpty =
     optional && !emptyConditional
@@ -46,7 +46,8 @@ const uniqueFieldSchema = (
     optional: optional && !emptyConditional,
     notEmpty,
     custom: {
-      options: (fieldValue) => DbValidator.uniqueInModelByField(Model, fieldName, fieldValue, { paranoid }),
+      options: (fieldValue) =>
+        DbValidator.uniqueInModelByField(Model, fieldName, fieldValue, { paranoid, type: type ?? 'exist' }),
     },
   };
 };
