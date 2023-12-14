@@ -21,9 +21,7 @@ const Schema = {
   tipo: {
     type: DataTypes.VIRTUAL,
     get() {
-      const idIngreso = this.getDataValue('idIngreso');
-
-      return idIngreso == null ? 'devolucion' : 'recibo';
+      return !this.getDataValue('idIngreso') ? 'devolucion' : 'recibo';
     },
     set() {
       throw new Error('`tipo` es un campo virtual no se puede guardar');
