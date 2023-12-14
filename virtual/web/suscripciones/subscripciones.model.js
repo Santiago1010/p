@@ -276,6 +276,11 @@ class ExtendedModel extends Model {
       as: 'suscripcionesResponsables',
       foreignKey: 'idSuscripcion',
     });
+    this.belongsToMany(models.admEmpleados, {
+      through: { model: models.webSuscripcionesResponsables },
+      as: 'responsables',
+      foreignKey: 'idSuscripcion',
+    });
     this.hasMany(models.webSuscripcionesPropuestasHistorial, {
       as: 'suscripcionesHistorial',
       foreignKey: 'idSuscripcion',

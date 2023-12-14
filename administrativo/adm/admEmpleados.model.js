@@ -325,6 +325,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idVendedor',
     });
     this.hasMany(models.webSuscripcionesResponsables, { as: 'suscripcionesResponsables', foreignKey: 'idResponsable' });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesResponsables },
+      as: 'suscripciones',
+      foreignKey: 'idResponsable',
+    });
   }
 
   static config(sequelize) {
