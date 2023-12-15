@@ -280,6 +280,9 @@ const boolSchema = (nombrePropiedad, location = 'body', optional = true) => {
       errorMessage: `${nombrePropiedad} debe ser un booleano`,
       bail: true,
     },
+    customSanitizer: {
+      options: (value) => !!value,
+    },
   };
 };
 
