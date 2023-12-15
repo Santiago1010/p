@@ -150,13 +150,13 @@ const Schema = {
   rolDinamico: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: 0,
+    defaultValue: false,
     field: 'rol_dinamico',
   },
   totalLicencias: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    defaultValue: 0,
+    defaultValue: null,
     field: 'total_licencias',
   },
   createdAt: {
@@ -289,8 +289,18 @@ class ExtendedModel extends Model {
       as: 'suscripcionesGruposDemograficos',
       foreignKey: 'idSuscripcion',
     });
+    this.belongsToMany(models.configGruposDemograficos, {
+      through: { model: models.webSuscripcionesGruposDemograficos },
+      as: 'gruposDemograficos',
+      foreignKey: 'idSuscripcion',
+    });
     this.hasMany(models.ctbEgresos, { as: 'egresos', foreignKey: 'idSuscripcion' });
     this.hasMany(models.webSuscripcionesTematicas, { as: 'suscripcionesTematicas', foreignKey: 'idSuscripcion' });
+    this.belongsToMany(models.configTematicas, {
+      through: { model: models.webSuscripcionesTematicas },
+      as: 'tematicas',
+      foreignKey: 'idSuscripcion',
+    });
   }
 
   static config(sequelize) {

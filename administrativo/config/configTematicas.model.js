@@ -39,6 +39,11 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     this.hasMany(models.webSuscripcionesTematicas, { as: 'suscripcionesTematicas', foreignKey: 'idTematica' });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesTematicas },
+      as: 'suscripciones',
+      foreignKey: 'idTematica',
+    });
   }
 
   static config(sequelize) {

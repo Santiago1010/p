@@ -20,6 +20,11 @@ const Schema = {
     type: DataTypes.STRING(300),
     allowNull: true,
   },
+  color: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    defaultValue: '#000000',
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,
