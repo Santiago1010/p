@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const initModels = require('../models/db/init-models');
 const { sequelize } = require('../database/config');
 const ValidatePermission = require('../helpers/validatePermission');
 const JwtUtils = require('../helpers/jwtUtils');
