@@ -201,7 +201,7 @@ class ExtendedModel extends Model {
       foreignKey: 'idRecurrente',
     });
     this.hasMany(models.ctbProveedoresSolicitudesDetalle, {
-      as: 'solicitudes',
+      as: 'detalles',
       foreignKey: 'idSolicitud',
     });
     this.hasMany(models.ctbProveedoresSolicitudesRecurrentes, {
