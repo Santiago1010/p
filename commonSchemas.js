@@ -244,17 +244,20 @@ const isInSchema = (
   };
 };
 
-const booleanSchema = (nombrePropiedad, location, optional = true) => {
-  const notEmpty = optional
-    ? undefined
-    : {
-        errorMessage: `${nombrePropiedad} requerido`,
-        bail: true,
-      };
+const booleanSchema = (nombrePropiedad, location, optional = true, { emptyConditional } = {}) => {
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
+
   return {
     in: location,
-    optional: optional,
-    notEmpty,
+    optional: optional && !emptyConditional,
+    ...(notEmpty && { notEmpty }),
     isBoolean: {
       errorMessage: `${nombrePropiedad} debe ser un booleano`,
     },
