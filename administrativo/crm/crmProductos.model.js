@@ -77,6 +77,11 @@ class ExtendedModel extends Model {
       foreignKey: 'idProducto',
     });
     this.hasMany(models.crmCategoriasProductos, { as: 'categoriasProductos', foreignKey: 'idProducto' });
+    this.belongsToMany(models.crmCategorias, {
+      through: { model: models.crmCategoriasProductos },
+      as: 'categoriasRelacionadas',
+      foreignKey: 'idProducto',
+    });
   }
 
   static config(sequelize) {
