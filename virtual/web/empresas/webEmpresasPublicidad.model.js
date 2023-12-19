@@ -3,6 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 
 const TABLE_NAME = 'web_empresas_publicidad';
 const MODEL_NAME = 'webEmpresasPublicidad';
+const config = require('./../../../../config');
 
 const Schema = {
   idPublicidad: {
@@ -28,6 +29,14 @@ const Schema = {
   recurso: {
     type: DataTypes.STRING(255),
     allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('recurso');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
   },
   fechaInicio: {
     type: DataTypes.DATEONLY,
