@@ -83,32 +83,44 @@ const passwordSchema = (nombrePropiedad, location = 'body', optional = true, { m
         bail: true,
       };
 
-  min = process.env.NODE_ENV === 'development' ? 8 : min;
+  min = process.env.NODE_ENV === 'development' ? 6 : min;
 
   const isLength = {
     errorMessage: `${nombrePropiedad} debe tener al menos ${min} caracteres`,
     options: { min },
   };
 
-  const containsNumber = {
-    errorMessage: `${nombrePropiedad} debe contener al menos un número`,
-    bail: true,
-    isNumeric: true,
+  const containsNumber = (value) => {
+    const cantidadNumeros = process.env.NODE_ENV === 'development' ? 1 : 4;
+    const regex = /\d/g;
+
+    const numerosEncontrados = (value.match(regex) || []).length;
+
+    if (numerosEncontrados < cantidadNumeros)
+      throw new Error(`${nombrePropiedad} debe tener mínimo ${cantidadNumeros} números`);
+
+    return true;
   };
 
-  const containsPunctuation = {
-    errorMessage: `${nombrePropiedad} debe contener al menos un signo de puntuación`,
-    bail: true,
-    matches: /[!@#$%^&*(),.?":{}|<>]/,
+  const containsPunctuation = (value) => {
+    const regex = /[!@#$%^&*(),.?":{}|<>]/g;
+
+    const puntuacionEncontrada = (value.match(regex) || []).length;
+
+    if (puntuacionEncontrada < 2) throw new Error(`${nombrePropiedad} debe tener mínimo 2 signos de puntuación`);
+
+    return true;
   };
 
-  const containsSpecialChar = {
-    errorMessage: `${nombrePropiedad} debe contener al menos un carácter especial`,
-    bail: true,
-    matches: /[ñ¡¿*+_-]/,
+  const containsSpecialChar = (nombrePropiedad, value) => {
+    const regex = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (!regex.test(value)) throw new Error(`${nombrePropiedad} debe tener mínimo 1 caracter de puntuación`);
+
+    return true;
   };
 
-  const commonRules = {
+  const rules = {
     in: location,
     optional,
     notEmpty,
@@ -118,30 +130,14 @@ const passwordSchema = (nombrePropiedad, location = 'body', optional = true, { m
     },
     isLength,
     custom: {
-      options: (value) => {
-        return containsNumber.matches.test(value);
-      },
-      errorMessage: `${nombrePropiedad} no cumple con los requisitos de seguridad`,
+      options: (value) =>
+        process.env.NODE_ENV === 'development'
+          ? containsNumber(value)
+          : containsNumber(value) && containsPunctuation(value) && containsSpecialChar(value),
     },
   };
 
-  if (process.env.NODE_ENV === 'development') {
-    return commonRules;
-  }
-
-  return {
-    ...commonRules,
-    custom: {
-      options: (value) => {
-        return (
-          containsNumber.matches.test(value) &&
-          containsPunctuation.matches.test(value) &&
-          containsSpecialChar.matches.test(value)
-        );
-      },
-      errorMessage: `${nombrePropiedad} no cumple con los requisitos de seguridad`,
-    },
-  };
+  return rules;
 };
 
 const intSchema = (nombrePropiedad, location = 'body', optional = true, { min, max, emptyConditional } = {}) => {
@@ -453,6 +449,56 @@ const dateRangeSchema = (nombrePropiedad, location, optional = true, { min, max,
   };
 };
 
+const isBase64Schema = (nombrePropiedad, location, optional = true, type, { emptyConditional } = {}) => {
+  // Función para verificar si una cadena Base64 representa una imagen
+  const isBase64Image = (base64String) => {
+    // Expresión regular para verificar si la cadena comienza con "data:image" y tiene el formato adecuado
+    var imageRegex = /^data:image\/(jpeg|jpg|png|gif);base64,/;
+    return imageRegex.test(base64String);
+  };
+
+  // Función para verificar si una cadena Base64 representa un documento
+  const isBase64Document = (base64String) => {
+    // Expresión regular para verificar si la cadena comienza con "data:application" y tiene el formato adecuado
+    var documentRegex = /^data:application\/(pdf|docx);base64,/;
+    return documentRegex.test(base64String);
+  };
+
+  const notEmpty =
+    optional && !emptyConditional
+      ? undefined
+      : {
+          if: emptyConditional ?? undefined,
+          errorMessage: `${nombrePropiedad} requerido`,
+          bail: true,
+        };
+
+  const base64Check = (value) => {
+    if (type === 'imagen') {
+      return isBase64Image(value);
+    } else if (type === 'documento') {
+      return isBase64Document(value);
+    }
+
+    // Tipo no reconocido
+    return false;
+  };
+
+  return {
+    in: location,
+    optional: optional && !emptyConditional,
+    ...(notEmpty && { notEmpty }),
+    custom: {
+      options: (value) => {
+        return base64Check(value);
+      },
+      errorMessage: `${nombrePropiedad} no cumple con los requisitos de seguridad o no es del tipo especificado`,
+    },
+  };
+};
+
+// -------------------------------------------------------------------------------------------------------------------------- //
+
 const ordenSchema = (location = 'body', optional = true, min = 1, max = 150) => {
   return {
     in: location,
@@ -561,4 +607,5 @@ module.exports = {
   floatSchema,
   passwordSchema,
   arrayStringSchema,
+  isBase64Schema,
 };
