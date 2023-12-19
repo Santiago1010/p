@@ -1,0 +1,346 @@
+'use strict';
+const { Model, DataTypes } = require('sequelize');
+const config = require('../../../config');
+
+const TABLE_NAME = 'adm_empleados';
+const MODEL_NAME = 'admEmpleados';
+
+const Schema = {
+  codemp: {
+    type: DataTypes.STRING(30),
+    allowNull: false,
+    primaryKey: true,
+  },
+  nomemp: {
+    type: DataTypes.STRING(60),
+    allowNull: false,
+  },
+  apemp: {
+    type: DataTypes.STRING(60),
+    allowNull: false,
+  },
+  nombreCompleto: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const nomemp = this.getDataValue('nomemp');
+      const apemp = this.getDataValue('apemp');
+
+      const completo = `${nomemp} ${apemp}`;
+
+      return completo.replace(/\s+/g, ' ').trim();
+    },
+    set(value) {
+      throw new Error('nombreCompleto es un campo virtual no se puede guardar');
+    },
+  },
+  tipide: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    references: {
+      model: 'config_tipos_ident',
+      key: 'id',
+    },
+  },
+  fchnac: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  mailemp: {
+    type: DataTypes.STRING(150),
+    allowNull: false,
+  },
+  correoCorporativo: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    field: 'correo_corporativo',
+  },
+  sexemp: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+  },
+  telemp: {
+    type: DataTypes.STRING(12),
+    allowNull: false,
+  },
+  celemp: {
+    type: DataTypes.STRING(12),
+    allowNull: false,
+  },
+  diremp: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  cargo: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_cargos',
+      key: 'codcrg',
+    },
+  },
+  fotusr: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    get() {
+      const imageLocation = this.getDataValue('fotusr');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
+  },
+  eps: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'adm_eps',
+      key: 'id',
+    },
+  },
+  arl: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    references: {
+      model: 'adm_arl',
+      key: 'id_arl',
+    },
+  },
+  fondo: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'adm_fondo_pensiones',
+      key: 'id',
+    },
+  },
+  banco: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_bancos',
+      key: 'id',
+    },
+  },
+  tipoCuenta: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    field: 'tipo_cuenta',
+  },
+  nroCuenta: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    field: 'nro_cuenta',
+  },
+  updusr: {
+    type: DataTypes.STRING(15),
+    allowNull: false,
+  },
+  ultfirma: {
+    type: DataTypes.STRING(80),
+    allowNull: true,
+    get() {
+      const imageLocation = this.getDataValue('ultfirma');
+      const hostImage = config.images.host;
+      if (!imageLocation) {
+        return null;
+      }
+      return `${hostImage}${imageLocation}`;
+    },
+  },
+  paisNacimiento: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_paises',
+      key: 'id',
+    },
+    field: 'pais_nacimiento',
+  },
+  ciudadNacimiento: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'adm_ciudades',
+      key: 'idCiudades',
+    },
+    field: 'ciudad_nacimiento',
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+    field: 'created_at',
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+    onUpdate: DataTypes.NOW,
+    field: 'updated_at',
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    defaultValue: null,
+    field: 'deleted_at',
+  },
+};
+
+class ExtendedModel extends Model {
+  static associate(models) {
+    this.hasOne(models.Usuarios, { as: 'usuario', foreignKey: 'codemp' });
+    this.hasMany(models.crmProductosResponsables, { as: 'productosResponsables', foreignKey: 'idResponsable' });
+    this.belongsToMany(models.crmProductos, {
+      through: { model: models.crmProductosResponsables },
+      as: 'productos',
+      foreignKey: 'idResponsable',
+    });
+    this.belongsTo(models.admCargos, {
+      foreignKey: 'cargo',
+      as: 'cargoEmpleado',
+    });
+    this.belongsTo(models.admEps, {
+      foreignKey: 'eps',
+      as: 'epsEmpleado',
+    });
+    this.belongsTo(models.admArl, {
+      foreignKey: 'arl',
+      as: 'arlEmpleado',
+    });
+    this.belongsTo(models.admFondo, {
+      foreignKey: 'fondo',
+      as: 'fondoEmpleado',
+    });
+    this.belongsTo(models.admBancos, {
+      foreignKey: 'banco',
+      as: 'bancoEmpleado',
+    });
+    this.belongsTo(models.admPaises, {
+      foreignKey: 'paisNacimiento',
+      as: 'paisNacimientoEmpleado',
+    });
+    this.belongsTo(models.admCiudades, {
+      foreignKey: 'ciudadNacimiento',
+      as: 'ciudadNacimientoEmpleado',
+    });
+    this.hasMany(models.admEmpleadosEstudios, {
+      as: 'estudios',
+      foreignKey: 'codemp',
+    });
+    this.belongsTo(models.configTiposIdentificacion, {
+      foreignKey: 'tipide',
+      as: 'tipoIdentificacion',
+    });
+    this.hasMany(models.acfAreasResponsables, { as: 'areasResponsables', foreignKey: 'idEmpleado' });
+    this.belongsToMany(models.acfAreas, {
+      through: { model: models.acfAreasResponsables },
+      as: 'areas',
+      foreignKey: 'idEmpleado',
+    });
+
+    this.hasMany(models.admEmpleadosContrato, {
+      foreignKey: 'codusr',
+      as: 'contratos',
+    });
+
+    this.hasMany(models.acfEquipos, { as: 'equipos', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfActas, { as: 'actas', foreignKey: 'idEmpleadoActa' });
+    this.hasMany(models.acfActas, { as: 'actasRecibidas', foreignKey: 'idEmpleadoRecibe' });
+    this.hasMany(models.acfBajas, { as: 'bajas', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfBajas, { as: 'bajasAutorizadas', foreignKey: 'idEmpleadoAutoriza' });
+    this.hasMany(models.acfMovimientos, { as: 'movimientos', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfTraslados, { as: 'traslados', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfTraslados, { as: 'trasladosRecibidos', foreignKey: 'idEmpleadoRecibe' });
+    this.hasMany(models.acfHerramientas, { as: 'herramientasMfa', foreignKey: 'respMfa' });
+    this.hasMany(models.acfHerramientasResponsables, { as: 'herramientasResponsables', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfSolicitudes, { as: 'solicitudes', foreignKey: 'idEmpleado' });
+    this.hasMany(models.acfSolicitudes, { as: 'solicitudesGeneradas', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfSolicitudesOrdenes, { as: 'ordenesGeneradas', foreignKey: 'idEmpleadoGenera' });
+    this.hasMany(models.acfSolicitudesOrdenes, {
+      as: 'ordenesEjecutadas',
+      foreignKey: 'idEmpleadoEjecuta',
+    });
+
+    this.hasMany(models.ctbCajaMenorResponsables, {
+      foreignKey: 'idEmpleado',
+      as: 'cajaMenorResponsables',
+    });
+    this.belongsToMany(models.ctbCajaMenor, {
+      through: { model: models.ctbCajaMenorResponsables },
+      as: 'cajasMenores',
+      foreignKey: 'idEmpleado',
+    });
+    this.belongsToMany(models.admInsumosLugares, {
+      through: { model: models.admInsumosLugaresResponsable },
+      foreignKey: 'idEmpleado',
+      as: 'lugares',
+    });
+    this.belongsToMany(models.acfHerramientas, {
+      through: 'acfHerramientasResponsables',
+      as: 'herramientas',
+      foreignKey: 'idEmpleado',
+      otherKey: 'idHerramienta',
+    });
+    this.hasMany(models.plaEvaluacionesResponsables, { as: 'evaluacionesResponsables', foreignKey: 'idEmpleado' });
+    this.belongsToMany(models.plaEvaluaciones, {
+      through: { model: models.plaEvaluacionesResponsables },
+      as: 'evaluaciones',
+      foreignKey: 'idEmpleado',
+    });
+    this.hasMany(models.plaGruposUsuarios, { as: 'gruposUsuarios', foreignKey: 'idEmpleado' });
+    this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluado', foreignKey: 'idEvaluado' });
+    this.hasMany(models.plaResgeneral, { as: 'resgeneralesEvaluador', foreignKey: 'idEvaluador' });
+    this.hasMany(models.ctbNovedadCambios, { as: 'novedadesCambios', foreignKey: 'addusr' });
+    this.hasMany(models.ctbNovedadTipos, { as: 'novedadesTipos', foreignKey: 'addusr' });
+    this.hasMany(models.ctbNovedadUser, { as: 'novedadesResponsables', foreignKey: 'codusr' });
+    this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNomina', foreignKey: 'codusr' });
+    this.hasMany(models.ctbNovedadesNom, { as: 'novedadesNominaGeneradas', foreignKey: 'addusr' });
+    this.belongsToMany(models.plaGrupos, {
+      through: { model: models.plaGruposUsuarios },
+      foreignKey: 'idEmpleado',
+      otherKey: 'idGrupo',
+      as: 'grupos',
+    });
+    this.hasOne(models.ctbProveedores, { as: 'proveedor', foreignKey: 'idEmpleado' });
+    this.hasOne(models.ctbProveedoresRespons, { as: 'responsableProveedores', foreignKey: 'idEmpleado' });
+    this.hasMany(models.ctbProveedoresSolicitudes, { as: 'solicitudesProveedor', foreignKey: 'idEmpleado' });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorGeneradas',
+      foreignKey: 'idEmpleadoGenera',
+    });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorAjustes',
+      foreignKey: 'idEmpleadoAjustes',
+    });
+    this.hasMany(models.ctbProveedoresSolicitudes, {
+      as: 'solicitudesProveedorAprueba',
+      foreignKey: 'idEmpleadoAprueba',
+    });
+    this.hasMany(models.webPropuestasVendedores, { as: 'propuestasVendedores', foreignKey: 'idVendedor' });
+    this.belongsToMany(models.webSuscripcionesPropuestas, {
+      through: { model: models.webPropuestasVendedores },
+      as: 'propuestasVendidas',
+      foreignKey: 'idVendedor',
+    });
+    this.hasMany(models.webSuscripcionesResponsables, { as: 'suscripcionesResponsables', foreignKey: 'idResponsable' });
+    this.belongsToMany(models.webSuscripciones, {
+      through: { model: models.webSuscripcionesResponsables },
+      as: 'suscripciones',
+      foreignKey: 'idResponsable',
+    });
+  }
+
+  static config(sequelize) {
+    return {
+      sequelize,
+      tableName: TABLE_NAME,
+      modelName: MODEL_NAME,
+      timestamps: true,
+      paranoid: true,
+    };
+  }
+}
+
+module.exports = { Schema, ExtendedModel };
